@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "allowJs":true,"checkJs":true,"noEmit":true,"target":"ES2022","module":"ESNext","moduleResolution":"Node","skipLibCheck":true,"strict":false,"types":[],"lib":["ES2022","DOM"]
+  },
+  "include":["BP/scripts/**/*.js"],"exclude":["tests","node_modules"]
+}

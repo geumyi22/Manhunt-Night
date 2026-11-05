@@ -1,0 +1,36 @@
+{
+  "resource_pack_name": "manhunt_night",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "mh_menu": {
+      "textures": "textures/items/menu"
+    },
+    "mh_tracker_0": {
+      "textures": "textures/items/tracker_0"
+    },
+    "mh_tracker_1": {
+      "textures": "textures/items/tracker_1"
+    },
+    "mh_tracker_2": {
+      "textures": "textures/items/tracker_2"
+    },
+    "mh_tracker_3": {
+      "textures": "textures/items/tracker_3"
+    },
+    "mh_tracker_4": {
+      "textures": "textures/items/tracker_4"
+    },
+    "mh_tracker_5": {
+      "textures": "textures/items/tracker_5"
+    },
+    "mh_tracker_6": {
+      "textures": "textures/items/tracker_6"
+    },
+    "mh_tracker_7": {
+      "textures": "textures/items/tracker_7"
+    },
+    "mh_receiver": {
+      "textures": "textures/items/receiver"
+    }
+  }
+}

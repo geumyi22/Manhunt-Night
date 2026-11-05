@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "mh:tracker_0",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§c러너 추적기"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "mh_tracker_0"
+        }
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false
+    }
+  }
+}

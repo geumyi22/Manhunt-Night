@@ -1,0 +1,38 @@
+name: Source QA
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: Node syntax, automated tests, and pack JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript syntax
+        run: |
+          for file in BP/scripts/*.js tests/*.js; do
+            node --check "$file"
+          done
+      - name: Run regression tests
+        run: node --test tests/*.test.js
+      - name: Validate behavior and resource pack JSON
+        run: |
+          python3 - <<'PYJSON'
+          import json, pathlib
+          files = sorted(pathlib.Path('BP').rglob('*.json')) + sorted(pathlib.Path('RP').rglob('*.json'))
+          for path in files:
+              with path.open(encoding='utf-8-sig') as handle:
+                  json.load(handle)
+          print(f'Validated {len(files)} JSON files')
+          PYJSON
