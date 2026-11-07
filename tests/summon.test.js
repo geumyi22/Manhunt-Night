@@ -142,3 +142,24 @@ test('automatic recovery backs off failed moves while explicit retry and join ca
  assert(!h.x.recover());assert.equal(calls,1);h.system.currentTick=20;assert(!h.x.recover());assert.equal(calls,1);h.system.currentTick=100;assert(!h.x.recover());assert.equal(calls,2);
  assert(!h.x.recover(true));assert.equal(calls,3);assert(!h.x.joined(h.people[2]));assert.equal(calls,4);
 });
+test('committed recovery retains its journal if the final save fails and never consumes an unrelated replacement scroll',()=>{
+ const h=setup(),a=h.people[1];a.items[0].setDynamicProperty('mh:summon_receipt','commit-save');
+ h.s.summon={...newSummonState(1),uses:1,readyAt:1500,transaction:{caller:'A',token:'commit-save',phase:'committed',origins:[]}};
+ h.setSaveHook(()=>{throw Error('final recovery save failed');});assert.equal(h.x.recover(true),false);assert.equal(a.items[0],undefined);assert(h.x.hasPending(),'uncertain journal clear must remain blocked');assert.equal(h.s.summon.transaction.phase,'committed');assert.equal(h.x.reset(),false);
+ a.items[0]=new h.Item();h.setSaveHook(()=>{});assert(h.x.recover(true));assert(!h.x.hasPending());assert(a.items[0],'a new unmarked scroll is not a recovery payment');assert.equal(h.s.summon.uses,1);assert.equal(h.s.summon.readyAt,1500);assert.equal(h.saved.at(-1).summon.transaction,null);
+});
+test('rolled-back recovery retains its journal after save failure and retries without moving the player twice',()=>{
+ const h=setup(),tx=pending(h),b=h.people[2];h.setSaveHook(()=>{throw Error('rollback journal clear failed');});
+ assert.equal(h.x.recover(true),false);assert.deepEqual(b.location,{x:1000,y:64,z:0});assert.equal(b.moves.length,1);assert(h.x.hasPending(),'failed persistence must not silently unlock a new round');assert.equal(h.s.summon.transaction.token,tx.token);assert.equal(h.x.reset(),false);assert.equal(b.moves.length,1);
+ h.setSaveHook(()=>{});assert(h.x.recover(true));assert.equal(b.moves.length,1);assert(!h.x.hasPending());assert(h.people[1].items[0]);
+});
+test('destination range is rechecked independently when runner approaches a planned landing point after the first move',()=>{
+ const h=setup(),[r,a,b,c]=h.people,originB={...b.location},originC={...c.location},normal=b.tryTeleport;let first=true;
+ b.tryTeleport=(to,opts)=>{const done=normal(to,opts);if(first){first=false;r.location={x:a.location.x-350.1,y:a.location.y,z:a.location.z};}return done;};
+ assert.equal(h.x.use(a),false);assert(outsideRunner(a.location,a.dimension.id,r,350),'caller remains legal while landing locations become illegal');assert.deepEqual(b.location,originB);assert.deepEqual(c.location,originC);assert(a.items[0]);assert.equal(h.s.summon.uses,0);assert.equal(h.s.summon.transaction,null);
+});
+test('a target changing dimension or newly unsafe terrain after planning cancels all moves without consuming the scroll',()=>{
+ for(const kind of ['dimension','terrain']){const h=setup(),a=h.people[1];let once=true;h.setSaveHook(()=>{if(!once)return;once=false;if(kind==='dimension')h.people[2].dimension=h.dims['minecraft:nether'];else h.dims['minecraft:overworld'].getBlock=()=>({typeId:'minecraft:lava',isAir:false});});
+  assert.equal(h.x.use(a),false,kind);assert(a.items[0]);assert.equal(h.s.summon.uses,0);assert.equal(h.s.summon.readyAt,0);assert.equal(h.s.summon.transaction,null);assert(h.people.slice(2).every(p=>p.dimension.id==='minecraft:overworld'));
+ }
+});

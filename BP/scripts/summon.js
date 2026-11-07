@@ -107,12 +107,14 @@ export function createSummon(world,system,state,{tell,report,save,inventory,isDe
    if(tx.phase==='committed'){
     const caller=world.getAllPlayers().find(p=>p.name===tx.caller);if(!caller||isDead(caller))return false;
     // Committed movement and counters are retained. Consume a surviving uniquely marked receipt once.
-    consumeMarked(caller,tx.token);d.transaction=null;save();return true;
+    consumeMarked(caller,tx.token);d.transaction=null;
+    try{save();}catch(e){d.transaction=tx;throw e;}return true;
    }
    // An externally occupied refund slot is ambiguous. Never invent an item or erase the journal.
    if(tx.phase==='refund_pending'){rollback(tx);save();return false;}
    if(!rollback(tx)){save();return false;}
-   d.transaction=null;save();return true;
+   d.transaction=null;
+   try{save();}catch(e){d.transaction=tx;throw e;}return true;
   }catch(e){report('summon recovery',e);return false;}finally{busy=false;}
  }
  function joined(_p){return recover(true);}

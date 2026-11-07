@@ -20,5 +20,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-This license applies only to the newly authored Manhunt Night code and icons.
-It does not relicense Minecraft, the user-supplied world, or reference add-ons.
+This license applies only to the newly authored Manhunt Night code and original
+artwork. It does not apply to Mojang's compass texture in
+tools/vendor/vanilla-compass/compass_atlas.png or its extracted frames
+RP/textures/items/tracker_0.png through tracker_31.png. Those third-party assets
+remain owned by Mojang and are governed by the Minecraft EULA and applicable
+Minecraft Usage Guidelines, not this MIT license. See RP/NOTICE.md and
+tools/vendor/vanilla-compass/ for their source and original license.
+
+This license does not relicense Minecraft, its built-in textures referenced by
+the resource pack, the user-supplied world, or reference add-ons.

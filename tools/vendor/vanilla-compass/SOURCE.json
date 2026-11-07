@@ -1,0 +1,36 @@
+{
+  "repository": "Mojang/bedrock-samples",
+  "release": "v1.26.60.5",
+  "commit": "15701fa9c13923f12662984c32c124327e40e3d3",
+  "releaseUrl": "https://github.com/Mojang/bedrock-samples/releases/tag/v1.26.60.5",
+  "retrievedUtc": "2026-11-07T18:52:02.8672208Z",
+  "files": [
+    {
+      "file": "compass_atlas.png",
+      "sourcePath": "resource_pack/textures/items/compass_atlas.png",
+      "url": "https://raw.githubusercontent.com/Mojang/bedrock-samples/15701fa9c13923f12662984c32c124327e40e3d3/resource_pack/textures/items/compass_atlas.png",
+      "sha256": "7061f07c69c447f164d61fc009aaf4c9815ad854e59e6f17eea0a742583ed6f8",
+      "bytes": 1381
+    },
+    {
+      "file": "LICENSE.md",
+      "sourcePath": "LICENSE.md",
+      "url": "https://raw.githubusercontent.com/Mojang/bedrock-samples/15701fa9c13923f12662984c32c124327e40e3d3/LICENSE.md",
+      "sha256": "ca18c0dede68ce24ea1cd6f9df0813579b6f9f979787983a50baec99345f975d",
+      "bytes": 222
+    }
+  ],
+  "atlas": {
+    "width": 16,
+    "height": 512,
+    "cellWidth": 16,
+    "cellHeight": 16,
+    "cells": 32,
+    "distinctPixelFrames": 28,
+    "trackerFrameToSourceCell": "(trackerFrame + 16) % 32",
+    "sourceDuplicateCells": [[7, 9], [23, 24, 25], [27, 28]]
+  },
+  "license": "Minecraft EULA and applicable Minecraft Usage Guidelines; not MIT",
+  "eulaUrl": "https://www.minecraft.net/en-us/eula",
+  "usageGuidelinesUrl": "https://www.minecraft.net/en-us/usage-guidelines"
+}

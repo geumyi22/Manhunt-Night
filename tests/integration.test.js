@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {createExpansion} from '../BP/scripts/expansion.js';
-import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,nearbyHunters,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner} from '../BP/scripts/runner.js';
+import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,nearbyHunters,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter} from '../BP/scripts/runner.js';
 import {createRunnerSpecial} from '../BP/scripts/runner-special.js';
 import {createSummon} from '../BP/scripts/summon.js';
 import {createTrackerCrafting} from '../BP/scripts/tracker-crafting.js';
@@ -31,16 +31,40 @@ function harness(saved,fresh=false){
  const world={getAllPlayers:()=>people,getDimension:n=>dims.get(n.startsWith('minecraft:')?n:'minecraft:'+n),getDynamicProperty:()=>data,setDynamicProperty:(_,v)=>data=v,gameRules:{},setDefaultSpawnLocation(){},setTimeOfDay(){},sendMessage:m=>messages.push(m),afterEvents:events,beforeEvents:events};
  const system={get currentTick(){return tick;},beforeEvents:events,run:fn=>tasks.push(fn),runTimeout:fn=>tasks.push(fn),runInterval:(fn,ticks)=>intervals.push({fn,ticks}),clearRun(){},runJob:gen=>{for(const _ of gen){}}};
  class Form{constructor(){this.buttons=[];}title(text){this.titleText=text;return this;}body(text){this.bodyText=text;return this;}button(text){this.buttons.push(text);return this;}button1(text){this.buttons[0]=text;return this;}button2(text){this.buttons[1]=text;return this;}slider(){return this;}toggle(){return this;}dropdown(){return this;}textField(){return this;}show(player){shownForms.push({player:player.name,title:this.titleText,body:this.bodyText,buttons:[...this.buttons]});const response=formResponses.shift()??{canceled:true};return Promise.resolve(typeof response==='function'?response():response);}}
- const context={...core,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
+ const context={...core,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
  const text=fs.readFileSync(new URL('../BP/scripts/main.js',import.meta.url),'utf8').replace(/import[\s\S]*?from ['"][^'"]+['"];\r?\n/g,'');
  vm.runInNewContext(text+'\nglobalThis.testApi={startRound,pause,resume,reset,initializePlayer,settings,settingsSection,extraSettings,diagnostics,showMenu,recoverSummon,runnerRules,runnerSpecial,trackerCraft,trackerDisplay,summon,getState:()=>s,getErrors:()=>lastErrors};',context);
  const components=new Map();event('startup').emit({itemComponentRegistry:{registerCustomComponent:(id,handler)=>components.set(id,handler)},customCommandRegistry:{registerCommand:(d,f)=>commands.set(d.name,{d,f})}});event('worldLoad').emit({});
  const flush=()=>{while(tasks.length)tasks.shift()();};
- const second=()=>{tick+=20;intervals.filter(x=>x.ticks===20).forEach(x=>x.fn());flush();};
- const hudTick=()=>{tick+=5;intervals.filter(x=>x.ticks===5).forEach(x=>x.fn());flush();};
- const displayTick=()=>{tick+=2;intervals.filter(x=>x.ticks===2).forEach(x=>x.fn());flush();};
- return {api:context.testApi,people,Player,ItemStack,world,signals,dims,event,flush,second,hudTick,displayTick,commands,components,messages,formResponses,shownForms,dropped,get saved(){return JSON.parse(data);}};
+ const fineTimers=()=>intervals.filter(x=>x.ticks===1).forEach(x=>x.fn());
+ const second=()=>{tick+=20;fineTimers();intervals.filter(x=>x.ticks===20).forEach(x=>x.fn());flush();};
+ const hudTick=()=>{tick+=5;fineTimers();intervals.filter(x=>x.ticks===5).forEach(x=>x.fn());flush();};
+ const displayTick=()=>{tick+=2;fineTimers();intervals.filter(x=>x.ticks===2).forEach(x=>x.fn());flush();};
+ // Fine-grained clock for registration/start-phase regressions. The older helpers
+ // intentionally retain their selective callbacks for existing scenario fixtures.
+ const advanceTicks=count=>{for(let n=0;n<count;n++){tick++;for(const interval of intervals)if(tick%interval.ticks===0)interval.fn();flush();}};
+ return {api:context.testApi,people,Player,ItemStack,world,signals,dims,event,flush,second,hudTick,displayTick,advanceTicks,commands,components,messages,formResponses,shownForms,dropped,get saved(){return JSON.parse(data);}};
 }
+
+test('countdown waits 100 active ticks for every second-loop start phase and preserves pause/reload remainder',()=>{
+ for(let phase=0;phase<20;phase++){
+  const h=harness(undefined,true),r=h.people[0];h.api.getState().config.grace=0;h.advanceTicks(phase);h.api.startRound(r);
+  h.advanceTicks(99);assert.equal(h.saved.phase,'countdown',`Phase ${phase}: must not release before 100 ticks`);assert.equal(h.saved.seconds,0);
+  h.advanceTicks(1);assert.equal(h.saved.phase,'running',`Phase ${phase}: release at 100 ticks`);assert.equal(h.saved.seconds,0);
+  h.advanceTicks(19);assert.equal(h.saved.seconds,0,'The first game second cannot include the tail of the countdown');
+  h.advanceTicks(1);assert.equal(h.saved.seconds,1,`Phase ${phase}: first second has no global-loop phase delay`);
+  h.api.getState().seconds=1199;h.advanceTicks(19);assert.equal(h.saved.trackerCraft.announced.Hunter1,undefined);h.advanceTicks(1);assert.equal(h.saved.seconds,1200);assert.equal(h.saved.trackerCraft.announced.Hunter1,true,'Reveal occurs on the actual game-second deadline');
+  h.api.getState().seconds=2399;h.advanceTicks(19);assert.equal(h.saved.trackerCraft.completion,null);h.advanceTicks(1);assert.equal(h.saved.seconds,2400);assert.equal(h.saved.trackerCraft.completion,'auto','Auto-grant does not wait for global 20-tick maintenance');
+ }
+ const h=harness(undefined,true),r=h.people[0];h.api.getState().config.grace=60;h.advanceTicks(19);h.api.startRound(r);h.advanceTicks(37);
+ h.api.pause('countdown regression');assert.equal(h.saved.remaining,4);const paused=structuredClone(h.saved);
+ h.advanceTicks(200);assert.equal(h.saved.remaining,4);h.api.resume(r);h.advanceTicks(62);assert.equal(h.saved.phase,'countdown');h.advanceTicks(1);assert.equal(h.saved.phase,'grace');assert.equal(h.saved.remaining,60);
+ const reloaded=harness(paused,true);reloaded.api.resume(reloaded.people[0]);reloaded.advanceTicks(79);assert.equal(reloaded.saved.phase,'countdown');reloaded.advanceTicks(1);assert.equal(reloaded.saved.phase,'grace');assert.equal(reloaded.saved.seconds,0);
+ const clock=harness(undefined,true),host=clock.people[0];clock.api.getState().config.grace=0;clock.api.startRound(host);clock.advanceTicks(110);clock.api.pause('partial game second');clock.advanceTicks(109);clock.api.resume(host);
+ clock.advanceTicks(1);assert.equal(clock.saved.seconds,0,'Paused ticks cannot complete the first active second');clock.advanceTicks(9);assert.equal(clock.saved.seconds,1);
+ clock.advanceTicks(10);clock.api.pause('another partial second');clock.advanceTicks(77);clock.api.resume(host);clock.advanceTicks(9);assert.equal(clock.saved.seconds,1);clock.advanceTicks(1);assert.equal(clock.saved.seconds,2);
+ clock.advanceTicks(10);clock.api.pause('persist integer game clock');const gameReload=harness(clock.saved,true);gameReload.api.resume(gameReload.people[0]);gameReload.advanceTicks(19);assert.equal(gameReload.saved.seconds,2);gameReload.advanceTicks(1);assert.equal(gameReload.saved.seconds,3);
+});
 test('full 3-player flow: permissions, countdown, grace, tracking, damage, reconnect, victory, reset',()=>{
  const h=harness(),[r,a,b]=h.people;
  h.api.startRound(a);assert.equal(h.api.getState().phase,'lobby');
@@ -499,6 +523,16 @@ test('v1.5 registered revive callbacks share state and add only one capped oppor
 });
 test('v1.5 nonparticipant or self-attributed fatal damage does not count as a hunter kill',()=>{
  for(const self of [false,true]){const h=freshStarted(),r=h.people[0];die(h,{damagingEntity:self?r:new h.Player('Visitor')});assert.equal(h.saved.phase,'running');assert.equal(h.saved.runnerRespawns,1);respawn(h);die(h,{damagingEntity:h.people[1]});assert.equal(h.saved.result,'헌터 승리');assert.equal(h.saved.runnerRespawns,1);}
+});
+test('v1.5 friendly-fire guard resolves projectile owners and cached departed hunters without native-name exceptions',()=>{
+ const h=freshStarted(),[r,a,b]=h.people,visitor=new h.Player('Visitor');h.people.push(visitor);h.api.initializePlayer(visitor);
+ const unavailable=id=>({typeId:'minecraft:player',id,get name(){throw Error('InvalidEntityError: player name unavailable');}});
+ const arrow=owner=>({typeId:'minecraft:arrow',getComponent:()=>({owner})});
+ for(const source of [{damagingEntity:a},{damagingEntity:unavailable(a.id)},{damagingProjectile:arrow(unavailable(a.id))},{damagingEntity:arrow(a)}]){
+  const e={hurtEntity:b,damageSource:source,cancel:false};assert.doesNotThrow(()=>h.event('entityHurt').emit(e));assert.equal(e.cancel,true,'hunter damage must be canceled');
+ }
+ for(const actor of [r,unavailable(visitor.id),unavailable('unrecognized-id')]){const e={hurtEntity:b,damageSource:{damagingEntity:actor},cancel:false};assert.doesNotThrow(()=>h.event('entityHurt').emit(e));assert.equal(e.cancel,false,'runner or unknown actor must not become a teammate');}
+ h.api.getState().config.friendlyFire=true;const allowed={hurtEntity:b,damageSource:{damagingEntity:unavailable(a.id)},cancel:false};h.event('entityHurt').emit(allowed);assert.equal(allowed.cancel,false);h.flush();assert.equal(h.api.getErrors().size,0);
 });
 test('v1.5 end-of-round stops crafting timer and creates no delayed free tracker',()=>{
  const h=freshStarted();h.api.getState().seconds=2399;die(h,{damagingEntity:h.people[1]});assert.equal(h.saved.phase,'ended');for(let i=0;i<20;i++)h.second();assert.equal(h.saved.seconds,2399);assert.equal(h.saved.trackerCraft.completion,null);assert.equal(h.people.slice(1).some(p=>trackerCount(p)>0),false);

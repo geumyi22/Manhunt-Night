@@ -22,7 +22,21 @@ export function responsiblePlayer(source){
  }
  return null;
 }
-export function hunterKilledRunner(s,source){const p=responsiblePlayer(source);return !!p&&p.name!==s.runner&&s.roster.includes(p.name);}
+export function damageByHunter(s,source,knownNames=new Map()){
+ const nameOf=entity=>{if(!entity)return undefined;
+  try{if(entity.typeId==='minecraft:player')return entity.name;}catch{}
+  // A damage source may outlive a disconnected player. IDs are cached while valid;
+  // never turn a stale getter into an exception halfway through death processing.
+  try{return knownNames.get(entity.id);}catch{return undefined;}
+ };
+ for(const entity of [source?.damagingEntity,source?.damagingProjectile]){
+  let name=nameOf(entity);
+  if(!name)try{name=nameOf(entity?.getComponent('minecraft:projectile')?.owner);}catch{}
+  if(name&&name!==s.runner&&s.roster.includes(name))return true;
+ }
+ return false;
+}
+export function hunterKilledRunner(s,source,knownNames=new Map()){return damageByHunter(s,source,knownNames);}
 export function nearbyHunters(s,runner,players,isDead,maxDistance=proximityDistances(s.config)[0]){
  return players.filter(p=>p.name!==s.runner&&s.roster.includes(p.name)&&!isDead(p)&&p.dimension.id===runner.dimension.id
   &&Math.hypot(p.location.x-runner.location.x,p.location.y-runner.location.y,p.location.z-runner.location.z)<=maxDistance);

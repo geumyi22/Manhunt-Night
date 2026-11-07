@@ -1,5 +1,5 @@
 import {newExtra} from './expansion-core.js';
-export const VERSION = '1.5.0';
+export const VERSION = '1.5.1';
 export const TRACKER_UNLOCK_SECONDS = 15 * 60;
 // All optional game systems are configurable. Core victory and data safety rules stay mandatory.
 export const FEATURE_DEFAULTS = Object.freeze({
