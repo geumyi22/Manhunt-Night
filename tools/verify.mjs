@@ -6,7 +6,7 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {collectFiles,readZip} from './archive.mjs';
 import {readNBT} from './nbt.mjs';
 export const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-export const VERSION='1.5.0';
+export const VERSION='1.5.1';
 export const NAMES={world:`Manhunt_Night_v${VERSION}.mcworld`,addon:`Manhunt_Night_v${VERSION}.mcaddon`,source:`Manhunt_Night_Source_v${VERSION}.zip`,bundle:`Manhunt_Night_v${VERSION}_전체파일.zip`};
 export const sha256=data=>crypto.createHash('sha256').update(data).digest('hex');
 export const parseJSON=bytes=>JSON.parse(Buffer.from(bytes).toString('utf8').replace(/^\ufeff/,''));
@@ -43,7 +43,8 @@ export function verifyPacks(bp,rp){
   const item=json(bp,`items/tracker_${i}.json`)['minecraft:item'];assert.equal(item.description.identifier,`mh:tracker_${i}`);assert.equal(item.components['minecraft:display_name'].value,'§a§l러너 추적기§r');
   const png=rp.get(`textures/items/tracker_${i}.png`);assert(png);assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');assert.equal(png.readUInt32BE(16),16);assert.equal(png.readUInt32BE(20),16);frameHashes.push(sha256(png));
  }
- assert.equal([...ids].filter(id=>/^mh:tracker_\d+$/.test(id)).length,32);assert(new Set(frameHashes).size>=24,'Compass frames fail to improve angular detail');
+ assert.equal([...ids].filter(id=>/^mh:tracker_\d+$/.test(id)).length,32);assert.equal(new Set(frameHashes).size,28,'The original Mojang atlas has 32 cells and 28 distinct images');
+ const compassNotice=rp.get('NOTICE.md')?.toString('utf8');assert(compassNotice?.includes('Mojang AB'));assert(compassNotice.includes('https://www.minecraft.net/en-us/eula'));assert(compassNotice.includes('NOT AN OFFICIAL MINECRAFT PRODUCT'));
  const revive=json(bp,'recipes/revive_totem.json')['minecraft:recipe_shaped'];assert.deepEqual(revive.pattern,['NNN','NTN','NNN']);assert.deepEqual(revive.key,{N:{item:'minecraft:netherite_ingot'},T:{item:'minecraft:totem_of_undying'}});assert.deepEqual(revive.result,{item:'mh:revive_totem',count:1});
  const summon=json(bp,'recipes/summon_scroll.json')['minecraft:recipe_shaped'];assert.deepEqual(summon.pattern,['PEP','ECE','PEP']);assert.deepEqual(summon.key,{P:{item:'minecraft:paper'},E:{item:'minecraft:ender_pearl'},C:{item:'minecraft:compass'}});assert.deepEqual(summon.result,{item:'mh:summon_scroll',count:1});
  for(const [name,bytes]of bp)if(name.startsWith('recipes/')){const recipe=parseJSON(bytes)['minecraft:recipe_shaped'];assert(recipe);assert.equal(recipe.unlock.context,'AlwaysUnlocked');assert(!recipe.result.item.startsWith('mh:tracker_'),'Random tracker must not have a workbench shortcut');}
@@ -52,6 +53,10 @@ export function verifyPacks(bp,rp){
 }
 export async function verifySource(root=ROOT){
  const result=verifyPacks(asMap(path.join(root,'BP')),asMap(path.join(root,'RP')));assert.equal(parseJSON(fs.readFileSync(path.join(root,'package.json'))).version,VERSION);
+ const vendor=path.join(root,'tools/vendor/vanilla-compass'),compassSource=parseJSON(fs.readFileSync(path.join(vendor,'SOURCE.json')));
+ assert.equal(compassSource.commit,'15701fa9c13923f12662984c32c124327e40e3d3');
+ for(const entry of compassSource.files){const bytes=fs.readFileSync(path.join(vendor,entry.file));assert.equal(bytes.length,entry.bytes);assert.equal(sha256(bytes),entry.sha256,'Third-party source changed: '+entry.file);}
+ assert(fs.readFileSync(path.join(vendor,'NOTICE.md')).equals(fs.readFileSync(path.join(root,'RP/NOTICE.md'))),'Compass notice missing from resource pack');
  const core=await import(pathToFileURL(path.join(root,'BP/scripts/core.js')).href);assert.equal(core.VERSION,VERSION);
  for(const [target,expected]of [[{x:0,y:0,z:10},0],[{x:-10,y:0,z:0},8],[{x:0,y:0,z:-10},16],[{x:10,y:0,z:0},24]])assert.equal(core.tracking({x:0,y:0,z:0},0,target).compassFrame,expected);
  const craft=await import(pathToFileURL(path.join(root,'BP/scripts/tracker-crafting.js')).href);assert.equal(craft.MATERIALS.length,27);assert.equal(new Set(craft.MATERIALS.map(m=>m.id)).size,27);
@@ -62,21 +67,23 @@ export async function verifyDistribution(dir=path.join(ROOT,'dist'),{addonOnly=f
  const result=await verifySource(),addon=readZip(fs.readFileSync(path.join(dir,NAMES.addon))),bp=readZip(addon.get('ManhuntNight_BP.mcpack')),rp=readZip(addon.get('ManhuntNight_RP.mcpack'));
  verifyPacks(bp,rp);
  for(const [files,folder]of [[bp,'BP'],[rp,'RP']]){const expected=asMap(path.join(ROOT,folder));assert.equal(files.size,expected.size);for(const [name,data]of expected)assert(data.equals(files.get(name)),'Distributed pack differs from source '+name);}
- const source=readZip(fs.readFileSync(path.join(dir,NAMES.source)));for(const name of ['README.md','LICENSE','package.json','tests/integration.test.js','tools/build.mjs','tools/verify.mjs'])assert(source.has(name));assert(![...source.keys()].some(n=>/(^|\/)(?:\.git|node_modules|dist|work)\//.test(n)));
+ const source=readZip(fs.readFileSync(path.join(dir,NAMES.source)));for(const name of ['README.md','LICENSE','package.json','tests/integration.test.js','tools/build.mjs','tools/verify.mjs','docs/FRIENDS_TEST.md'])assert(source.has(name));assert(![...source.keys()].some(n=>/(^|\/)(?:\.git|node_modules|dist|work)\//.test(n)));
+ const friends=fs.readFileSync(path.join(ROOT,'docs/FRIENDS_TEST.md'));assert(friends.equals(source.get('docs/FRIENDS_TEST.md')),'Source archive friends checklist differs');assert(friends.equals(fs.readFileSync(path.join(dir,'FRIENDS_TEST.md'))),'Distributed friends checklist differs');
  for(const [files,prefix]of [[bp,'BP/'],[rp,'RP/']])for(const [name,data]of files)assert(data.equals(source.get(prefix+name)));
  const manifest=parseJSON(fs.readFileSync(path.join(dir,'BUILD_MANIFEST.json')));
  if(!addonOnly){
   const world=readZip(fs.readFileSync(path.join(dir,NAMES.world))),bm=json(bp,'manifest.json'),rm=json(rp,'manifest.json');
   assert.deepEqual(json(world,'world_behavior_packs.json'),[{pack_id:bm.header.uuid,version:bm.header.version}]);assert.deepEqual(json(world,'world_resource_packs.json'),[{pack_id:rm.header.uuid,version:rm.header.version}]);
   for(const [files,prefix]of [[bp,'behavior_packs/ManhuntNight_BP/'],[rp,'resource_packs/ManhuntNight_RP/']])for(const [name,data]of files)assert(data.equals(world.get(prefix+name)),'Embedded pack mismatch '+name);
-  const nbt=readNBT(world.get('level.dat')).value;assert(nbt.LevelName.value.includes('v1.5.0'));assert.equal(nbt.spawnradius.value,0);assert.equal(nbt.commandblocksenabled.value,0);
+  const nbt=readNBT(world.get('level.dat')).value;assert(nbt.LevelName.value.includes('v1.5.1'));assert.equal(nbt.spawnradius.value,0);assert.equal(nbt.commandblocksenabled.value,0);
   for(const [key,entry]of Object.entries(nbt.experiments?.value??{}))if(!['experiments_ever_used','saved_with_toggled_experiments'].includes(key))assert.equal(entry.value,0);
   const dbEntries=[...world.keys()].filter(n=>n.startsWith('db/'));assert.equal(dbEntries.length,manifest.baseWorld.databaseFiles.length);
   for(const entry of manifest.baseWorld.databaseFiles){assert(world.has(entry.file));assert.equal(sha256(world.get(entry.file)),entry.sha256,'Original terrain mismatch '+entry.file);}
   result.worldDatabase='PASS - byte-identical to preserved base';result.worldFiles=world.size;
  }
- for(const line of fs.readFileSync(path.join(dir,'SHA256SUMS.txt'),'utf8').trim().split(/\r?\n/)){const match=line.match(/^([a-f0-9]{64})  (.+)$/);assert(match);assert.equal(sha256(fs.readFileSync(path.join(dir,match[2]))),match[1],'SHA-256 mismatch '+match[2]);}
- if(bundle&&!addonOnly){const whole=readZip(fs.readFileSync(path.join(dir,NAMES.bundle)));for(const name of [NAMES.world,NAMES.addon,NAMES.source,'README.md','INSTALL.md','FEATURES.md','CHANGELOG.md','QA_REPORT.md','SHA256SUMS.txt','BUILD_MANIFEST.json']){assert(whole.has(name));assert(whole.get(name).equals(fs.readFileSync(path.join(dir,name))));}
+ const checksumLines=fs.readFileSync(path.join(dir,'SHA256SUMS.txt'),'utf8').trim().split(/\r?\n/);assert(checksumLines.includes(`${sha256(friends)}  FRIENDS_TEST.md`),'Friends checklist missing from SHA256SUMS');
+ for(const line of checksumLines){const match=line.match(/^([a-f0-9]{64})  (.+)$/);assert(match);assert.equal(sha256(fs.readFileSync(path.join(dir,match[2]))),match[1],'SHA-256 mismatch '+match[2]);}
+ if(bundle&&!addonOnly){const whole=readZip(fs.readFileSync(path.join(dir,NAMES.bundle)));for(const name of [NAMES.world,NAMES.addon,NAMES.source,'README.md','INSTALL.md','FEATURES.md','CHANGELOG.md','QA_REPORT.md','FRIENDS_TEST.md','SHA256SUMS.txt','BUILD_MANIFEST.json']){assert(whole.has(name));assert(whole.get(name).equals(fs.readFileSync(path.join(dir,name))));}
   assert.equal(fs.readFileSync(path.join(dir,NAMES.bundle+'.sha256'),'utf8').trim(),`${sha256(fs.readFileSync(path.join(dir,NAMES.bundle)))}  ${NAMES.bundle}`);result.bundle='PASS';}
  return {...result,zipCRC:'PASS',sourceAndDistributedPacks:'PASS',checksums:'PASS',mode:addonOnly?'addon-only':'world+addon+source'};
 }

@@ -1,7 +1,7 @@
 import {world, system, Player, ItemStack, ItemLockMode, GameMode, InputPermissionCategory,
   CommandPermissionLevel, CustomCommandStatus, EquipmentSlot} from '@minecraft/server';
 import {createExpansion} from './expansion.js';
-import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner} from './runner.js';
+import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter} from './runner.js';
 import {createRunnerSpecial} from './runner-special.js';
 import {createSummon} from './summon.js';
 import {createTrackerCrafting} from './tracker-crafting.js';
@@ -12,8 +12,10 @@ import {VERSION, ACTIVE, DIM_NAMES, TRACKER_UNLOCK_SECONDS, trackerUnlocked, nor
 const KEY='mh:state', PREFIX='§b[맨헌트]§r ', MENU='mh:menu', KIT_WINDOW_SECONDS=60;
 let s=newState(), loaded=false, building=false;
 let resolving;
+let countdownDeadline=0, countdownPausedTicks, nextGameSecondTick=0, gamePausedTicks;
 const openForms=new Set(), sneaking=new Map(), pendingKits=new Set(), lastErrors=new Map();
 const deadPlayers=new Set();
+const knownPlayerNames=new Map();
 const enabled=key=>featureOn(s.config,key);
 const runnerRules=createRunnerRules(world,system,()=>s,{tell,report,isDead:p=>deadPlayers.has(p.name)});
 const expansion=createExpansion(world,system,()=>s,{tell,inventory,ItemStack,report,isDead:p=>deadPlayers.has(p.name)});
@@ -167,6 +169,7 @@ function* buildLobby(p){
   system.runTimeout(()=>showMenu(p),40);
 }
 function initializePlayer(p){
+  knownPlayerNames.set(p.id,p.name);
   if(!loaded||building)return;
   trackerDisplay.scan(p);summon.joined(p);runnerSpecial.joined();trackerCraft.joined(p);
   if(['lobby','ended'].includes(s.phase))normalizeMenu(p);else stripMenus(p);unlockExistingTrackers(p);
@@ -195,6 +198,7 @@ function startRound(p,practice=false){
   if(names.some(name=>deadPlayers.has(name))){tell(p,'모든 참가자가 부활한 뒤 시작해 주세요.');return;}
   const error=validateStart(names,runner,practice);if(error){tell(p,error);return;}
   expansion.reset();s.runner=runner;s.roster=names;s.round++;s.practice=practice;s.seconds=0;s.remaining=5;s.phase='countdown';s.routes={};s.deaths={};s.result='';s.runnerRespawns=0;s.runnerLifeBonus=0;runnerSpecial.reset();trackerDisplay.reset();summon.reset();s.runnerRespawning=false;s.pendingRunnerVictory=false;s.pendingOutcome=null;s.kit={round:s.round,enabled:true,stored:{}};
+  countdownDeadline=system.currentTick+100;countdownPausedTicks=undefined;gamePausedTicks=undefined;
   trackerCraft.startRound();activeRules();world.setTimeOfDay(1000);world.getDimension('overworld').runCommand('weather clear');
   for(const q of players()){clearPlayer(q);teleport(q,s.lobby);q.setSpawnPoint({...s.start,dimension:world.getDimension('overworld')});
     if(s.config.food)inventory(q)?.addItem(starterStack(s.config.food));
@@ -205,12 +209,39 @@ function startRound(p,practice=false){
   say(enabled('kitControls')?'§7경기 시작 시 메뉴 아이템 제거 · 시작 지급품은 첫 1분 안에 /mh:kitoff, /mh:kiton 제어':'§7경기 시작 시 메뉴 아이템 제거 · 시작 지급품 제어 OFF');
   titleAll('§e5','잠시 후 러너 출발');sound('note.pling');
 }
-function releaseRunner(){s.phase=s.config.grace?'grace':'running';s.remaining=s.config.grace;const r=find(s.runner);if(r&&!deadPlayers.has(r.name)){teleport(r,s.start);heal(r);}
+function countdownTick(){
+  if(!loaded||building||s.phase!=='countdown')return;
+  if(enabled('autoPause')&&s.roster.some(name=>!find(name))){pause('참가자 재접속 대기');return;}
+  const ticks=Math.max(0,countdownDeadline-system.currentTick);
+  if(ticks===0){releaseRunner();trackerCraft.second();expansion.second();save();return;}
+  const remaining=Math.ceil(ticks/20);
+  if(s.remaining!==remaining){s.remaining=remaining;save();titleAll(`§e${remaining}`,'잠시 후 러너 출발');sound('note.pling');}
+}
+function roundTimerTick(){
+  if(!loaded||building||!s.lobby||!running())return;
+  if(s.phase==='countdown'){countdownTick();return;}
+  if(system.currentTick<nextGameSecondTick)return;
+  if(enabled('autoPause')&&s.roster.some(name=>!find(name))){pause('참가자 재접속 대기');return;}
+  nextGameSecondTick+=20;s.seconds++;
+  if(s.phase==='grace'){s.remaining--;if(s.remaining<=0)releaseHunters();else if(s.remaining<=5)sound('note.pling');}
+  if(enabled('tracker')&&trackerMode(s.config)!=='random'&&trackerMode(s.config)!=='disabled'&&unlockAfter(s.config)>0&&s.seconds===unlockAfter(s.config)){
+    say(enabled('craftCompass')?'§a추적 해금! 직접 제작한 나침반을 들면 추적기로 전환됩니다.':'§a추적 해금! 헌터에게 자동 HUD 추적이 시작됩니다.');sound('random.levelup');}
+  trackerCraft.second();expansion.second();save();
+}
+function releaseRunner(){countdownDeadline=0;countdownPausedTicks=undefined;nextGameSecondTick=system.currentTick+20;s.phase=s.config.grace?'grace':'running';s.remaining=s.config.grace;const r=find(s.runner);if(r&&!deadPlayers.has(r.name)){teleport(r,s.start);heal(r);}
   if(!s.config.grace){releaseHunters();return;}
   for(const p of players())applyPhase(p);save();titleAll('§b러너 출발!',`헌터 출발까지 ${s.remaining}초`);sound('random.levelup');}
 function releaseHunters(){s.phase='running';s.remaining=0;for(const p of players()){if(hunter(p)){teleport(p,s.start);heal(p);}applyPhase(p);}save();titleAll('§c추격 시작','러너는 엔더드래곤을, 헌터는 러너를!');sound('raid.horn');}
-function pause(reason){if(!running())return;trackerCraft.clearSessions();expansion.clearAll();s.previous=s.phase;s.phase='paused';for(const p of players())applyPhase(p);save();say('§e일시정지: '+reason);}
-function resume(p){if(!isHost(p)||s.phase!=='paused')return;const missing=s.roster.filter(n=>!find(n));if(missing.length){tell(p,'재접속 대기: '+missing.join(', '));return;}s.phase=s.previous;for(const q of players())applyPhase(q);save();say('경기를 재개했습니다.');}
+function pause(reason){if(!running())return;
+  if(s.phase==='countdown'){countdownPausedTicks=Math.max(0,countdownDeadline-system.currentTick);s.remaining=Math.ceil(countdownPausedTicks/20);countdownDeadline=0;}
+  else gamePausedTicks=Math.max(0,nextGameSecondTick-system.currentTick);
+  trackerCraft.clearSessions();expansion.clearAll();s.previous=s.phase;s.phase='paused';for(const p of players())applyPhase(p);save();say('§e일시정지: '+reason);}
+function resume(p){if(!isHost(p)||s.phase!=='paused')return;const missing=s.roster.filter(n=>!find(n));if(missing.length){tell(p,'재접속 대기: '+missing.join(', '));return;}s.phase=s.previous;
+  // Preserve sub-second ticks during a live pause; after reload retain the saved
+  // integer remaining seconds, never reuse a previous world's absolute tick.
+  if(s.phase==='countdown'){countdownDeadline=system.currentTick+(countdownPausedTicks??Math.max(0,Math.round(s.remaining*20)));countdownPausedTicks=undefined;}
+  else {nextGameSecondTick=system.currentTick+(gamePausedTicks??20);gamePausedTicks=undefined;}
+  for(const q of players())applyPhase(q);save();say('경기를 재개했습니다.');}
 function finish(winner){if(!running()&&s.phase!=='paused')return;trackerCraft.clearSessions();expansion.clearAll();runnerRules.clearAll();s.pendingOutcome=null;s.pendingRunnerVictory=false;s.runnerRespawning=false;s.phase='ended';s.result=winner==='runner'?'러너 승리':'헌터 승리';
   if(winner==='runner')s.dragonDefeated=true;
   if(!s.practice){for(const name of s.roster){if((winner==='runner')===(name===s.runner))s.wins[name]=(s.wins[name]||0)+1;}}
@@ -413,8 +444,7 @@ world.beforeEvents.entityHurt.subscribe(e=>{
   if(!loaded)return;const p=e.hurtEntity;if(p.typeId!=='minecraft:player')return;
   system.run(()=>expansion.clearCamera(p));
   if(['lobby','countdown','paused','ended'].includes(s.phase)||s.phase==='grace'&&hunter(p)){e.cancel=true;return;}
-  const attacker=e.damageSource.damagingEntity??e.damageSource.damagingProjectile?.getComponent('minecraft:projectile')?.owner;
-  if(!s.config.friendlyFire&&hunter(p)&&attacker?.typeId==='minecraft:player'&&hunter(attacker))e.cancel=true;
+  if(!s.config.friendlyFire&&hunter(p)&&damageByHunter(s,e.damageSource,knownPlayerNames))e.cancel=true;
 });
 world.beforeEvents.playerInteractWithBlock.subscribe(e=>{if(s.phase==='paused'||s.phase==='countdown'||s.phase==='grace'&&hunter(e.player))e.cancel=true;});
 world.afterEvents.entityDie.subscribe(e=>{
@@ -425,7 +455,7 @@ world.afterEvents.entityDie.subscribe(e=>{
   if(dead instanceof Player){
     const name=dead.name;if(!s.roster.includes(name)||deadPlayers.has(name))return;trackerCraft.clearSessions();expansion.clearCamera(dead);deadPlayers.add(name);s.deaths[name]=(s.deaths[name]||0)+1;
     if(name===s.runner){
-      if(hunterKilledRunner(s,e.damageSource)||wildRespawnsRemaining(s)<=0){queueOutcome(true,false);}
+      if(hunterKilledRunner(s,e.damageSource,knownPlayerNames)||wildRespawnsRemaining(s)<=0){queueOutcome(true,false);}
       else {s.runnerRespawns++;s.runnerRespawning=true;say(`§e러너 야생 사망 · ${s.runnerRespawns}/${wildRespawnBudget(s)}회 부활 사용. 경기는 계속됩니다.`);}
     }save();
   }else if(dragon){queueOutcome(false,true);}
@@ -433,23 +463,21 @@ world.afterEvents.entityDie.subscribe(e=>{
 system.runInterval(()=>{
   if(!loaded||building)return;attempt('expansion tick',()=>expansion.tick());for(const p of players())attempt('hud',()=>updateHUD(p));
 },5);
+// Deadlines are relative to actual release/resume, never the global loop phase.
+// Most ticks only perform the phase/deadline check; game work runs once per second.
+system.runInterval(()=>{try{roundTimerTick();}catch(e){report('round timer',e);if(running())pause('경기 시간 처리 오류가 감지되었습니다.');}},1);
 system.runInterval(()=>{if(loaded&&!building)attempt('runner proximity',()=>runnerRules.tick());},20);
 system.runInterval(()=>{
   if(!loaded||!s.lobby||building)return;
   try{
-    if(running()){
-      if(enabled('autoPause')){const missing=s.roster.filter(n=>!find(n));if(missing.length){pause('참가자 재접속 대기');return;}}
-      if(s.phase==='countdown'){s.remaining--;if(s.remaining<=0)releaseRunner();else {titleAll(`§e${s.remaining}`,'잠시 후 러너 출발');sound('note.pling');}}
-      else {s.seconds++;if(s.phase==='grace'){s.remaining--;if(s.remaining<=0)releaseHunters();else if(s.remaining<=5)sound('note.pling');}
-        if(enabled('tracker')&&trackerMode(s.config)!=='random'&&trackerMode(s.config)!=='disabled'&&unlockAfter(s.config)>0&&s.seconds===unlockAfter(s.config)){say(enabled('craftCompass')?'§a추적 해금! 직접 제작한 나침반을 들면 추적기로 전환됩니다.':'§a추적 해금! 헌터에게 자동 HUD 추적이 시작됩니다.');sound('random.levelup');}}
-    }
+    if(running()&&enabled('autoPause')){const missing=s.roster.filter(n=>!find(n));if(missing.length){pause('참가자 재접속 대기');return;}}
     for(const p of players()){
       if(deadPlayers.has(p.name))continue;
       if(['lobby','ended'].includes(s.phase))normalizeMenu(p);else stripMenus(p);
       if(['lobby','ended'].includes(s.phase)){if(p.location.y<298&&p.dimension.id==='minecraft:overworld'&&s.phase==='lobby')lobbyPlayer(p,false);}
       else if(member(p)){if(hunter(p)){removeEarlyTrackers(p);unlockExistingTrackers(p);}applyPhase(p);}
     }
-    if(runnerSpecial.hasPending())runnerSpecial.recover();if(summon.hasPending())summon.recover();trackerCraft.second();expansion.second();save();
+    if(runnerSpecial.hasPending())runnerSpecial.recover();if(summon.hasPending())summon.recover();save();
   }catch(e){report('game loop',e);if(running())pause('진행 오류가 감지되었습니다. 관리자 메뉴에서 확인하세요.');}
 },20);
 

@@ -60,6 +60,16 @@ test('v1.5 lethal player attribution accepts only roster hunters including proje
  for(const attacker of [h.r,{...h.a,name:'Visitor'},{typeId:'minecraft:zombie',getComponent(){}}])assert.equal(hunterKilledRunner(h.state,{damagingEntity:attacker}),false);
  assert.equal(hunterKilledRunner(h.state,{cause:'fall'}),false);
 });
+test('v1.5 departed attacker with unavailable native name uses cached identity without granting outsiders a hunter kill',()=>{
+ const h=fixture(),known=new Map([['hunter-id','Hunter1'],['visitor-id','Visitor']]);
+ const unavailable=id=>({typeId:'minecraft:player',id,get name(){throw Error('InvalidEntityError: player has left');}});
+ assert.equal(hunterKilledRunner(h.state,{damagingEntity:unavailable('hunter-id')},known),true);
+ assert.equal(hunterKilledRunner(h.state,{damagingProjectile:{getComponent:()=>({owner:unavailable('hunter-id')})}},known),true);
+ assert.equal(hunterKilledRunner(h.state,{damagingEntity:unavailable('unknown-id')},known),false);
+ assert.equal(hunterKilledRunner(h.state,{damagingEntity:unavailable('visitor-id')},known),false);
+ const invalidId={typeId:'minecraft:player',get id(){throw Error('InvalidEntityError');},get name(){throw Error('InvalidEntityError');}};
+ assert.equal(hunterKilledRunner(h.state,{damagingEntity:invalidId},known),false);
+});
 test('v1.5 revive consumes exactly one held item and grants one persistent bonus',()=>{
  const h=fixture();h.slot=h.stack();assert.equal(h.special.useRevive(h.r),true);assert.equal(h.slot,undefined);assert.equal(h.state.runnerLifeBonus,1);assert.equal(wildRespawnsRemaining(h.state),3);assert.equal(h.state.revivePending,null);assert.equal(h.snapshots.at(-1).runnerLifeBonus,1);h.slot=h.stack();assert.equal(h.special.useRevive(h.r),false);assert.equal(h.slot.amount,1);h.advance();assert.equal(h.special.useRevive(h.r),false,'total cap remains after cooldown');assert.equal(h.slot.amount,1);
 });

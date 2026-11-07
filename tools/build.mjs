@@ -44,7 +44,7 @@ if(!addonOnly){
  const after=readBase();assert.equal(after.size,original.size,'Base world changed during build');for(const [name,data]of original)assert(data.equals(after.get(name)),'Base input changed: '+name);
 }
 json('BUILD_MANIFEST.json',report);outputs.push('BUILD_MANIFEST.json');
-for(const [from,to]of [['README.md','README.md'],['LICENSE','LICENSE'],['docs/INSTALL.md','INSTALL.md'],['docs/FEATURES.md','FEATURES.md'],['docs/CHANGELOG.md','CHANGELOG.md'],['docs/QA_REPORT.md','QA_REPORT.md']]){
+for(const [from,to]of [['README.md','README.md'],['LICENSE','LICENSE'],['docs/INSTALL.md','INSTALL.md'],['docs/FEATURES.md','FEATURES.md'],['docs/CHANGELOG.md','CHANGELOG.md'],['docs/QA_REPORT.md','QA_REPORT.md'],['docs/FRIENDS_TEST.md','FRIENDS_TEST.md']]){
  const file=path.join(ROOT,from);if(!fs.existsSync(file)){if(!addonOnly)throw Error('Required delivery document missing: '+from);continue;}
  write(to,fs.readFileSync(file));outputs.push(to);
 }

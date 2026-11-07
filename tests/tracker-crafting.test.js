@@ -123,3 +123,28 @@ test('progress and notices switches suppress optional messages while manual reci
 test('clear sessions and new round reset remove old modes, entitlement and completed recipe',()=>{
  const h=harness();h.open();h.rules.clearSessions();assert.equal(h.rules.active(h.p1),false);h.s.seconds=2400;h.rules.second();h.s.round=2;h.rules.startRound();assert.equal(h.s.trackerCraft.round,2);assert.equal(h.s.trackerCraft.completion,null);assert.deepEqual(h.s.trackerCraft.delivered,{});h.rules.reset();assert.equal(h.s.trackerCraft,null);
 });
+test('multiple indexed native drops fill one shared material step and ignore a repeated entity without iteration support',()=>{
+ const h=harness();h.open();const m=h.s.trackerCraft.recipe[0],a=h.entity(m.id,1),b=h.entity(m.id,m.amount-1);h.rules.spawned(a);h.rules.spawned(b);
+ const items={0:a,1:b,2:b,length:3,map:fn=>[a,b,b].map(fn)};assert.equal(items[Symbol.iterator],undefined);assert(h.rules.drop({entity:h.p1,items}));assert.equal(a.removed,1);assert.equal(b.removed,1);assert.equal(h.s.trackerCraft.step,1);assert.equal(h.s.trackerCraft.amount,0);assert.equal(h.errors.length,0);
+});
+test('last material consumed before a failed save remains blocked across reload until explicitly confirmed and pays once',()=>{
+ const h=harness();h.open();h.fill(8);const m=h.s.trackerCraft.recipe[8];h.failSaveAt=h.saveCount+2;const last=h.drop(h.p1,m.id,m.amount);assert.equal(last.entity.removed,1);assert.equal(last.accepted,false);assert.equal(h.s.trackerCraft.pending.kind,'consume');assert.equal(h.p1.slots.filter(Boolean).length,0);
+ h.reload();assert.equal(h.s.trackerCraft.step,8);assert.equal(h.s.trackerCraft.completion,null);h.s.seconds=2400;h.rules.second();assert.equal(h.s.trackerCraft.completion,null,'the 40 minute timer must not overwrite an unresolved last-material transaction');assert.equal(h.rules.toggle(h.p2),false);
+ assert(h.rules.resolvePending(h.runner,true));assert.equal(h.s.trackerCraft.step,9);assert.equal(h.s.trackerCraft.completion,'crafted');h.rules.second();h.rules.joined(h.p1);h.reload();h.rules.second();assert.equal(h.p1.slots.filter(Boolean).length,1);assert.equal(h.p2.slots.filter(Boolean).length,1);assert.equal(last.entity.removed,1);
+});
+test('a successful tracker insertion with failed final save is not repeated after restart or automatic payout tick',()=>{
+ const h=harness();h.s.seconds=2400;h.failSaveAt=3;h.rules.second();assert.equal(h.p1.slots.filter(Boolean).length,1);assert.equal(h.s.trackerCraft.pending.kind,'grant');assert.equal(h.p2.slots.filter(Boolean).length,0);
+ h.reload();assert.equal(h.s.trackerCraft.delivered.Hunter1,undefined);assert.equal(h.s.trackerCraft.pending.kind,'grant');h.rules.joined(h.p1);h.rules.second();assert.equal(h.p1.slots.filter(Boolean).length,1);assert.equal(h.p2.slots.filter(Boolean).length,0);
+ assert(h.rules.resolvePending(h.runner,true));h.rules.second();h.rules.joined(h.p1);h.reload();h.rules.second();assert.equal(h.p1.slots.filter(Boolean).length,1);assert.equal(h.p2.slots.filter(Boolean).length,1);assert.equal(h.s.trackerCraft.delivered.Hunter1,true);
+});
+test('partial material quantity and frozen recipe survive restart and another hunter completes the exact remainder',()=>{
+ const h=harness();h.open();const m=h.s.trackerCraft.recipe[0],recipe=JSON.stringify(h.s.trackerCraft.recipe);h.drop(h.p1,m.id,1);h.reload();assert.equal(h.s.trackerCraft.amount,1);assert.equal(JSON.stringify(h.s.trackerCraft.recipe),recipe);assert.equal(h.rules.active(h.p2),false);
+ assert.equal(h.drop(h.p2,m.id,m.amount-1).entity.removed,0);assert(h.rules.toggle(h.p2));assert(h.drop(h.p2,m.id,m.amount-1).accepted);assert.equal(h.s.trackerCraft.step,1);assert.equal(h.s.trackerCraft.amount,0);
+});
+test('craft completion and the 40 minute payout are exclusive for both event orders at the same boundary',()=>{
+ for(const autoFirst of [false,true]){const h=harness();h.open();h.fill(8);const m=h.s.trackerCraft.recipe[8];h.s.seconds=2400;if(autoFirst)h.rules.second();const last=h.drop(h.p2,m.id,m.amount);h.rules.second();assert.equal(h.s.trackerCraft.completion,autoFirst?'auto':'crafted');assert.equal(last.entity.removed,autoFirst?0:1);assert.equal(h.p1.slots.filter(Boolean).length,1);assert.equal(h.p2.slots.filter(Boolean).length,1);h.rules.second();assert.equal(h.p1.slots.filter(Boolean).length,1);}
+});
+test('native metadata lists without iterators still protect property-bearing and enchanted dropped items',()=>{
+ const h=harness();h.open();const m=h.s.trackerCraft.recipe[0],nativeList={0:'protected',length:1};
+ for(const extra of [{getDynamicPropertyIds:()=>nativeList},{getComponent:id=>id==='minecraft:enchantable'?{getEnchantments:()=>nativeList}:undefined}]){const item=h.drop(h.p1,m.id,m.amount,extra);assert.equal(item.entity.removed,0);assert.equal(item.accepted,false);}assert.equal(h.s.trackerCraft.step,0);
+});

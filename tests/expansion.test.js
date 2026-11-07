@@ -13,7 +13,7 @@ test('End grants precisely 32 eyes once, ignores hunters, survives saved-state r
 test('full inventory places End reward on ground once',()=>{const h=setup();h.people[0].inv.addItem=i=>i;h.x.grantEnd(h.people[0]);h.x.grantEnd(h.people[0]);assert.equal(h.drops.length,1);assert.equal(h.drops[0].amount,32);});
 test('only runner activates receiver; all same-dimension hunters get camera with cooldown and automatic restore',()=>{const h=setup();assert.equal(h.x.useReceiver(h.people[1]),false);assert.equal(h.x.useReceiver(h.people[0]),true);assert(h.people.slice(1).every(p=>p.camera.active));assert.equal(h.x.useReceiver(h.people[0]),false);h.system.currentTick=60;h.x.tick();assert(h.people.every(p=>!p.camera.active));assert.equal(h.errors.length,0);});
 test('receiver never moves cross-dimension hunter camera, and pause/damage reset camera',()=>{const h=setup();h.people[2].dimension=h.dims.nether;h.x.useReceiver(h.people[0]);assert(h.people[1].camera.active);assert(!h.people[2].camera.active);h.x.clearCamera(h.people[1]);assert(!h.people[1].camera.active);h.s.seconds=30;h.x.useReceiver(h.people[0]);h.s.phase='paused';h.x.tick();assert(!h.people[1].camera.active);});
-test('border rollback preserves safe dimension; unknown portal arrival returns to start',()=>{const h=setup(),r=h.people[0];h.x.tick();r.location.x=5000;h.x.tick();assert.equal(r.location.x,0);r.dimension=h.dims.nether;r.location.x=626;h.x.tick();assert.equal(r.dimension.id,'minecraft:overworld');assert.equal(r.location.x,0);});
+test('border rollback preserves safe dimension; unknown portal arrival returns to start',()=>{const h=setup(),r=h.people[0];h.x.tick();r.location.x=5000;h.system.currentTick+=10;h.x.tick();assert.equal(r.location.x,0);r.dimension=h.dims.nether;r.location.x=626;h.system.currentTick+=10;h.x.tick();assert.equal(r.dimension.id,'minecraft:overworld');assert.equal(r.location.x,0);});
 test('round reset clears cooldown and rewards without altering wins',()=>{const h=setup();h.s.wins.R=2;h.s.extra.endReward=true;h.s.extra.receiverReady=500;h.x.reset();assert.equal(h.s.extra.endReward,false);assert.equal(h.s.extra.receiverReady,0);assert.equal(h.s.wins.R,2);});
 
 test('receiver beam works near upper world height',()=>{const h=setup();h.people[0].location.y=310;h.x.useReceiver(h.people[0]);h.x.tick();assert.equal(h.errors.length,0);});
@@ -43,4 +43,46 @@ test('v1.4 signal beam OFF does not spawn beam particles',()=>{
  assert.equal(h.x.useReceiver(h.people[0]),true);
  for(let i=0;i<20;i++){h.system.currentTick+=5;h.x.tick();}
  assert.equal(beams,0);
+});
+
+test('border checks run every ten ticks from every initial callback phase, without repeated same-tick work',()=>{
+ for(let phase=0;phase<10;phase++){
+  const h=setup(),r=h.people[0];h.system.currentTick=phase;r.location.x=6000;h.x.tick();assert.equal(r.location.x,0,`phase ${phase}: first check`);
+  r.location.x=6000;h.x.tick();assert.equal(r.location.x,6000,`phase ${phase}: duplicate callback`);
+  h.system.currentTick=phase+5;h.x.tick();assert.equal(r.location.x,6000,`phase ${phase}: too early`);
+  h.system.currentTick=phase+10;h.x.tick();assert.equal(r.location.x,0,`phase ${phase}: second check`);
+  r.location.x=6000;h.system.currentTick=phase+15;h.x.tick();assert.equal(r.location.x,6000);
+  h.system.currentTick=phase+20;h.x.tick();assert.equal(r.location.x,0);
+ }
+});
+
+test('signal beams run every ten ticks from every initial callback phase and stop at expiry',()=>{
+ for(let phase=0;phase<10;phase++){
+  const h=setup(),emitted=[];h.system.currentTick=phase;h.dims.overworld.spawnParticle=()=>emitted.push(h.system.currentTick);h.x.useReceiver(h.people[0]);
+  h.x.tick();h.x.tick();for(let elapsed=5;elapsed<=170;elapsed+=5){h.system.currentTick=phase+elapsed;h.x.tick();}
+  assert.deepEqual(emitted,Array.from({length:16},(_,i)=>phase+i*10),`phase ${phase}`);
+ }
+});
+
+test('border and beam deadlines are independent, and delayed callbacks do not emit catch-up bursts',()=>{
+ const h=setup(),emitted=[];h.system.currentTick=3;h.x.tick();h.dims.overworld.spawnParticle=()=>emitted.push(h.system.currentTick);
+ h.system.currentTick=8;h.x.useReceiver(h.people[0]);h.people[0].location.x=6000;h.x.tick();assert.equal(h.people[0].location.x,6000);assert.deepEqual(emitted,[8]);
+ h.system.currentTick=13;h.x.tick();assert.equal(h.people[0].location.x,0);assert.deepEqual(emitted,[8]);
+ h.system.currentTick=18;h.x.tick();assert.deepEqual(emitted,[8,18]);
+ h.system.currentTick=50;h.x.tick();h.x.tick();assert.deepEqual(emitted,[8,18,50]);
+});
+
+test('disabled border work is skipped and reenabling starts a fresh deadline; disabled active beam stays stopped',()=>{
+ const h=setup(),r=h.people[0],emitted=[];h.system.currentTick=3;h.dims.overworld.spawnParticle=()=>emitted.push(h.system.currentTick);h.x.useReceiver(r);h.x.tick();
+ h.s.config.features.borders=false;h.s.config.features.receiverBeam=false;r.location.x=6000;h.system.currentTick=8;h.x.tick();assert.equal(r.location.x,6000);
+ h.s.config.features.borders=true;h.s.config.features.receiverBeam=true;h.system.currentTick=9;h.x.tick();assert.equal(r.location.x,0);assert.deepEqual(emitted,[3]);
+ h.s.seconds=30;h.x.useReceiver(r);h.x.tick();assert.deepEqual(emitted,[3,9]);
+ h.s.config.features.receiver=false;h.system.currentTick=14;h.x.tick();h.s.config.features.receiver=true;h.system.currentTick=19;h.x.tick();assert.deepEqual(emitted,[3,9]);
+});
+
+test('pause and round reset clear signal and restart border deadlines immediately',()=>{
+ const h=setup(),r=h.people[0],emitted=[];h.system.currentTick=3;h.dims.overworld.spawnParticle=()=>emitted.push(h.system.currentTick);h.x.useReceiver(r);h.x.tick();
+ h.s.phase='paused';h.system.currentTick=8;h.x.tick();h.s.phase='running';r.location.x=6000;h.system.currentTick=9;h.x.tick();assert.equal(r.location.x,0);assert.deepEqual(emitted,[3]);
+ h.x.reset();r.location.x=6000;h.system.currentTick=10;h.x.tick();assert.equal(r.location.x,0);assert.deepEqual(emitted,[3]);
+ assert.equal(h.x.useReceiver(r),true);h.x.tick();assert.deepEqual(emitted,[3,10]);
 });

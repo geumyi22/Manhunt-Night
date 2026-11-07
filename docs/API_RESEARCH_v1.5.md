@@ -1,6 +1,6 @@
-# v1.5.0 정식 Script API 조사와 추적기 제작 설계
+# 정식 Script API 조사 기록 — v1.5.0 기준 및 v1.5.1 보완
 
-조사일: 2026-11-08. 코드·선언 확인 기준: `@minecraft/server` 2.11.0의 공식 npm 타입 선언과 Microsoft Learn stable 문서. 이 문서는 API 지원과 구현 설계를 설명하며, 실제 Minecraft 클라이언트의 동작을 검증했다는 뜻은 아닙니다.
+조사일: 2026-11-08. 코드·선언 확인 기준: `@minecraft/server` 2.11.0의 공식 npm 타입 선언과 Microsoft Learn stable 문서. 1~6절은 v1.5.0 개발 당시 조사·검증 기록입니다. **현재 v1.5.1은 7절의 보완 사항에 따라 Mojang 원본 나침반 픽셀을 사용합니다.** 과거의 자체 아이콘 정책을 현재 배포 정책으로 읽으면 안 됩니다. API 문서 확인과 실제 클라이언트 검증은 별개이며, 실기기 관찰은 해당 문단과 최종 QA 보고서에 구분합니다.
 
 ## 1. 아이템 투척: 가능한 것과 보장할 수 없는 것
 
@@ -47,9 +47,9 @@ Bedrock의 아이템 엔티티, 플레이어 인벤토리와 월드 동적 속�
 
 안정적인 대안은 러너 위치와 각 헌터 시선의 상대 방위각을 계산하고 32방향의 나침반 스타일 아이템 프레임을 헌터별로 선택하는 방식입니다. 32방향 양자화의 최대 방위 오차는 5.625도입니다. 기존 8방향의 22.5도보다 세분화되지만 연속 회전이나 엔진의 나침반 흔들림과는 시각적 차이가 남습니다. 플레이어별 아이템을 갱신하므로 다른 헌터와 상태를 공유해서는 안 됩니다. 차원이 다르면 해당 차원의 마지막 확인 위치만 표시하며, 실제 현재 러너 좌표와 혼동되는 변환은 하지 않습니다.
 
-## 4. 이미지·라이선스·손그림
+## 4. 이미지·라이선스·손그림 — v1.5.0 당시 결정
 
-공식 Bedrock samples의 이미지 라이선스는 npm API 타입 선언의 MIT 라이선스와 다릅니다. 저장소의 `LICENSE.md`는 Mojang 권리와 Minecraft EULA 적용을 명시합니다. 바닐라 PNG를 복사한 뒤 프로젝트 독자 이미지나 MIT 이미지로 재배포하지 않습니다. 자체 제작 텍스처 또는 게임에 포함된 텍스처 경로 참조를 사용합니다. [Mojang samples 라이선스](https://raw.githubusercontent.com/Mojang/bedrock-samples/main/LICENSE.md), [공식 아이템 텍스처 매핑](https://github.com/Mojang/bedrock-samples/blob/main/resource_pack/textures/item_texture.json)
+공식 Bedrock samples의 이미지 라이선스는 npm API 타입 선언의 MIT 라이선스와 다릅니다. 저장소의 `LICENSE.md`는 Mojang 권리와 Minecraft EULA 적용을 명시합니다. v1.5.0에서는 나침반 PNG를 자체 제작하고, 종이·토템은 게임에 포함된 텍스처 경로를 참조했습니다. v1.5.1에서는 나침반만 원본 픽셀로 교체했으며, 이를 프로젝트 독자 이미지나 MIT 이미지로 표시하지 않습니다. 현재의 출처·라이선스 분리는 7절을 따릅니다. [Mojang samples 라이선스](https://raw.githubusercontent.com/Mojang/bedrock-samples/main/LICENSE.md), [공식 아이템 텍스처 매핑](https://github.com/Mojang/bedrock-samples/blob/main/resource_pack/textures/item_texture.json)
 
 기본 종이·토템 등의 내장 텍스처 경로를 참조하면 원본 이미지 파일을 별도로 배포하지 않을 수 있습니다. 실제 커스텀 아이템에서의 크기·표시 상태는 클라이언트 QA 대상입니다. 나침반은 별도 32개 원본 프레임이 아니라 `compass_atlas` 등으로 관리되므로, 단순한 파일 경로 변경을 바닐라 동작의 재현으로 간주하지 않습니다.
 
@@ -93,10 +93,40 @@ Bedrock의 아이템 엔티티, 플레이어 인벤토리와 월드 동적 속�
 
 모든 후보는 오버월드 서바이벌에서 얻을 수 있으며 특정 구조물 발견이 필수는 아닙니다. 그러나 지형·동물·광석 분포가 달라 **모든 시드에서 공개 후 20분 이내 완성 가능하다고 보장하지 않습니다**. 특히 다이아몬드 6개와 서로 다른 지상 자원 확보에는 운과 역할 분담이 영향을 줍니다. 이러한 차이는 40분 자동 지급, 어려운 재료 수량 설정, 팀 공동 제작으로 완화합니다. 실제 3~4인 플레이를 통한 시간 분포 측정은 미검증입니다.
 
-## 6. 검증 범위
+## 6. 검증 범위 — v1.5.0 당시 기록
 
 추적기 제작 전용 모의 단위 테스트는 34개입니다. 재료 추출 1,000회, 공개 시각, 권한, 투척 종류·수량·순서, 동시 참여의 직렬 처리, 중복 이벤트, iterator 없는 네이티브 형태의 컬렉션, 합쳐진 엔티티 거절, 사망 투척, 배타적 완료, 미접속·가득 찬 인벤토리, 재시작, 저장 실패와 불확실한 거래 중단을 검사합니다. 별도 JavaScript 타입 검사도 수행했습니다.
 
 이 결과는 실제 클라이언트의 이벤트 순서·엔티티 저장·인벤토리 렌더링·3~4인 네트워크 환경을 대체하지 않습니다. 전체 프로젝트 테스트 수, 통합·패키지 검사, 게임 실행 및 성능 측정 여부는 최종 QA 보고서를 기준으로 확인해야 합니다.
 
 실기기 후속 결과: 네이티브 목록의 인덱스 순회 수정 후 26.63에서 Q 투척 9단계 완료·부분 수량 누적·추적기 1개 지급을 확인했습니다. 전체 검증 범위는 QA_REPORT.md를 기준으로 합니다.
+
+## 7. v1.5.1 보완 — 원본 나침반 픽셀과 지원 범위
+
+### 적용한 이미지와 방향 매핑
+
+공식 `Mojang/bedrock-samples`의 stable 릴리스 `v1.26.60.5`, 커밋 `15701fa9c13923f12662984c32c124327e40e3d3`에 고정한 `compass_atlas.png`를 사용합니다. 이 샘플 버전은 이미지 출처이며 대상 게임 26.62의 직접 실행 검증을 의미하지 않습니다. 원본 atlas는 16×512 픽셀이고, 세로로 배치된 16×16 셀 32개를 갖습니다. [공식 릴리스](https://github.com/Mojang/bedrock-samples/releases/tag/v1.26.60.5), [고정된 원본 이미지](https://raw.githubusercontent.com/Mojang/bedrock-samples/15701fa9c13923f12662984c32c124327e40e3d3/resource_pack/textures/items/compass_atlas.png)
+
+`tools/assets.mjs`는 원본을 확대·회전·재채색하지 않고 각 셀의 RGBA 값을 그대로 추출합니다. 원본 셀 0·8·16·24의 빨간 바늘은 각각 아래·왼쪽·위·오른쪽을 가리키므로, 논리 프레임 `i`에는 원본 셀 `(i + 16) % 32`를 배정합니다. 헌터별 상대 방향 계산과 기존 아이템 갱신 구조는 유지합니다.
+
+원본 32셀에는 동일 픽셀이 반복되는 셀이 있어 고유 이미지는 28개입니다. 원본 셀 `7=9`, `23=24=25`, `27=28`이 동일합니다. 이를 변조해 32개를 모두 다르게 만들지 않습니다. 별도로 확인한 `compass_item.png`는 16×16 정적 이미지이며 atlas 19번 셀과 완전히 같았습니다. 이 단일 이미지만 참조하는 방식은 러너를 가리키는 회전을 제공하지 않습니다.
+
+### 정식 API와 렌더링의 제약
+
+2.11.0 정식 API에는 아이템별 바닐라 나침반 목표를 바꾸는 컴포넌트나 메서드가 확인되지 않았습니다. 현행 `minecraft:icon`은 `textures.default` 등의 **텍스처 키 문자열**을 받으며, 공식 스키마에는 임의 frame·Molang 식·UV 영역 선택 속성이 없습니다. `textures`의 여러 키는 기본 아이콘·갑옷 장식·꾸러미 등 정의된 용도를 위한 것으로, 헌터별 방향 프레임을 넘기는 일반 인터페이스가 아닙니다. [정식 아이템 컴포넌트 목록](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/itemcomponenttypes?view=minecraft-bedrock-stable), [아이콘 문서](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/itemreference/examples/itemcomponents/minecraft_icon?view=minecraft-bedrock-stable), [공식 아이콘 스키마](https://raw.githubusercontent.com/Mojang/bedrock-samples/15701fa9c13923f12662984c32c124327e40e3d3/metadata/json_schemas/server/item/1.26.30/minecraft_icon%20v1.21.80.json)
+
+원본 PNG를 배포하지 않고 내장 `compass_atlas` 경로와 셀 번호만으로 일반 손 아이콘·핫바·인벤토리 모두를 제어하는 공식 지원 방식은 확인하지 못했습니다. 공식 flipbook 설명은 블록 텍스처 대상입니다. 엔티티/attachable의 UV 애니메이션은 손 모델에서 연구할 수 있는 별도 경로지만 일반 인벤토리 아이콘까지 함께 변경한다는 근거는 아니므로 이번 배포에는 사용하지 않았습니다. [공식 flipbook 설명](https://learn.microsoft.com/en-us/minecraft/creator/documents/createanimatedblocktexture?view=minecraft-bedrock-stable), [UV 애니메이션 설명](https://learn.microsoft.com/en-us/minecraft/creator/documents/practices/improvingperformanceandresourceusage?view=minecraft-bedrock-stable), [손 모델과 아이콘을 분리하는 공식 예제](https://learn.microsoft.com/en-us/minecraft/creator/documents/addcustomitems?view=minecraft-bedrock-stable)
+
+따라서 v1.5.1의 정확한 설명은 **원본 나침반의 픽셀을 사용하고, 서버가 각 헌터의 방향에 맞는 32개 아이템 프레임을 선택한다**는 것입니다. 바닐라 내부 목표·흔들림·연속 회전까지 동일하게 재현한 것은 아닙니다. 5.625도는 논리 방향 선택의 최대 양자화 오차이며, 원근감 있게 그려진 원본 바늘 픽셀의 화면상 각도 오차를 뜻하지 않습니다.
+
+### 출처와 라이선스 처리
+
+원본 atlas와 변경하지 않은 upstream `LICENSE.md`, 고정 출처·SHA-256을 기록한 `SOURCE.json`, `NOTICE.md`는 `tools/vendor/vanilla-compass/`에 보관합니다. `RP/NOTICE.md`에도 동일한 안내를 넣으므로 애드온과 월드에 포함된 리소스 팩에도 출처·권리 안내가 들어갑니다. 원본 atlas SHA-256은 `7061f07c69c447f164d61fc009aaf4c9815ad854e59e6f17eea0a742583ed6f8`입니다.
+
+Mojang samples는 MIT가 아니라 Minecraft EULA 적용 자료입니다. Usage Guidelines는 Mojang의 저작권 보호 콘텐츠 중 상당한 부분을 포함하지 않는 독창적인 mod의 배포를 허용하지만, 이번 나침반 이미지 사용을 개별 승인한 문장은 없습니다. 이번 구현은 독창적인 애드온에 필요한 작은 atlas 1장만 사용하는 것으로 진행했으며, **공식 승인을 받았다거나 원본 이미지가 자유 재배포 라이선스로 바뀌었다고 주장하지 않습니다**. 원본과 추출 프레임은 프로젝트 MIT 범위에서 명시적으로 제외하고 Mojang 권리·EULA·Usage Guidelines·비공식 제품 안내를 유지합니다. [고정된 샘플 라이선스](https://raw.githubusercontent.com/Mojang/bedrock-samples/15701fa9c13923f12662984c32c124327e40e3d3/LICENSE.md), [Minecraft EULA](https://www.minecraft.net/en-us/eula), [Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines)
+
+### 이번 보완의 검증
+
+추적기 전용 테스트 9개가 원본 파일 해시, 32개 출력의 원본 RGBA 완전 일치, 28개 고유 이미지와 원본 중복 셀, 8방향·플레이어 회전·양자화 경계, 소유자별 상태 분리, 인벤토리 캐시, 라이선스 안내 동봉을 검사합니다. 원본 바늘은 타원형 투영과 피벗 위치 때문에 원형 바늘의 중심각 검사로 평가하지 않고, **방향 계산 검사와 원본 픽셀 일치 검사를 분리**했습니다. 생성된 네 기본 방향 PNG도 직접 열어 확인했습니다.
+
+이 검사는 최신 이미지가 실제 게임의 모든 손·핫바·인벤토리 화면에서 동일하게 보인다는 보장을 대신하지 않습니다. 실제 클라이언트 결과, 전체 테스트 수와 멀티플레이·성능 검증 상태는 최신 `QA_REPORT.md`를 기준으로 합니다.
