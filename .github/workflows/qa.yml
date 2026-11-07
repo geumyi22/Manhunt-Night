@@ -2,7 +2,7 @@ name: Source QA
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, 'codex/**']
   pull_request:
     branches: [main, develop]
   workflow_dispatch:
@@ -12,27 +12,33 @@ permissions:
 
 jobs:
   qa:
-    name: Node syntax, automated tests, and pack JSON
+    name: Syntax, stable API types, regression tests, and packaged add-on
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
+      - name: Install pinned development dependencies
+        run: npm ci --ignore-scripts
       - name: Verify JavaScript syntax
         run: |
-          for file in BP/scripts/*.js tests/*.js; do
+          for file in BP/scripts/*.js tests/*.js tools/*.mjs; do
             node --check "$file"
           done
+      - name: Verify stable Script API declarations
+        run: npx tsc --noEmit
       - name: Run regression tests
         run: node --test tests/*.test.js
-      - name: Validate behavior and resource pack JSON
+      - name: Validate manifests, items, recipes, compass frames and material selection
+        run: node tools/verify.mjs --source
+      - name: Build and verify add-on without private terrain input
         run: |
-          python3 - <<'PYJSON'
-          import json, pathlib
-          files = sorted(pathlib.Path('BP').rglob('*.json')) + sorted(pathlib.Path('RP').rglob('*.json'))
-          for path in files:
-              with path.open(encoding='utf-8-sig') as handle:
-                  json.load(handle)
-          print(f'Validated {len(files)} JSON files')
-          PYJSON
+          node tools/build.mjs --addon-only
+          node tools/verify.mjs --addon-only
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Manhunt-Night-v1.5.0-addon-and-source
+          path: dist/
+          if-no-files-found: error

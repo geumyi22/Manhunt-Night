@@ -1,0 +1,28 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:item": {
+    "description": {
+      "identifier": "mh:revive_totem",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§a러너 부활 토템"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "mh_revive_totem"
+        }
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:interact_button": "사용",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      },
+      "mh:revive_use": {}
+    }
+  }
+}

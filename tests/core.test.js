@@ -31,7 +31,7 @@ test('hunter teammate readout directional, offline and cross-dimensional without
  const make=(name,x,z,d='minecraft:overworld')=>({name,location:{x,y:64,z},dimension:{id:d},getRotation:()=>({y:0})});
  const a=make('A',0,0),b=make('B',20,0),c=make('C',0,2,'minecraft:nether'),r=make('Runner',-8,0);
  const txt=teammateReadout(a,[a,b,c,r],['Runner','A','B','C'],'Runner',x=>x==='minecraft:nether'?'네더':x);
- assert.match(txt,/B →20m/);assert.match(txt,/C 네더/);assert.doesNotMatch(txt,/Runner/);
+ assert.match(txt,/B ←20m/);assert.match(txt,/C 네더/);assert.doesNotMatch(txt,/Runner/);
  assert.match(teammateReadout(a,[a,r],['Runner','A','B'],'Runner',x=>x),/B 연결 끊김/);
  assert.equal(teammateReadout(r,[a,b,c,r],['Runner','A','B','C'],'Runner',x=>x),'');
 });

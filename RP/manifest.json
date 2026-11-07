@@ -2,17 +2,17 @@
   "format_version": 2,
   "header": {
     "name": "Manhunt Night · 추적기",
-    "description": "직접 제작한 8방향 추적기와 메뉴 아이콘",
+    "description": "Manhunt Night v1.5.0 · Bedrock 26.62 · 통합 맨헌트",
     "uuid": "b3f59241-6fa7-4eef-9273-375b64d7c929",
     "version": [
       1,
-      4,
+      5,
       0
     ],
     "min_engine_version": [
       1,
       26,
-      60
+      62
     ]
   },
   "modules": [
@@ -21,7 +21,7 @@
       "uuid": "71ca7f25-d65e-4d2b-85a4-f8e4852c1689",
       "version": [
         1,
-        4,
+        5,
         0
       ]
     }
