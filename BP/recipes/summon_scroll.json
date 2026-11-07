@@ -1,0 +1,35 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mh:summon_scroll"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "assume_symmetry": false,
+    "pattern": [
+      "PEP",
+      "ECE",
+      "PEP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "C": {
+        "item": "minecraft:compass"
+      }
+    },
+    "result": {
+      "item": "mh:summon_scroll",
+      "count": 1
+    }
+  }
+}

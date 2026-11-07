@@ -9,7 +9,7 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "§c러너 추적기"
+        "value": "§a§l러너 추적기§r"
       },
       "minecraft:icon": {
         "textures": {

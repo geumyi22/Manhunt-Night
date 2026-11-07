@@ -31,6 +31,84 @@
     },
     "mh_receiver": {
       "textures": "textures/items/receiver"
+    },
+    "mh_tracker_8": {
+      "textures": "textures/items/tracker_8"
+    },
+    "mh_tracker_9": {
+      "textures": "textures/items/tracker_9"
+    },
+    "mh_tracker_10": {
+      "textures": "textures/items/tracker_10"
+    },
+    "mh_tracker_11": {
+      "textures": "textures/items/tracker_11"
+    },
+    "mh_tracker_12": {
+      "textures": "textures/items/tracker_12"
+    },
+    "mh_tracker_13": {
+      "textures": "textures/items/tracker_13"
+    },
+    "mh_tracker_14": {
+      "textures": "textures/items/tracker_14"
+    },
+    "mh_tracker_15": {
+      "textures": "textures/items/tracker_15"
+    },
+    "mh_tracker_16": {
+      "textures": "textures/items/tracker_16"
+    },
+    "mh_tracker_17": {
+      "textures": "textures/items/tracker_17"
+    },
+    "mh_tracker_18": {
+      "textures": "textures/items/tracker_18"
+    },
+    "mh_tracker_19": {
+      "textures": "textures/items/tracker_19"
+    },
+    "mh_tracker_20": {
+      "textures": "textures/items/tracker_20"
+    },
+    "mh_tracker_21": {
+      "textures": "textures/items/tracker_21"
+    },
+    "mh_tracker_22": {
+      "textures": "textures/items/tracker_22"
+    },
+    "mh_tracker_23": {
+      "textures": "textures/items/tracker_23"
+    },
+    "mh_tracker_24": {
+      "textures": "textures/items/tracker_24"
+    },
+    "mh_tracker_25": {
+      "textures": "textures/items/tracker_25"
+    },
+    "mh_tracker_26": {
+      "textures": "textures/items/tracker_26"
+    },
+    "mh_tracker_27": {
+      "textures": "textures/items/tracker_27"
+    },
+    "mh_tracker_28": {
+      "textures": "textures/items/tracker_28"
+    },
+    "mh_tracker_29": {
+      "textures": "textures/items/tracker_29"
+    },
+    "mh_tracker_30": {
+      "textures": "textures/items/tracker_30"
+    },
+    "mh_tracker_31": {
+      "textures": "textures/items/tracker_31"
+    },
+    "mh_revive_totem": {
+      "textures": "textures/items/totem"
+    },
+    "mh_summon_scroll": {
+      "textures": "textures/items/paper"
     }
   }
 }

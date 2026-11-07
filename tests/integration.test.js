@@ -3,36 +3,43 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import {createExpansion} from '../BP/scripts/expansion.js';
-import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,nearbyHunters} from '../BP/scripts/runner.js';
+import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,nearbyHunters,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner} from '../BP/scripts/runner.js';
+import {createRunnerSpecial} from '../BP/scripts/runner-special.js';
+import {createSummon} from '../BP/scripts/summon.js';
+import {createTrackerCrafting} from '../BP/scripts/tracker-crafting.js';
+import {createTrackerDisplay,TRACKER_NAME} from '../BP/scripts/tracker-display.js';
 import * as core from '../BP/scripts/core.js';
 
-function harness(saved){
- const signals={},tasks=[],intervals=[],commands=new Map(),messages=[],formResponses=[];let tick=0;
+// The pre-1.5 tests exercise the explicitly retained legacy compass mode and 3-life setting.
+// Fresh-world 1.5 tests below pass fresh=true and use the new random-crafting defaults.
+function harness(saved,fresh=false){
+ const signals={},tasks=[],intervals=[],commands=new Map(),messages=[],formResponses=[],shownForms=[];let tick=0;
  const event=(name)=>signals[name]??=( {handlers:[],subscribe(fn){this.handlers.push(fn);},emit(e){this.handlers.forEach(fn=>fn(e));}} );
  const events=new Proxy({}, {get:(_,key)=>event(key)});
- const dropped=[];const dims=new Map(['overworld','nether','the_end'].map(n=>['minecraft:'+n,{id:'minecraft:'+n,runCommand(){},spawnItem(item){dropped.push(item);}}]));
- class ItemStack{constructor(typeId,amount=1){this.typeId=typeId;this.amount=amount;}setLore(v){this.lore=v;}getLore(){return this.lore??[];}}
+ const dropped=[];const dims=new Map(['overworld','nether','the_end'].map(n=>['minecraft:'+n,{id:'minecraft:'+n,heightRange:{min:-64,max:320},runCommand(){},getBlock:loc=>loc.y===64?{typeId:'minecraft:stone',isAir:false,isWaterlogged:false}:{typeId:'minecraft:air',isAir:true,isWaterlogged:false},spawnItem(item){dropped.push(item);}}]));
+ class ItemStack{constructor(typeId,amount=1){this.typeId=typeId;this.amount=amount;}setLore(v){this.lore=v;}getLore(){return this.lore??[];}clone(){const copy=new ItemStack(this.typeId,this.amount);Object.assign(copy,structuredClone({...this}));return copy;}getComponent(){return undefined;}getDynamicProperty(k){return this.props?.[k];}setDynamicProperty(k,v){(this.props??={})[k]=v;}getDynamicPropertyIds(){return Object.keys(this.props??{});}}
  class Player{
   constructor(name){this.camera={clear(){},setCamera(){}};this.name=name;this.id=name;this.typeId='minecraft:player';this.dimension=dims.get('minecraft:overworld');this.location={x:0,y:65,z:0};this.selectedSlotIndex=0;this.isSneaking=false;this.isValid=true;this.effects=[];this.slots=Array(36);this.health=20;this.inputPermissions={setPermissionCategory:(_,v)=>this.moving=v};this.onScreenDisplay={setTitle:(t)=>this.title=t,setActionBar:(t)=>this.hud=t};const self=this;this.inv={size:36,get emptySlotsCount(){return self.slots.filter(x=>x).length===36?0:36-self.slots.filter(x=>x).length;},getItem:i=>self.slots[i],setItem:(i,v)=>self.slots[i]=v,clearAll:()=>self.slots=Array(36),addItem:v=>{const slot=self.slots.findIndex(x=>!x);if(slot<0)return v;self.slots[slot]=v;return undefined;}};}
   getComponent(n){const p=this;return n==='minecraft:inventory'?{container:this.inv}:n==='minecraft:health'?{get currentValue(){return p.health;},get effectiveMax(){return 20+(p.getEffect('health_boost')?4*(p.getEffect('health_boost').amplifier+1):0);},setCurrentValue:v=>p.health=v}:n==='minecraft:equippable'?{setEquipment(slot,item){p.equipment??={};p.equipment[slot]=item;},getEquipment(slot){return p.equipment?.[slot];}}:undefined;}
   getGameMode(){return this.mode;}getEffects(){return this.effects;}getEffect(id){return this.effects.find(e=>e.typeId===id);}removeEffect(id){this.effects=this.effects.filter(e=>e.typeId!==id);if(id==='health_boost')this.health=Math.min(20,this.health);}addEffect(id,duration,opts){this.effects=this.effects.filter(e=>e.typeId!==id);this.effects.push({typeId:id,duration,amplifier:opts?.amplifier??0});}
   getDynamicProperty(k){return this.props?.[k];}setDynamicProperty(k,v){(this.props??={})[k]=v;}
-  extinguishFire(){}resetLevel(){}setGameMode(m){this.mode=m;}teleport(p,o){this.location={...p};if(o?.dimension)this.dimension=o.dimension;}setSpawnPoint(p){this.spawn=p;}sendMessage(m){messages.push(m);(this.messages??=[]).push(m);}playSound(){}getRotation(){return {x:0,y:0};}
+  extinguishFire(){}resetLevel(){}setGameMode(m){this.mode=m;}teleport(p,o){this.location={...p};if(o?.dimension)this.dimension=o.dimension;}tryTeleport(p,o){if(this.teleportFailure)return false;this.teleport(p,o);(this.summonMoves??=[]).push({...p});return true;}setSpawnPoint(p){this.spawn=p;}sendMessage(m){messages.push(m);(this.messages??=[]).push(m);}playSound(){}getRotation(){return {x:0,y:this.yaw??0};}
  }
  const people=['Runner','Hunter1','Hunter2'].map(n=>new Player(n));
- let state=saved??{...core.newState(),host:'Runner',choice:'Runner',start:{x:10,y:65,z:10},lobby:{x:10,y:305,z:10}};
+ let state=saved??{...core.newState(),...(fresh?{}:{config:core.normalizeConfig({grace:60,food:8,friendlyFire:false,keepInventory:false,trackerDelayMinutes:15},true)}),host:'Runner',choice:'Runner',start:{x:10,y:65,z:10},lobby:{x:10,y:305,z:10}};
  let data=JSON.stringify(state);
  const world={getAllPlayers:()=>people,getDimension:n=>dims.get(n.startsWith('minecraft:')?n:'minecraft:'+n),getDynamicProperty:()=>data,setDynamicProperty:(_,v)=>data=v,gameRules:{},setDefaultSpawnLocation(){},setTimeOfDay(){},sendMessage:m=>messages.push(m),afterEvents:events,beforeEvents:events};
  const system={get currentTick(){return tick;},beforeEvents:events,run:fn=>tasks.push(fn),runTimeout:fn=>tasks.push(fn),runInterval:(fn,ticks)=>intervals.push({fn,ticks}),clearRun(){},runJob:gen=>{for(const _ of gen){}}};
- class Form{title(){return this;}body(){return this;}button(){return this;}slider(){return this;}toggle(){return this;}show(){return Promise.resolve(formResponses.shift()??{canceled:true});}}
- const context={...core,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
+ class Form{constructor(){this.buttons=[];}title(text){this.titleText=text;return this;}body(text){this.bodyText=text;return this;}button(text){this.buttons.push(text);return this;}button1(text){this.buttons[0]=text;return this;}button2(text){this.buttons[1]=text;return this;}slider(){return this;}toggle(){return this;}dropdown(){return this;}textField(){return this;}show(player){shownForms.push({player:player.name,title:this.titleText,body:this.bodyText,buttons:[...this.buttons]});const response=formResponses.shift()??{canceled:true};return Promise.resolve(typeof response==='function'?response():response);}}
+ const context={...core,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
  const text=fs.readFileSync(new URL('../BP/scripts/main.js',import.meta.url),'utf8').replace(/import[\s\S]*?from ['"][^'"]+['"];\r?\n/g,'');
- vm.runInNewContext(text+'\nglobalThis.testApi={startRound,pause,resume,reset,initializePlayer,settings,settingsSection,diagnostics,runnerRules,getState:()=>s,getErrors:()=>lastErrors};',context);
- event('startup').emit({itemComponentRegistry:{registerCustomComponent(){}},customCommandRegistry:{registerCommand:(d,f)=>commands.set(d.name,{d,f})}});event('worldLoad').emit({});
+ vm.runInNewContext(text+'\nglobalThis.testApi={startRound,pause,resume,reset,initializePlayer,settings,settingsSection,extraSettings,diagnostics,showMenu,recoverSummon,runnerRules,runnerSpecial,trackerCraft,trackerDisplay,summon,getState:()=>s,getErrors:()=>lastErrors};',context);
+ const components=new Map();event('startup').emit({itemComponentRegistry:{registerCustomComponent:(id,handler)=>components.set(id,handler)},customCommandRegistry:{registerCommand:(d,f)=>commands.set(d.name,{d,f})}});event('worldLoad').emit({});
  const flush=()=>{while(tasks.length)tasks.shift()();};
  const second=()=>{tick+=20;intervals.filter(x=>x.ticks===20).forEach(x=>x.fn());flush();};
  const hudTick=()=>{tick+=5;intervals.filter(x=>x.ticks===5).forEach(x=>x.fn());flush();};
- return {api:context.testApi,people,Player,world,signals,dims,event,flush,second,hudTick,commands,messages,formResponses,dropped,get saved(){return JSON.parse(data);}};
+ const displayTick=()=>{tick+=2;intervals.filter(x=>x.ticks===2).forEach(x=>x.fn());flush();};
+ return {api:context.testApi,people,Player,ItemStack,world,signals,dims,event,flush,second,hudTick,displayTick,commands,components,messages,formResponses,shownForms,dropped,get saved(){return JSON.parse(data);}};
 }
 test('full 3-player flow: permissions, countdown, grace, tracking, damage, reconnect, victory, reset',()=>{
  const h=harness(),[r,a,b]=h.people;
@@ -91,10 +98,10 @@ test('inventory toggle persists, applies to game rule and survives active/reload
  const h=harness(),r=h.people[0];assert.equal(h.world.gameRules.keepInventory,false);h.formResponses.push({canceled:false,formValues:[30,4,false,true,true,true,true]});await h.api.settingsSection(r,0);assert.equal(h.saved.config.keepInventory,true);h.api.startRound(r);assert.equal(h.world.gameRules.keepInventory,true);const restored=harness(h.saved);assert.equal(restored.world.gameRules.keepInventory,true);
  const old={...core.newState(),host:'Runner',start:{x:10,y:65,z:10},lobby:{x:10,y:305,z:10}};delete old.config.keepInventory;const legacy=harness(old);assert.equal(legacy.api.getState().config.keepInventory,false);assert.equal(legacy.api.getErrors().size,0);
 });
-test('nearby warning is private, includes exactly 5 blocks, rejects other dimensions/dead/nonmembers, throttles',()=>{
- const h=started(),[r,a,b]=h.people;r.location={x:0,y:70,z:0};a.location={x:3,y:74,z:0};b.location={x:0,y:75.01,z:0};const outsider=new h.Player('Outsider');outsider.location={...r.location};h.people.push(outsider);
+test('integrated proximity warning is private, includes exact outer threshold, excludes invalid hunters and suppresses repeat presence',()=>{
+ const h=started(),[r,a,b]=h.people;h.api.runnerRules.clearAll();r.messages=[];a.messages=[];r.location={x:0,y:70,z:0};a.location={x:0,y:160,z:0};b.location={x:0,y:160.01,z:0};const outsider=new h.Player('Outsider');outsider.location={...r.location};h.people.push(outsider);
  assert.deepEqual(nearbyHunters(h.api.getState(),r,h.people,()=>false).map(p=>p.name),[a.name]);a.dimension=h.dims.get('minecraft:nether');assert.equal(nearbyHunters(h.api.getState(),r,h.people,()=>false).length,0);a.dimension=r.dimension;assert.equal(nearbyHunters(h.api.getState(),r,h.people,p=>p===a).length,0);
- const warnings=p=>(p.messages??[]).filter(m=>m.includes('경고!')).length;h.api.runnerRules.tick();assert.equal(warnings(r),1);assert.equal(warnings(a),0);h.api.runnerRules.tick();assert.equal(warnings(r),1);h.people.pop();for(let i=0;i<5;i++)h.second();h.api.runnerRules.tick();assert.equal(warnings(r),2);
+ const warnings=p=>(p.messages??[]).filter(m=>m.includes('기척')).length;h.api.runnerRules.tick();assert.equal(warnings(r),1);assert.equal(warnings(a),0);h.api.runnerRules.tick();assert.equal(warnings(r),1);h.people.pop();for(let i=0;i<10;i++)h.second();h.api.runnerRules.tick();assert.equal(warnings(r),1,'remaining inside does not repeat entry');a.location.y=170;b.location.y=170;h.api.runnerRules.tick();a.location.y=160;h.api.runnerRules.tick();assert.equal(warnings(r),2);
 });
 test('zero grace never adds grace effects; reconnect preserves damage; role change removes owned effects',()=>{
  const h=started(),r=h.people[0];assert.equal(r.getEffect('regeneration'),undefined);r.health=13;h.api.initializePlayer(r);h.flush();assert.equal(r.health,13);r.addEffect('speed',100,{amplifier:1});h.api.getState().runner=h.people[1].name;h.api.runnerRules.sync(r);assert.equal(r.getEffect('health_boost'),undefined);assert.equal(r.getEffect('speed').amplifier,1);
@@ -147,7 +154,7 @@ test('v1.3.0 no free compass: 14:59 locked; 15:00 enables held crafted vanilla c
  const h=started(60),[r,a,b]=h.people;
  const trackers=p=>p.slots.filter(i=>i?.typeId?.startsWith('mh:tracker_'));
  assert.equal(h.saved.phase,'grace');assert.equal(trackers(a).length,0);
- a.slots[1]={typeId:'mh:tracker_3',amount:1};h.second();assert.equal(trackers(a).length,0);
+ a.slots[1]={typeId:'mh:tracker_3',amount:1};h.second();assert.equal(trackers(a).length,1,'existing early item is preserved but unusable');a.selectedSlotIndex=1;h.hudTick();assert.doesNotMatch(a.hud,/러너 §f|마지막 이동 지점/);a.slots[1]=undefined;a.selectedSlotIndex=0;
  // Crafting a normal vanilla compass does not reveal the runner early.
  a.slots[0]={typeId:'minecraft:compass',amount:1};h.hudTick();assert.equal(a.slots[0].typeId,'minecraft:compass');
  assert.doesNotMatch(a.hud,/러너 §f|마지막 이동 지점/);
@@ -381,6 +388,7 @@ test('v1.4 delay toggle OFF allows immediate conversion of user-owned compass wi
 test('v1.4 compass requirement OFF shows hands-free tracking, never grants a compass',()=>{
  const h=started(0),[r,a]=h.people;
  Object.assign(h.api.getState().config.features,{trackerDelay:false,craftCompass:false});
+ h.api.getState().config.trackerMode='hud';
  a.location={x:50,y:65,z:50};h.hudTick();
  assert.match(a.hud,/러너/);
  assert.equal(a.slots.some(it=>it?.typeId?.includes('compass')||it?.typeId?.startsWith('mh:tracker_')),false);
@@ -431,4 +439,164 @@ test('v1.4 configurable runner grace: disabled effects do not interfere with cou
  const h=harness(),r=h.people[0];h.api.getState().config.features.graceBuffs=false;
  h.api.startRound(r);for(let i=0;i<5;i++)h.second();
  assert.equal(h.saved.phase,'grace');assert.equal(r.getEffect('regeneration'),undefined);assert.equal(r.getEffect('slow_falling'),undefined);
+});
+
+// New-world v1.5 integrated controller behavior. These do not use legacy defaults.
+function freshStarted(grace=0){const h=harness(undefined,true);h.api.getState().config.grace=grace;h.api.startRound(h.people[0]);for(let i=0;i<5;i++)h.second();return h;}
+const trackerCount=p=>p.slots.filter(it=>it?.typeId?.startsWith('mh:tracker_')).length;
+let droppedSerial=0;
+function throwMaterial(h,p,spec,amount=spec.amount){
+ const item=new h.ItemStack(spec.id,amount),entity={id:`integration-drop-${++droppedSerial}`,typeId:'minecraft:item',isValid:true,removed:0,getComponent:()=>({itemStack:item}),remove(){this.removed++;this.isValid=false;}};
+ h.event('entitySpawn').emit({entity});h.event('entityItemDrop').emit({entity:p,items:[entity]});return entity;
+}
+function craftStages(h,count=9){const hunters=h.people.filter(p=>p.name!==h.api.getState().runner);for(const p of hunters)if(!h.api.trackerCraft.active(p))command(h,'mh:craft',p);
+ for(let i=0;i<count;i++){const d=h.api.getState().trackerCraft;const e=throwMaterial(h,hunters[i%hunters.length],d.recipe[d.step]);assert.equal(e.removed,1);}}
+
+test('v1.5 fresh defaults lock random crafting through 19:59, count grace, and exclude countdown/pause',()=>{
+ const h=harness(undefined,true),[r,a,b]=h.people;
+ assert.equal(h.commands.has('mh:trackerrecipe'),true);assert.equal(h.commands.has('mh:recipe'),false,'avoid vanilla recipe alias collision');
+ assert.equal(h.api.getState().config.trackerMode,'random');assert.equal(h.api.getState().config.wildRespawnBase,2);
+ h.api.getState().config.grace=60;h.api.startRound(r);for(let i=0;i<4;i++)h.second();assert.equal(h.saved.seconds,0);h.second();assert.equal(h.saved.phase,'grace');h.second();assert.equal(h.saved.seconds,1);
+ h.api.getState().seconds=899;a.slots[0]=new h.ItemStack('minecraft:compass');h.second();h.hudTick();assert.equal(a.slots[0].typeId,'minecraft:compass');assert.equal(trackerCount(a),0);assert.equal(trackerCount(b),0);
+ h.api.getState().seconds=1199;command(h,'mh:craft',a);assert.equal(h.api.trackerCraft.active(a),false);assert.match(h.api.trackerCraft.describe(a),/비공개/);
+ h.api.pause('timing');for(let i=0;i<20;i++)h.second();assert.equal(h.saved.seconds,1199);h.api.resume(r);h.second();assert.equal(h.saved.seconds,1200);command(h,'mh:craft',a);assert.equal(h.api.trackerCraft.active(a),true);
+ const recipe=h.saved.trackerCraft.recipe;assert.equal(recipe.length,9);assert.equal(new Set(recipe.map(m=>m.id)).size,9);assert.equal(recipe.filter(m=>m.hard).length,2);assert.doesNotMatch(h.api.trackerCraft.describe(a),/비공개/);assert.match(h.api.trackerCraft.describe(r),/헌터 전용/);assert.equal((r.messages??[]).some(m=>m.includes('제작법이 공개')),false);
+});
+test('v1.5 attributed hunter drop events complete one team recipe, issue once, and prevent loss/respawn regrant',()=>{
+ const h=freshStarted(),[r,a,b]=h.people;h.api.getState().seconds=1200;h.second();craftStages(h);
+ assert.equal(h.saved.trackerCraft.completion,'crafted');assert.equal(h.saved.trackerCraft.step,9);assert.equal(trackerCount(r),0);assert.equal(trackerCount(a),1);assert.equal(trackerCount(b),1);
+ assert.equal(a.slots.find(it=>it?.typeId?.startsWith('mh:tracker_')).nameTag,TRACKER_NAME);
+ h.api.getState().seconds=2399;h.second();assert.equal(h.saved.trackerCraft.completion,'crafted');assert.equal(trackerCount(a),1);
+ a.slots=Array(36);h.event('playerSpawn').emit({player:a,initialSpawn:false});h.flush();h.second();h.api.initializePlayer(a);assert.equal(trackerCount(a),0);assert.equal(h.saved.trackerCraft.delivered[a.name],true);assert.equal(h.api.getErrors().size,0);
+});
+test('v1.5 ordinary, runner and repeated drop events cannot advance crafting',()=>{
+ const h=freshStarted(),[r,a,b]=h.people;h.api.getState().seconds=1200;h.second();const spec=h.saved.trackerCraft.recipe[0];
+ assert.equal(throwMaterial(h,a,spec).removed,0,'craft mode is explicit');command(h,'mh:craft',a);assert.equal(throwMaterial(h,r,spec).removed,0);assert.equal(throwMaterial(h,b,spec).removed,0);
+ const e=throwMaterial(h,a,spec,1);assert.equal(e.removed,1);const before=JSON.stringify(h.saved.trackerCraft);h.event('entityItemDrop').emit({entity:a,items:[e]});assert.equal(JSON.stringify(h.saved.trackerCraft),before);
+ command(h,'mh:craft',a);const next=h.saved.trackerCraft.recipe[h.saved.trackerCraft.step];assert.equal(throwMaterial(h,a,next).removed,0);assert.equal(h.api.getErrors().size,0);
+});
+test('v1.5 auto-grant at exactly 40 minutes waits for space and absent hunters then delivers only once',()=>{
+ const h=freshStarted(),[r,a,b]=h.people;h.api.getState().config.features.autoPause=false;a.slots=Array.from({length:36},()=>new h.ItemStack('minecraft:diamond',64));h.people.pop();h.event('playerLeave').emit({playerName:b.name,playerId:b.id});
+ h.api.getState().seconds=2398;h.second();assert.equal(h.saved.trackerCraft.completion,null);h.second();assert.equal(h.saved.trackerCraft.completion,'auto');assert.equal(trackerCount(a),0);assert.equal(h.dropped.length,0);assert.equal(h.saved.trackerCraft.delivered[a.name],undefined);assert.equal(h.saved.trackerCraft.delivered[b.name],undefined);
+ a.slots[0]=undefined;h.second();assert.equal(trackerCount(a),1);h.people.push(b);h.api.initializePlayer(b);assert.equal(trackerCount(b),1);h.api.initializePlayer(b);h.second();assert.equal(trackerCount(b),1);assert.equal(trackerCount(r),0);
+});
+test('v1.5 tracker OFF and random crafting OFF cannot be bypassed by old compass conversion or auto-grant',()=>{
+ for(const key of ['tracker','randomCrafting']){const h=harness(undefined,true),[r,a]=h.people;if(key==='tracker')h.api.getState().config.features.tracker=false;else h.api.getState().config.randomCrafting=false;
+  h.api.getState().config.grace=0;h.api.startRound(r);for(let i=0;i<5;i++)h.second();h.api.getState().seconds=2400;a.slots[0]=new h.ItemStack('minecraft:compass');command(h,'mh:craft',a);h.second();h.hudTick();assert.equal(h.api.trackerCraft.active(a),false);assert.equal(trackerCount(a),0);assert.equal(a.slots[0].typeId,'minecraft:compass');
+ }
+});
+test('v1.5 team recipe and partial credit survive restart; crafting session requires reactivation',()=>{
+ const h=freshStarted(),a=h.people[1];h.api.getState().seconds=1200;h.second();command(h,'mh:craft',a);throwMaterial(h,a,h.saved.trackerCraft.recipe[0],1);const before=h.saved.trackerCraft;
+ const resumed=harness(h.saved,true);assert.equal(resumed.saved.phase,'paused');assert.deepEqual(resumed.saved.trackerCraft,before);assert.equal(resumed.api.trackerCraft.active(resumed.people[1]),false);resumed.api.resume(resumed.people[0]);command(resumed,'mh:craft',resumed.people[1]);assert.equal(resumed.api.trackerCraft.active(resumed.people[1]),true);
+ resumed.api.reset(resumed.people[0]);assert.equal(resumed.saved.trackerCraft,null);assert.equal(resumed.saved.runnerLifeBonus,0);assert.equal(resumed.api.trackerCraft.active(resumed.people[1]),false);
+});
+test('v1.5 fresh runner gets two environmental respawns, then loses on third environmental death',()=>{
+ const h=freshStarted();for(let n=1;n<=2;n++){die(h);assert.equal(h.saved.phase,'running');assert.equal(h.saved.runnerRespawns,n);respawn(h);assert.equal(h.people[0].health,40);}die(h);assert.equal(h.saved.phase,'ended');assert.equal(h.saved.result,'헌터 승리');assert.equal(h.saved.runnerRespawns,2);
+});
+test('v1.5 registered revive callbacks share state and add only one capped opportunity',()=>{
+ const h=freshStarted(),r=h.people[0],use=h.components.get('mh:revive_use');assert.ok(use);r.slots[0]=new h.ItemStack('mh:revive_totem');r.selectedSlotIndex=0;use.onUse({source:r});assert.equal(r.slots[0],undefined);r.slots[0]=new h.ItemStack('mh:revive_totem');use.onUseOn({source:r});assert.equal(h.saved.runnerLifeBonus,1);assert.equal(r.slots[0].amount,1);
+ die(h);respawn(h);die(h);respawn(h);die(h);assert.equal(h.saved.phase,'running');respawn(h);assert.equal(h.saved.runnerRespawns,3);die(h);assert.equal(h.saved.result,'헌터 승리');h.api.reset(r);assert.equal(h.saved.runnerLifeBonus,0);
+});
+test('v1.5 nonparticipant or self-attributed fatal damage does not count as a hunter kill',()=>{
+ for(const self of [false,true]){const h=freshStarted(),r=h.people[0];die(h,{damagingEntity:self?r:new h.Player('Visitor')});assert.equal(h.saved.phase,'running');assert.equal(h.saved.runnerRespawns,1);respawn(h);die(h,{damagingEntity:h.people[1]});assert.equal(h.saved.result,'헌터 승리');assert.equal(h.saved.runnerRespawns,1);}
+});
+test('v1.5 end-of-round stops crafting timer and creates no delayed free tracker',()=>{
+ const h=freshStarted();h.api.getState().seconds=2399;die(h,{damagingEntity:h.people[1]});assert.equal(h.saved.phase,'ended');for(let i=0;i<20;i++)h.second();assert.equal(h.saved.seconds,2399);assert.equal(h.saved.trackerCraft.completion,null);assert.equal(h.people.slice(1).some(p=>trackerCount(p)>0),false);
+});
+
+test('v1.5 detailed settings retain the five existing categories and persist all new groups',async()=>{
+ const h=harness(undefined,true),r=h.people[0];
+ h.formResponses.push({canceled:false,formValues:[0,true,10,true,30,2,8,false,false,true]});await h.api.extraSettings(r,'tracker');
+ assert.equal(h.saved.config.trackerMode,'random');assert.equal(h.saved.config.trackerRevealMinutes,10);assert.equal(h.saved.config.trackerAutoMinutes,30);assert.equal(h.saved.config.trackerCommonMultiplier,2);assert.equal(h.saved.config.trackerRareCount,8);assert.equal(h.saved.config.trackerProgress,false);assert.equal(h.saved.config.trackerNotices,false);assert.equal(h.saved.config.trackerReacquire,true);
+ h.formResponses.push({canceled:false,formValues:[100,70,45,15,false,12,1,false,4]});await h.api.extraSettings(r,'runner');
+ assert.deepEqual(h.saved.config.proximityDistances,[100,70,45,15]);assert.equal(h.saved.config.proximitySound,false);assert.equal(h.saved.config.proximityCooldownSeconds,12);assert.equal(h.saved.config.wildRespawnBase,1);assert.equal(h.saved.config.features.reviveItem,false);assert.equal(h.saved.config.wildRespawnMax,4);
+ h.formResponses.push({canceled:false,formValues:[true,400,180,3,1,false]});await h.api.extraSettings(r,'summon');
+ assert.equal(h.saved.config.summonDistance,400);assert.equal(h.saved.config.summonCooldownSeconds,180);assert.equal(h.saved.config.summonMaxUses,3);assert.equal(h.saved.config.summonAcquire,'disabled');assert.equal(h.saved.config.summonSound,false);assert.equal(h.saved.config.features.summon,true);assert.equal(h.saved.config.food,8);assert.equal(h.saved.config.features.receiver,true);
+ const reload=harness(h.saved,true);assert.deepEqual(reload.saved.config,h.saved.config);assert.equal(h.api.getErrors().size,0);
+});
+test('v1.5 detailed settings reject inverted distances, life caps and timers without partial mutation',async()=>{
+ const cases=[['runner',[90,90,40,10,true,10,2,true,3]],['runner',[90,60,40,10,true,10,4,true,3]],['tracker',[0,true,40,true,20,1,6,true,true,false]],['summon',[true,351,300,2,0,true]],['tracker',[99,true,20,true,40,1,6,true,true,false]]];
+ for(const [key,formValues] of cases){const h=harness(undefined,true),before=JSON.stringify(h.saved.config);h.formResponses.push({canceled:false,formValues});await h.api.extraSettings(h.people[0],key);assert.equal(JSON.stringify(h.saved.config),before,`${key} must not partially apply invalid form`);}
+ const h=freshStarted(),before=JSON.stringify(h.saved.config);h.formResponses.push({canceled:false,formValues:[false,0,0,1,0,false]});await h.api.extraSettings(h.people[0],'summon');assert.equal(JSON.stringify(h.saved.config),before,'active-round settings must remain immutable');
+});
+function summonStarted(four=false){const h=harness(undefined,true);if(four)h.people.push(new h.Player('Hunter3'));h.api.getState().config.grace=0;h.api.startRound(h.people[0]);for(let i=0;i<5;i++)h.second();
+ const [r,a]=h.people;r.location={x:-500,y:65,z:0};a.location={x:0,y:65,z:0};for(let i=2;i<h.people.length;i++)h.people[i].location={x:i*50,y:65,z:i*50};a.slots[0]=new h.ItemStack('mh:summon_scroll');a.selectedSlotIndex=0;return h;}
+test('v1.5 summon component teleports same-dimension hunter, informs remote hunter and consumes once',()=>{
+ const h=summonStarted(true),[r,a,b,c]=h.people,use=h.components.get('mh:summon_use');assert.ok(use);assert.equal(h.people.flatMap(p=>p.slots).filter(it=>it?.typeId==='mh:summon_scroll').length,1,'the harness supplied the only scroll; start kit supplied none');
+ c.dimension=h.dims.get('minecraft:nether');const remote={...c.location};use.onUse({source:a});use.onUseOn({source:a});
+ assert.equal(h.saved.summon.uses,1);assert.equal(a.slots[0],undefined);assert.equal(b.summonMoves.length,1);assert.ok(Math.hypot(b.location.x-a.location.x,b.location.z-a.location.z)<7);assert.deepEqual(c.location,remote);assert.equal(c.summonMoves,undefined);assert.ok(c.messages.some(m=>m.includes('다른 차원')));assert.equal(r.summonMoves,undefined);assert.equal(h.saved.summon.transaction,null);assert.equal(h.api.getErrors().size,0);
+ a.slots[0]=new h.ItemStack('mh:summon_scroll');h.second();use.onUse({source:a});assert.equal(a.slots[0].typeId,'mh:summon_scroll');assert.equal(h.saved.summon.uses,1,'cooldown preserves scroll');
+ h.api.getState().seconds=h.saved.summon.readyAt;h.second();use.onUse({source:a});assert.equal(h.saved.summon.uses,2);assert.equal(a.slots[0],undefined);a.slots[0]=new h.ItemStack('mh:summon_scroll');h.api.getState().seconds=h.saved.summon.readyAt;h.second();use.onUse({source:a});assert.equal(a.slots[0].typeId,'mh:summon_scroll');assert.equal(h.saved.summon.uses,2,'round limit preserves scroll');h.api.reset(r);assert.equal(h.saved.summon.uses,0);
+});
+test('v1.5 summon guards exact 350 range, runner, disabled acquisition and unsafe terrain without item loss',()=>{
+ for(const reason of ['range','runner','off','acquisition','unsafe']){const h=summonStarted(),[r,a,b]=h.people,use=h.components.get('mh:summon_use');let caller=a;const before={...b.location};
+  if(reason==='range')r.location={x:350,y:65,z:0};if(reason==='runner'){caller=r;r.slots[0]=new h.ItemStack('mh:summon_scroll');}if(reason==='off')h.api.getState().config.features.summon=false;if(reason==='acquisition')h.api.getState().config.summonAcquire='disabled';if(reason==='unsafe')a.dimension.getBlock=()=>({typeId:'minecraft:lava',isAir:false});
+  use.onUse({source:caller});assert.equal(caller.slots[0].typeId,'mh:summon_scroll',reason);assert.deepEqual(b.location,before);assert.equal(h.api.getState().summon?.uses??0,0);assert.equal(h.api.getErrors().size,0);
+ }
+});
+test('v1.5 partial summon failure journals a failed rollback, preserves scroll and resumes when recovery succeeds',()=>{
+ const h=summonStarted(true),[r,a,b,c]=h.people,use=h.components.get('mh:summon_use'),originalB={...b.location},originalC={...c.location};let rollbackFails=true;const moveB=b.tryTeleport.bind(b);b.tryTeleport=(pos,opts)=>rollbackFails&&pos.x===originalB.x&&pos.z===originalB.z?false:moveB(pos,opts);c.teleportFailure=true;use.onUse({source:a});
+ assert.notDeepEqual(b.location,originalB);assert.deepEqual(c.location,originalC);assert.equal(a.slots[0].typeId,'mh:summon_scroll');assert.equal(h.saved.summon.uses,0);assert.equal(h.api.summon.hasPending(),true);
+ rollbackFails=false;c.teleportFailure=false;h.api.initializePlayer(c);assert.deepEqual(b.location,originalB);assert.equal(h.api.summon.hasPending(),false);assert.equal(h.saved.summon.transaction,null);h.second();use.onUse({source:a});assert.equal(h.saved.summon.uses,1);assert.equal(a.slots[0],undefined);
+});
+function pendingSummon(h,phase='moving'){
+ const [,a,b]=h.people;h.api.pause('summon recovery test');b.teleportFailure=true;
+ h.api.getState().summon.transaction={caller:a.name,token:'recovery-ui',phase,participants:h.people.slice(2).map(p=>p.name),origins:[{name:b.name,dimension:b.dimension.id,location:{x:1000,y:65,z:1000},rotation:{x:0,y:0}}]};
+ a.slots[0].setDynamicProperty('mh:summon_receipt','recovery-ui');h.api.summon.recover(true);assert(h.api.summon.hasPending());
+}
+test('v1.5 recovery menu is visible only to the host and direct non-host entry cannot alter the transaction',async()=>{
+ const h=summonStarted(true),[host,hunter]=h.people;pendingSummon(h);await h.api.showMenu(host);await h.api.showMenu(hunter);
+ assert(h.shownForms[0].buttons.includes('중단된 소집 복구'));assert(!h.shownForms[1].buttons.includes('중단된 소집 복구'));
+ h.formResponses.push({canceled:false,selection:2},{canceled:false,selection:1});await h.api.recoverSummon(hunter);assert.equal(h.shownForms.length,2);assert(h.api.summon.hasPending());assert.equal(h.formResponses.length,2);assert.equal(h.saved.summon.lastRecovery,null);
+});
+test('v1.5 host recovery requires confirmation, keeps safe current positions and preserves the sole scroll',async()=>{
+ const h=summonStarted(true),host=h.people[0];pendingSummon(h,'refund_pending');const places=h.people.map(p=>({...p.location}));
+ h.formResponses.push({canceled:false,selection:2},{canceled:false,selection:0});await h.api.recoverSummon(host);assert(h.api.summon.hasPending());assert.match(h.shownForms[0].body,/자동 보상하지/);assert.match(h.shownForms[1].body,/원래 위치로 다시 이동시키지/);
+ h.formResponses.push({canceled:false,selection:2},{canceled:false,selection:1});await h.api.recoverSummon(host);assert(!h.api.summon.hasPending());assert.deepEqual(h.people.map(p=>p.location),places);assert.equal(h.people.flatMap(p=>p.slots).filter(i=>i?.typeId==='mh:summon_scroll').length,1);assert.equal(h.saved.summon.uses,0);assert.equal(h.saved.summon.lastRecovery.administrator,host.name);assert.equal(h.saved.summon.lastRecovery.previousPhase,'refund_pending');
+ const audit=h.saved.summon.lastRecovery;h.api.reset(host);assert.deepEqual(h.saved.summon.lastRecovery,audit);assert.equal(h.saved.phase,'lobby');
+});
+test('v1.5 recovery confirmation rechecks active phase, ground safety and administrator role',async()=>{
+ for(const reason of ['running','unsafe','permission','changed-token']){
+  const h=summonStarted(true),host=h.people[0];pendingSummon(h);
+  h.formResponses.push({canceled:false,selection:2},()=>{if(reason==='running')h.api.getState().phase='running';if(reason==='unsafe')h.people[2].location.y=66;if(reason==='permission')h.api.getState().host='Hunter1';if(reason==='changed-token')h.api.getState().summon.transaction.token='new-transaction';return {canceled:false,selection:1};});
+  await h.api.recoverSummon(host);assert(h.api.summon.hasPending(),reason);assert.equal(h.api.getState().summon.lastRecovery,null,reason);assert.equal(h.people[1].slots[0].typeId,'mh:summon_scroll',reason);
+ }
+});
+test('v1.5 explicit recovery menu retry bypasses automatic backoff without losing transaction or scroll',async()=>{
+ const h=summonStarted(),host=h.people[0];pendingSummon(h);const tx=h.api.summon.pendingRecovery();
+ h.formResponses.push({canceled:false,selection:1});await h.api.recoverSummon(host);assert(h.api.summon.hasPending());assert(host.messages.some(m=>m.includes('복구 대기')));
+ h.people[2].teleportFailure=false;assert.equal(h.api.summon.recover(),false,'automatic attempts wait 100 ticks after failure');
+ h.formResponses.push({canceled:false,selection:1});await h.api.recoverSummon(host);assert(!h.api.summon.hasPending());assert.deepEqual(h.people[2].location,tx.pendingOrigins[0].location);assert.equal(h.people[1].slots[0].typeId,'mh:summon_scroll');assert.equal(h.saved.summon.uses,0);assert(host.messages.some(m=>m.includes('소집 복구 완료')));
+});
+test('v1.5 owned compass frames respond to each hunter rotation and keep the other dimension last location',()=>{
+ const h=freshStarted(),[r,a,b]=h.people;h.api.getState().seconds=2399;h.second();a.location={x:0,y:65,z:0};b.location={...a.location};r.location={x:0,y:65,z:100};a.yaw=0;b.yaw=90;
+ for(const p of [a,b])h.api.trackerDisplay.scan(p);h.displayTick();assert.equal(a.slots.find(it=>it?.typeId?.startsWith('mh:tracker_')).typeId,'mh:tracker_0');assert.equal(b.slots.find(it=>it?.typeId?.startsWith('mh:tracker_')).typeId,'mh:tracker_24');
+ a.yaw=11.25;h.displayTick();assert.equal(a.slots.find(it=>it?.typeId?.startsWith('mh:tracker_')).typeId,'mh:tracker_31');assert.equal(b.slots.find(it=>it?.typeId?.startsWith('mh:tracker_')).typeId,'mh:tracker_24','owner rotation does not change another inventory');
+ const oldDimension=r.dimension;r.dimension=h.dims.get('minecraft:nether');r.location={x:500,y:65,z:-300};h.event('playerDimensionChange').emit({player:r,fromDimension:oldDimension,toDimension:r.dimension,fromLocation:{x:0,y:65,z:100},toLocation:r.location});h.displayTick();assert.equal(a.slots.find(it=>it?.typeId?.startsWith('mh:tracker_')).typeId,'mh:tracker_31','no implicit 8-to-1 coordinate projection');a.selectedSlotIndex=a.slots.findIndex(it=>it?.typeId?.startsWith('mh:tracker_'));h.hudTick();assert.match(a.hud,/마지막 위치/);assert.match(a.hud,/네더/);
+});
+
+test('v1.5 persisted outcome resolves hunter, exhausted-life and dragon results after reload before queued callback',()=>{
+ for(const cause of ['hunter','exhausted','dragon']){const h=freshStarted(),r=h.people[0];
+  if(cause==='dragon')h.event('entityDie').emit({deadEntity:{typeId:'minecraft:ender_dragon',dimension:h.dims.get('minecraft:the_end')}});
+  else {if(cause==='exhausted')h.api.getState().runnerRespawns=2;r.health=0;h.event('entityDie').emit({deadEntity:r,damageSource:cause==='hunter'?{damagingEntity:h.people[1]}:{cause:'fall'}});}
+  const saved=h.saved;assert.equal(saved.phase,'running');assert.equal(saved.pendingOutcome.round,saved.round);assert.equal(saved.pendingOutcome.runnerDied,cause!=='dragon');assert.equal(saved.pendingOutcome.dragonDied,cause==='dragon');
+  const resumed=harness(saved,true);resumed.flush();assert.equal(resumed.saved.phase,'ended');assert.equal(resumed.saved.result,cause==='dragon'?'러너 승리':'헌터 승리');assert.equal(resumed.saved.pendingOutcome,null);
+  const winner=cause==='dragon'?'Runner':'Hunter1';assert.equal(resumed.saved.wins[winner],1);resumed.flush();resumed.second();assert.equal(resumed.saved.wins[winner],1);
+ }
+});
+test('v1.5 saved simultaneous fatal hit and dragon event preserve hunter precedence across restart',()=>{
+ for(const dragonFirst of [false,true]){const h=freshStarted(),r=h.people[0];const dragon=()=>h.event('entityDie').emit({deadEntity:{typeId:'minecraft:ender_dragon',dimension:h.dims.get('minecraft:the_end')}}),fatal=()=>{r.health=0;h.event('entityDie').emit({deadEntity:r,damageSource:{damagingEntity:h.people[1]}});};
+  if(dragonFirst){dragon();fatal();}else{fatal();dragon();}assert.equal(h.saved.pendingOutcome.runnerDied,true);assert.equal(h.saved.pendingOutcome.dragonDied,true);
+  const resumed=harness(h.saved,true);resumed.flush();assert.equal(resumed.saved.result,'헌터 승리');assert.equal(resumed.saved.wins.Runner,undefined);assert.equal(resumed.saved.wins.Hunter1,1);
+ }
+});
+test('v1.5 saved dragon outcome waits for pending wild respawn after restart',()=>{
+ const h=freshStarted(),r=h.people[0];r.health=0;h.event('entityDie').emit({deadEntity:r,damageSource:{cause:'fall'}});h.event('entityDie').emit({deadEntity:{typeId:'minecraft:ender_dragon',dimension:h.dims.get('minecraft:the_end')}});
+ const resumed=harness(h.saved,true);resumed.flush();assert.equal(resumed.saved.phase,'paused');assert.equal(resumed.saved.runnerRespawning,true);assert.equal(resumed.saved.pendingRunnerVictory,true);assert.equal(resumed.saved.pendingOutcome,null);
+ resumed.event('playerSpawn').emit({player:resumed.people[0],initialSpawn:true});resumed.flush();assert.equal(resumed.saved.result,'러너 승리');assert.equal(resumed.saved.wins.Runner,1);
+});
+test('v1.5 reset invalidates queued outcome and old-round journals cannot award a later round',()=>{
+ const h=freshStarted(),r=h.people[0];h.event('entityDie').emit({deadEntity:{typeId:'minecraft:ender_dragon',dimension:h.dims.get('minecraft:the_end')}});h.api.reset(r);h.flush();assert.equal(h.saved.phase,'lobby');assert.equal(h.saved.pendingOutcome,null);assert.deepEqual(h.saved.wins,{});
+ const saved={...core.newState(),phase:'running',round:5,host:'Runner',runner:'Runner',choice:'Runner',roster:['Runner','Hunter1','Hunter2'],start:{x:10,y:65,z:10},lobby:{x:10,y:305,z:10},pendingOutcome:{round:4,runnerDied:true,dragonDied:false}};
+ const resumed=harness(saved,true);resumed.flush();assert.equal(resumed.saved.phase,'paused');assert.deepEqual(resumed.saved.wins,{});resumed.api.reset(resumed.people[0]);resumed.api.startRound(resumed.people[0]);assert.equal(resumed.saved.round,6);assert.equal(resumed.saved.pendingOutcome,null);resumed.flush();assert.equal(resumed.saved.phase,'countdown');
 });
