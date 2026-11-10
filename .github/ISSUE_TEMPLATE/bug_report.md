@@ -27,7 +27,7 @@ title: "[Bug] "
 
 ## 확인 사항
 - [ ] 원본 월드를 보존하고 복사본에서 재현했습니다.
-- [ ] 이미 등록된 Issues와 [QA 문서](../../docs/QA_REPORT.md)를 확인했습니다.
+- [ ] 이미 등록된 Issues와 [QA 문서](https://github.com/geumyi22/Manhunt-Night/blob/main/docs/QA_REPORT.md)를 확인했습니다.
 - [ ] 개인 정보·비밀번호·인증 토큰을 첨부하지 않았습니다.
 
 > 게임 실기 테스트와 자동 테스트는 구분해 기록해 주세요. 오류를 재현하지 못했으면 그 사실을 그대로 남겨 주세요.
