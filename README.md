@@ -3,6 +3,14 @@
 Minecraft Bedrock 26.62 기준 · 러너 1명 vs 헌터 2~3명 · 1인 연습 지원.
 **Pre-release**: 자동 검사와 실제 클라이언트 확인 범위는 [QA 보고서](docs/QA_REPORT.md)에 구분합니다. 실제 3~4인 멀티플레이와 성능 실측은 아직 완료되지 않았습니다.
 
+## 현재 배포 및 개발 상태 (2026-11-10 확인)
+
+- **최신 배포:** [v1.5.1 Pre-release](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.1). `.mcworld`·`.mcaddon`·전체 ZIP·소스·해시·QA 문서 등은 릴리스 Assets에서 받습니다.
+- **현재 기본 브랜치:** `main` (v1.5.0 [PR #1](https://github.com/geumyi22/Manhunt-Night/pull/1), v1.5.1 [PR #2](https://github.com/geumyi22/Manhunt-Night/pull/2) 병합 완료).
+- **검증:** v1.5.1 자동 테스트 **204/204 통과**, Windows Bedrock **26.63** 단일 클라이언트 일부 확인. [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions)도 마지막 제품 코드 커밋에서 성공했습니다. 테스트 범위는 [QA 보고서](docs/QA_REPORT.md) 참조.
+- **남은 필수 QA:** 친구 3~4인 동시 플레이·성능 실측 등은 [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)에서 추적합니다. 이 검증 전에는 Stable이라고 표시하지 않습니다.
+- **버그 제보:** [Issues](https://github.com/geumyi22/Manhunt-Night/issues)에서 재현 조건·베드락 버전·영상/Content Log를 함께 기록해 주세요. 개인 정보나 토큰은 첨부하지 마세요.
+
 ## 설치와 시작
 
 1. `Manhunt_Night_v1.5.1.mcworld`를 열어 가져옵니다. 필요한 두 팩이 포함되어 있습니다.
@@ -41,4 +49,4 @@ Node.js 22 이상에서 `npm ci`, `npm run typecheck`, `npm test`, `node tools/v
 배포 생성: `node tools/build.mjs --base <보존한 원본 월드 폴더 또는 mcworld>`.
 원본 월드는 읽기만 하며 결과는 `dist/`에 생성됩니다. SHA-256과 패키지 검증 결과를 함께 제공합니다.
 
-GitHub 현재 v1.4.0 소스를 기준으로 확장했습니다. 새 배포 월드 지형은 보존된 사용자 제공 MANHUNT 원본을 사용합니다. v1.4.0 배포 월드 바이너리가 현재 저장소 릴리스에 없어 그 바이너리와 동일하다고 주장하지 않습니다.
+**개발 이력:** v1.4.0 소스에서 v1.5.0을 개발하고 v1.5.1을 병합했습니다. 새 배포 월드의 지형은 별도로 보존된 사용자 제공 MANHUNT 원본을 바탕으로 구성했습니다. v1.4.0 배포 월드 바이너리와 동일하다는 의미는 아닙니다.

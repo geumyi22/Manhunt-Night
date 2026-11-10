@@ -20,4 +20,12 @@
 
 실기 항목은 격리한 26.63 단일 클라이언트에서 확인한 범위입니다. `kill()`로 실제 드래곤 사망 이벤트를 발생시킨 시험은 일반 전투 검증과 다르며, 고정 목표 나침반 비교는 실제 2인 추적 시험과 다릅니다. 자세한 범위는 [QA 보고서](QA_REPORT.md), 실제 친구들과 진행할 항목은 [친구 점검표](FRIENDS_TEST.md)를 참고하세요.
 
-GitHub PR/Actions/릴리스 결과는 저장소의 실제 기록과 완료 보고에서 확인합니다. 자동 검사는 실전 테스트를 대체하지 않습니다.
+## GitHub 반영 상태 (2026-11-10 재확인)
+
+- [x] [v1.5.0 PR #1](https://github.com/geumyi22/Manhunt-Night/pull/1), [v1.5.1 PR #2](https://github.com/geumyi22/Manhunt-Night/pull/2) `main` 병합 확인
+- [x] 최신 제품 코드 커밋 `84d6358`의 [Source QA 성공](https://github.com/geumyi22/Manhunt-Night/actions/runs/42406159667) 확인
+- [x] [v1.5.0](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.0)·[v1.5.1](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.1) Pre-release와 배포 Assets 확인
+- [x] 멀티플레이·성능 미검증 사항 [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)로 추적
+- [ ] 친구 3~4인 실제 시험 결과 반영 및 Stable 승격 적합성 재판정
+
+**이 항목은 2026-11-10 GitHub 기록을 확인한 결과입니다.** 자동 검사는 실전 테스트를 대체하지 않습니다. 예전 개발 브랜치는 기록 보존을 위해 이 단계에서 삭제하지 않았습니다.
