@@ -1,0 +1,318 @@
+{
+  "verifiedAtUtc": "2026-11-14T09:22:13.999Z",
+  "releaseUrl": "https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.1",
+  "tag": "v1.5.1",
+  "isPrerelease": true,
+  "targetCommitish": "84d6358450a8c4d6f3c4d9c5a11a9831d254c898",
+  "assets": [
+    {
+      "name": "BUILD_MANIFEST.json",
+      "bytes": 3090,
+      "sha256": "ac49a1ab832387510e139d98e6cc43347360088673bb5e47260fb709dccc90e3",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "CHANGELOG.md",
+      "bytes": 1984,
+      "sha256": "18cdef64b25d0eafb9147d7ca057428ba5640ec89283087f89427082411f6867",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "FEATURES.md",
+      "bytes": 9147,
+      "sha256": "7915558faf09f4f67446c4cfa92169abd311dcf4d8401a16179943928617a965",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "FRIENDS_TEST.md",
+      "bytes": 12632,
+      "sha256": "25f34524f25297bf10cfaed332b10b48d997bc464e48ab5d217eca7e6dfc095a",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "INSTALL.md",
+      "bytes": 3514,
+      "sha256": "06d0ad91e4ab7bd0532096e9a6da433b7b5a96fb0343584c7491265233dc466f",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 1769,
+      "sha256": "7082d692f92dfbbe13210fbf22b3fd6389e50db48962e5341e3a1b32b867176f",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_Source_v1.5.1.zip",
+      "bytes": 208592,
+      "sha256": "17cf081916f027e130801e99fb90992e1310eec3599e6f05aa1f75ab5956c5dd",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1.mcaddon",
+      "bytes": 68449,
+      "sha256": "bb02ede6ef69f3af0f94feadb3ae3ed9b5e6000d419eb995827b92d8050528f7",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1.mcworld",
+      "bytes": 572444,
+      "sha256": "ee595db8b14df9d8ab2424c4b2553efb4fd601ebf99ad018c033efeec48863ee",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip",
+      "bytes": 834406,
+      "sha256": "724f1bde191c66b225c9596abf908702ddde30d09913619698d42b73bf5046e6",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip.sha256",
+      "bytes": 104,
+      "sha256": "4b28e59e54d9d4c8ba63084580eb436ae9aa8e9739706b467d219818345befcf",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "PACKAGE_CHECKS.json",
+      "bytes": 599,
+      "sha256": "9905838754071a0637979d9c880c6b4d2e6a5885ed35042b5e79fe35f6190226",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "QA_REPORT.md",
+      "bytes": 19286,
+      "sha256": "b7f98e7bb1e9ef4b43e0e1813630e8d10249e9eab12ffe206d0519038cb7845f",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "README.md",
+      "bytes": 3531,
+      "sha256": "01eb41b7e53e8ddb15ecb726827a963f7a25da983863737f4336153c7ba05477",
+      "githubDigest": "PASS"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 1005,
+      "sha256": "c5782afc4bc971df3d9d63d05e9d286a2144f521dd08402f4e723e4ed013b605",
+      "githubDigest": "PASS"
+    }
+  ],
+  "checksums": [
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "Manhunt_Night_v1.5.1.mcworld",
+      "declaredName": "Manhunt_Night_v1.5.1.mcworld",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "Manhunt_Night_v1.5.1.mcaddon",
+      "declaredName": "Manhunt_Night_v1.5.1.mcaddon",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "Manhunt_Night_Source_v1.5.1.zip",
+      "declaredName": "Manhunt_Night_Source_v1.5.1.zip",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "BUILD_MANIFEST.json",
+      "declaredName": "BUILD_MANIFEST.json",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "README.md",
+      "declaredName": "README.md",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "LICENSE",
+      "declaredName": "LICENSE",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "INSTALL.md",
+      "declaredName": "INSTALL.md",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "FEATURES.md",
+      "declaredName": "FEATURES.md",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "CHANGELOG.md",
+      "declaredName": "CHANGELOG.md",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "QA_REPORT.md",
+      "declaredName": "QA_REPORT.md",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "FRIENDS_TEST.md",
+      "declaredName": "FRIENDS_TEST.md",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "SHA256SUMS.txt",
+      "name": "PACKAGE_CHECKS.json",
+      "declaredName": "PACKAGE_CHECKS.json",
+      "digest": "PASS",
+      "filename": "PASS"
+    },
+    {
+      "manifest": "Manhunt_Night_v1.5.1_FullFiles.zip.sha256",
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip",
+      "declaredName": "Manhunt_Night_v1.5.1_전체파일.zip",
+      "digest": "PASS",
+      "filename": "MISMATCH"
+    }
+  ],
+  "archives": [
+    {
+      "name": "Manhunt_Night_Source_v1.5.1.zip",
+      "entries": 135,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1.mcaddon",
+      "entries": 2,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1.mcaddon!ManhuntNight_BP.mcpack",
+      "entries": 52,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1.mcaddon!ManhuntNight_RP.mcpack",
+      "entries": 41,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1.mcworld",
+      "entries": 102,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip",
+      "entries": 13,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip!Manhunt_Night_Source_v1.5.1.zip",
+      "entries": 135,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip!Manhunt_Night_v1.5.1.mcaddon",
+      "entries": 2,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip!Manhunt_Night_v1.5.1.mcaddon!ManhuntNight_BP.mcpack",
+      "entries": 52,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip!Manhunt_Night_v1.5.1.mcaddon!ManhuntNight_RP.mcpack",
+      "entries": 41,
+      "zipCRC": "PASS"
+    },
+    {
+      "name": "Manhunt_Night_v1.5.1_FullFiles.zip!Manhunt_Night_v1.5.1.mcworld",
+      "entries": 102,
+      "zipCRC": "PASS"
+    }
+  ],
+  "database": [
+    {
+      "file": "db/000005.ldb",
+      "bytes": 409247,
+      "sha256": "8c379c0280241b830863d8d0408c0c00b87869b8985d34fa06f59b2d7bec947f",
+      "status": "PASS"
+    },
+    {
+      "file": "db/000008.ldb",
+      "bytes": 169,
+      "sha256": "e97f4cd7da662b8884f0470fbcb055175ca48b0beec549bdc1a72533319feeac",
+      "status": "PASS"
+    },
+    {
+      "file": "db/CURRENT",
+      "bytes": 16,
+      "sha256": "8af72f43857550b01eab1019335772b367a17a9884a7a759fdf4fe6f272b90aa",
+      "status": "PASS"
+    },
+    {
+      "file": "db/MANIFEST-000007",
+      "bytes": 142,
+      "sha256": "98ecd8adfc5c34ed78771b27d2dbeb70114dfd661bf0d6cbd8b5ecdb70cfa335",
+      "status": "PASS"
+    }
+  ],
+  "packComparisons": [
+    {
+      "pack": "BP",
+      "files": 52,
+      "addonVsWorldVsSourceByteEquality": "PASS",
+      "gitMain": "3fd0bf068df8215c1f952708b7cc794e4215c302",
+      "gitMainExactMatches": 43,
+      "gitMainLineEndingOnlyDifferences": [
+        "items/menu.json",
+        "items/receiver.json",
+        "LICENSE",
+        "recipes/receiver.json",
+        "scripts/core.js",
+        "scripts/expansion-core.js",
+        "scripts/expansion.js",
+        "scripts/main.js",
+        "scripts/runner.js"
+      ],
+      "gitMainContentEqualityAfterCRLFtoLF": "PASS"
+    },
+    {
+      "pack": "RP",
+      "files": 41,
+      "addonVsWorldVsSourceByteEquality": "PASS",
+      "gitMain": "3fd0bf068df8215c1f952708b7cc794e4215c302",
+      "gitMainExactMatches": 39,
+      "gitMainLineEndingOnlyDifferences": [
+        "LICENSE",
+        "particles/signal_beam.json"
+      ],
+      "gitMainContentEqualityAfterCRLFtoLF": "PASS"
+    }
+  ],
+  "issues": [
+    {
+      "file": "Manhunt_Night_v1.5.1_FullFiles.zip.sha256",
+      "declaredName": "Manhunt_Night_v1.5.1_전체파일.zip",
+      "publishedName": "Manhunt_Night_v1.5.1_FullFiles.zip",
+      "description": "The published checksum names a different filename; its digest matches the published full ZIP."
+    }
+  ],
+  "bundleContentsMatchRelease": "PASS",
+  "result": "PASS_DIGESTS_WITH_FILENAME_METADATA_ISSUE"
+}

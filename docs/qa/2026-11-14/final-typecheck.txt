@@ -1,0 +1,3 @@
+
+> manhunt-night@1.5.1 typecheck
+> tsc --noEmit

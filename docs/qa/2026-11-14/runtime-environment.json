@@ -1,0 +1,35 @@
+{
+  "dateKST": "2026-11-14",
+  "remoteDevices": [
+    {
+      "name": "Geumyi22",
+      "status": "Offline"
+    }
+  ],
+  "localInstalledPackages": {
+    "stable": "1.26.6301.0",
+    "preview": "1.26.7024.0"
+  },
+  "initialGameProcesses": 0,
+  "launchAttempts": [
+    {
+      "executable": "Minecraft.Windows.exe",
+      "result": "launched app did not expose a targetable window"
+    },
+    {
+      "executable": "gamelaunchhelper.exe",
+      "result": "launched app did not expose a targetable window"
+    }
+  ],
+  "finalTargetableGameWindows": 0,
+  "finalGameProcesses": 0,
+  "multiplayerE2E": "NOT RUN",
+  "performance": {
+    "fpsSamples": 0,
+    "tpsSamples": 0,
+    "memorySamples": 0,
+    "networkSamples": 0
+  },
+  "causeOfLaunchFailure": "UNDETERMINED",
+  "source": "Current session package/process inventory and Computer Use launch/window observations"
+}

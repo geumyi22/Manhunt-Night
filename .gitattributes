@@ -1,0 +1,2 @@
+# Keep the upstream license byte-identical to the SHA-256 pinned in SOURCE.json.
+tools/vendor/vanilla-compass/LICENSE.md -text

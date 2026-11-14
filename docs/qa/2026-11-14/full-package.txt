@@ -1,0 +1,24 @@
+{
+  "jsonFiles": 43,
+  "items": 36,
+  "compassFrames": 32,
+  "uniqueCompassImages": 28,
+  "stableDependencies": "PASS",
+  "manifestUUIDs": "PASS",
+  "recipes": "PASS",
+  "builtinTextureReferences": [
+    "textures/items/paper",
+    "textures/items/totem"
+  ],
+  "runtimeQANotDistributed": "PASS",
+  "materialPool": 27,
+  "recipeSelection": "7 common + 2 hard, distinct",
+  "compassCardinals": "PASS",
+  "worldDatabase": "PASS - byte-identical to preserved base",
+  "worldFiles": 102,
+  "bundle": "PASS",
+  "zipCRC": "PASS",
+  "sourceAndDistributedPacks": "PASS",
+  "checksums": "PASS",
+  "mode": "world+addon+source"
+}

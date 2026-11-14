@@ -1,0 +1,36 @@
+{
+  "dateKST": "2026-11-14",
+  "sourceCommit": "3fd0bf068df8215c1f952708b7cc794e4215c302",
+  "nodeVersion": "v24.22.2",
+  "method": "Fresh no-checkout clone; copied candidate .gitattributes before checkout; core.autocrlf=true; copied candidate build.mjs after checkout. No commit or remote mutation.",
+  "before": {
+    "testPass": 203,
+    "testFail": 1,
+    "licenseBytes": 224,
+    "cause": "Git core.autocrlf=true converted pinned upstream LICENSE.md LF to CRLF"
+  },
+  "after": {
+    "testPass": 204,
+    "testFail": 0,
+    "licenseBytes": 222,
+    "licenseSha256": "ca18c0dede68ce24ea1cd6f9df0813579b6f9f979787983a50baec99345f975d",
+    "typecheck": "PASS",
+    "sourceVerification": "PASS",
+    "addonBuild": "PASS",
+    "addonPackageVerification": "PASS",
+    "sourceZipIncludesGitattributes": true
+  },
+  "changedFiles": [
+    ".gitattributes",
+    "tools/build.mjs"
+  ],
+  "scope": "Build checkout reproducibility; no gameplay changes",
+  "logs": [
+    "windows-checkout-install.log",
+    "windows-checkout-tests.log",
+    "windows-checkout-types.log",
+    "windows-checkout-source.log",
+    "windows-checkout-build.log",
+    "windows-checkout-package.log"
+  ]
+}
