@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "recordedAtUtc": "2026-11-14T12:05:28.712Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T12-05-53-137Z",
+    "sourceLogSha256": "ce5322319ee9093e54ccc8a132d88929383b85db7e9b04bdbc9d3fa4ecff2836",
+    "stateRows": 592,
+    "dropRows": 12,
+    "invalidRows": [
+      {
+        "sourceLine": 22987,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "rawDimensionTransitions": [
+    {
+      "before": {
+        "session": 1,
+        "seq": 487,
+        "utc": "2026-11-14T11:56:55.614Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1441,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 488,
+        "utc": "2026-11-14T11:57:00.620Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1446,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.006,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 0,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 333.5,
+          "y": 305,
+          "z": 32.5
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": -5.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 542,
+        "utc": "2026-11-14T12:01:30.623Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1716,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 543,
+        "utc": "2026-11-14T12:01:35.739Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1721,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.116,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 1,
+      "role": "runner",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -22.5,
+          "y": 305,
+          "z": 36.5
+        },
+        "trackerCount": 0
+      },
+      "to": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": 0.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 0
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 566,
+        "utc": "2026-11-14T12:03:30.744Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1836,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 567,
+        "utc": "2026-11-14T12:03:35.739Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1841,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.995,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 0,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": -5.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -27.5,
+          "y": 305,
+          "z": 36.5
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 582,
+        "utc": "2026-11-14T12:04:50.732Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1916,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 583,
+        "utc": "2026-11-14T12:04:55.733Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1921,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.001,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 2,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 335.5,
+          "y": 305,
+          "z": 34.5
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": 5.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    }
+  ],
+  "hostUiEvidence": {
+    "source": "Parent direct UI observations plus independent read-only review of the saved screenshots",
+    "screenshots": [
+      {
+        "file": "nether-no-tracking-history.jpg",
+        "observation": "Host HUD says there is no tracking information in this dimension; runner and teammate are labeled Overworld.",
+        "sha256": "b80d134ef4f6a5d1571c28c3e19a5c1b138bf6290231925fd9b81c04c46ccec6",
+        "privacy": "Private original contains account labels/desktop notifications; do not publish image."
+      },
+      {
+        "file": "nether-live-tracking-six-metres.jpg",
+        "observation": "Chat says runner entered Nether; host HUD shows live runner distance6m and height+0 at match28:41; teammate remains labeled Overworld.",
+        "sha256": "8bc2577c7029fb860a36587aeaa2fe9fb3131cd6af434f545afbeabdcdd6e535",
+        "privacy": "Private original contains account labels/desktop notifications; do not publish image."
+      },
+      {
+        "file": "last-known-overworld-five-metres.jpg",
+        "observation": "Host HUD says last known position, runner Nether, forward5m, height+0 at match30:41; teammate forward363m.",
+        "sha256": "21da84756a139233933ce61f949a296bb7e8fd3aa18ff4ee6dc21c0138b46e88",
+        "privacy": "Private original contains account labels/desktop notifications; do not publish image."
+      }
+    ]
+  },
+  "phoneUiEvidence": {
+    "source": "User report relayed by parent",
+    "response": "마지막 위치는 모르겠고 다른 차원인건 뜸",
+    "otherDimensionLabelConfirmed": true,
+    "lastKnownLabelConfirmed": false
+  },
+  "crossDimensionReceiver": {
+    "priorUserResponse": "음",
+    "priorClassification": "INCONCLUSIVE",
+    "subsequentUseReport": "사용함",
+    "noticeEvidence": {
+      "source": "Parent direct UI observation and read-only review of saved screenshot",
+      "file": "cross-dimension-receiver-notice.jpg",
+      "sha256": "03e9e523a545ca27e6f05059971a628e251fa9da84fc35ea0615a915dda86856",
+      "observed": "Runner signal received; runner is in nether; camera will not switch across dimensions.",
+      "privacy": "Local-only original with account identifiers."
+    },
+    "noticeDisplayedConfirmed": true,
+    "continuousCameraNonTransitionObserved": false,
+    "exactDurationMeasured": false,
+    "interpretation": "The explicit cross-dimension notice is confirmed. This screenshot does not continuously observe the absence of a brief camera switch."
+  },
+  "scope": {
+    "rawProbeContainsStoredRoutes": false,
+    "rawProbeProvesTrackerInventoryPreservation": true,
+    "hostLastKnownHudObserved": true,
+    "allDevicesLastKnownHudProven": false,
+    "portalTraversalInputRecorded": false
+  },
+  "limitations": [
+    "Raw state records dimension and position, not the command/portal that caused transfer.",
+    "The host last-known HUD is a screenshot observation; it is not derived by projecting current Nether coordinates into Overworld.",
+    "The phone report confirms a different-dimension label only.",
+    "Cross-dimension receiver behavior remains unresolved; an ambiguous response is not treated as failure or success.",
+    "The trial is ongoing, and this does not cover End travel or every dimension combination."
+  ],
+  "updatedAtUtc": "2026-11-14T12:06:41.155Z"
+}

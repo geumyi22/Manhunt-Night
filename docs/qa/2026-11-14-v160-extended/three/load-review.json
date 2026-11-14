@@ -1,0 +1,34 @@
+{
+  "schema": "MHQA_THREE_LOAD_REVIEW_1",
+  "generatedAtUtc": "2026-11-14T12:47:18.741Z",
+  "status": "CLOSED_LOG_SNAPSHOT_REVIEW",
+  "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+  "scope": {
+    "firstSourceLine": 12327,
+    "lastSourceLine": 29779,
+    "description": "From the first THREE periodic marker through this raw-log snapshot. Earlier loading text before the first marker is outside the selected trial scope."
+  },
+  "checkedExceptionSignatureCounts": {
+    "ReferenceError": 0,
+    "TypeError": 0,
+    "SyntaxError": 0,
+    "[MHQA_THREE_ERROR]": 0
+  },
+  "errorOrFatalLines": 1,
+  "recognizedLightingDiagnostics": {
+    "signature": "[Lighting][error]-unsupported version: no parser available for version 1.21.90",
+    "occurrencesInSelectedScope": 1,
+    "sourceLines": [
+      23087
+    ],
+    "sameExactSignatureOccurrencesBeforeThreeMarker": 6,
+    "interpretation": "A Lighting diagnostic also present before this trial. This establishes recurrence, not its cause, impact, or a production-script defect."
+  },
+  "unclassifiedErrorOrFatalLines": [],
+  "limits": [
+    "Original content-log text, player/account names, paths, addresses, and unrelated messages are not copied.",
+    "A zero count for selected exception strings is not a general proof that no gameplay defect occurred.",
+    "The scanner does not classify every warning or verify resource rendering. Only the enumerated diagnostic signatures and severity markers were checked.",
+    "The known Lighting signature is retained as a diagnostic limitation; no configuration, resource, or game file was modified to suppress it."
+  ]
+}

@@ -1,0 +1,623 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T11:43:30.580Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "evidenceOrigin": "ACTUAL_GAME_PROBE_OBSERVATION",
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T11-42-31-212Z",
+    "sourceLogSha256": "a001b3b934cf0b27c8e27d4475151e8b7d4ea60a3b07f5c6455da6567738c855",
+    "stateRows": 311,
+    "invalidRows": [
+      {
+        "sourceLine": 14355,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "setup": {
+    "source": "Parent operator positioned the two hunters on opposite sides of the runner with the same yaw.",
+    "dimension": "minecraft:overworld",
+    "targetLayout": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "x": -27.5,
+        "y": 305,
+        "z": 36.5,
+        "yaw": -90
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "x": -22.5,
+        "y": 305,
+        "z": 36.5
+      },
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "x": -17.5,
+        "y": 305,
+        "z": 36.5,
+        "yaw": -90
+      }
+    ],
+    "expected": "Hunter index 0 sees runner straight ahead: frame 0. Hunter index 2 sees runner behind: frame 16. Each distance is 5 blocks; hunters are 10 blocks apart."
+  },
+  "stableObservedWindow": {
+    "firstSeq": 302,
+    "lastSeq": 311,
+    "firstUtc": "2026-11-14T11:41:30.613Z",
+    "lastUtc": "2026-11-14T11:42:15.624Z",
+    "consecutiveSnapshots": 10,
+    "observedSpanSeconds": 45.011,
+    "sampledPositionsAndYawExactlyUnchanged": true,
+    "interpretation": "Positions and yaw are identical at every recorded snapshot. The observer does not prove absence of motion between samples."
+  },
+  "snapshots": [
+    {
+      "session": 1,
+      "seq": 302,
+      "utc": "2026-11-14T11:41:30.613Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 516,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 303,
+      "utc": "2026-11-14T11:41:35.618Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 521,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 304,
+      "utc": "2026-11-14T11:41:40.611Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 526,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 305,
+      "utc": "2026-11-14T11:41:45.623Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 531,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 306,
+      "utc": "2026-11-14T11:41:50.625Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 536,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 307,
+      "utc": "2026-11-14T11:41:55.623Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 541,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 308,
+      "utc": "2026-11-14T11:42:00.619Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 546,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 309,
+      "utc": "2026-11-14T11:42:05.627Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 551,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 310,
+      "utc": "2026-11-14T11:42:10.615Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 556,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    },
+    {
+      "session": 1,
+      "seq": 311,
+      "utc": "2026-11-14T11:42:15.624Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 561,
+      "runnerTrackerCount": 0,
+      "hunters": [
+        {
+          "memberIndex": 0,
+          "yaw": -90,
+          "location": {
+            "x": -27.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 0,
+          "observedStacks": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        },
+        {
+          "memberIndex": 2,
+          "yaw": -90,
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "distanceXZ": 5,
+          "expectedFrame": 16,
+          "observedStacks": [
+            {
+              "slot": 1,
+              "id": "mh:tracker_16",
+              "amount": 1
+            }
+          ],
+          "trackerCount": 1,
+          "delivered": true,
+          "allObservedStacksMatch": true
+        }
+      ]
+    }
+  ],
+  "inventoryFrameConclusion": {
+    "everySnapshotHasExpectedDistinctHunterFrames": true,
+    "everySnapshotHasOneTrackerPerHunterAndNoneForRunner": true,
+    "scope": "Per-player inventory item IDs independently reflect their own relative target bearing in this controlled placement."
+  },
+  "visualEvidence": {
+    "hostUi": {
+      "source": "Parent direct UI observation",
+      "reported": "Runner arrow forward at 5 m and team arrow forward at 10 m."
+    },
+    "phoneUi": {
+      "status": "USER_CONFIRMATION_PENDING",
+      "result": null
+    },
+    "visualRenderingProvenByProbe": false,
+    "clarification": "Inventory item frames do not independently prove the texture or pointer rendered correctly on either screen."
+  },
+  "separateCraftingLimit": {
+    "sameTickDistinctHunterDropGroups": 0,
+    "copperDropSeparation": {
+      "ticks": 627,
+      "seconds": 31.349
+    },
+    "interpretation": "The two recorded copper drops were sequential, not same-tick; independent tracker evidence does not change that conclusion."
+  },
+  "limitations": [
+    "This checks one same-dimension placement with equal hunter yaw. It does not cover cross-dimension route targeting or all orientations.",
+    "Rows in which a hunter shares the runner X/Z are excluded from directional validation.",
+    "The game and memory sampler are still running; no capture closure or overall E2E pass is claimed."
+  ]
+}

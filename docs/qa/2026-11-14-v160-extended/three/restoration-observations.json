@@ -1,0 +1,115 @@
+{
+  "schema": "MHQA_THREE_RESTORATION_OBSERVATIONS_1",
+  "generatedAtUtc": "2026-11-14T12:47:18.911Z",
+  "evidenceOrigin": "ACTUAL_LOG_OBSERVATION",
+  "captureClosureReported": true,
+  "status": "CLOSED_CAPTURE_OBSERVED_CONFIG_SUBSET_RESTORED",
+  "sourceSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+  "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+  "expectedObservedDefaults": {
+    "revealMinutes": 20,
+    "autoMinutes": 40,
+    "autoGive": true,
+    "autoPause": true,
+    "trackerMode": "random",
+    "wildBase": 2,
+    "wildMax": 3,
+    "summonDistance": 350,
+    "summonCooldownSeconds": 300,
+    "summonMaxUses": 2
+  },
+  "defaultsReference": "The listed numeric/boolean fields were read from v1.6.0 BP/scripts/core.js DEFAULT_CONFIG and FEATURE_DEFAULTS; probe names map trackerRevealMinutes/AutoMinutes/AutoGive and wildRespawnBase/Max to shorter fields.",
+  "restorationBracket": {
+    "before": {
+      "session": 2,
+      "seq": 357,
+      "utc": "2026-11-14T12:37:10.719Z",
+      "round": 2,
+      "phase": "ended",
+      "matchSeconds": 1304,
+      "players": 3,
+      "config": {
+        "revealMinutes": 20,
+        "autoMinutes": 40,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3,
+        "summonDistance": 350,
+        "summonCooldownSeconds": 30,
+        "summonMaxUses": 2
+      },
+      "result": "러너 승리",
+      "winCounts": [
+        1,
+        1,
+        1
+      ]
+    },
+    "after": {
+      "session": 2,
+      "seq": 358,
+      "utc": "2026-11-14T12:37:15.728Z",
+      "round": 2,
+      "phase": "ended",
+      "matchSeconds": 1304,
+      "players": 3,
+      "config": {
+        "revealMinutes": 20,
+        "autoMinutes": 40,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3,
+        "summonDistance": 350,
+        "summonCooldownSeconds": 300,
+        "summonMaxUses": 2
+      },
+      "result": "러너 승리",
+      "winCounts": [
+        1,
+        1,
+        1
+      ]
+    },
+    "consecutiveSamples": true,
+    "wallClockBracketSeconds": 5.009,
+    "preciseEventInstantKnown": false
+  },
+  "laterSamples": 98,
+  "lastObserved": {
+    "session": 2,
+    "seq": 455,
+    "utc": "2026-11-14T12:45:20.735Z",
+    "round": 2,
+    "phase": "ended",
+    "matchSeconds": 1304,
+    "players": 3,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3,
+      "summonDistance": 350,
+      "summonCooldownSeconds": 300,
+      "summonMaxUses": 2
+    },
+    "result": "러너 승리",
+    "winCounts": [
+      1,
+      1,
+      1
+    ]
+  },
+  "allLaterObservedConfigSubsetsMatch": true,
+  "limits": [
+    "Only the configuration fields emitted by the probe are compared. This is not proof of restoring every feature flag, world setting, game mode, effect, inventory, block, or temporary ticking area.",
+    "Save-and-quit and cleanup actions require separate operator evidence. No world closure is inferred solely from a stopped log stream.",
+    "The experiment used a separate QA world copy. No preservation claim about unrelated worlds is derived from these numeric samples."
+  ]
+}

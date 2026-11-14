@@ -10,7 +10,9 @@
 - [x] 호스트 TPS·약 3분 메모리/CPU 측정 및 6.322 TPS 전환 구간 함께 기록
 - 최종 커밋 CI와 게시 후 GitHub 자산 해시는 PR 및 Issue #3에 별도 기록합니다.
 - [ ] 실제 3~4인 및 8인 멀티플레이 필수 항목
+- 실제3인 두 라운드의 투척·제작·재접속·승패 등 부분 확인과 남은 복합 항목은 [THREE 기록](qa/2026-11-14-v160-extended/three/README.md)에 구분합니다. 전체 항목이나8인 시험을 완료 처리하지 않습니다.
 - [ ] 실제 장시간 FPS/TPS·메모리·가능한 네트워크 측정
+- [LONG 기본20/40분 실측](qa/2026-11-14-v160-extended/long/README.md)과 THREE의 TPS·호스트 메모리를 별도로 기록하며 FPS·게임 네트워크 미측정을 유지합니다.
 - [x] Stable 미승격, Pre-release 중간 업데이트로 구분
 
 [최신 QA](QA_REPORT.md) · [v1.5.1 점검 원문](history/RELEASE_CHECKLIST_v1.5.1.md) · [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)

@@ -1,0 +1,366 @@
+
+> manhunt-night@1.6.0 test
+> node --test tests/*.test.js
+
+✔ match sizes and roles are enforced (1.6111ms)
+✔ compass faces the correct direction for all eight bearings and player rotation (0.4278ms)
+✔ cross-dimension tracking uses departures without mixing coordinate scales (1.1304ms)
+✔ runner death wins simultaneous-event tie; dragon requires a surviving runner (0.2238ms)
+✔ new states are independent and default rules are stable (0.5649ms)
+✔ tracker unlock is exactly fifteen active minutes (0.1587ms)
+✔ hunter teammate readout directional, offline and cross-dimensional without runner leak (0.4167ms)
+✔ 10000 square and 1:8 Nether bounds include negative edge and exclude positive edge (1.6244ms)
+✔ 40-minute hint goes only to runner, once, with no early reveal (1.2415ms)
+✔ fortress arrival suppresses timeout; hunter-first still grants its own immediate hint (1.0299ms)
+✔ runner-first Nether entry suppresses hunter-first hint and repeated arrivals do not spam (0.2439ms)
+✔ End grants precisely 32 eyes once, ignores hunters, survives saved-state reload (1.1265ms)
+✔ full inventory places End reward on ground once (0.4044ms)
+✔ only runner activates receiver; all same-dimension hunters get camera with cooldown and automatic restore (1.0744ms)
+✔ receiver never moves cross-dimension hunter camera, and pause/damage reset camera (0.3635ms)
+✔ border rollback preserves safe dimension; unknown portal arrival returns to start (0.2283ms)
+✔ round reset clears cooldown and rewards without altering wins (0.4278ms)
+✔ receiver beam works near upper world height (0.3532ms)
+✔ v1.4 optional borders, hint, End reward can be disabled independently (0.2723ms)
+✔ v1.4 receiver OFF blocks activation and does not create camera or signal (0.2221ms)
+✔ v1.4 receiver camera OFF still notifies hunters but never changes camera (0.394ms)
+✔ v1.4 signal beam OFF does not spawn beam particles (0.304ms)
+✔ border checks run every ten ticks from every initial callback phase, without repeated same-tick work (1.3274ms)
+✔ signal beams run every ten ticks from every initial callback phase and stop at expiry (2.318ms)
+✔ border and beam deadlines are independent, and delayed callbacks do not emit catch-up bursts (0.2751ms)
+✔ disabled border work is skipped and reenabling starts a fresh deadline; disabled active beam stays stopped (0.2413ms)
+✔ pause and round reset clear signal and restart border deadlines immediately (0.239ms)
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon cancelled: Error: teleport rejected: Hunter3
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] summon rollback: Error: teleport rejected: Hunter2
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=paused
+[Manhunt 1.6.0] LOADED phase=lobby
+[Manhunt 1.6.0] LOADED phase=lobby
+✔ countdown waits 100 active ticks for every second-loop start phase and preserves pause/reload remainder (129.2584ms)
+✔ full 3-player flow: permissions, countdown, grace, tracking, damage, reconnect, victory, reset (45.2818ms)
+✔ same-tick player kill outranks dragon event and awards no runner win (6.2982ms)
+✔ dragon death awards the surviving runner even across dimensions, then blocks a reused-dragon world (5.7435ms)
+✔ save/reload pauses an active round and restores its roster and clock (6.1236ms)
+✔ runner has 40 HP, grace V/I/I, clean transition to passive I without automatic healing (5.4132ms)
+✔ exactly three environmental respawns refill both rows, fourth death ends match (4.5149ms)
+✔ player melee and player-owned projectile are immediately fatal (6.9761ms)
+✔ respawn during grace restores grace effects without restarting countdown (4.2197ms)
+✔ save/reload preserves respawns and pending respawn completion (4.5891ms)
+✔ environmental death plus dragon waits for completed respawn before winning (6.0278ms)
+✔ inventory toggle persists, applies to game rule and survives active/reload transitions (6.8476ms)
+✔ integrated proximity warning is private, includes exact outer threshold, excludes invalid hunters and suppresses repeat presence (4.8232ms)
+✔ zero grace never adds grace effects; reconnect preserves damage; role change removes owned effects (3.1091ms)
+✔ v1.2.1 menu is unlocked, may be discarded, stays gone, and /mh:item reissues at most one (3.0351ms)
+✔ v1.2.1 legacy locked menus are migrated, duplicate copies removed, other items untouched (2.5113ms)
+✔ v1.2.1 manual menu command protects a full inventory without ejecting valuables (2.1034ms)
+✔ v1.3.0 no free compass: 14:59 locked; 15:00 enables held crafted vanilla compass only (49.0914ms)
+✔ v1.3.0 pause/reload freezes unlock and does not grant or convert compasses early (40.4454ms)
+✔ v1.3.0 pre-game countdown excluded and compass cannot convert during countdown (31.5011ms)
+✔ v1.3.0 hunter teammates are visible without compass before unlock, runner not shown (3.4077ms)
+✔ v1.3.0 a full stack of compasses converts one only and preserves the rest (43.3037ms)
+✔ v1.3.0 full inventory does not destroy remainder of stacked compasses (45.8242ms)
+✔ v1.3.0 unlock does not grant trackers from diagnostics even after 15 minutes (42.6119ms)
+✔ v1.2.2 diagnostics cannot grant a tracker before unlock in an active round (3.2986ms)
+✔ starting the game removes menu items from every participant, while keeping configured starter food (3.2301ms)
+✔ all players can toggle first minute starter bread; no extra food from repeated commands (3.5663ms)
+✔ kitoff allowed through 00:59 and blocked at 01:00, kiton can recover withheld items after minute (5.7926ms)
+✔ kit bank survives pause and reload, and cannot be used to mint consumed or foreign food (8.7502ms)
+✔ when kiton cannot fit an inventory, food remains banked and can be restored once space is freed (3.3002ms)
+✔ menu hidden in offhand as well; offhand starter bread is banked, not deleted (2.6553ms)
+✔ a spectator cannot alter starting inventory of the current roster (2.6951ms)
+✔ v1.4 five setting sections persist values without deleting unrelated settings (5.2807ms)
+✔ v1.4 disabled tracker, teammate HUD and notices do not expose tracking or send messages (2.8872ms)
+✔ v1.4 delay toggle OFF allows immediate conversion of user-owned compass without free items (3.5052ms)
+✔ v1.4 compass requirement OFF shows hands-free tracking, never grants a compass (3.0028ms)
+✔ v1.4 runner buffs OFF removes owned effects, avoids near-hunter warning and wild respawn (3.2559ms)
+✔ v1.4 start-kit control OFF rejects player command and keeps starter food (2.8772ms)
+✔ v1.4 auto-pause OFF continues when someone leaves (3.124ms)
+✔ v1.4 lobby menu automatic delivery can be turned OFF, manual command still available (2.1316ms)
+✔ v1.4 settings reject invalid payloads and do not rewrite valid saved configuration (2.59ms)
+✔ v1.4 configurable runner grace: disabled effects do not interfere with countdown protection (2.6983ms)
+✔ v1.5 fresh defaults lock random crafting through 19:59, count grace, and exclude countdown/pause (4.7421ms)
+✔ v1.5 attributed hunter drop events complete one team recipe, issue once, and prevent loss/respawn regrant (4.6856ms)
+✔ v1.5 ordinary, runner and repeated drop events cannot advance crafting (3.1162ms)
+✔ v1.5 auto-grant at exactly 40 minutes waits for space and absent hunters then delivers only once (3.6989ms)
+✔ v1.5 tracker OFF and random crafting OFF cannot be bypassed by old compass conversion or auto-grant (5.9595ms)
+✔ v1.5 team recipe and partial credit survive restart; crafting session requires reactivation (5.7479ms)
+✔ v1.5 fresh runner gets two environmental respawns, then loses on third environmental death (3.1056ms)
+✔ v1.5 registered revive callbacks share state and add only one capped opportunity (3.6263ms)
+✔ v1.5 nonparticipant or self-attributed fatal damage does not count as a hunter kill (5.383ms)
+✔ v1.5 friendly-fire guard resolves projectile owners and cached departed hunters without native-name exceptions (3.2591ms)
+✔ v1.5 end-of-round stops crafting timer and creates no delayed free tracker (3.7919ms)
+✔ v1.5 detailed settings retain the five existing categories and persist all new groups (6.7912ms)
+✔ v1.5 detailed settings reject inverted distances, life caps and timers without partial mutation (13.107ms)
+✔ v1.5 summon component teleports same-dimension hunter, informs remote hunter and consumes once (5.9916ms)
+✔ v1.5 summon guards exact 350 range, runner, disabled acquisition and unsafe terrain without item loss (14.4832ms)
+✔ v1.5 partial summon failure journals a failed rollback, preserves scroll and resumes when recovery succeeds (4.1203ms)
+✔ v1.5 recovery menu is visible only to the host and direct non-host entry cannot alter the transaction (3.709ms)
+✔ v1.5 host recovery requires confirmation, keeps safe current positions and preserves the sole scroll (4.8038ms)
+✔ v1.5 recovery confirmation rechecks active phase, ground safety and administrator role (13.0853ms)
+✔ v1.5 explicit recovery menu retry bypasses automatic backoff without losing transaction or scroll (6.7017ms)
+✔ v1.5 owned compass frames respond to each hunter rotation and keep the other dimension last location (3.773ms)
+✔ v1.5 persisted outcome resolves hunter, exhausted-life and dragon results after reload before queued callback (14.9708ms)
+✔ v1.5 saved simultaneous fatal hit and dragon event preserve hunter precedence across restart (10.3175ms)
+✔ v1.5 saved dragon outcome waits for pending wild respawn after restart (5.4996ms)
+✔ v1.5 reset invalidates queued outcome and old-round journals cannot award a later round (5.1017ms)
+✔ v1.6 two-player official matches award the correct win for hunter melee, projectile, and runner dragon victory (11.2124ms)
+✔ v1.6 solo remains explicit practice and never changes official wins (2.9861ms)
+✔ v1.6 two-player leave, rejoin, and world reload preserve official roster, clock, crafting progress, and wins (6.2817ms)
+✔ v1.6 nine-player start rejection preserves inventory, equipment, positions, and saved match state (2.9513ms)
+✔ v1.6 eight-player match grants all seven hunters once and keeps their compass frames independent (8.9327ms)
+✔ v1.5 nearest hunter crosses the four inclusive 3D boundaries privately (2.4169ms)
+✔ v1.5 jump into nearest danger produces only the most urgent warning (0.4352ms)
+✔ v1.5 dead, nonroster and different-dimension hunters are excluded (0.2368ms)
+✔ v1.5 hysteresis avoids jitter at boundary and cooldown is separate from band state (1.0808ms)
+✔ v1.5 each band has its own cooldown; outward movement is silent (0.2113ms)
+✔ v1.5 warning OFF skips player lookup; sound can be independently disabled (0.1963ms)
+✔ v1.5 paused warning does not calculate positions or repeat unchanged alert on resume (0.1715ms)
+✔ v1.5 custom warning distances are honored and malformed settings fall back (0.8526ms)
+✔ v1.5 wild budget starts at two; bonus and spent respawns share one persisted state (0.2974ms)
+✔ v1.5 lethal player attribution accepts only roster hunters including projectiles (0.4396ms)
+✔ v1.5 departed attacker with unavailable native name uses cached identity without granting outsiders a hunter kill (0.3277ms)
+✔ v1.5 revive consumes exactly one held item and grants one persistent bonus (0.6726ms)
+✔ v1.5 consuming earned respawns does not reopen total budget item cap (0.2546ms)
+✔ v1.5 revive denies hunter, outsider, inactive, dying and dead users without consuming (0.2002ms)
+✔ v1.5 revive OFF or wild respawns OFF cannot consume item (0.1937ms)
+✔ v1.5 revive duplicate callbacks cannot consume second item under a larger configured cap (0.3251ms)
+✔ v1.5 revive persistence failure restores exact selected item and previous budget (0.5553ms)
+✔ v1.5 revive inventory failure leaves bonus unchanged and reports the failure (0.2549ms)
+✔ v1.5 revive validates current slot instead of trusting a stale event ItemStack (0.2026ms)
+✔ v1.5 each revive persistence phase can fail without losing item or granting bonus (1.1032ms)
+✔ v1.5 failed debit persistence plus failed refund keeps an unresolved durable journal and blocks reuse/reset (0.9748ms)
+✔ v1.5 a surviving unique receipt safely rolls back interrupted debit after restart and preserves metadata (0.4127ms)
+✔ v1.5 prepared or confirmed-refunded journals clear without manufacturing absent items (0.3279ms)
+✔ v1.5 a committed revive journal applies the same bonus once and consumes any surviving receipt once (0.359ms)
+✔ v1.5 unresolved revive keeps its journal while runner is offline/dead and resumes when receipt is available (0.2092ms)
+✔ v1.5 malformed, duplicate and unknown revive receipts remain blocked without deleting possessions (0.3536ms)
+✔ v1.5 recovery persistence failure retains its journal until completion can be saved (0.1944ms)
+✔ v1.5 only an administrator can explicitly resolve an uncertain revive while the round is stopped (0.3919ms)
+✔ v1.5 administrator cancellation preserves any surviving receipt without auto-refunding missing items (0.28ms)
+✔ v1.5 manual consumed confirmation rejects surviving, transferred or duplicate receipt items (0.3154ms)
+✔ v1.5 failed manual revive save retains uncertain state and can be retried without duplicate credit (0.1845ms)
+✔ summon moves every same-dimension hunter to separate safe spots, consumes once and records team limits (4.8778ms)
+✔ summon is restricted to living roster hunters during running phase and can be disabled without block reads (0.8637ms)
+✔ same-dimension 350 blocks inclusive is blocked, including vertical distance; greater than 350 is allowed (0.7023ms)
+✔ a runner in another dimension does not constrain summon range (0.4145ms)
+✔ other-dimensional hunters receive information only; dead hunters are not teleported (0.5736ms)
+✔ no same-dimension target cancels without consumption while informing other-dimension teammates (0.2123ms)
+✔ missing runner fails closed instead of teleporting toward stale information (0.1998ms)
+✔ unsafe floor, cramped space, unrecognized blocks, lava adjacency and unloaded chunks are rejected (4.7171ms)
+✔ cliff edge support, world boundary and occupied locations fail safety checks (0.3964ms)
+✔ all destinations are checked before moving anyone; enough safe locations required (5.3544ms)
+✔ partial teleport failure rolls everyone back and preserves original named item (0.8813ms)
+✔ runner moving inside forbidden radius immediately before or during teleport cancels and rolls back (0.4916ms)
+✔ transaction save failure before movement preserves item and allows a later clean retry (0.5095ms)
+✔ final save failure refunds exact item, rolls players back and reverts counters (0.3289ms)
+✔ rollback failure creates durable pending recovery, blocks new use, and recovers on join (0.552ms)
+✔ replay of committed journal consumes a uniquely marked scroll at most once (0.2364ms)
+✔ team-wide cooldown and per-round uses survive state reload and do not depend on inventory space (0.3691ms)
+✔ sound option prevents sound calls; new round reset clears team counters (0.2582ms)
+✔ ambiguous refund recovery and orphan item receipts remain blocked without overwriting items (0.159ms)
+✔ uncommitted journal preserves absent player recovery across reconnect and prevents round reset (0.1835ms)
+✔ unloaded rollback can be resolved by an administrator accepting verified current positions without teleporting or minting items (1.2541ms)
+✔ manual resolution rejects non-admin, stale confirmation, active play and already committed transactions (0.2571ms)
+✔ manual resolution requires all known participants alive, online, inside bounds and on separate safe current ground (0.8291ms)
+✔ ambiguous refund manual resolution creates no replacement and does not overwrite a full inventory (0.3288ms)
+✔ manual resolution save failures preserve retryable journal and replay never teleports or grants a duplicate refund (0.5269ms)
+✔ automatic recovery backs off failed moves while explicit retry and join can attempt immediately (0.2756ms)
+✔ committed recovery retains its journal if the final save fails and never consumes an unrelated replacement scroll (0.2573ms)
+✔ rolled-back recovery retains its journal after save failure and retries without moving the player twice (0.2311ms)
+✔ destination range is rechecked independently when runner approaches a planned landing point after the first move (0.322ms)
+✔ a target changing dimension or newly unsafe terrain after planning cancels all moves without consuming the scroll (0.4601ms)
+✔ v1.6 one hunter cannot summon and keeps the scroll, team quota, and cooldown untouched (0.232ms)
+✔ v1.6 eight-player summon safely places six teammates and charges the caller only once (0.5498ms)
+✔ v1.6 insufficient safe room for six teammates cancels the entire summon without partial movement (1.0523ms)
+✔ 27 distinct Overworld candidates comprise 21 common and six difficult resources (1.7182ms)
+✔ each of 1000 recipes is nine unique resources, seven common and exactly two difficult (14.076ms)
+✔ quantities are configurable and recipes are independent frozen selections (1.4335ms)
+✔ recipe times reject invalid and inverted input without introducing early automatic grant (0.6546ms)
+✔ recipe remains secret before 20 minutes and is never shown to runner or visitor (1.1192ms)
+✔ 20 minute notification goes only to hunters and once per hunter (0.5391ms)
+✔ normal drops outside explicit crafting mode remain untouched (0.6962ms)
+✔ other hunter without crafting mode, runner and visitor drops cannot contribute (0.2975ms)
+✔ wrong order and oversized stacks are preserved rather than consumed or split (0.3035ms)
+✔ split stacks can be contributed by different hunters and advance one shared step once (0.5736ms)
+✔ same material dropped simultaneously by second hunter is not applied to the next stage (0.3539ms)
+✔ duplicate event and entity ids cannot consume or advance twice (0.2276ms)
+✔ native event items with indexed access and map but no iterator are processed safely (0.3061ms)
+✔ items already on the floor and expired spawn observations are not consumed (0.2585ms)
+✔ merged or split entity amount after birth is rejected without touching it (0.171ms)
+✔ named or lore-bearing items are never destroyed as ordinary recipe materials (1.0095ms)
+✔ death drops cannot contribute even before entityDie sets dead-player membership (0.1834ms)
+✔ team completing all nine steps grants precisely one tracker per hunter and none to runner (0.9002ms)
+✔ 40 minute fallback is exclusive with crafted completion and stops further consumption (0.516ms)
+✔ disabled fallback never auto grants and tracking OFF prevents all grants (0.2011ms)
+✔ random crafting OFF skips recipes, drops, announcements, automatic grants and readiness (0.1408ms)
+✔ paused/countdown/ended phases do not unlock, consume, notify or auto grant (0.3327ms)
+✔ offline hunter is granted once on rejoin after team completion (0.3018ms)
+✔ full inventory queues payout without overwriting or dropping possessions (0.3491ms)
+✔ losing tracker or dying after payout never grants a duplicate by default (0.2456ms)
+✔ rejoin and restart preserve recipe/progress while crafting mode is disarmed (0.4265ms)
+✔ completed payout survives restart without duplicate grants (0.2838ms)
+✔ save failure before removing material cancels transaction without deletion (0.2436ms)
+✔ uncertain entity removal preserves journal and blocks crafting and automatic grants (0.2823ms)
+✔ restart with unfinished consumption never assumes absent item means consumed (0.2415ms)
+✔ only administrator can explicitly resolve an uncertain material transaction once (0.3164ms)
+✔ failed item grant freezes payout rather than retrying an ambiguous delivery (0.2633ms)
+✔ progress and notices switches suppress optional messages while manual recipe remains available (0.2573ms)
+✔ clear sessions and new round reset remove old modes, entitlement and completed recipe (0.3779ms)
+✔ multiple indexed native drops fill one shared material step and ignore a repeated entity without iteration support (0.3417ms)
+✔ last material consumed before a failed save remains blocked across reload until explicitly confirmed and pays once (0.7258ms)
+✔ a successful tracker insertion with failed final save is not repeated after restart or automatic payout tick (1.2495ms)
+✔ partial material quantity and frozen recipe survive restart and another hunter completes the exact remainder (0.3951ms)
+✔ craft completion and the 40 minute payout are exclusive for both event orders at the same boundary (0.9539ms)
+✔ native metadata lists without iterators still protect property-bearing and enchanted dropped items (0.2492ms)
+✔ south-facing hunter sees west on the right and east on the left in HUD and actual PNG (3.7913ms)
+✔ all eight explicit world bearings map to screen-relative arrows and sprite quadrants (4.9988ms)
+✔ clockwise Bedrock yaw turns keep independent world-axis targets on the correct screen side (0.3691ms)
+✔ 32 quantized orientations are selected, including half-frame and wrap boundaries (3.7266ms)
+✔ all tracker sprites preserve every original Mojang RGBA pixel with the correct source-cell mapping (16.0893ms)
+✔ native 32-cell artwork preserves its 28 distinct images and original duplicate cells (8.9228ms)
+✔ third-party compass source hashes and license notices accompany the extracted sprites (1.908ms)
+✔ inventory-change cache updates only known tracker slots without a full scan every tick (0.9056ms)
+✔ two owners retain independent frame state and unchanged angles do not rewrite stacks (0.3524ms)
+ℹ tests 212
+ℹ suites 0
+ℹ pass 212
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 916.804

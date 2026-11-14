@@ -1,0 +1,55 @@
+{
+  "schema": "MHQA_THREE_ROUND2_END_OPERATOR_OBSERVATIONS_1",
+  "status": "COMMAND_TRIGGERED_RUNNER_VICTORY_REPORTED_CAPTURE_CLOSED",
+  "captureClosureReported": true,
+  "selection": {"session": 2, "round": 2},
+  "evidenceOrigin": "DIRECT_UI_OBSERVATIONS_RELAYED_BY_PARENT_OPERATOR",
+  "observations": [
+    {
+      "event": "host_hunter_death_and_return",
+      "observation": "After the operator moved the host hunter to the End near 0.5,100,0.5, the parent directly saw a dragon-magic death notice. The host returned to the overworld, later re-entered the End, and recovered a dropped tracker.",
+      "imageBasename": "host-dragon-death-respawn-fixture.jpg",
+      "imagePublication": "LOCAL_ONLY_ORIGINAL_CONTAINS_IDENTIFIERS",
+      "limits": "The later re-entry may have involved user input. Inventory count returning to one does not establish automatic tracker re-grant; the operator observed recovery of a dropped item. The raw probe records state and drop events, not the complete causal input sequence."
+    },
+    {
+      "event": "command_assisted_combat_fixture",
+      "observation": "The operator applied resistance to all connected players, gave the runner a diamond sword, applied strength to the runner, and moved the runner to the End before requesting a direct sword hit on the dragon head.",
+      "temporaryAssists": [
+        {"effect": "resistance", "durationSecondsRequested": 600, "amplifierRequested": 4, "targets": "all_connected_players", "approximateDisplayedMatchClock": "16:07"},
+        {"item": "minecraft:diamond_sword", "amountRequested": 1, "target": "runner", "approximateDisplayedMatchClock": "17:41"},
+        {"effect": "strength", "durationSecondsRequested": 300, "amplifierRequested": 49, "target": "runner", "approximateDisplayedMatchClock": "18:09"},
+        {"action": "move_to_end_by_operator_command", "requestedPosition": {"x": 5, "y": 100, "z": 5}, "target": "runner", "approximateDisplayedMatchClock": "19:25"}
+      ],
+      "reportedUnsubmittedInput": "An initial bow command was being entered when the command UI closed; the parent reports it was not submitted.",
+      "dragonKillCommandReportedUsedDuringPreparation": false,
+      "naturalUnassistedCombatTest": false,
+      "resultAtPreparation": "At preparation time the requested direct sword hit was not a completed dragon kill or runner victory."
+    },
+    {
+      "event": "later_command_triggered_dragon_death",
+      "observation": "The user reported difficulty with direct combat and explicitly asked the operator to perform the kill. The operator then submitted /kill @e[type=minecraft:ender_dragon] in the End and directly observed the runner victory notice with match time 21:44 while the runner remained alive.",
+      "commandSubmitted": "/kill @e[type=minecraft:ender_dragon]",
+      "imageBasename": "dragon-command-runner-victory.jpg",
+      "imagePublication": "LOCAL_ONLY_ORIGINAL_CONTAINS_IDENTIFIERS",
+      "resultScope": "Actual command-triggered dragon death event followed by runner victory; direct sword-combat dragon kill remains unverified.",
+      "sourceOfCommandExecutionAndNotice": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+      "rawEvidenceFile": "round2-dragon-command-victory-observations.json"
+    }
+  ],
+  "preVictoryRawCrossReference": {
+    "sourceSnapshot": "analysis-2026-11-14T12-30-04-227Z",
+    "runnerEndEntry": {
+      "before": {"session": 2, "seq": 266, "utc": "2026-11-14T12:29:35.732Z", "matchSeconds": 1159, "dimension": "minecraft:overworld"},
+      "after": {"session": 2, "seq": 267, "utc": "2026-11-14T12:29:40.726Z", "matchSeconds": 1164, "dimension": "minecraft:the_end", "location": {"x": 5.5, "y": 100, "z": 5.5}},
+      "wallClockBracketSeconds": 4.994,
+      "preciseEventInstantKnown": false
+    },
+    "latestAtPreparationSnapshot": {"session": 2, "seq": 271, "utc": "2026-11-14T12:30:00.732Z", "phase": "running", "matchSeconds": 1184, "winCounts": [1, 1], "runnerRespawns": 0}
+  },
+  "limits": [
+    "The trial uses a QA world copy, supplied equipment, amplified effects, and command-based dimension placement. It is not a complete survival progression or ordinary difficulty combat E2E test.",
+    "The probe does not record dragon health, dragon attacker identity, command inputs, effect receipt, or weapon hits. The result keeps UI/user evidence and periodic numeric observations separate.",
+    "The image is referenced by basename only and is not approved for public publication."
+  ]
+}

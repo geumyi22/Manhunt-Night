@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "recordedAtUtc": "2026-11-14T12:03:07.847Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "rawObservationSource": {
+    "analysisSnapshot": "analysis-2026-11-14T12-01-12-356Z",
+    "sourceLogSha256": "d4fff96c17eda0519c9aa1d43be85ae657426135d71ed0f0ce64e11211ccbeca",
+    "stateRows": 537,
+    "dropRows": 12,
+    "invalidRows": [
+      {
+        "sourceLine": 19623,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "rawSummonStateTransitions": [
+    {
+      "before": {
+        "session": 1,
+        "seq": 429,
+        "utc": "2026-11-14T11:52:05.618Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1151,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 430,
+        "utc": "2026-11-14T11:52:10.626Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1156,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.008,
+      "preciseEventInstantKnown": false,
+      "beforeSummon": {
+        "uses": 0,
+        "readyAt": 0,
+        "serial": 0,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "afterSummon": {
+        "uses": 1,
+        "readyAt": 1181,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "observedUsesIncrease": true,
+      "configurationBefore": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "configurationAfter": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "geometryBefore": [
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 5
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 337.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 360
+        }
+      ],
+      "geometryAfter": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 335.5,
+            "y": 305,
+            "z": 34.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 358.0055865485901
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 337.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 360
+        }
+      ],
+      "initiatingItemUseCaptured": false,
+      "scrollInventoryDebitCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 443,
+        "utc": "2026-11-14T11:53:15.615Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1221,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 444,
+        "utc": "2026-11-14T11:53:20.624Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1226,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.009,
+      "preciseEventInstantKnown": false,
+      "beforeSummon": {
+        "uses": 1,
+        "readyAt": 1181,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "afterSummon": {
+        "uses": 2,
+        "readyAt": 1253,
+        "serial": 2,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "observedUsesIncrease": true,
+      "configurationBefore": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "configurationAfter": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "geometryBefore": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 335.5,
+            "y": 305,
+            "z": 34.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 358.0055865485901
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 337.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 360
+        }
+      ],
+      "geometryAfter": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 333.5,
+            "y": 305,
+            "z": 32.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 356.02247120090607
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 335.5,
+            "y": 305,
+            "z": 34.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 358.0055865485901
+        }
+      ],
+      "initiatingItemUseCaptured": false,
+      "scrollInventoryDebitCaptured": false
+    }
+  ],
+  "screenshotReview": {
+    "source": "Read-only review of local screenshots captured by the parent operator; no game UI action by this analysis",
+    "observations": [
+      {
+        "file": "summon-exact-350-rejected.jpg",
+        "observed": "UI rejection says caller must be farther than350 blocks; a summon-scroll icon remains held.",
+        "sha256": "d7d7929c29f41abe5a776efc611304b425c36538c2485f10458487c49262eb83",
+        "privacy": "Local-only original with account identifiers; do not publish image."
+      },
+      {
+        "file": "summon-first-success.jpg",
+        "observed": "UI says one hunter summoned, team use1/2, cooldown30seconds; selected slot is empty and other hunter is nearby.",
+        "sha256": "6a28524502e3854dc9a24f2755b9680077f02da2f4109f71bde954dcb5fb8f75",
+        "privacy": "Local-only original with account identifiers; do not publish image."
+      },
+      {
+        "file": "summon-second-moved-host.jpg",
+        "observed": "Chat reports host moved by the other hunter summon; coordinate display is333.50,305.00,32.50.",
+        "sha256": "5c9513b7c37fc9c372a291ad9b5ecec2092663b855313a6b9e7ef3e41f7b8557",
+        "privacy": "Local-only original with account identifiers; do not publish image."
+      },
+      {
+        "file": "summon-max-two-rejected.jpg",
+        "observed": "UI rejects use because team summon count is exhausted; a summon-scroll icon remains held.",
+        "sha256": "a0836a44f35a0d0ec965aad60cbd75f164157cb700ed89627739e4aba0d4fa5a",
+        "privacy": "Local-only original with account identifiers; do not publish image."
+      }
+    ]
+  },
+  "distinction": {
+    "periodicProbeCapturesUseCountersAndPositions": true,
+    "periodicProbeCapturesScrollInventory": false,
+    "exactActivationInstantsKnown": false,
+    "cooldown30SecondsConfiguredAndShown": true,
+    "earlyCooldownRejectionIndependentlyReviewed": false,
+    "transactionRollbackFailurePathTested": false,
+    "earlyCooldownRejectionUserReported": true
+  },
+  "limitations": [
+    "The screenshot-based UI messages and the periodic state data are different evidence sources.",
+    "An item icon remaining after rejection is not a complete before/after inventory audit.",
+    "The periodic movement/counter transition is bracketed by roughly five-second observations.",
+    "Cross-dimension summon rejection, recovery failure paths and all boundary geometries are not proven by these cases."
+  ],
+  "updatedAtUtc": "2026-11-14T12:05:28.708Z",
+  "userReports": [
+    {
+      "case": "Team summon cooldown after first use",
+      "source": "Parent relayed direct user answer",
+      "response": "나옴 성공함",
+      "context": "User was asked whether the phone showed the team reuse waiting message and whether movement succeeded.",
+      "classification": "USER_REPORTED_COOLDOWN_REJECTION_AND_MOVEMENT_SUCCESS",
+      "directUiCooldownRejectionCaptured": false,
+      "exactCooldownDurationMeasured": false
+    },
+    {
+      "case": "Maximum two uses and scroll preservation",
+      "source": "Parent relayed direct user answer",
+      "response": "성공",
+      "classification": "USER_REPORTED_MAX_USE_REJECTION_AND_SCROLL_PRESERVATION",
+      "independentScreenshotEvidence": "summon-max-two-rejected.jpg"
+    }
+  ]
+}

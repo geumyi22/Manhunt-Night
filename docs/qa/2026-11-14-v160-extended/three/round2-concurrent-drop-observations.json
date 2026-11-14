@@ -1,0 +1,680 @@
+{
+  "schema": "MHQA_THREE_ROUND2_RETRY_OBSERVATIONS_1",
+  "generatedAtUtc": "2026-11-14T12:47:18.738Z",
+  "status": "ROUND2_ENDED_CAPTURE_CLOSED",
+  "captureClosureReported": true,
+  "sourceSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+  "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+  "evidenceOrigin": "ACTUAL_LOG_OBSERVATION_WITH_SEPARATELY_LABELLED_OPERATOR_AND_USER_REPORTS",
+  "selection": {
+    "session": 2,
+    "round": 2,
+    "stateRows": 422,
+    "hunterDropEvents": 5
+  },
+  "identityScope": "memberIndex is anonymous and must not be mapped to the same person across different rounds without separate evidence.",
+  "requestedPairs": [
+    {
+      "itemId": "minecraft:redstone",
+      "pairStatus": "TWO_ACTUAL_HUNTER_EVENTS",
+      "events": [
+        {
+          "evidenceOrigin": "ACTUAL_LOG_OBSERVATION",
+          "session": 2,
+          "sourceLine": 24153,
+          "schema": "MHQA_THREE_DROP_1",
+          "seq": 2,
+          "utc": "2026-11-14T12:15:51.022Z",
+          "round": 2,
+          "phase": "running",
+          "matchSeconds": 334,
+          "rosterSize": 3,
+          "players": 3,
+          "tick": 71351,
+          "memberIndex": 2,
+          "role": "hunter",
+          "craftActive": true,
+          "items": [
+            {
+              "itemIndex": 0,
+              "readSource": "spawn_cache",
+              "id": "minecraft:redstone",
+              "amount": 3,
+              "location": {
+                "x": -30.802600860595703,
+                "y": 306.0799865722656,
+                "z": 36.49854278564453
+              },
+              "dimension": "minecraft:overworld",
+              "bornTick": 71351
+            }
+          ],
+          "craftAfterObserver": {
+            "step": 0,
+            "amount": 3,
+            "completion": null,
+            "pending": null,
+            "announcedCount": 2,
+            "deliveredCount": 0
+          },
+          "precedingStateContext": {
+            "session": 2,
+            "seq": 101,
+            "utc": "2026-11-14T12:15:50.724Z",
+            "round": 2,
+            "phase": "running",
+            "matchSeconds": 334,
+            "players": 3,
+            "rosterSize": 3,
+            "onlineRoster": 3,
+            "practice": false
+          },
+          "stateContextAgeSeconds": 0.298
+        },
+        {
+          "evidenceOrigin": "ACTUAL_LOG_OBSERVATION",
+          "session": 2,
+          "sourceLine": 24155,
+          "schema": "MHQA_THREE_DROP_1",
+          "seq": 3,
+          "utc": "2026-11-14T12:15:51.083Z",
+          "round": 2,
+          "phase": "running",
+          "matchSeconds": 334,
+          "rosterSize": 3,
+          "players": 3,
+          "tick": 71352,
+          "memberIndex": 0,
+          "role": "hunter",
+          "craftActive": true,
+          "items": [
+            {
+              "itemIndex": 0,
+              "readSource": "spawn_cache",
+              "id": "minecraft:redstone",
+              "amount": 3,
+              "location": {
+                "x": -22.483720779418945,
+                "y": 306.0799865722656,
+                "z": 36.7921028137207
+              },
+              "dimension": "minecraft:overworld",
+              "bornTick": 71352
+            }
+          ],
+          "craftAfterObserver": {
+            "step": 1,
+            "amount": 0,
+            "completion": null,
+            "pending": null,
+            "announcedCount": 2,
+            "deliveredCount": 0
+          },
+          "precedingStateContext": {
+            "session": 2,
+            "seq": 101,
+            "utc": "2026-11-14T12:15:50.724Z",
+            "round": 2,
+            "phase": "running",
+            "matchSeconds": 334,
+            "players": 3,
+            "rosterSize": 3,
+            "onlineRoster": 3,
+            "practice": false
+          },
+          "stateContextAgeSeconds": 0.359
+        }
+      ],
+      "distinctHunters": true,
+      "deltaTicks": 1,
+      "deltaMilliseconds": 61,
+      "actualSameTick": false,
+      "interpretation": "Each event and craft state were observed after the production drop handler; cached item data is from spawn time, not a pre-consumption inventory snapshot."
+    },
+    {
+      "itemId": "minecraft:string",
+      "pairStatus": "TWO_ACTUAL_HUNTER_EVENTS",
+      "events": [
+        {
+          "evidenceOrigin": "ACTUAL_LOG_OBSERVATION",
+          "session": 2,
+          "sourceLine": 24187,
+          "schema": "MHQA_THREE_DROP_1",
+          "seq": 4,
+          "utc": "2026-11-14T12:16:29.128Z",
+          "round": 2,
+          "phase": "running",
+          "matchSeconds": 372,
+          "rosterSize": 3,
+          "players": 3,
+          "tick": 72113,
+          "memberIndex": 2,
+          "role": "hunter",
+          "craftActive": true,
+          "items": [
+            {
+              "itemIndex": 0,
+              "readSource": "spawn_cache",
+              "id": "minecraft:string",
+              "amount": 3,
+              "location": {
+                "x": -30.810340881347656,
+                "y": 306.0782470703125,
+                "z": 36.49212646484375
+              },
+              "dimension": "minecraft:overworld",
+              "bornTick": 72113
+            }
+          ],
+          "craftAfterObserver": {
+            "step": 2,
+            "amount": 0,
+            "completion": null,
+            "pending": null,
+            "announcedCount": 2,
+            "deliveredCount": 0
+          },
+          "precedingStateContext": {
+            "session": 2,
+            "seq": 108,
+            "utc": "2026-11-14T12:16:25.730Z",
+            "round": 2,
+            "phase": "running",
+            "matchSeconds": 369,
+            "players": 3,
+            "rosterSize": 3,
+            "onlineRoster": 3,
+            "practice": false
+          },
+          "stateContextAgeSeconds": 3.398
+        },
+        {
+          "evidenceOrigin": "ACTUAL_LOG_OBSERVATION",
+          "session": 2,
+          "sourceLine": 24189,
+          "schema": "MHQA_THREE_DROP_1",
+          "seq": 5,
+          "utc": "2026-11-14T12:16:29.235Z",
+          "round": 2,
+          "phase": "running",
+          "matchSeconds": 373,
+          "rosterSize": 3,
+          "players": 3,
+          "tick": 72115,
+          "memberIndex": 0,
+          "role": "hunter",
+          "craftActive": true,
+          "items": [
+            {
+              "itemIndex": 0,
+              "readSource": "live_after_production_handler",
+              "id": "minecraft:string",
+              "amount": 3,
+              "location": {
+                "x": -22.48875617980957,
+                "y": 306.0799865722656,
+                "z": 36.79519271850586
+              },
+              "dimension": "minecraft:overworld",
+              "bornTick": 72115
+            }
+          ],
+          "craftAfterObserver": {
+            "step": 2,
+            "amount": 0,
+            "completion": null,
+            "pending": null,
+            "announcedCount": 2,
+            "deliveredCount": 0
+          },
+          "precedingStateContext": {
+            "session": 2,
+            "seq": 108,
+            "utc": "2026-11-14T12:16:25.730Z",
+            "round": 2,
+            "phase": "running",
+            "matchSeconds": 369,
+            "players": 3,
+            "rosterSize": 3,
+            "onlineRoster": 3,
+            "practice": false
+          },
+          "stateContextAgeSeconds": 3.505
+        }
+      ],
+      "distinctHunters": true,
+      "deltaTicks": 2,
+      "deltaMilliseconds": 107,
+      "actualSameTick": false,
+      "interpretation": "Each event and craft state were observed after the production drop handler; cached item data is from spawn time, not a pre-consumption inventory snapshot."
+    }
+  ],
+  "actualSameTickDistinctHunterPairs": 0,
+  "rawAutoGrantTransitions": [
+    {
+      "before": {
+        "session": 2,
+        "seq": 130,
+        "utc": "2026-11-14T12:18:15.723Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 479,
+        "players": 3,
+        "rosterSize": 3,
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        },
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "count": 0,
+            "delivered": false,
+            "craftActive": false
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.49974822998047,
+              "y": 305,
+              "z": 39.09030532836914
+            },
+            "count": 0,
+            "delivered": false,
+            "craftActive": true
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": 420.5,
+              "y": 305,
+              "z": 0.5
+            },
+            "count": 0,
+            "delivered": false,
+            "craftActive": true
+          }
+        ],
+        "winCounts": [
+          1,
+          1
+        ]
+      },
+      "after": {
+        "session": 2,
+        "seq": 131,
+        "utc": "2026-11-14T12:18:20.723Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 484,
+        "players": 3,
+        "rosterSize": 3,
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": "auto",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "count": 0,
+            "delivered": false,
+            "craftActive": false
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.49974822998047,
+              "y": 305,
+              "z": 39.09030532836914
+            },
+            "count": 1,
+            "delivered": true,
+            "craftActive": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": 420.5,
+              "y": 305,
+              "z": 0.5
+            },
+            "count": 1,
+            "delivered": true,
+            "craftActive": false
+          }
+        ],
+        "winCounts": [
+          1,
+          1
+        ]
+      },
+      "wallClockBracketSeconds": 5,
+      "consecutiveSamples": true,
+      "preciseEventInstantKnown": false
+    }
+  ],
+  "rawSuccessfulSummonTransitions": [
+    {
+      "before": {
+        "session": 2,
+        "seq": 139,
+        "utc": "2026-11-14T12:19:00.731Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 524,
+        "players": 3,
+        "rosterSize": 3,
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": "auto",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "count": 0,
+            "delivered": false,
+            "craftActive": false
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.49974822998047,
+              "y": 305,
+              "z": 39.09030532836914
+            },
+            "count": 1,
+            "delivered": true,
+            "craftActive": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": 420.5,
+              "y": 305,
+              "z": 0.5
+            },
+            "count": 1,
+            "delivered": true,
+            "craftActive": false
+          }
+        ],
+        "winCounts": [
+          1,
+          1
+        ]
+      },
+      "after": {
+        "session": 2,
+        "seq": 140,
+        "utc": "2026-11-14T12:19:05.739Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 529,
+        "players": 3,
+        "rosterSize": 3,
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": "auto",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 1,
+          "readyAt": 556,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "count": 0,
+            "delivered": false,
+            "craftActive": false
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": 418.5,
+              "y": 305,
+              "z": -1.5
+            },
+            "count": 1,
+            "delivered": true,
+            "craftActive": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": 420.5,
+              "y": 305,
+              "z": 0.5
+            },
+            "count": 1,
+            "delivered": true,
+            "craftActive": false
+          }
+        ],
+        "winCounts": [
+          1,
+          1
+        ]
+      },
+      "wallClockBracketSeconds": 5.008,
+      "consecutiveSamples": true,
+      "preciseEventInstantKnown": false
+    }
+  ],
+  "latestObservedState": {
+    "session": 2,
+    "seq": 455,
+    "utc": "2026-11-14T12:45:20.735Z",
+    "round": 2,
+    "phase": "ended",
+    "matchSeconds": 1304,
+    "players": 3,
+    "rosterSize": 3,
+    "craft": {
+      "step": 2,
+      "amount": 0,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "summon": {
+      "uses": 1,
+      "readyAt": 556,
+      "serial": 1,
+      "transactionPhase": null,
+      "transactionParticipantCount": 0
+    },
+    "members": [
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 8.535171508789062,
+          "y": 60,
+          "z": 23.878761291503906
+        },
+        "count": 1,
+        "delivered": true,
+        "craftActive": false
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 18.213748931884766,
+          "y": 61,
+          "z": 13.884201049804688
+        },
+        "count": 0,
+        "delivered": false,
+        "craftActive": false
+      },
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 418.5,
+          "y": 305,
+          "z": -1.5
+        },
+        "count": 1,
+        "delivered": true,
+        "craftActive": false
+      }
+    ],
+    "winCounts": [
+      1,
+      1,
+      1
+    ]
+  },
+  "parentOperatorReports": [
+    {
+      "origin": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+      "observation": "After the coordinated redstone attempt, the shared recipe showed stage 1 string 0/3.",
+      "evidence": {
+        "basename": "round2-redstone-shared-stage1.jpg",
+        "exists": true,
+        "sha256": "79803cbe254bedf7ebc2306f130f3cacec4838bb4d4e8605e6abcf45b2379fe4",
+        "publication": "LOCAL_ONLY_ORIGINAL_CONTAINS_IDENTIFIERS",
+        "contentReviewedByThisAnalyzer": false
+      }
+    },
+    {
+      "origin": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+      "observation": "String stage advanced and an excess stack remained; raw second string event still exposed amount 3 after the production handler.",
+      "evidence": {
+        "basename": "round2-string-excess-stage2.jpg",
+        "exists": true,
+        "sha256": "206c8917b14dd1bf6a3ef3bc45e6b2f2ba95fd3ee8e895317cb9ed6f660c9de6",
+        "publication": "LOCAL_ONLY_ORIGINAL_CONTAINS_IDENTIFIERS",
+        "contentReviewedByThisAnalyzer": false
+      }
+    },
+    {
+      "origin": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+      "observation": "At displayed 08:08 the host was on a single support block at 420.5,305,0.5; summon reported insufficient safe standing space and retained the scroll. This failed attempt is not emitted as a dedicated event by the probe.",
+      "evidence": {
+        "basename": "round2-summon-unsafe-space-rejected.jpg",
+        "exists": true,
+        "sha256": "81eaa0e694ef71626f85d0c54e44650bd8b381bfe6135e722118cb93205540c1",
+        "publication": "LOCAL_ONLY_ORIGINAL_CONTAINS_IDENTIFIERS",
+        "contentReviewedByThisAnalyzer": false
+      }
+    },
+    {
+      "origin": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+      "observation": "After the operator expanded the test floor to 11 by 11 blocks, retry with the held scroll succeeded at displayed 08:49: team use 1/2, the peer arrived approximately 3 m away, and the scroll was consumed.",
+      "evidence": {
+        "basename": "round2-summon-safe-retry-success.jpg",
+        "exists": true,
+        "sha256": "5b32bcbd4c675d8df7f35a951ced52150ce85bd71e48d038ec5cfb566b0307ce",
+        "publication": "LOCAL_ONLY_ORIGINAL_CONTAINS_IDENTIFIERS",
+        "contentReviewedByThisAnalyzer": false
+      }
+    }
+  ],
+  "userReports": [
+    {
+      "origin": "USER_REPORT_RELAYED_BY_PARENT",
+      "observation": "The user reported the coordinated drop attempt worked and the excess material was preserved.",
+      "exactResponse": "됨",
+      "exactSameTickProvenByUserReport": false
+    }
+  ],
+  "limits": [
+    "The two coordinated drop attempts were one and two ticks apart respectively; neither is evidence of two different hunters dropping within the same tick.",
+    "A drop callback proves an observed owner event, not an exact inventory debit or complete identity-based item deduplication.",
+    "Round 2 reached the configured eight-minute automatic grant while crafting was incomplete at step 2; it must not be reported as a second completed nine-stage craft.",
+    "The observer samples summon state at approximately five-second intervals and has no scroll inventory or failure-event trace. The safety rejection and retained scroll rely on the separately labelled UI observations.",
+    "The stage, participant mapping, and win totals must remain scoped to this round. Round 1 evidence is preserved separately.",
+    "FPS and network traffic are not measured by these observations."
+  ]
+}

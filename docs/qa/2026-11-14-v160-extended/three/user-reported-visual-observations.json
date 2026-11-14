@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "recordedAtUtc": "2026-11-14T11:52:00.092Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "evidenceOrigin": "USER_REPORT_RELAYED_BY_PARENT",
+  "participantScope": {
+    "officialRosterSize": 3,
+    "roles": [
+      "hunter",
+      "runner",
+      "hunter"
+    ]
+  },
+  "observations": [
+    {
+      "feature": "Phone hunter tracker HUD",
+      "reportedResult": "User confirmed the phone tracker/HUD worked.",
+      "relatedProbeEvidence": "independent-tracker-observations.json",
+      "supersedesEarlierPendingPhoneVisualStatus": true
+    },
+    {
+      "feature": "Signal receiver cameras for both hunters",
+      "reportedResult": "User confirmed camera return worked for both hunters.",
+      "exactDurationMeasured": false
+    },
+    {
+      "feature": "Signal beams for both hunters",
+      "reportedResult": "User confirmed the beams worked for both hunters.",
+      "exactDurationMeasured": false
+    },
+    {
+      "feature": "Phone cross-dimension HUD",
+      "userResponse": "마지막 위치는 모르겠고 다른 차원인건 뜸",
+      "reportedOtherDimensionLabel": true,
+      "lastKnownPositionLabelConfirmed": false,
+      "classification": "PARTIAL_USER_CONFIRMATION"
+    },
+    {
+      "feature": "Cross-dimension receiver camera",
+      "userResponse": "음",
+      "classification": "INCONCLUSIVE",
+      "passClaimed": false,
+      "defectClaimed": false
+    },
+    {
+      "feature": "Cross-dimension receiver use",
+      "userResponse": "사용함",
+      "classification": "USER_REPORTED_ACTIVATION",
+      "noticeOutcomeRecordedSeparatelyIn": "dimension-tracking-observations.json",
+      "cameraNonTransitionContinuouslyObserved": false
+    }
+  ],
+  "directUiCaptureOfTheseMomentsByParent": false,
+  "independentObservationByThisAnalysis": false,
+  "limitations": [
+    "This file records user confirmation, not screenshots or a timed recording of the camera/beam behavior.",
+    "Periodic MHQA_THREE state fields do not record camera or beam state.",
+    "The reported success is not generalized to other devices, dimensions, timing accuracy, or maximum player count.",
+    "This does not change the recorded copper-drop separation of 627 ticks/31.349 seconds or establish same-tick crafting."
+  ],
+  "updatedAtUtc": "2026-11-14T12:06:41.159Z"
+}

@@ -1,0 +1,212 @@
+{
+  "schema": "MHQA_THREE_MEMORY_WINDOWS_1",
+  "generatedAtUtc": "2026-11-14T12:47:18.805Z",
+  "evidenceOrigin": "ACTUAL_HOST_PROCESS_SAMPLER",
+  "captureClosureReported": true,
+  "status": "CLOSED_DISJOINT_WINDOWS",
+  "sourceLogSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+  "windows": [
+    {
+      "sourceBasename": "host-memory.csv",
+      "sourceSha256": "c4ceb5f0ba379cd68d3d74df45f2425d35416aba5ce051a04b1b9e49fb98bc1e",
+      "status": "SAMPLER_STOPPED",
+      "stopReason": "duration_reached",
+      "samples": 1785,
+      "invalidRows": [],
+      "firstSampleUtc": "2026-11-14T11:17:03.069Z",
+      "lastSampleUtc": "2026-11-14T12:17:02.157Z",
+      "sampledSpanSeconds": 3599.088,
+      "workingSetMiB": {
+        "min": 1571.84375,
+        "median": 2211.8359375,
+        "p95": 2378.39453125,
+        "max": 2440.68359375
+      },
+      "privateBytesMiB": {
+        "min": 4279.8984375,
+        "median": 4781.3671875,
+        "p95": 5065.85546875,
+        "max": 5093.79296875
+      },
+      "cpuPercentMachine": {
+        "min": 4.968098103244817,
+        "median": 11.29724073539018,
+        "p95": 30.18241396606512,
+        "max": 77.15474063613713
+      },
+      "timeWeightedCpuPercentMachine": 16.455171986838632,
+      "observedPhaseAndPlayerGroups": [
+        {
+          "phase": "lobby",
+          "players": 3,
+          "onlineRoster": 0,
+          "rosterSize": 0,
+          "practice": false,
+          "round": 0
+        },
+        {
+          "phase": "countdown",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 1
+        },
+        {
+          "phase": "grace",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 1
+        },
+        {
+          "phase": "running",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 1
+        },
+        {
+          "phase": "paused",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 1
+        },
+        {
+          "phase": "paused",
+          "players": 2,
+          "onlineRoster": 2,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 1
+        },
+        {
+          "phase": "paused",
+          "players": 1,
+          "onlineRoster": 1,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 1
+        },
+        {
+          "phase": "ended",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 1
+        },
+        {
+          "phase": "countdown",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 2
+        },
+        {
+          "phase": "grace",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 2
+        },
+        {
+          "phase": "running",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 2
+        }
+      ],
+      "attribution": "Whole host process, mixed sampled phases/player counts. No per-phase allocation, peer-client memory, FPS or network inference.",
+      "exactFirstSampleTimestampUtc": "2026-11-14T11:17:03.0692111+00:00",
+      "exactLastSampleTimestampUtc": "2026-11-14T12:17:02.1575880+00:00",
+      "sampledSpanSecondsFromFullPrecisionTimestamps": 3599.0883769
+    },
+    {
+      "sourceBasename": "host-memory-continuation-01.csv",
+      "sourceSha256": "db9c630d7c25c1639c6b6f4454e85bcaeb24d35d0659548728bf3d1f1242a700",
+      "status": "SAMPLER_STOPPED",
+      "stopReason": "stop_requested",
+      "samples": 817,
+      "invalidRows": [],
+      "firstSampleUtc": "2026-11-14T12:18:11.303Z",
+      "lastSampleUtc": "2026-11-14T12:45:37.461Z",
+      "sampledSpanSeconds": 1646.158,
+      "workingSetMiB": {
+        "min": 1693.41796875,
+        "median": 2388.7578125,
+        "p95": 2433.94921875,
+        "max": 2483.24609375
+      },
+      "privateBytesMiB": {
+        "min": 4310.29296875,
+        "median": 4907.5,
+        "p95": 4960.01953125,
+        "max": 5007.765625
+      },
+      "cpuPercentMachine": {
+        "min": 4.785811766304237,
+        "median": 7.816275433968407,
+        "p95": 35.237481068297306,
+        "max": 39.316151089727306
+      },
+      "timeWeightedCpuPercentMachine": 13.974184882535608,
+      "observedPhaseAndPlayerGroups": [
+        {
+          "phase": "running",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 2
+        },
+        {
+          "phase": "ended",
+          "players": 3,
+          "onlineRoster": 3,
+          "rosterSize": 3,
+          "practice": false,
+          "round": 2
+        }
+      ],
+      "attribution": "Whole host process, mixed sampled phases/player counts. No per-phase allocation, peer-client memory, FPS or network inference.",
+      "exactFirstSampleTimestampUtc": "2026-11-14T12:18:11.3038596+00:00",
+      "exactLastSampleTimestampUtc": "2026-11-14T12:45:37.4617726+00:00",
+      "sampledSpanSecondsFromFullPrecisionTimestamps": 1646.157913
+    }
+  ],
+  "gaps": [
+    {
+      "beforeWindow": "host-memory.csv",
+      "afterWindow": "host-memory-continuation-01.csv",
+      "fromUtc": "2026-11-14T12:17:02.157Z",
+      "toUtc": "2026-11-14T12:18:11.303Z",
+      "gapSecondsAtMillisecondPrecision": 69.146,
+      "exactFromUtc": "2026-11-14T12:17:02.1575880+00:00",
+      "exactToUtc": "2026-11-14T12:18:11.3038596+00:00",
+      "gapSecondsFromFullPrecisionTimestamps": 69.1462716,
+      "gapInterpolated": false
+    }
+  ],
+  "totalSamplesAcrossDisjointWindows": 2602,
+  "sumOfSampledWindowSpansSeconds": 5245.246,
+  "sumOfFullPrecisionSampledWindowSpansSeconds": 5245.2462899,
+  "fps": "NOT MEASURED",
+  "network": "NOT MEASURED",
+  "limitations": [
+    "Each CSV is preserved as a separate sampling window. The gap between windows is not interpolated, and these files do not establish uninterrupted memory monitoring.",
+    "Sample spans use the actual first and last sample timestamps. The sampler lifecycle duration and requested duration are different quantities.",
+    "Memory and CPU belong to the whole host process. Lobby, pauses, gameplay, world reload, player-count changes, other loaded content, and background activity may share a window.",
+    "No per-client or per-phase memory allocation is inferred from overlapping probe observations.",
+    "Window percentiles are not averaged into a combined percentile. A performance improvement or Stable performance pass is not inferred.",
+    "Numeric CSV files omit PID, account names, IP addresses, and absolute paths. Private sampler JSON metadata is not copied wholesale."
+  ]
+}

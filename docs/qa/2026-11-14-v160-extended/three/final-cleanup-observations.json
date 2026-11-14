@@ -1,0 +1,52 @@
+{
+  "schema": "MHQA_THREE_FINAL_CLEANUP_OBSERVATIONS_1",
+  "status": "CAPTURE_CLOSED_OPERATOR_CLEANUP_REPORTED",
+  "evidenceOrigin": "DIRECT_UI_OBSERVATIONS_RELAYED_BY_PARENT_OPERATOR_WITH_SEPARATE_SAMPLER_EVIDENCE",
+  "worldClosure": {
+    "saveAndQuitObserved": true,
+    "worldListObserved": true,
+    "approximateObservedUtc": "2026-11-14T12:45:30Z",
+    "timeIsApproximate": true
+  },
+  "samplerClosure": {
+    "stopSignalCreatedUtcReportedByOperator": "2026-11-14T12:45:38.954Z",
+    "firstWindowStopReason": "duration_reached",
+    "firstWindowSamples": 1785,
+    "firstWindowSamplerLifecycleSeconds": 3601.1369324,
+    "continuationStopReason": "stop_requested",
+    "continuationSamples": 817,
+    "continuationSamplerLifecycleSeconds": 1648.2235121,
+    "continuationLastSampleUtc": "2026-11-14T12:45:37.4617726+00:00",
+    "processIdentifierOmitted": true,
+    "measurementFile": "measurement-windows.json"
+  },
+  "temporaryAreaCleanup": {
+    "origin": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+    "removedNames": ["qa_three_end", "qa_three_summon", "qa_three_safety", "qa_three_nether"],
+    "remainingNamesInObservedList": ["mh_lobby"],
+    "existingLobbyAreaPreserved": true
+  },
+  "settingsRestoration": {
+    "observedProbeSubset": "reveal20/auto40/summonCooldown300 and other enumerated defaults; see restoration-observations.json",
+    "sendCommandFeedbackFalseCommandSubmitted": true,
+    "sendCommandFeedbackReadbackObserved": false,
+    "submissionNote": "The operator submitted sendcommandfeedback=false; no echo was expected. Submission is not independently converted into a read-back confirmation of the gamerule."
+  },
+  "lateFpsOverlayAttempt": {
+    "origin": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+    "approximateAttemptUtc": "2026-11-14T12:44:00Z",
+    "input": "Alt+R",
+    "scene": "End dimension after round 2 ended",
+    "snapshotsInspectedByOperator": 2,
+    "numericFpsOverlayObserved": false,
+    "fpsFrameSamplesCollected": 0,
+    "settingsChangedReported": false,
+    "result": "FPS NOT MEASURED; the checked snapshots did not show a numeric FPS overlay. This does not prove all available tools are incapable of measuring FPS."
+  },
+  "limits": [
+    "Cleanup and world closure are attributed to the operator's direct UI observations; they are not inferred from cessation of periodic log output.",
+    "Screenshots containing account names and desktop notifications remain private local originals and are excluded from the public bundle.",
+    "Only QA-copy cleanup is described. The metadata does not claim that every setting, effect, inventory item, or test block was restored unless separately observed.",
+    "No performance pass or production-code change is implied by closing the capture."
+  ]
+}

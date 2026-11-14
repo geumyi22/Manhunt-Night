@@ -1,0 +1,307 @@
+{
+  "schema": "MHQA_THREE_PUBLIC_FREEZE_1",
+  "frozenAtUtc": "2026-11-14T12:52:25.116Z",
+  "status": "FROZEN_PUBLIC_ALLOWLIST",
+  "sourceSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+  "excluded": [
+    "original Content Log",
+    "all original screenshots",
+    "capture-start metadata with process identifiers",
+    "unfiltered original sampler metadata",
+    "synthetic fixture output presented as gameplay"
+  ],
+  "files": [
+    {
+      "path": "summary.json",
+      "bytes": 152111,
+      "sha256": "b616cb023913eee9e13c13ea1c3a32b3768ce06d49f70f233ccce235b1a4d3e7",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "analysis-2026-11-14T12-46-36-338Z/summary.json",
+      "sourceSha256": "b616cb023913eee9e13c13ea1c3a32b3768ce06d49f70f233ccce235b1a4d3e7"
+    },
+    {
+      "path": "samples.jsonl",
+      "bytes": 1656430,
+      "sha256": "fe866d3161701825d0f354903d8caf3e590b8272e87ff192a77a9c7f34d0025c",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "analysis-2026-11-14T12-46-36-338Z/samples.jsonl",
+      "sourceSha256": "fe866d3161701825d0f354903d8caf3e590b8272e87ff192a77a9c7f34d0025c"
+    },
+    {
+      "path": "drop-events.jsonl",
+      "bytes": 15380,
+      "sha256": "caf72a31b31aff789b7e360bb098ada6928dc1678414ec29893f899ea1246adf",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "analysis-2026-11-14T12-46-36-338Z/drop-events.jsonl",
+      "sourceSha256": "caf72a31b31aff789b7e360bb098ada6928dc1678414ec29893f899ea1246adf"
+    },
+    {
+      "path": "observer-errors.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "analysis-2026-11-14T12-46-36-338Z/observer-errors.jsonl",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tracker-observations.jsonl",
+      "bytes": 1234996,
+      "sha256": "e9119ad95c28d6ffb1254533a72eca5f2dfdaffe03a8f78a9ff1a079969d3457",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "analysis-2026-11-14T12-46-36-338Z/tracker-observations.jsonl",
+      "sourceSha256": "e9119ad95c28d6ffb1254533a72eca5f2dfdaffe03a8f78a9ff1a079969d3457"
+    },
+    {
+      "path": "start-observations.json",
+      "bytes": 6193,
+      "sha256": "0401406a009c62cdfaae920ded1cd4f7afeb2f5e889c8e3c6aa721d7cf73b3b3",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "start-observations.json",
+      "sourceSha256": "0401406a009c62cdfaae920ded1cd4f7afeb2f5e889c8e3c6aa721d7cf73b3b3"
+    },
+    {
+      "path": "crafting-observations.json",
+      "bytes": 27964,
+      "sha256": "bd63930b7b9e766318172cb73be592e44cfa1a7af1e754b510f3a03e5af7bc5b",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "crafting-observations.json",
+      "sourceSha256": "bd63930b7b9e766318172cb73be592e44cfa1a7af1e754b510f3a03e5af7bc5b"
+    },
+    {
+      "path": "independent-tracker-observations.json",
+      "bytes": 15234,
+      "sha256": "0493bc41b6364dc415c12d0f924fb829271dc1e1e0a60d580e630ac78a783d2f",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "independent-tracker-observations.json",
+      "sourceSha256": "0493bc41b6364dc415c12d0f924fb829271dc1e1e0a60d580e630ac78a783d2f"
+    },
+    {
+      "path": "user-reported-visual-observations.json",
+      "bytes": 2349,
+      "sha256": "b44979faeb3c4f0f6caeb2cb5fcefc363317b3a47db31df5596e982c3db217e8",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "user-reported-visual-observations.json",
+      "sourceSha256": "b44979faeb3c4f0f6caeb2cb5fcefc363317b3a47db31df5596e982c3db217e8"
+    },
+    {
+      "path": "summon-observations.json",
+      "bytes": 11024,
+      "sha256": "f358b6373b388a93c286f6eb1a70a74d71bf7ac47452a7abac8221e896bb890b",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "summon-observations.json",
+      "sourceSha256": "f358b6373b388a93c286f6eb1a70a74d71bf7ac47452a7abac8221e896bb890b"
+    },
+    {
+      "path": "dimension-tracking-observations.json",
+      "bytes": 8797,
+      "sha256": "d78261e4092d00074a004478bd2b39a977b8732443f629e134bbc3d4573b4c46",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "dimension-tracking-observations.json",
+      "sourceSha256": "d78261e4092d00074a004478bd2b39a977b8732443f629e134bbc3d4573b4c46"
+    },
+    {
+      "path": "reconnect-and-reload-observations.json",
+      "bytes": 35349,
+      "sha256": "fd0fcf6511cfc3c36c01da9a9e808de7926ddf424eef319f50f1f540e828254d",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "reconnect-and-reload-observations.json",
+      "sourceSha256": "fd0fcf6511cfc3c36c01da9a9e808de7926ddf424eef319f50f1f540e828254d"
+    },
+    {
+      "path": "round1-melee-victory-observations.json",
+      "bytes": 6467,
+      "sha256": "476d676d8a672f2dace240cd6eabe2e4f07974819cc243d7c5ede4fd20048b25",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "round1-melee-victory-observations.json",
+      "sourceSha256": "476d676d8a672f2dace240cd6eabe2e4f07974819cc243d7c5ede4fd20048b25"
+    },
+    {
+      "path": "round2-concurrent-drop-observations.json",
+      "bytes": 19980,
+      "sha256": "bd569ddb0dce22d74799c94fd19a733dd96129814aa6859b666ad35833aa0531",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "round2-concurrent-drop-observations.json",
+      "sourceSha256": "bd569ddb0dce22d74799c94fd19a733dd96129814aa6859b666ad35833aa0531"
+    },
+    {
+      "path": "round2-end-operator-observations.json",
+      "bytes": 4466,
+      "sha256": "7c5594516ae5650094273da7b9e636014fa41f6d6af9293f13fa0070cb378c2c",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "round2-end-operator-observations.json",
+      "sourceSha256": "7c5594516ae5650094273da7b9e636014fa41f6d6af9293f13fa0070cb378c2c"
+    },
+    {
+      "path": "round2-dragon-command-victory-observations.json",
+      "bytes": 9975,
+      "sha256": "b07865e1730a7512dc99236c495ce4e1794fab1a3ec141327bb24c700d3d2f24",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "round2-dragon-command-victory-observations.json",
+      "sourceSha256": "b07865e1730a7512dc99236c495ce4e1794fab1a3ec141327bb24c700d3d2f24"
+    },
+    {
+      "path": "functional-transition-observations.json",
+      "bytes": 55477,
+      "sha256": "0968b86c6b325f577906041a40b580922197bc536a201da8200f8abacde93584",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "functional-transition-observations.json",
+      "sourceSha256": "0968b86c6b325f577906041a40b580922197bc536a201da8200f8abacde93584"
+    },
+    {
+      "path": "restoration-observations.json",
+      "bytes": 3353,
+      "sha256": "76aa32500fd5670270d9d7d400b6db209508b0bbe58a6b79e122b5a0658580fe",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "restoration-observations.json",
+      "sourceSha256": "76aa32500fd5670270d9d7d400b6db209508b0bbe58a6b79e122b5a0658580fe"
+    },
+    {
+      "path": "final-cleanup-observations.json",
+      "bytes": 2744,
+      "sha256": "6b7e917aadaf7876ac3a46600a51a4862c4d7123faf969f7256cc80a922fdd60",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "final-cleanup-observations.json",
+      "sourceSha256": "6b7e917aadaf7876ac3a46600a51a4862c4d7123faf969f7256cc80a922fdd60"
+    },
+    {
+      "path": "fragment-review.json",
+      "bytes": 1654,
+      "sha256": "3d5c2584d89e6954c47831ede4693cf609626c315dca5c685d0bbf7abcfbd4c1",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "fragment-review.json",
+      "sourceSha256": "3d5c2584d89e6954c47831ede4693cf609626c315dca5c685d0bbf7abcfbd4c1"
+    },
+    {
+      "path": "measurement-windows.json",
+      "bytes": 6974,
+      "sha256": "03b1d7cb32479a28ebd7eb01f0b29a7e50d0d6a69d68c7edb21747bbb3dc3d73",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "measurement-windows.json",
+      "sourceSha256": "03b1d7cb32479a28ebd7eb01f0b29a7e50d0d6a69d68c7edb21747bbb3dc3d73"
+    },
+    {
+      "path": "measurement-summary.json",
+      "bytes": 8121,
+      "sha256": "4b15d6c47de3b862545cafcb1f718b5fc57bd4ef1000b5d13afa0ad84b1eda37",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "measurement-summary.json",
+      "sourceSha256": "4b15d6c47de3b862545cafcb1f718b5fc57bd4ef1000b5d13afa0ad84b1eda37"
+    },
+    {
+      "path": "load-review.json",
+      "bytes": 1653,
+      "sha256": "b48fb9763bf231baf3a728848bb671b8428a352e630fc0ef9a9a2282ee8d24b5",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "load-review.json",
+      "sourceSha256": "b48fb9763bf231baf3a728848bb671b8428a352e630fc0ef9a9a2282ee8d24b5"
+    },
+    {
+      "path": "final-typecheck-result.json",
+      "bytes": 109,
+      "sha256": "1fe33f2666e9c55e269a3241400e49996005abadb9f0c152d605bbb0483c7a0a",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "final-typecheck-result.json",
+      "sourceSha256": "1fe33f2666e9c55e269a3241400e49996005abadb9f0c152d605bbb0483c7a0a"
+    },
+    {
+      "path": "independent-audit.json",
+      "bytes": 9004,
+      "sha256": "73de5668f4df1dba404c646a14b279c2952ae1695301d89803e757d1df5ee4af",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "independent-audit.json",
+      "sourceSha256": "73de5668f4df1dba404c646a14b279c2952ae1695301d89803e757d1df5ee4af"
+    },
+    {
+      "path": "installed-probe-reference-audit.json",
+      "bytes": 4868,
+      "sha256": "d9792b6f39ebc4d5525d5400c3eeab0cb2043f41545843cc93bd1b68c1db08f0",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "installed-probe-reference-audit.json",
+      "sourceSha256": "d9792b6f39ebc4d5525d5400c3eeab0cb2043f41545843cc93bd1b68c1db08f0"
+    },
+    {
+      "path": "host-memory.csv",
+      "bytes": 244547,
+      "sha256": "c4ceb5f0ba379cd68d3d74df45f2425d35416aba5ce051a04b1b9e49fb98bc1e",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "host-memory.csv",
+      "sourceSha256": "c4ceb5f0ba379cd68d3d74df45f2425d35416aba5ce051a04b1b9e49fb98bc1e"
+    },
+    {
+      "path": "host-memory-continuation-01.csv",
+      "bytes": 111294,
+      "sha256": "db9c630d7c25c1639c6b6f4454e85bcaeb24d35d0659548728bf3d1f1242a700",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "host-memory-continuation-01.csv",
+      "sourceSha256": "db9c630d7c25c1639c6b6f4454e85bcaeb24d35d0659548728bf3d1f1242a700"
+    },
+    {
+      "path": "host-memory.json",
+      "bytes": 1514,
+      "sha256": "717eff5a2f6df1ff8096bfc48eafee426a15967a0edf6d0ab187ccb719dbbfa8",
+      "method": "ALLOWLIST_SANITIZED_METADATA",
+      "sourceSha256": "4e51517e08f6c879b06693b84b6c94485d62ff6b4a733e62bd948d35019fe337"
+    },
+    {
+      "path": "host-memory-continuation-01.json",
+      "bytes": 1492,
+      "sha256": "fcc5ff4b608f24a1911312d46c65cd3d09dc4ee8770ba88494e37743a11bec12",
+      "method": "ALLOWLIST_SANITIZED_METADATA",
+      "sourceSha256": "192fd32752ebe70fcc4636f76288c557c950e23913e34b187253cff18383da5c"
+    },
+    {
+      "path": "metrics-capability-summary.json",
+      "bytes": 4704,
+      "sha256": "ff577f94417a73772933b807df147894e69ed11ce61f497964d09bd695272b34",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "../runtime-v160-long/metrics-capability-summary.json",
+      "sourceSha256": "ff577f94417a73772933b807df147894e69ed11ce61f497964d09bd695272b34"
+    },
+    {
+      "path": "tools/analyze-v160-three.mjs",
+      "bytes": 32772,
+      "sha256": "887f5f380e3227de0c68b321d9f4d2a9436e042c83fbd7c66d6c1573c34ed122",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "../analyze-v160-three.mjs",
+      "sourceSha256": "887f5f380e3227de0c68b321d9f4d2a9436e042c83fbd7c66d6c1573c34ed122"
+    },
+    {
+      "path": "tools/measure-minecraft-process-longrun.ps1",
+      "bytes": 5133,
+      "sha256": "9f39e747bd57e0c9820953f44bd7ed7e806cd965dc8e93f42e2118b9eda12b57",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "../measure-minecraft-process-longrun.ps1",
+      "sourceSha256": "9f39e747bd57e0c9820953f44bd7ed7e806cd965dc8e93f42e2118b9eda12b57"
+    },
+    {
+      "path": "tools/qa-probe-fragment.txt",
+      "bytes": 4951,
+      "sha256": "975f28796e812558b2758494230570f3c13e20bcbbaaf1c9d19e8109890d50c5",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "qa-probe-fragment.txt",
+      "sourceSha256": "975f28796e812558b2758494230570f3c13e20bcbbaaf1c9d19e8109890d50c5"
+    },
+    {
+      "path": "tools/runtime-v160-three/write-memory-windows.mjs",
+      "bytes": 4793,
+      "sha256": "cc7e340cb60530e92273e9c048a341f6d0d5b4c9e1ac01522232affc21f2edb8",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "write-memory-windows.mjs",
+      "sourceSha256": "cc7e340cb60530e92273e9c048a341f6d0d5b4c9e1ac01522232affc21f2edb8"
+    },
+    {
+      "path": "tools/runtime-v160-three/write-measurement-summary.mjs",
+      "bytes": 5259,
+      "sha256": "11f7739f3edfb484af8d0e28733ef49db802cf8e9372d4b97d50dbf183aeae39",
+      "method": "EXACT_BYTE_COPY",
+      "sourceRelativeToPrivateTrialDirectory": "write-measurement-summary.mjs",
+      "sourceSha256": "11f7739f3edfb484af8d0e28733ef49db802cf8e9372d4b97d50dbf183aeae39"
+    },
+    {
+      "path": "MEASUREMENT_METHOD.md",
+      "bytes": 2626,
+      "sha256": "52afb6a8cd75bcf5aa1f6eda02dbd06239d2307b4422b11a783efbade2ff50c6",
+      "method": "PUBLIC_METHOD_NOTES"
+    }
+  ]
+}
