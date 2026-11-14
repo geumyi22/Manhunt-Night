@@ -1,0 +1,1933 @@
+{
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T11:15:50.885Z",
+  "schema": "MHQA_LONG_ANALYSIS_1",
+  "captureClosureReported": true,
+  "snapshotStatus": "POST_CAPTURE_SNAPSHOT; tail may still be buffered or partial",
+  "sourceLogSha256": "9dbec3c2ea1fb1c961ce888df13d88b969c3d15cb43b9a2f2ea4db9a5ef658c2",
+  "sourceBytes": 1232916,
+  "selection": {
+    "marker": "[MHQA_LONG]",
+    "schema": "MHQA_LONG_1",
+    "markerLines": 666,
+    "acceptedRows": 666,
+    "ignoredOtherSchemas": 0,
+    "malformedOrInvalidRows": []
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "sourceLine": 7171,
+      "reason": "First observed sample",
+      "firstSeq": 1,
+      "firstUtc": "2026-11-14T10:19:11.108Z",
+      "samples": 334,
+      "last": {
+        "session": 1,
+        "seq": 334,
+        "utc": "2026-11-14T10:46:56.172Z",
+        "matchSeconds": 1452,
+        "phase": "running",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "tpsIncludingPauseAndTransitions": {
+        "samples": 333,
+        "observedSeconds": 1665.064,
+        "totalTicks": 33300,
+        "weightedTps": 19.999231260780366,
+        "intervalTps": {
+          "min": 19.916351324437365,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 5
+      }
+    },
+    {
+      "session": 2,
+      "sourceLine": 10683,
+      "reason": "Sequence reset or duplicate sequence; treated as separate session",
+      "firstSeq": 1,
+      "firstUtc": "2026-11-14T10:47:13.614Z",
+      "samples": 263,
+      "last": {
+        "session": 2,
+        "seq": 263,
+        "utc": "2026-11-14T11:09:03.650Z",
+        "matchSeconds": 2479,
+        "phase": "running",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "tpsIncludingPauseAndTransitions": {
+        "samples": 262,
+        "observedSeconds": 1310.036,
+        "totalTicks": 26200,
+        "weightedTps": 19.99945039678299,
+        "intervalTps": {
+          "min": 19.936204146730464,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.07628990162618
+        },
+        "transitionIntervalsIncluded": 3
+      }
+    },
+    {
+      "session": 3,
+      "sourceLine": 12119,
+      "reason": "Sequence reset or duplicate sequence; treated as separate session",
+      "firstSeq": 1,
+      "firstUtc": "2026-11-14T11:09:20.821Z",
+      "samples": 69,
+      "last": {
+        "session": 3,
+        "seq": 69,
+        "utc": "2026-11-14T11:15:09.963Z",
+        "matchSeconds": 2686,
+        "phase": "ended",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "tpsIncludingPauseAndTransitions": {
+        "samples": 68,
+        "observedSeconds": 349.142,
+        "totalTicks": 6800,
+        "weightedTps": 19.476316226635582,
+        "intervalTps": {
+          "min": 7.077140835102618,
+          "median": 19.996000799840033,
+          "p95": 20.036064916850332,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 4
+      }
+    }
+  ],
+  "matches": [
+    {
+      "session": 1,
+      "round": 1,
+      "first": {
+        "session": 1,
+        "seq": 43,
+        "utc": "2026-11-14T10:22:41.106Z",
+        "matchSeconds": 0,
+        "phase": "countdown",
+        "round": 1,
+        "practice": false,
+        "players": 2,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "last": {
+        "session": 1,
+        "seq": 334,
+        "utc": "2026-11-14T10:46:56.172Z",
+        "matchSeconds": 1452,
+        "phase": "running",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "observedGameEnd": null,
+      "matchStatus": "CAPTURE_CLOSED_WITHOUT_OBSERVED_MATCH_END",
+      "maxObservedMatchSeconds": 1452,
+      "observedRosterSizes": [
+        2
+      ],
+      "observedConnectedPlayers": [
+        2,
+        3
+      ],
+      "observedOnlineRoster": [
+        2
+      ],
+      "configurationChanges": [],
+      "revealTransitions": [
+        {
+          "memberIndex": 0,
+          "status": "OBSERVED_TRANSITION",
+          "before": {
+            "session": 1,
+            "seq": 283,
+            "utc": "2026-11-14T10:42:41.171Z",
+            "matchSeconds": 1197,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2
+          },
+          "after": {
+            "session": 1,
+            "seq": 284,
+            "utc": "2026-11-14T10:42:46.160Z",
+            "matchSeconds": 1202,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2
+          },
+          "wallClockBracketSeconds": 4.989,
+          "matchClockBracketSeconds": 5,
+          "consecutiveSamples": true,
+          "unchangedConfigurationAcrossBracket": true,
+          "configuredThresholdSeconds": 1200,
+          "crossesConfiguredThreshold": true,
+          "interpretation": "Event occurred after the last negative observation and by the first positive observation, if both exist. Sampling is every 100 engine ticks (nominally 5 seconds); no exact 20:00/40:00 wall-clock execution claim.",
+          "memberBefore": {
+            "session": 1,
+            "seq": 283,
+            "utc": "2026-11-14T10:42:41.171Z",
+            "matchSeconds": 1197,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2,
+            "memberIndex": 0,
+            "role": "hunter",
+            "announced": false,
+            "delivered": false,
+            "trackerCount": 0
+          },
+          "memberAfter": {
+            "session": 1,
+            "seq": 284,
+            "utc": "2026-11-14T10:42:46.160Z",
+            "matchSeconds": 1202,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2,
+            "memberIndex": 0,
+            "role": "hunter",
+            "announced": true,
+            "delivered": false,
+            "trackerCount": 0
+          }
+        }
+      ],
+      "autoCompletionTransitions": [],
+      "deliveryTransitions": [],
+      "default20MinuteRevealBracketObserved": true,
+      "default40MinuteAutoCompletionBracketObserved": false,
+      "default40MinuteSingleHunterGrantBracketObserved": false,
+      "tpsIncludingPauseAndConnectionTransitions": {
+        "samples": 291,
+        "observedSeconds": 1455.066,
+        "totalTicks": 29100,
+        "weightedTps": 19.999092824655378,
+        "intervalTps": {
+          "min": 19.916351324437365,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 3
+      },
+      "tpsThroughFirstEnded": {
+        "samples": 291,
+        "observedSeconds": 1455.066,
+        "totalTicks": 29100,
+        "weightedTps": 19.999092824655378,
+        "intervalTps": {
+          "min": 19.916351324437365,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 3
+      }
+    },
+    {
+      "session": 2,
+      "round": 1,
+      "first": {
+        "session": 2,
+        "seq": 1,
+        "utc": "2026-11-14T10:47:13.614Z",
+        "matchSeconds": 1452,
+        "phase": "paused",
+        "round": 1,
+        "practice": false,
+        "players": 1,
+        "rosterSize": 2,
+        "onlineRoster": 1
+      },
+      "last": {
+        "session": 2,
+        "seq": 263,
+        "utc": "2026-11-14T11:09:03.650Z",
+        "matchSeconds": 2479,
+        "phase": "running",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "observedGameEnd": null,
+      "matchStatus": "CAPTURE_CLOSED_WITHOUT_OBSERVED_MATCH_END",
+      "maxObservedMatchSeconds": 2479,
+      "observedRosterSizes": [
+        2
+      ],
+      "observedConnectedPlayers": [
+        1,
+        2,
+        3
+      ],
+      "observedOnlineRoster": [
+        1,
+        2
+      ],
+      "configurationChanges": [],
+      "revealTransitions": [
+        {
+          "memberIndex": 0,
+          "status": "ALREADY_ANNOUNCED_WITHOUT_PRECEDING_MEMBER_SAMPLE",
+          "before": null,
+          "after": {
+            "session": 2,
+            "seq": 1,
+            "utc": "2026-11-14T10:47:13.614Z",
+            "matchSeconds": 1452,
+            "phase": "paused",
+            "round": 1,
+            "practice": false,
+            "players": 1,
+            "rosterSize": 2,
+            "onlineRoster": 1
+          },
+          "wallClockBracketSeconds": null,
+          "matchClockBracketSeconds": null,
+          "consecutiveSamples": false,
+          "unchangedConfigurationAcrossBracket": false,
+          "configuredThresholdSeconds": 1200,
+          "crossesConfiguredThreshold": false,
+          "interpretation": "Event occurred after the last negative observation and by the first positive observation, if both exist. Sampling is every 100 engine ticks (nominally 5 seconds); no exact 20:00/40:00 wall-clock execution claim.",
+          "memberBefore": null,
+          "memberAfter": {
+            "session": 2,
+            "seq": 1,
+            "utc": "2026-11-14T10:47:13.614Z",
+            "matchSeconds": 1452,
+            "phase": "paused",
+            "round": 1,
+            "practice": false,
+            "players": 1,
+            "rosterSize": 2,
+            "onlineRoster": 1,
+            "memberIndex": 0,
+            "role": "hunter",
+            "announced": true,
+            "delivered": false,
+            "trackerCount": 0
+          }
+        }
+      ],
+      "autoCompletionTransitions": [
+        {
+          "status": "OBSERVED_AUTO_COMPLETION_TRANSITION",
+          "before": {
+            "session": 2,
+            "seq": 247,
+            "utc": "2026-11-14T11:07:43.634Z",
+            "matchSeconds": 2399,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2
+          },
+          "after": {
+            "session": 2,
+            "seq": 248,
+            "utc": "2026-11-14T11:07:48.645Z",
+            "matchSeconds": 2404,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2
+          },
+          "wallClockBracketSeconds": 5.011,
+          "matchClockBracketSeconds": 5,
+          "consecutiveSamples": true,
+          "unchangedConfigurationAcrossBracket": true,
+          "configuredThresholdSeconds": 2400,
+          "crossesConfiguredThreshold": true,
+          "interpretation": "Event occurred after the last negative observation and by the first positive observation, if both exist. Sampling is every 100 engine ticks (nominally 5 seconds); no exact 20:00/40:00 wall-clock execution claim.",
+          "previousCompletion": null,
+          "config": {
+            "revealMinutes": 20,
+            "autoMinutes": 40,
+            "autoGive": true,
+            "autoPause": true,
+            "trackerMode": "random",
+            "wildBase": 2,
+            "wildMax": 3
+          },
+          "memberCounts": [
+            {
+              "memberIndex": 0,
+              "role": "hunter",
+              "count": 1,
+              "delivered": true
+            },
+            {
+              "memberIndex": 1,
+              "role": "runner",
+              "count": 0,
+              "delivered": false
+            }
+          ]
+        }
+      ],
+      "deliveryTransitions": [
+        {
+          "memberIndex": 0,
+          "status": "OBSERVED_DELIVERY_TRANSITION",
+          "before": {
+            "session": 2,
+            "seq": 247,
+            "utc": "2026-11-14T11:07:43.634Z",
+            "matchSeconds": 2399,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2
+          },
+          "after": {
+            "session": 2,
+            "seq": 248,
+            "utc": "2026-11-14T11:07:48.645Z",
+            "matchSeconds": 2404,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2
+          },
+          "wallClockBracketSeconds": 5.011,
+          "matchClockBracketSeconds": 5,
+          "consecutiveSamples": true,
+          "unchangedConfigurationAcrossBracket": true,
+          "configuredThresholdSeconds": 2400,
+          "crossesConfiguredThreshold": true,
+          "interpretation": "Event occurred after the last negative observation and by the first positive observation, if both exist. Sampling is every 100 engine ticks (nominally 5 seconds); no exact 20:00/40:00 wall-clock execution claim.",
+          "memberBefore": {
+            "session": 2,
+            "seq": 247,
+            "utc": "2026-11-14T11:07:43.634Z",
+            "matchSeconds": 2399,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2,
+            "memberIndex": 0,
+            "role": "hunter",
+            "announced": true,
+            "delivered": false,
+            "trackerCount": 0
+          },
+          "memberAfter": {
+            "session": 2,
+            "seq": 248,
+            "utc": "2026-11-14T11:07:48.645Z",
+            "matchSeconds": 2404,
+            "phase": "running",
+            "round": 1,
+            "practice": false,
+            "players": 3,
+            "rosterSize": 2,
+            "onlineRoster": 2,
+            "memberIndex": 0,
+            "role": "hunter",
+            "announced": true,
+            "delivered": true,
+            "trackerCount": 1
+          },
+          "completion": "auto",
+          "allObservedHuntersHaveExactlyOne": true,
+          "allObservedRunnersHaveZero": true,
+          "allRosterOnline": true
+        }
+      ],
+      "default20MinuteRevealBracketObserved": false,
+      "default40MinuteAutoCompletionBracketObserved": true,
+      "default40MinuteSingleHunterGrantBracketObserved": true,
+      "tpsIncludingPauseAndConnectionTransitions": {
+        "samples": 262,
+        "observedSeconds": 1310.036,
+        "totalTicks": 26200,
+        "weightedTps": 19.99945039678299,
+        "intervalTps": {
+          "min": 19.936204146730464,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.07628990162618
+        },
+        "transitionIntervalsIncluded": 3
+      },
+      "tpsThroughFirstEnded": {
+        "samples": 262,
+        "observedSeconds": 1310.036,
+        "totalTicks": 26200,
+        "weightedTps": 19.99945039678299,
+        "intervalTps": {
+          "min": 19.936204146730464,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.07628990162618
+        },
+        "transitionIntervalsIncluded": 3
+      }
+    },
+    {
+      "session": 3,
+      "round": 1,
+      "first": {
+        "session": 3,
+        "seq": 1,
+        "utc": "2026-11-14T11:09:20.821Z",
+        "matchSeconds": 2479,
+        "phase": "paused",
+        "round": 1,
+        "practice": false,
+        "players": 1,
+        "rosterSize": 2,
+        "onlineRoster": 1
+      },
+      "last": {
+        "session": 3,
+        "seq": 69,
+        "utc": "2026-11-14T11:15:09.963Z",
+        "matchSeconds": 2686,
+        "phase": "ended",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "observedGameEnd": {
+        "session": 3,
+        "seq": 61,
+        "utc": "2026-11-14T11:14:29.961Z",
+        "matchSeconds": 2686,
+        "phase": "ended",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "matchStatus": "ENDED_OBSERVED",
+      "maxObservedMatchSeconds": 2686,
+      "observedRosterSizes": [
+        2
+      ],
+      "observedConnectedPlayers": [
+        1,
+        2,
+        3
+      ],
+      "observedOnlineRoster": [
+        1,
+        2
+      ],
+      "configurationChanges": [],
+      "revealTransitions": [
+        {
+          "memberIndex": 0,
+          "status": "ALREADY_ANNOUNCED_WITHOUT_PRECEDING_MEMBER_SAMPLE",
+          "before": null,
+          "after": {
+            "session": 3,
+            "seq": 1,
+            "utc": "2026-11-14T11:09:20.821Z",
+            "matchSeconds": 2479,
+            "phase": "paused",
+            "round": 1,
+            "practice": false,
+            "players": 1,
+            "rosterSize": 2,
+            "onlineRoster": 1
+          },
+          "wallClockBracketSeconds": null,
+          "matchClockBracketSeconds": null,
+          "consecutiveSamples": false,
+          "unchangedConfigurationAcrossBracket": false,
+          "configuredThresholdSeconds": 1200,
+          "crossesConfiguredThreshold": false,
+          "interpretation": "Event occurred after the last negative observation and by the first positive observation, if both exist. Sampling is every 100 engine ticks (nominally 5 seconds); no exact 20:00/40:00 wall-clock execution claim.",
+          "memberBefore": null,
+          "memberAfter": {
+            "session": 3,
+            "seq": 1,
+            "utc": "2026-11-14T11:09:20.821Z",
+            "matchSeconds": 2479,
+            "phase": "paused",
+            "round": 1,
+            "practice": false,
+            "players": 1,
+            "rosterSize": 2,
+            "onlineRoster": 1,
+            "memberIndex": 0,
+            "role": "hunter",
+            "announced": true,
+            "delivered": true,
+            "trackerCount": 1
+          }
+        }
+      ],
+      "autoCompletionTransitions": [
+        {
+          "status": "ALREADY_AUTO_AT_FIRST_OBSERVATION",
+          "before": null,
+          "after": {
+            "session": 3,
+            "seq": 1,
+            "utc": "2026-11-14T11:09:20.821Z",
+            "matchSeconds": 2479,
+            "phase": "paused",
+            "round": 1,
+            "practice": false,
+            "players": 1,
+            "rosterSize": 2,
+            "onlineRoster": 1
+          },
+          "wallClockBracketSeconds": null,
+          "matchClockBracketSeconds": null,
+          "consecutiveSamples": false,
+          "unchangedConfigurationAcrossBracket": false,
+          "configuredThresholdSeconds": 2400,
+          "crossesConfiguredThreshold": false,
+          "interpretation": "Event occurred after the last negative observation and by the first positive observation, if both exist. Sampling is every 100 engine ticks (nominally 5 seconds); no exact 20:00/40:00 wall-clock execution claim.",
+          "previousCompletion": null,
+          "config": {
+            "revealMinutes": 20,
+            "autoMinutes": 40,
+            "autoGive": true,
+            "autoPause": true,
+            "trackerMode": "random",
+            "wildBase": 2,
+            "wildMax": 3
+          },
+          "memberCounts": [
+            {
+              "memberIndex": 0,
+              "role": "hunter",
+              "count": 1,
+              "delivered": true
+            }
+          ]
+        }
+      ],
+      "deliveryTransitions": [
+        {
+          "memberIndex": 0,
+          "status": "ALREADY_DELIVERED_WITHOUT_PRECEDING_MEMBER_SAMPLE",
+          "before": null,
+          "after": {
+            "session": 3,
+            "seq": 1,
+            "utc": "2026-11-14T11:09:20.821Z",
+            "matchSeconds": 2479,
+            "phase": "paused",
+            "round": 1,
+            "practice": false,
+            "players": 1,
+            "rosterSize": 2,
+            "onlineRoster": 1
+          },
+          "wallClockBracketSeconds": null,
+          "matchClockBracketSeconds": null,
+          "consecutiveSamples": false,
+          "unchangedConfigurationAcrossBracket": false,
+          "configuredThresholdSeconds": 2400,
+          "crossesConfiguredThreshold": false,
+          "interpretation": "Event occurred after the last negative observation and by the first positive observation, if both exist. Sampling is every 100 engine ticks (nominally 5 seconds); no exact 20:00/40:00 wall-clock execution claim.",
+          "memberBefore": null,
+          "memberAfter": {
+            "session": 3,
+            "seq": 1,
+            "utc": "2026-11-14T11:09:20.821Z",
+            "matchSeconds": 2479,
+            "phase": "paused",
+            "round": 1,
+            "practice": false,
+            "players": 1,
+            "rosterSize": 2,
+            "onlineRoster": 1,
+            "memberIndex": 0,
+            "role": "hunter",
+            "announced": true,
+            "delivered": true,
+            "trackerCount": 1
+          },
+          "completion": "auto",
+          "allObservedHuntersHaveExactlyOne": true,
+          "allObservedRunnersHaveZero": true,
+          "allRosterOnline": false
+        }
+      ],
+      "default20MinuteRevealBracketObserved": false,
+      "default40MinuteAutoCompletionBracketObserved": false,
+      "default40MinuteSingleHunterGrantBracketObserved": false,
+      "tpsIncludingPauseAndConnectionTransitions": {
+        "samples": 68,
+        "observedSeconds": 349.142,
+        "totalTicks": 6800,
+        "weightedTps": 19.476316226635582,
+        "intervalTps": {
+          "min": 7.077140835102618,
+          "median": 19.996000799840033,
+          "p95": 20.036064916850332,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 4
+      },
+      "tpsThroughFirstEnded": {
+        "samples": 60,
+        "observedSeconds": 309.14,
+        "totalTicks": 6000,
+        "weightedTps": 19.408682150481983,
+        "intervalTps": {
+          "min": 7.077140835102618,
+          "median": 19.996000799840033,
+          "p95": 20.036064916850332,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 4
+      }
+    }
+  ],
+  "tps": {
+    "formula": "sum(elapsedTicks) * 1000 / sum(elapsedMs)",
+    "overallIncludingPauseAndTransitions": {
+      "samples": 663,
+      "observedSeconds": 3324.242,
+      "totalTicks": 66300,
+      "weightedTps": 19.944396346595706,
+      "intervalTps": {
+        "min": 7.077140835102618,
+        "median": 20,
+        "p95": 20.044097013429546,
+        "max": 20.07628990162618
+      },
+      "transitionIntervalsIncluded": 12
+    },
+    "phaseAndConnectedPlayerGroups": [
+      {
+        "session": 1,
+        "phase": "lobby",
+        "players": 1,
+        "onlineRoster": 0,
+        "rosterSize": 0,
+        "practice": false,
+        "samples": 19,
+        "observedSeconds": 94.995,
+        "totalTicks": 1900,
+        "weightedTps": 20.001052686983524,
+        "intervalTps": {
+          "min": 19.952114924181963,
+          "median": 19.996000799840033,
+          "p95": 20.052135552436333,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 1,
+        "phase": "lobby",
+        "players": 2,
+        "onlineRoster": 0,
+        "rosterSize": 0,
+        "practice": false,
+        "samples": 21,
+        "observedSeconds": 104.982,
+        "totalTicks": 2100,
+        "weightedTps": 20.003429159284448,
+        "intervalTps": {
+          "min": 19.952114924181963,
+          "median": 20.004000800160032,
+          "p95": 20.04811547714515,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 1,
+        "phase": "grace",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 11,
+        "observedSeconds": 55.005,
+        "totalTicks": 1100,
+        "weightedTps": 19.99818198345605,
+        "intervalTps": {
+          "min": 19.976028765481423,
+          "median": 19.996000799840033,
+          "p95": 20.024028834601523,
+          "max": 20.024028834601523
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 1,
+        "phase": "running",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 213,
+        "observedSeconds": 1065.03,
+        "totalTicks": 21300,
+        "weightedTps": 19.99943663558773,
+        "intervalTps": {
+          "min": 19.924287706714484,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 1,
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 64,
+        "observedSeconds": 320.028,
+        "totalTicks": 6400,
+        "weightedTps": 19.998250153111602,
+        "intervalTps": {
+          "min": 19.916351324437365,
+          "median": 19.996000799840033,
+          "p95": 20.04811547714515,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 2,
+        "phase": "paused",
+        "players": 1,
+        "onlineRoster": 1,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 3,
+        "observedSeconds": 15,
+        "totalTicks": 300,
+        "weightedTps": 20,
+        "intervalTps": {
+          "min": 19.956096587507485,
+          "median": 20.0160128102482,
+          "p95": 20.02803925495694,
+          "max": 20.02803925495694
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 2,
+        "phase": "paused",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 9,
+        "observedSeconds": 45.011,
+        "totalTicks": 900,
+        "weightedTps": 19.995112305880784,
+        "intervalTps": {
+          "min": 19.940179461615156,
+          "median": 19.99200319872051,
+          "p95": 20.052135552436333,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 2,
+        "phase": "paused",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 42,
+        "observedSeconds": 210.009,
+        "totalTicks": 4200,
+        "weightedTps": 19.999142893875977,
+        "intervalTps": {
+          "min": 19.94415636218588,
+          "median": 19.998000399920016,
+          "p95": 20.03205128205128,
+          "max": 20.07628990162618
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 2,
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 205,
+        "observedSeconds": 1025.005,
+        "totalTicks": 20500,
+        "weightedTps": 19.999902439500296,
+        "intervalTps": {
+          "min": 19.936204146730464,
+          "median": 20,
+          "p95": 20.04811547714515,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 3,
+        "phase": "paused",
+        "players": 1,
+        "onlineRoster": 1,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 3,
+        "observedSeconds": 24.127,
+        "totalTicks": 300,
+        "weightedTps": 12.434202345919509,
+        "intervalTps": {
+          "min": 7.077140835102618,
+          "median": 19.984012789768187,
+          "p95": 20.02803925495694,
+          "max": 20.02803925495694
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 3,
+        "phase": "paused",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 4,
+        "observedSeconds": 20.003,
+        "totalTicks": 400,
+        "weightedTps": 19.99700044993251,
+        "intervalTps": {
+          "min": 19.98800719568259,
+          "median": 19.996003997921314,
+          "p95": 20.008003201280513,
+          "max": 20.008003201280513
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 3,
+        "phase": "paused",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 9,
+        "observedSeconds": 44.997,
+        "totalTicks": 900,
+        "weightedTps": 20.00133342222815,
+        "intervalTps": {
+          "min": 19.960079840319363,
+          "median": 20,
+          "p95": 20.052135552436333,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 3,
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 40,
+        "observedSeconds": 199.991,
+        "totalTicks": 4000,
+        "weightedTps": 20.000900040501822,
+        "intervalTps": {
+          "min": 19.94415636218588,
+          "median": 19.996000799840033,
+          "p95": 20.036064916850332,
+          "max": 20.04008016032064
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 3,
+        "phase": "ended",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false,
+        "samples": 8,
+        "observedSeconds": 40.002,
+        "totalTicks": 800,
+        "weightedTps": 19.999000049997502,
+        "intervalTps": {
+          "min": 19.968051118210862,
+          "median": 20.000003200000513,
+          "p95": 20.024028834601523,
+          "max": 20.024028834601523
+        },
+        "transitionIntervalsIncluded": 0
+      }
+    ],
+    "transitionIntervals": [
+      {
+        "session": 1,
+        "round": 0,
+        "startUtc": "2026-11-14T10:20:46.103Z",
+        "endUtc": "2026-11-14T10:20:51.117Z",
+        "seq": 21,
+        "elapsedMs": 5014,
+        "elapsedTicks": 100,
+        "tps": 19.94415636218588,
+        "transition": true,
+        "before": {
+          "session": 1,
+          "seq": 20,
+          "utc": "2026-11-14T10:20:46.103Z",
+          "matchSeconds": 0,
+          "phase": "lobby",
+          "round": 0,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 0,
+          "onlineRoster": 0
+        },
+        "after": {
+          "session": 1,
+          "seq": 21,
+          "utc": "2026-11-14T10:20:51.117Z",
+          "matchSeconds": 0,
+          "phase": "lobby",
+          "round": 0,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 0,
+          "onlineRoster": 0
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:22:36.099Z",
+        "endUtc": "2026-11-14T10:22:41.106Z",
+        "seq": 43,
+        "elapsedMs": 5007,
+        "elapsedTicks": 100,
+        "tps": 19.972039145196725,
+        "transition": true,
+        "before": {
+          "session": 1,
+          "seq": 42,
+          "utc": "2026-11-14T10:22:36.099Z",
+          "matchSeconds": 0,
+          "phase": "lobby",
+          "round": 0,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 0,
+          "onlineRoster": 0
+        },
+        "after": {
+          "session": 1,
+          "seq": 43,
+          "utc": "2026-11-14T10:22:41.106Z",
+          "matchSeconds": 0,
+          "phase": "countdown",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:22:41.106Z",
+        "endUtc": "2026-11-14T10:22:46.106Z",
+        "seq": 44,
+        "elapsedMs": 5000,
+        "elapsedTicks": 100,
+        "tps": 20,
+        "transition": true,
+        "before": {
+          "session": 1,
+          "seq": 43,
+          "utc": "2026-11-14T10:22:41.106Z",
+          "matchSeconds": 0,
+          "phase": "countdown",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 44,
+          "utc": "2026-11-14T10:22:46.106Z",
+          "matchSeconds": 2,
+          "phase": "grace",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:23:41.111Z",
+        "endUtc": "2026-11-14T10:23:46.105Z",
+        "seq": 56,
+        "elapsedMs": 4994,
+        "elapsedTicks": 100,
+        "tps": 20.024028834601523,
+        "transition": true,
+        "before": {
+          "session": 1,
+          "seq": 55,
+          "utc": "2026-11-14T10:23:41.111Z",
+          "matchSeconds": 57,
+          "phase": "grace",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 56,
+          "utc": "2026-11-14T10:23:46.105Z",
+          "matchSeconds": 62,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:41:31.135Z",
+        "endUtc": "2026-11-14T10:41:36.144Z",
+        "seq": 270,
+        "elapsedMs": 5009,
+        "elapsedTicks": 100,
+        "tps": 19.964064683569575,
+        "transition": true,
+        "before": {
+          "session": 1,
+          "seq": 269,
+          "utc": "2026-11-14T10:41:31.135Z",
+          "matchSeconds": 1127,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 270,
+          "utc": "2026-11-14T10:41:36.144Z",
+          "matchSeconds": 1132,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 2,
+        "round": 1,
+        "startUtc": "2026-11-14T10:47:28.614Z",
+        "endUtc": "2026-11-14T10:47:33.625Z",
+        "seq": 5,
+        "elapsedMs": 5011,
+        "elapsedTicks": 100,
+        "tps": 19.956096587507485,
+        "transition": true,
+        "before": {
+          "session": 2,
+          "seq": 4,
+          "utc": "2026-11-14T10:47:28.614Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 2,
+          "onlineRoster": 1
+        },
+        "after": {
+          "session": 2,
+          "seq": 5,
+          "utc": "2026-11-14T10:47:33.625Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 2,
+        "round": 1,
+        "startUtc": "2026-11-14T10:48:18.636Z",
+        "endUtc": "2026-11-14T10:48:23.634Z",
+        "seq": 15,
+        "elapsedMs": 4998,
+        "elapsedTicks": 100,
+        "tps": 20.008003201280513,
+        "transition": true,
+        "before": {
+          "session": 2,
+          "seq": 14,
+          "utc": "2026-11-14T10:48:18.636Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 2,
+          "seq": 15,
+          "utc": "2026-11-14T10:48:23.634Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 2,
+        "round": 1,
+        "startUtc": "2026-11-14T10:51:53.643Z",
+        "endUtc": "2026-11-14T10:51:58.645Z",
+        "seq": 58,
+        "elapsedMs": 5002,
+        "elapsedTicks": 100,
+        "tps": 19.99200319872051,
+        "transition": true,
+        "before": {
+          "session": 2,
+          "seq": 57,
+          "utc": "2026-11-14T10:51:53.643Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 2,
+          "seq": 58,
+          "utc": "2026-11-14T10:51:58.645Z",
+          "matchSeconds": 1454,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 3,
+        "round": 1,
+        "startUtc": "2026-11-14T11:09:44.948Z",
+        "endUtc": "2026-11-14T11:09:49.955Z",
+        "seq": 5,
+        "elapsedMs": 5007,
+        "elapsedTicks": 100,
+        "tps": 19.972039145196725,
+        "transition": true,
+        "before": {
+          "session": 3,
+          "seq": 4,
+          "utc": "2026-11-14T11:09:44.948Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 2,
+          "onlineRoster": 1
+        },
+        "after": {
+          "session": 3,
+          "seq": 5,
+          "utc": "2026-11-14T11:09:49.955Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 3,
+        "round": 1,
+        "startUtc": "2026-11-14T11:10:09.958Z",
+        "endUtc": "2026-11-14T11:10:14.968Z",
+        "seq": 10,
+        "elapsedMs": 5010,
+        "elapsedTicks": 100,
+        "tps": 19.960079840319363,
+        "transition": true,
+        "before": {
+          "session": 3,
+          "seq": 9,
+          "utc": "2026-11-14T11:10:09.958Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 3,
+          "seq": 10,
+          "utc": "2026-11-14T11:10:14.968Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 3,
+        "round": 1,
+        "startUtc": "2026-11-14T11:10:59.965Z",
+        "endUtc": "2026-11-14T11:11:04.971Z",
+        "seq": 20,
+        "elapsedMs": 5006,
+        "elapsedTicks": 100,
+        "tps": 19.976028765481423,
+        "transition": true,
+        "before": {
+          "session": 3,
+          "seq": 19,
+          "utc": "2026-11-14T11:10:59.965Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 3,
+          "seq": 20,
+          "utc": "2026-11-14T11:11:04.971Z",
+          "matchSeconds": 2483,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 3,
+        "round": 1,
+        "startUtc": "2026-11-14T11:14:24.962Z",
+        "endUtc": "2026-11-14T11:14:29.961Z",
+        "seq": 61,
+        "elapsedMs": 4999,
+        "elapsedTicks": 100,
+        "tps": 20.004000800160032,
+        "transition": true,
+        "before": {
+          "session": 3,
+          "seq": 60,
+          "utc": "2026-11-14T11:14:24.962Z",
+          "matchSeconds": 2683,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 3,
+          "seq": 61,
+          "utc": "2026-11-14T11:14:29.961Z",
+          "matchSeconds": 2686,
+          "phase": "ended",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      }
+    ],
+    "excludedIntervals": [
+      {
+        "sample": {
+          "session": 1,
+          "seq": 1,
+          "utc": "2026-11-14T10:19:11.108Z",
+          "matchSeconds": 0,
+          "phase": "lobby",
+          "round": 0,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 0,
+          "onlineRoster": 0
+        },
+        "reason": "First observed sample of session; no preceding observation"
+      },
+      {
+        "sample": {
+          "session": 2,
+          "seq": 1,
+          "utc": "2026-11-14T10:47:13.614Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 2,
+          "onlineRoster": 1
+        },
+        "reason": "First observed sample of session; no preceding observation"
+      },
+      {
+        "sample": {
+          "session": 3,
+          "seq": 1,
+          "utc": "2026-11-14T11:09:20.821Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 2,
+          "onlineRoster": 1
+        },
+        "reason": "First observed sample of session; no preceding observation"
+      }
+    ],
+    "slowestIntervals": [
+      {
+        "session": 3,
+        "round": 1,
+        "startUtc": "2026-11-14T11:09:20.821Z",
+        "endUtc": "2026-11-14T11:09:34.951Z",
+        "seq": 2,
+        "elapsedMs": 14130,
+        "elapsedTicks": 100,
+        "tps": 7.077140835102618,
+        "transition": false,
+        "before": {
+          "session": 3,
+          "seq": 1,
+          "utc": "2026-11-14T11:09:20.821Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 2,
+          "onlineRoster": 1
+        },
+        "after": {
+          "session": 3,
+          "seq": 2,
+          "utc": "2026-11-14T11:09:34.951Z",
+          "matchSeconds": 2479,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 2,
+          "onlineRoster": 1
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:41:36.144Z",
+        "endUtc": "2026-11-14T10:41:41.165Z",
+        "seq": 271,
+        "elapsedMs": 5021,
+        "elapsedTicks": 100,
+        "tps": 19.916351324437365,
+        "transition": false,
+        "before": {
+          "session": 1,
+          "seq": 270,
+          "utc": "2026-11-14T10:41:36.144Z",
+          "matchSeconds": 1132,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 271,
+          "utc": "2026-11-14T10:41:41.165Z",
+          "matchSeconds": 1137,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:40:51.103Z",
+        "endUtc": "2026-11-14T10:40:56.122Z",
+        "seq": 262,
+        "elapsedMs": 5019,
+        "elapsedTicks": 100,
+        "tps": 19.924287706714484,
+        "transition": false,
+        "before": {
+          "session": 1,
+          "seq": 261,
+          "utc": "2026-11-14T10:40:51.103Z",
+          "matchSeconds": 1087,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 262,
+          "utc": "2026-11-14T10:40:56.122Z",
+          "matchSeconds": 1092,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 2,
+        "round": 1,
+        "startUtc": "2026-11-14T11:08:58.634Z",
+        "endUtc": "2026-11-14T11:09:03.650Z",
+        "seq": 263,
+        "elapsedMs": 5016,
+        "elapsedTicks": 100,
+        "tps": 19.936204146730464,
+        "transition": false,
+        "before": {
+          "session": 2,
+          "seq": 262,
+          "utc": "2026-11-14T11:08:58.634Z",
+          "matchSeconds": 2474,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 2,
+          "seq": 263,
+          "utc": "2026-11-14T11:09:03.650Z",
+          "matchSeconds": 2479,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:41:01.117Z",
+        "endUtc": "2026-11-14T10:41:06.132Z",
+        "seq": 264,
+        "elapsedMs": 5015,
+        "elapsedTicks": 100,
+        "tps": 19.940179461615156,
+        "transition": false,
+        "before": {
+          "session": 1,
+          "seq": 263,
+          "utc": "2026-11-14T10:41:01.117Z",
+          "matchSeconds": 1097,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 264,
+          "utc": "2026-11-14T10:41:06.132Z",
+          "matchSeconds": 1102,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:45:11.161Z",
+        "endUtc": "2026-11-14T10:45:16.176Z",
+        "seq": 314,
+        "elapsedMs": 5015,
+        "elapsedTicks": 100,
+        "tps": 19.940179461615156,
+        "transition": false,
+        "before": {
+          "session": 1,
+          "seq": 313,
+          "utc": "2026-11-14T10:45:11.161Z",
+          "matchSeconds": 1347,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 314,
+          "utc": "2026-11-14T10:45:16.176Z",
+          "matchSeconds": 1352,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 2,
+        "round": 1,
+        "startUtc": "2026-11-14T10:48:08.611Z",
+        "endUtc": "2026-11-14T10:48:13.626Z",
+        "seq": 13,
+        "elapsedMs": 5015,
+        "elapsedTicks": 100,
+        "tps": 19.940179461615156,
+        "transition": false,
+        "before": {
+          "session": 2,
+          "seq": 12,
+          "utc": "2026-11-14T10:48:08.611Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 2,
+          "seq": 13,
+          "utc": "2026-11-14T10:48:13.626Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 1,
+        "round": 0,
+        "startUtc": "2026-11-14T10:20:46.103Z",
+        "endUtc": "2026-11-14T10:20:51.117Z",
+        "seq": 21,
+        "elapsedMs": 5014,
+        "elapsedTicks": 100,
+        "tps": 19.94415636218588,
+        "transition": true,
+        "before": {
+          "session": 1,
+          "seq": 20,
+          "utc": "2026-11-14T10:20:46.103Z",
+          "matchSeconds": 0,
+          "phase": "lobby",
+          "round": 0,
+          "practice": false,
+          "players": 1,
+          "rosterSize": 0,
+          "onlineRoster": 0
+        },
+        "after": {
+          "session": 1,
+          "seq": 21,
+          "utc": "2026-11-14T10:20:51.117Z",
+          "matchSeconds": 0,
+          "phase": "lobby",
+          "round": 0,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 0,
+          "onlineRoster": 0
+        }
+      },
+      {
+        "session": 1,
+        "round": 1,
+        "startUtc": "2026-11-14T10:31:31.097Z",
+        "endUtc": "2026-11-14T10:31:36.111Z",
+        "seq": 150,
+        "elapsedMs": 5014,
+        "elapsedTicks": 100,
+        "tps": 19.94415636218588,
+        "transition": false,
+        "before": {
+          "session": 1,
+          "seq": 149,
+          "utc": "2026-11-14T10:31:31.097Z",
+          "matchSeconds": 527,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 1,
+          "seq": 150,
+          "utc": "2026-11-14T10:31:36.111Z",
+          "matchSeconds": 532,
+          "phase": "running",
+          "round": 1,
+          "practice": false,
+          "players": 2,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      },
+      {
+        "session": 2,
+        "round": 1,
+        "startUtc": "2026-11-14T10:49:08.643Z",
+        "endUtc": "2026-11-14T10:49:13.657Z",
+        "seq": 25,
+        "elapsedMs": 5014,
+        "elapsedTicks": 100,
+        "tps": 19.94415636218588,
+        "transition": false,
+        "before": {
+          "session": 2,
+          "seq": 24,
+          "utc": "2026-11-14T10:49:08.643Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        },
+        "after": {
+          "session": 2,
+          "seq": 25,
+          "utc": "2026-11-14T10:49:13.657Z",
+          "matchSeconds": 1452,
+          "phase": "paused",
+          "round": 1,
+          "practice": false,
+          "players": 3,
+          "rosterSize": 2,
+          "onlineRoster": 2
+        }
+      }
+    ]
+  },
+  "memory": {
+    "sourceSha256": "ea1ccdead44af4989ec7ccf16e9f708d5288306ce9212f44f9c827dc39359c0d",
+    "status": "SAMPLER_STOPPED",
+    "stopReason": "stop_requested",
+    "samples": 1572,
+    "invalidRows": [],
+    "firstSampleUtc": "2026-11-14T10:22:42.244Z",
+    "lastSampleUtc": "2026-11-14T11:15:31.670Z",
+    "sampledSpanSeconds": 3169.426,
+    "workingSetMiB": {
+      "min": 1712.4453125,
+      "median": 2319.19140625,
+      "p95": 2370.265625,
+      "max": 2422.5234375
+    },
+    "privateBytesMiB": {
+      "min": 4130.27734375,
+      "median": 4686.650390625,
+      "p95": 4860.4921875,
+      "max": 4930.33203125
+    },
+    "cpuPercentMachine": {
+      "min": 3.938459065750565,
+      "median": 14.729753491775565,
+      "p95": 35.02179793977466,
+      "max": 76.9168320165636
+    },
+    "timeWeightedCpuPercentMachine": 19.346159439195137,
+    "observedPhaseAndPlayerGroups": [
+      {
+        "phase": "grace",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "running",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "paused",
+        "players": 1,
+        "onlineRoster": 1,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "paused",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "paused",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "ended",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      }
+    ],
+    "tpsSamplesOverlapping": 623,
+    "attribution": "Host process capture window only; overlaps can contain several phases/player counts. No FPS, network, per-phase memory, or client-B process inference."
+  },
+  "fps": "NOT MEASURED by this observer",
+  "network": "NOT MEASURED by this observer",
+  "limitations": [
+    "Only MHQA_LONG_1 rows are accepted. Usernames, absolute paths, IPs and unrelated raw log text are never copied.",
+    "100 engine ticks is nominally five seconds at 20 TPS, and can take longer under stalls. Threshold transitions are bounded by observations, not timed exactly.",
+    "No interpolation across missing/invalid samples or sequence reset. Separate sessions may represent reloads; their cumulative metrics are not a continuous run.",
+    "State-specific TPS excludes transition intervals; overall/per-match summaries include pause and connection transitions.",
+    "Engine tick/wall-clock ratio is not FPS. Wall-clock adjustments and logging overhead remain possible.",
+    "Not observing an event in a partial/buffered log is not proof that it did not occur.",
+    "Analysis completion is separate from game-match end, capture closure, or Stable QA completion."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "scenario": "Actual two-member official round; third connected client outside roster during part of capture; reloads and final exit included",
+  "processName": "Minecraft.Windows",
+  "sampleCount": 1572,
+  "elapsedSeconds": 3171.4628316,
+  "requestedDurationSeconds": 3600,
+  "requestedIntervalMs": 2000,
+  "logicalProcessors": 20,
+  "stopReason": "stop_requested",
+  "originalSamplerWorkingSetBytes": {
+    "min": 1795629056,
+    "median": 2431799296,
+    "p95": 2485403648,
+    "max": 2540199936
+  },
+  "originalSamplerPrivateBytes": {
+    "min": 4330909696,
+    "median": 4914294784,
+    "p95": 5096595456,
+    "max": 5169827840
+  },
+  "originalSamplerCpuPercentMachine": {
+    "min": 3.938459065750565,
+    "median": 14.729753491775565,
+    "p95": 35.02179793977466,
+    "max": 76.9168320165636
+  },
+  "originalSamplerCpuPercentOneCore": {
+    "min": 78.7691813150113,
+    "median": 294.5950698355113,
+    "p95": 700.4359587954932,
+    "max": 1538.336640331272
+  },
+  "originalSamplerSummarySha256": "0110bbae5fe14fca14dc1634de5e8e5dec990e5675dfd6dc0652f801ad781c56",
+  "originalSamplerMedianConvention": "Lower central sorted value when sample count is even; final-measurement-summary uses the average of both central values.",
+  "fps": "NOT MEASURED",
+  "tps": "Not measured by process sampler; separately measured by script observer",
+  "network": "NOT MEASURED; process IO is not network traffic"
+}

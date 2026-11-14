@@ -1,0 +1,569 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T11:15:27.434Z",
+  "evidenceOrigin": "ACTUAL_GAME_PROBE_OBSERVATION",
+  "status": "POST_GRANT_RELOAD_OBSERVED_CAPTURE_ONGOING",
+  "captureClosureReported": false,
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T11-14-06-078Z",
+    "sourceLogSha256": "44fff6e617861b50109f921972edde235797cda7479e7152147437443d9d6ad4",
+    "acceptedRows": 651,
+    "malformedOrInvalidRows": [
+      {
+        "sourceLine": 12265,
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true,
+        "reason": "Incomplete or malformed MHQA_LONG JSON; raw text is excluded"
+      }
+    ]
+  },
+  "uiObservationByThisAnalysis": {
+    "performed": false,
+    "evidence": null,
+    "attribution": "The parent reported the save/reopen operation. This record independently examines sanitized probe states, not UI or database contents."
+  },
+  "beforeReload": {
+    "session": 2,
+    "seq": 263,
+    "utc": "2026-11-14T11:09:03.650Z",
+    "phase": "running",
+    "matchSeconds": 2479,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "onlineRoster": 2,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 1
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "runnerRespawning": false,
+    "winCounts": [],
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 14,
+        "count": 1,
+        "trackers": [
+          {
+            "slot": 2,
+            "id": "mh:tracker_0",
+            "amount": 1
+          }
+        ],
+        "announced": true,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "health": 40,
+        "count": 0,
+        "trackers": [],
+        "announced": false,
+        "delivered": false
+      }
+    ]
+  },
+  "firstAfterReload": {
+    "session": 3,
+    "seq": 1,
+    "utc": "2026-11-14T11:09:20.821Z",
+    "phase": "paused",
+    "matchSeconds": 2479,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 1,
+    "rosterSize": 2,
+    "onlineRoster": 1,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 1
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "runnerRespawning": false,
+    "winCounts": [],
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 14,
+        "count": 1,
+        "trackers": [
+          {
+            "slot": 2,
+            "id": "mh:tracker_0",
+            "amount": 1
+          }
+        ],
+        "announced": true,
+        "delivered": true
+      }
+    ]
+  },
+  "reloadObservationGapSeconds": 17.171,
+  "reloadGapInterpretation": "This is the gap between the last pre-reload sample and first post-reload sample, not a measured reload duration or exact event timestamp.",
+  "preservedFields": [
+    {
+      "field": "matchSeconds",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "practice",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "round",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "rosterSize",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "config",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "craft",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "runnerRespawns",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "runnerLifeBonus",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "runnerRespawning",
+      "equalBeforeAndFirstAfterReload": true
+    },
+    {
+      "field": "winCounts",
+      "equalBeforeAndFirstAfterReload": true
+    }
+  ],
+  "rosterRoleEvidence": {
+    "before": [
+      {
+        "memberIndex": 0,
+        "role": "hunter"
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner"
+      }
+    ],
+    "firstAfterReload": [
+      {
+        "memberIndex": 0,
+        "role": "hunter"
+      }
+    ],
+    "firstRunnerReobserved": {
+      "session": 3,
+      "seq": 5,
+      "utc": "2026-11-14T11:09:49.955Z",
+      "phase": "paused",
+      "matchSeconds": 2479,
+      "practice": false,
+      "round": 1,
+      "playersConnected": 2,
+      "rosterSize": 2,
+      "onlineRoster": 2,
+      "config": {
+        "revealMinutes": 20,
+        "autoMinutes": 40,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3
+      },
+      "craft": {
+        "step": 0,
+        "amount": 2,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 1,
+        "deliveredCount": 1
+      },
+      "runnerRespawns": 2,
+      "runnerLifeBonus": 1,
+      "runnerRespawning": false,
+      "winCounts": [],
+      "members": [
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 14,
+          "count": 1,
+          "trackers": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "announced": true,
+          "delivered": true
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "count": 0,
+          "trackers": [],
+          "announced": false,
+          "delivered": false
+        }
+      ]
+    },
+    "explanation": "Only the host is online in the first post-reload sample. The runner role is re-observed when that roster member reconnects; absence is not a role change."
+  },
+  "pauseAndResume": {
+    "pausedSamplesBeforeResume": 19,
+    "firstPausedUtc": "2026-11-14T11:09:20.821Z",
+    "lastPaused": {
+      "session": 3,
+      "seq": 19,
+      "utc": "2026-11-14T11:10:59.965Z",
+      "phase": "paused",
+      "matchSeconds": 2479,
+      "practice": false,
+      "round": 1,
+      "playersConnected": 3,
+      "rosterSize": 2,
+      "onlineRoster": 2,
+      "config": {
+        "revealMinutes": 20,
+        "autoMinutes": 40,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3
+      },
+      "craft": {
+        "step": 0,
+        "amount": 2,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 1,
+        "deliveredCount": 1
+      },
+      "runnerRespawns": 2,
+      "runnerLifeBonus": 1,
+      "runnerRespawning": false,
+      "winCounts": [],
+      "members": [
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 14,
+          "count": 1,
+          "trackers": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_0",
+              "amount": 1
+            }
+          ],
+          "announced": true,
+          "delivered": true
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "count": 0,
+          "trackers": [],
+          "announced": false,
+          "delivered": false
+        }
+      ]
+    },
+    "firstRunning": {
+      "session": 3,
+      "seq": 20,
+      "utc": "2026-11-14T11:11:04.971Z",
+      "phase": "running",
+      "matchSeconds": 2483,
+      "practice": false,
+      "round": 1,
+      "playersConnected": 3,
+      "rosterSize": 2,
+      "onlineRoster": 2,
+      "config": {
+        "revealMinutes": 20,
+        "autoMinutes": 40,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3
+      },
+      "craft": {
+        "step": 0,
+        "amount": 2,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 1,
+        "deliveredCount": 1
+      },
+      "runnerRespawns": 2,
+      "runnerLifeBonus": 1,
+      "runnerRespawning": false,
+      "winCounts": [],
+      "members": [
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 14,
+          "count": 1,
+          "trackers": [
+            {
+              "slot": 2,
+              "id": "mh:tracker_1",
+              "amount": 1
+            }
+          ],
+          "announced": true,
+          "delivered": true
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "count": 0,
+          "trackers": [],
+          "announced": false,
+          "delivered": false
+        }
+      ]
+    },
+    "pausedObservationSpanSeconds": 99.144,
+    "allPausedSamplesRetain2479Seconds": true,
+    "resumeBracketSeconds": 5.006,
+    "exactResumeInstantKnown": false,
+    "automaticResumeClaimed": false,
+    "explanation": "The parent used manual resume. State samples bound the resulting paused-to-running transition."
+  },
+  "duplicateGrantObservation": {
+    "status": "NO_DUPLICATE_OBSERVED_IN_SAMPLED_ROSTER_INVENTORIES",
+    "observationFirstUtc": "2026-11-14T11:09:20.821Z",
+    "observationLastUtc": "2026-11-14T11:13:54.967Z",
+    "observationSpanSeconds": 274.146,
+    "totalPostReloadStateSamples": 54,
+    "runningStateSamples": 35,
+    "hostSamples": 54,
+    "hostCountValues": [
+      1
+    ],
+    "hostDeliveredValues": [
+      true
+    ],
+    "hostRoleValues": [
+      "hunter"
+    ],
+    "runnerSamples": 50,
+    "runnerCountValues": [
+      0
+    ],
+    "runnerDeliveredValues": [
+      false
+    ],
+    "runnerRoleValues": [
+      "runner"
+    ],
+    "observedCraftStates": [
+      {
+        "step": 0,
+        "amount": 2,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 1,
+        "deliveredCount": 1
+      }
+    ],
+    "nonparticipantInventoryObserved": false,
+    "nonparticipantTrackerCount": null,
+    "limitations": "All observed host counts remain one and delivery remains true. This does not exclude an unobserved transient between samples, establish nonparticipant inventory, or prove indefinite future behavior."
+  },
+  "latest": {
+    "session": 3,
+    "seq": 54,
+    "utc": "2026-11-14T11:13:54.967Z",
+    "phase": "running",
+    "matchSeconds": 2653,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "onlineRoster": 2,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 1
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "runnerRespawning": false,
+    "winCounts": [],
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 14,
+        "count": 1,
+        "trackers": [
+          {
+            "slot": 2,
+            "id": "mh:tracker_1",
+            "amount": 1
+          }
+        ],
+        "announced": true,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "health": 40,
+        "count": 0,
+        "trackers": [],
+        "announced": false,
+        "delivered": false
+      }
+    ]
+  },
+  "latestTimerDisplay": "44:13",
+  "observedPostReloadPhases": [
+    "paused",
+    "running"
+  ],
+  "observedConnectedCounts": [
+    1,
+    2,
+    3
+  ],
+  "connectedVersusRoster": {
+    "latestConnected": 3,
+    "continuingOfficialRoster": 2,
+    "interpretation": "Three connected clients continue to coexist with a two-member official match. The unrostered client inventory is not in this probe."
+  },
+  "tps": {
+    "session3IncludingPauseAndTransitions": {
+      "samples": 53,
+      "observedSeconds": 274.146,
+      "totalTicks": 5300,
+      "weightedTps": 19.332764293478657,
+      "intervalTps": {
+        "min": 7.077140835102618,
+        "median": 19.996000799840033,
+        "p95": 20.036064916850332,
+        "max": 20.052135552436333
+      },
+      "transitionIntervalsIncluded": 3
+    },
+    "lowestObservedInterval": {
+      "session": 3,
+      "round": 1,
+      "startUtc": "2026-11-14T11:09:20.821Z",
+      "endUtc": "2026-11-14T11:09:34.951Z",
+      "seq": 2,
+      "elapsedMs": 14130,
+      "elapsedTicks": 100,
+      "tps": 7.077140835102618,
+      "transition": false,
+      "before": {
+        "session": 3,
+        "seq": 1,
+        "utc": "2026-11-14T11:09:20.821Z",
+        "matchSeconds": 2479,
+        "phase": "paused",
+        "round": 1,
+        "practice": false,
+        "players": 1,
+        "rosterSize": 2,
+        "onlineRoster": 1
+      },
+      "after": {
+        "session": 3,
+        "seq": 2,
+        "utc": "2026-11-14T11:09:34.951Z",
+        "matchSeconds": 2479,
+        "phase": "paused",
+        "round": 1,
+        "practice": false,
+        "players": 1,
+        "rosterSize": 2,
+        "onlineRoster": 1
+      }
+    },
+    "lowIntervalCause": "UNDETERMINED",
+    "interpretation": "The 100-tick / 14.130-second paused interval is retained in inclusive metrics. No FPS, cause, or performance acceptance is inferred."
+  },
+  "samplerFileObservation": {
+    "state": "RUNNING_OR_SUMMARY_NOT_YET_WRITTEN",
+    "samples": 1529,
+    "firstSampleUtc": "2026-11-14T10:22:42.244Z",
+    "lastSampleUtc": "2026-11-14T11:14:04.989Z",
+    "sampledSpanSeconds": 3082.745,
+    "processSessionStatusQueried": false,
+    "samplerStoppedByThisAnalysis": false,
+    "explanation": "Recent CSV rows indicate ongoing writes and the final summary JSON is not yet present in this snapshot."
+  },
+  "fps": "NOT MEASURED; no new evidence",
+  "network": "NOT MEASURED",
+  "limitations": [
+    "The probe cadence is nominally five seconds and becomes longer during stalls.",
+    "Only the scoped QA fields were extracted; no raw Content Log text, account nickname or private absolute path was copied.",
+    "This is an ongoing observation snapshot, not a full E2E or Stable pass."
+  ]
+}

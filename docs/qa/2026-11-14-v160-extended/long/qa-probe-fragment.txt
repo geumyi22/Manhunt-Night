@@ -1,0 +1,13 @@
+
+// QA ONLY: read-only long-session observer; never part of a release pack.
+let qaLongTime=Date.now(),qaLongTick=system.currentTick,qaLongSeq=0;
+system.runInterval(()=>{
+ const now=Date.now(),tick=system.currentTick,ps=world.getAllPlayers(),d=s.trackerCraft;
+ const members=ps.filter(p=>s.roster.includes(p.name)).map(p=>{
+  const inv=inventory(p),trackers=[];let count=0;
+  if(inv)for(let i=0;i<inv.size;i++){const item=inv.getItem(i);if(item?.typeId.startsWith('mh:tracker_')){count+=item.amount;trackers.push({slot:i,id:item.typeId,amount:item.amount});}}
+  return {memberIndex:s.roster.indexOf(p.name),role:p.name===s.runner?'runner':'hunter',dimension:p.dimension.id,location:p.location,yaw:p.getRotation().y,health:p.getComponent('minecraft:health')?.currentValue,selectedSlot:p.selectedSlotIndex,trackers,count,emptySlots:inv?.emptySlotsCount,announced:!!d?.announced[p.name],delivered:!!d?.delivered[p.name]};
+ });
+ const row={schema:'MHQA_LONG_1',seq:++qaLongSeq,utc:new Date(now).toISOString(),elapsedMs:now-qaLongTime,elapsedTicks:tick-qaLongTick,phase:s.phase,matchSeconds:s.seconds,remaining:s.remaining,practice:s.practice,round:s.round,rosterSize:s.roster.length,players:ps.length,members,config:{revealMinutes:s.config.trackerRevealMinutes,autoMinutes:s.config.trackerAutoMinutes,autoGive:s.config.trackerAutoGive,autoPause:s.config.features.autoPause,trackerMode:s.config.trackerMode,wildBase:s.config.wildRespawnBase,wildMax:s.config.wildRespawnMax},craft:d?{step:d.step,amount:d.amount,completion:d.completion,pending:d.pending?.kind??null,announcedCount:Object.keys(d.announced).length,deliveredCount:Object.keys(d.delivered).length}:null,runnerRespawns:s.runnerRespawns,runnerLifeBonus:s.runnerLifeBonus,runnerRespawning:s.runnerRespawning,winCounts:Object.values(s.wins).sort((a,b)=>a-b),result:s.result};
+ console.warn('[MHQA_LONG] '+JSON.stringify(row));qaLongTime=now;qaLongTick=tick;
+},100);

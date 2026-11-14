@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T11:18:40.364Z",
+  "status": "CAPTURE_CLOSED",
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T11-15-50-885Z",
+    "sourceLogSha256": "9dbec3c2ea1fb1c961ce888df13d88b969c3d15cb43b9a2f2ea4db9a5ef658c2",
+    "acceptedRows": 666,
+    "malformedOrInvalidRows": []
+  },
+  "closureSource": "Parent directly observed Save & Quit returning to the worlds list; sampler then stopped by its stop signal.",
+  "finalTimer": "44:46",
+  "finalMatchSeconds": 2686,
+  "finalResult": "헌터 승리",
+  "probeRows": 666,
+  "sessions": [
+    {
+      "session": 1,
+      "firstUtc": "2026-11-14T10:19:11.108Z",
+      "samples": 334,
+      "last": {
+        "session": 1,
+        "seq": 334,
+        "utc": "2026-11-14T10:46:56.172Z",
+        "matchSeconds": 1452,
+        "phase": "running",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "tpsIncludingPauseAndTransitions": {
+        "samples": 333,
+        "observedSeconds": 1665.064,
+        "totalTicks": 33300,
+        "weightedTps": 19.999231260780366,
+        "intervalTps": {
+          "min": 19.916351324437365,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 5
+      }
+    },
+    {
+      "session": 2,
+      "firstUtc": "2026-11-14T10:47:13.614Z",
+      "samples": 263,
+      "last": {
+        "session": 2,
+        "seq": 263,
+        "utc": "2026-11-14T11:09:03.650Z",
+        "matchSeconds": 2479,
+        "phase": "running",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "tpsIncludingPauseAndTransitions": {
+        "samples": 262,
+        "observedSeconds": 1310.036,
+        "totalTicks": 26200,
+        "weightedTps": 19.99945039678299,
+        "intervalTps": {
+          "min": 19.936204146730464,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.07628990162618
+        },
+        "transitionIntervalsIncluded": 3
+      }
+    },
+    {
+      "session": 3,
+      "firstUtc": "2026-11-14T11:09:20.821Z",
+      "samples": 69,
+      "last": {
+        "session": 3,
+        "seq": 69,
+        "utc": "2026-11-14T11:15:09.963Z",
+        "matchSeconds": 2686,
+        "phase": "ended",
+        "round": 1,
+        "practice": false,
+        "players": 3,
+        "rosterSize": 2,
+        "onlineRoster": 2
+      },
+      "tpsIncludingPauseAndTransitions": {
+        "samples": 68,
+        "observedSeconds": 349.142,
+        "totalTicks": 6800,
+        "weightedTps": 19.476316226635582,
+        "intervalTps": {
+          "min": 7.077140835102618,
+          "median": 19.996000799840033,
+          "p95": 20.036064916850332,
+          "max": 20.052135552436333
+        },
+        "transitionIntervalsIncluded": 4
+      }
+    }
+  ],
+  "tps": {
+    "allAcceptedSessionIntervalsIncludingLobbyPauseAndEnded": {
+      "samples": 663,
+      "observedSeconds": 3324.242,
+      "totalTicks": 66300,
+      "weightedTps": 19.944396346595706,
+      "intervalTps": {
+        "min": 7.077140835102618,
+        "median": 20,
+        "p95": 20.044097013429546,
+        "max": 20.07628990162618
+      },
+      "transitionIntervalsIncluded": 12
+    },
+    "continuingOfficialMatchIntervalsThroughFirstVictory": {
+      "samples": 613,
+      "observedSeconds": 3074.2419999999997,
+      "totalTicks": 61300,
+      "weightedTps": 19.9398746097412,
+      "interpretation": "Weighted aggregate of three separately observed sessions of the same continuing round, including pause/connection/end transitions. Reload gaps and each session first sample are excluded; not an uninterrupted capture."
+    },
+    "lowestObservedInterval": {
+      "session": 3,
+      "round": 1,
+      "startUtc": "2026-11-14T11:09:20.821Z",
+      "endUtc": "2026-11-14T11:09:34.951Z",
+      "seq": 2,
+      "elapsedMs": 14130,
+      "elapsedTicks": 100,
+      "tps": 7.077140835102618,
+      "transition": false,
+      "before": {
+        "session": 3,
+        "seq": 1,
+        "utc": "2026-11-14T11:09:20.821Z",
+        "matchSeconds": 2479,
+        "phase": "paused",
+        "round": 1,
+        "practice": false,
+        "players": 1,
+        "rosterSize": 2,
+        "onlineRoster": 1
+      },
+      "after": {
+        "session": 3,
+        "seq": 2,
+        "utc": "2026-11-14T11:09:34.951Z",
+        "matchSeconds": 2479,
+        "phase": "paused",
+        "round": 1,
+        "practice": false,
+        "players": 1,
+        "rosterSize": 2,
+        "onlineRoster": 1
+      }
+    },
+    "lowestIntervalCause": "UNDETERMINED"
+  },
+  "memory": {
+    "sourceSha256": "ea1ccdead44af4989ec7ccf16e9f708d5288306ce9212f44f9c827dc39359c0d",
+    "status": "SAMPLER_STOPPED",
+    "stopReason": "stop_requested",
+    "samples": 1572,
+    "invalidRows": [],
+    "firstSampleUtc": "2026-11-14T10:22:42.244Z",
+    "lastSampleUtc": "2026-11-14T11:15:31.670Z",
+    "sampledSpanSeconds": 3169.426,
+    "workingSetMiB": {
+      "min": 1712.4453125,
+      "median": 2319.19140625,
+      "p95": 2370.265625,
+      "max": 2422.5234375
+    },
+    "privateBytesMiB": {
+      "min": 4130.27734375,
+      "median": 4686.650390625,
+      "p95": 4860.4921875,
+      "max": 4930.33203125
+    },
+    "cpuPercentMachine": {
+      "min": 3.938459065750565,
+      "median": 14.729753491775565,
+      "p95": 35.02179793977466,
+      "max": 76.9168320165636
+    },
+    "timeWeightedCpuPercentMachine": 19.346159439195137,
+    "observedPhaseAndPlayerGroups": [
+      {
+        "phase": "grace",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "running",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "paused",
+        "players": 1,
+        "onlineRoster": 1,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "paused",
+        "players": 2,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "paused",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      },
+      {
+        "phase": "ended",
+        "players": 3,
+        "onlineRoster": 2,
+        "rosterSize": 2,
+        "practice": false
+      }
+    ],
+    "tpsSamplesOverlapping": 623,
+    "attribution": "Host process capture window only; overlaps can contain several phases/player counts. No FPS, network, per-phase memory, or client-B process inference."
+  },
+  "memoryMedianConvention": "Analyzer median averages the two central sorted values for an even sample count; the original sampler JSON selects its lower central value. Raw and analyzed summaries are preserved separately.",
+  "postGrantReloadThroughFinalSample": {
+    "session": 3,
+    "stateSamples": 69,
+    "firstUtc": "2026-11-14T11:09:20.821Z",
+    "lastUtc": "2026-11-14T11:15:09.963Z",
+    "hostObservedSamples": 69,
+    "hostCountValues": [
+      1
+    ],
+    "hostDeliveredValues": [
+      true
+    ],
+    "runnerObservedSamples": 65,
+    "runnerCountValues": [
+      0
+    ],
+    "craftStates": [
+      {
+        "step": 0,
+        "amount": 2,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 1,
+        "deliveredCount": 1
+      }
+    ],
+    "conclusion": "No duplicate tracker count is observed in sampled roster inventories, including after reload/resume and through the ended phase.",
+    "nonparticipantTrackerCount": null
+  },
+  "thresholdEvidence": {
+    "default20MinuteRevealBracketObserved": true,
+    "default40MinuteAutoCompletionBracketObserved": true,
+    "default40MinuteSingleHunterGrantBracketObserved": true
+  },
+  "fps": "NOT MEASURED",
+  "network": "NOT MEASURED",
+  "performancePassClaimed": false,
+  "memoryLeakAbsenceClaimed": false,
+  "limitations": [
+    "Only two participants belong to the official match even when three clients are connected.",
+    "Memory spans different phases, one/two/three connected clients, reload screens and final exit; it is whole-host-process data.",
+    "TPS is engine tick rate, not rendered FPS. The slow paused interval remains included.",
+    "Hardware/process workload and this one trial cannot establish performance on all supported devices."
+  ]
+}
