@@ -26,11 +26,7 @@
   ],
   "scope": "Build checkout reproducibility; no gameplay changes",
   "logs": [
-    "windows-checkout-install.log",
-    "windows-checkout-tests.log",
-    "windows-checkout-types.log",
-    "windows-checkout-source.log",
-    "windows-checkout-build.log",
-    "windows-checkout-package.log"
-  ]
+    "windows-checkout-tests.txt"
+  ],
+  "additionalLocalChecks": "Install, types, source, addon build, package verification were executed; summarized above. Only regression log is included in this evidence directory."
 }
