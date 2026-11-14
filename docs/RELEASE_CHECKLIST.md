@@ -11,9 +11,9 @@
 - [x] 실제 3인 공동 제작·경합 투척·헌터별 추적기·재접속·소집 성공/팀 대기/횟수·같은 차원 수신기·승패 확인
 - [x] 사용자와 친구들의 직접 QA 보고, 부활·토템·러너 전용 접근 경고 확인 반영
 - [x] LONG·THREE의 장시간 TPS·호스트 메모리 실측 완료; 측정 공백과 전환 구간 함께 기록
-- 최종 커밋 CI와 게시 후 GitHub 자산 해시는 PR 및 Issue #3에 별도 기록합니다.
+- [x] 2026-11-15 재확인: [Stable 반영 PR #10](https://github.com/geumyi22/Manhunt-Night/pull/10) 병합, [최종 제품 커밋의 Source QA](https://github.com/geumyi22/Manhunt-Night/actions/runs/43598457890) 성공, [v1.6.0 Stable Release](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0) 게시와 자산 목록 확인. 게시 후 해시 감사 상세는 [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)에 보존.
 - [x] 사용자 직접 QA와 확인된 결과·공개 제한을 기준으로 Stable 배포 승인 (2026-11-14)
-- 기존 v1.6.0 태그·자산과 과거 QA 원문을 보존하고, 최신 문서·소스는 별도 Stable 묶음으로 제공합니다. 실제 게시·다운로드 해시 확인은 릴리스와 Issue #3의 최종 기록을 따릅니다.
+- 기존 v1.6.0 태그·자산과 과거 QA 원문을 보존하며, Stable 소스·문서는 별도 이름의 묶음으로 제공됩니다. **문서 유지보수는 게임 파일의 새 버전 출시가 아닙니다.** 파일 선택은 [릴리스 안내](RELEASE_GUIDE.md), 게시·해시 상세는 Issue #3의 최종 기록을 따릅니다.
 
 ## 알려진 제한과 추가 확인 범위
 

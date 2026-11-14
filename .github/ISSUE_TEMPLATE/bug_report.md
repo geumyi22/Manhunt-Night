@@ -5,9 +5,9 @@ title: "[Bug] "
 ---
 
 ## 환경
-- Manhunt Night 버전(예: v1.5.1):
+- Manhunt Night 버전(예: v1.6.0 Stable):
 - Minecraft Bedrock 버전 / 기기 / 운영체제:
-- 사용 파일(.mcworld 또는 .mcaddon) 및 다른 애드온 여부:
+- 사용 파일(.mcworld 또는 .mcaddon) / 다른 애드온 / 월드 시드(기본 월드인지) 여부:
 - 참가 인원(러너/헌터), 차원, 경기 시각:
 
 ## 재현 순서
