@@ -17,7 +17,7 @@ const bp=collectFiles(path.join(ROOT,'BP')),rp=collectFiles(path.join(ROOT,'RP')
 const bm=parseJSON(bp.find(e=>e.name==='manifest.json').data),rm=parseJSON(rp.find(e=>e.name==='manifest.json').data);
 write(NAMES.addon,writeZip([{name:'ManhuntNight_BP.mcpack',data:writeZip(bp)},{name:'ManhuntNight_RP.mcpack',data:writeZip(rp)}]));
 const source=[];for(const folder of ['BP','RP','tests','docs','tools','.github'])source.push(...collectFiles(path.join(ROOT,folder),folder+'/'));
-for(const file of ['README.md','LICENSE','package.json','package-lock.json','tsconfig.json','.gitignore']){assert(fs.existsSync(path.join(ROOT,file)),'Missing source file '+file);source.push({name:file,data:fs.readFileSync(path.join(ROOT,file))});}
+for(const file of ['README.md','LICENSE','package.json','package-lock.json','tsconfig.json','.gitignore','.gitattributes']){assert(fs.existsSync(path.join(ROOT,file)),'Missing source file '+file);source.push({name:file,data:fs.readFileSync(path.join(ROOT,file))});}
 write(NAMES.source,writeZip(source));
 const report={version:VERSION,targetGame:'26.62',releaseStatus:'PRE-RELEASE until documented runtime QA supports promotion',sourcePackChecks:packSource,baseWorld:null,metadataChanges:[]};
 const outputs=[NAMES.addon,NAMES.source];

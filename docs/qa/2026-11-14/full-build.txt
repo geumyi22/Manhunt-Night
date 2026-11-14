@@ -1,0 +1,23 @@
+{
+  "version": "1.5.1",
+  "mode": "full",
+  "outputDirectory": "[workspace]\\dist",
+  "files": [
+    "Manhunt_Night_v1.5.1.mcworld",
+    "Manhunt_Night_v1.5.1.mcaddon",
+    "Manhunt_Night_Source_v1.5.1.zip",
+    "BUILD_MANIFEST.json",
+    "README.md",
+    "LICENSE",
+    "INSTALL.md",
+    "FEATURES.md",
+    "CHANGELOG.md",
+    "QA_REPORT.md",
+    "FRIENDS_TEST.md",
+    "PACKAGE_CHECKS.json",
+    "SHA256SUMS.txt",
+    "Manhunt_Night_v1.5.1_FullFiles.zip",
+    "Manhunt_Night_v1.5.1_FullFiles.zip.sha256"
+  ],
+  "baseInputUnchanged": true
+}

@@ -26,10 +26,10 @@ node tools/verify.mjs
 - `Manhunt_Night_v1.5.1.mcworld`
 - `Manhunt_Night_v1.5.1.mcaddon`
 - `Manhunt_Night_Source_v1.5.1.zip`
-- `Manhunt_Night_v1.5.1_전체파일.zip`
+- `Manhunt_Night_v1.5.1_FullFiles.zip`
 - `README.md`, `INSTALL.md`, `FEATURES.md`, `CHANGELOG.md`, `QA_REPORT.md`, `LICENSE`
 - `BUILD_MANIFEST.json`, `PACKAGE_CHECKS.json`, `SHA256SUMS.txt`
-- 전체 ZIP 자체의 해시는 `Manhunt_Night_v1.5.1_전체파일.zip.sha256`
+- 전체 ZIP 자체의 해시는 `Manhunt_Night_v1.5.1_FullFiles.zip.sha256`
 
 전체 ZIP 안의 `SHA256SUMS.txt`는 안에 들어 있는 각 배포 파일을 검증합니다. ZIP이 자기 자신의 해시를 포함할 수 없으므로 전체 ZIP 해시는 별도 파일로 제공합니다. `node tools/verify.mjs`는 내부 CRC, ZIP 경로 안전성, 필수 파일, 동일한 팩 내용, 원본 DB 해시, 버전·UUID·정식 API 의존성, 아이템 텍스처와 32개 나침반 프레임, 부활 토템 조합, 일반/어려운 재료 분리, QA 시험 코드 미포함을 확인합니다.
 
