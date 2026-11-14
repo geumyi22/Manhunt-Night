@@ -44,4 +44,6 @@ node tools/build.mjs --addon-only
 node tools/verify.mjs --addon-only
 ```
 
-Actions 통과는 실제 게임 실행 또는 멀티플레이 통과를 의미하지 않습니다. 실제 클라이언트 핵심 기능과 회귀 검증이 완료되기 전까지 배포는 Pre-release로 관리합니다. 무결성 결과와 최종 실행 상태는 `QA_REPORT.md`를 함께 확인하세요.
+Actions 통과는 실제 게임 실행이나 멀티플레이 통과를 의미하지 않습니다. **v1.6.0은 2026-11-14 사용자·친구들의 2·3인 실기 QA, 212개 회귀 테스트, 일부 호스트 TPS·메모리 측정과 공개된 제한을 근거로 Stable로 승인·게시됐습니다.** 실제 8인 접속, FPS, 게임별 네트워크 수치는 미검증/미측정이며 성능 보장으로 간주하지 않습니다. 검증 근거와 현재 상태는 [QA 보고서](QA_REPORT.md), [릴리스 점검표](RELEASE_CHECKLIST.md), [Stable 릴리스](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)에서 확인하세요.
+
+소스에서 새 빌드를 수행했다고 해서 GitHub에 게시된 기존 `.mcworld`·`.mcaddon` 자산이나 해시를 임의로 교체하지 마세요. 기반 월드가 다르면 바이트가 달라질 수 있으므로 새 배포는 별도 버전과 검증 결과로 관리합니다.
