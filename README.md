@@ -1,16 +1,17 @@
 # Manhunt Night v1.6.0
 
-> 2026-11-14 중간 업데이트: 정식 경기 2~8명으로 확장합니다. 1인 연습·기존 저장 형식은 유지합니다. 실제 검증 범위와 남은 조건은 [QA 보고서](docs/QA_REPORT.md)를 확인하세요.
+> 2026-11-14 Stable 배포 승인: 친구들과 확인한 실제 2·3인 QA와 자동 검사·성능 기록을 반영했습니다. 정식 경기 2~8명, 1인 연습·기존 저장 형식은 유지합니다. 확인 범위와 알려진 제한은 [QA 보고서](docs/QA_REPORT.md)에 있습니다.
 
 Minecraft Bedrock 26.62 기준 · 러너 1명 vs 헌터 1~7명 · 1인 연습 지원.
-**Pre-release**: 자동 검사와 실제 클라이언트 확인 범위는 [QA 보고서](docs/QA_REPORT.md)에 구분합니다. 실제 3~4인 멀티플레이와 성능 실측은 아직 완료되지 않았습니다.
+**v1.6.0 Stable**: 사용자와 친구들의 직접 QA, 실제 2·3인 게임 흐름, 212개 자동 회귀와 TPS·호스트 메모리 측정을 근거로 배포합니다. FPS·게임별 네트워크 수치와 실제 8인 규모는 미확인 범위로 공개합니다.
 
 ## 현재 배포 및 개발 상태 (2026-11-14)
 
-- **중간 업데이트:** [v1.6.0 Pre-release](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0). `.mcworld`·`.mcaddon`·전체 ZIP·소스·해시·QA 문서 등은 릴리스 Assets에서 받습니다.
+- **Stable 배포:** [v1.6.0 릴리스](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)의 [Stable 전체 ZIP](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_v1.6.0_Stable_FullFiles.zip)을 권장합니다. `.mcworld`·`.mcaddon`·현재 소스·설치 안내·QA·SHA-256을 함께 제공합니다. 게임만 가져오려면 [v1.6.0 월드](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_v1.6.0.mcworld)를 사용하세요.
+- **동일한 게임 파일:** Stable은 검증된 기존 v1.6.0 게임 코드의 배포 상태를 전환합니다. 기존 태그와 자산을 덮어쓰지 않고, 최신 문서·소스는 이름에 `Stable`이 있는 추가 묶음으로 제공합니다. 게시 상태와 최종 자산은 릴리스 페이지에서 확인할 수 있습니다.
 - **기존 배포 보존:** [v1.5.1](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.1)과 이전 월드·애드온·기록은 그대로 유지합니다.
 - **자동 검증:** 기존 204개를 포함한 **212/212 통과**. 2인 승패·재접속, 8인 개별 추적기 지급·소집 경계를 포함합니다. 실제 기기 결과와 [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions)는 [QA 보고서](docs/QA_REPORT.md)에서 구분합니다.
-- **남은 필수 QA:** 친구 3~4인 및 8인 동시 플레이·장시간 성능 실측 등은 [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)에서 추적합니다. 이 검증 전에는 Stable이라고 표시하지 않습니다.
+- **QA 기록:** [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)에 직접 플레이 확인·실측·CI와 출시 판단을 보존합니다. 확인된 게임 흐름을 반복 시험하도록 요구하지 않으며, 추가 인원·측정 및 개별 상황은 알려진 제한으로 구분합니다.
 - **버그 제보:** [Issues](https://github.com/geumyi22/Manhunt-Night/issues)에서 재현 조건·베드락 버전·영상/Content Log를 함께 기록해 주세요. 개인 정보나 토큰은 첨부하지 마세요.
 
 ## 설치와 시작

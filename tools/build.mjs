@@ -20,7 +20,7 @@ write(NAMES.addon,writeZip([{name:'ManhuntNight_BP.mcpack',data:writeZip(bp)},{n
 const source=[];for(const folder of ['BP','RP','tests','docs','tools','.github'])source.push(...collectFiles(path.join(ROOT,folder),folder+'/'));
 for(const file of ['README.md','LICENSE','package.json','package-lock.json','tsconfig.json','.gitignore','.gitattributes']){assert(fs.existsSync(path.join(ROOT,file)),'Missing source file '+file);source.push({name:file,data:fs.readFileSync(path.join(ROOT,file))});}
 write(NAMES.source,writeZip(source));
-const report={version:VERSION,targetGame:'26.62',releaseStatus:'PRE-RELEASE until documented runtime QA supports promotion',sourcePackChecks:packSource,baseWorld:null,metadataChanges:[]};
+const report={version:VERSION,targetGame:'26.62',releaseStatus:'STABLE',runtimeQAReport:'docs/QA_REPORT.md',sourceCommit:process.env.MANHUNT_SOURCE_COMMIT??null,preservedReleaseTagCommit:process.env.MANHUNT_RELEASE_TAG_COMMIT??null,sourcePackChecks:packSource,baseWorld:null,metadataChanges:[]};
 const outputs=[NAMES.addon,NAMES.source];
 if(!addonOnly){
  const base=path.resolve(requested),stat=fs.statSync(base),readBase=()=>stat.isDirectory()?new Map(collectFiles(base).map(e=>[e.name,e.data])):readZip(fs.readFileSync(base));
