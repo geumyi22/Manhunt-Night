@@ -1,0 +1,31 @@
+{
+  "schema": "MHQA_THREE_FINAL_LOG_FRAGMENT_REVIEW_1",
+  "status": "UNCHANGED_INCOMPLETE_FINAL_ROW_AFTER_CLOSURE_RECHECK",
+  "closedAnalysisSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+  "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+  "sourceBytes": 3560530,
+  "lastModifiedUtcAtRecheck": "2026-11-14T12:45:25.723Z",
+  "recheckedAtUtc": "2026-11-14T12:48:14.744Z",
+  "sameBytesAndHashAsClosedAnalysisSnapshot": true,
+  "excludedFragment": {
+    "sourceLine": 29779,
+    "marker": "MHQA_THREE",
+    "kind": "MALFORMED_JSON",
+    "endOfFileFragment": true,
+    "atLastPhysicalLine": true,
+    "lineCharacters": 861,
+    "jsonFragmentCharacters": 819,
+    "startsWithObject": true,
+    "endsWithClosingObject": false,
+    "jsonParseExceptionClass": "SyntaxError",
+    "contentsPublished": false
+  },
+  "acceptedPeriodicRows": 1065,
+  "acceptedDropEvents": 18,
+  "interpretation": "The incomplete last row remained unchanged at this recheck several minutes after the operator observed Save and Quit. It is explicitly excluded from numeric and functional analysis. Its missing fields are not filled in.",
+  "limits": [
+    "The observed incomplete file row is not by itself a production-script SyntaxError: SyntaxError here is the offline JSON parser's result for incomplete text.",
+    "No logger, buffering, native-write, or shutdown root cause was established, and permanent data corruption is not asserted.",
+    "The separate load-review.json reports production-log diagnostic signature counts. It must not be summarized as zero errors without the Lighting diagnostic and incomplete-row qualification."
+  ]
+}

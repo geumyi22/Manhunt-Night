@@ -1,0 +1,44 @@
+{
+  "scenario": "QA v1.6.0 THREE PLAYERS: initial lobby and planned real three-player functional trial; UI-configured 2/8 minute reveal/auto settings; capture includes mixed phases and player counts",
+  "process_name": "Minecraft.Windows",
+  "sample_count": 1785,
+  "elapsed_seconds": 3601.1369324,
+  "requested_duration_seconds": 3600,
+  "requested_interval_ms": 2000,
+  "stop_signal_supported": true,
+  "logical_processors": 20,
+  "stop_reason": "duration_reached",
+  "working_set_bytes": {
+    "min": 1648197632,
+    "median": 2319278080,
+    "p95": 2493927424,
+    "max": 2559242240
+  },
+  "private_bytes": {
+    "min": 4487798784,
+    "median": 5013626880,
+    "p95": 5311934464,
+    "max": 5341229056
+  },
+  "cpu_percent_machine": {
+    "min": 4.968098103244817,
+    "median": 11.294505661892265,
+    "p95": 30.18241396606512,
+    "max": 77.15474063613713
+  },
+  "cpu_percent_one_core": {
+    "min": 99.36196206489633,
+    "median": 225.8901132378453,
+    "p95": 603.6482793213024,
+    "max": 1543.0948127227427
+  },
+  "fps": "NOT MEASURED by this sampler",
+  "tps": "NOT MEASURED by this sampler",
+  "network": "NOT MEASURED; process IO is not treated as network traffic",
+  "limitations": "Process-only memory and CPU. GPU memory, system RAM, FPS/TPS and gameplay quality are not inferred. Record foreground/background state, scenario, clients, settings and instrumentation separately.",
+  "publicMetadataSanitized": true,
+  "omittedFields": [
+    "process identifier",
+    "process start timestamp"
+  ]
+}

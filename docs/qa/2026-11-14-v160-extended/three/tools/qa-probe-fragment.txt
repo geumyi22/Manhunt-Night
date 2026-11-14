@@ -1,0 +1,44 @@
+
+// QA ONLY: read-only three-player observer; never part of a release pack.
+let qaThreeTime=Date.now(),qaThreeTick=system.currentTick,qaThreeSeq=0,qaThreeDropSeq=0;
+const qaThreeBorn=new Map(),qaThreeBornObjects=new WeakMap();
+const qaThreeCraft=()=>{const d=s.trackerCraft;return d?{step:d.step,amount:d.amount,completion:d.completion,pending:d.pending?.kind??null,announcedCount:Object.keys(d.announced).length,deliveredCount:Object.keys(d.delivered).length}:null;};
+world.afterEvents.entitySpawn.subscribe(event=>{
+ try{
+  const entity=event.entity;if(entity.typeId!=='minecraft:item')return;
+  const item=entity.getComponent('minecraft:item')?.itemStack;if(!item)return;
+  const position=entity.location;
+  const entry={bornTick:system.currentTick,id:item.typeId,amount:item.amount,location:{x:position.x,y:position.y,z:position.z},dimension:entity.dimension.id};
+  qaThreeBornObjects.set(entity,entry);qaThreeBorn.set(entity.id,entry);
+  if(qaThreeBorn.size>1024)qaThreeBorn.delete(qaThreeBorn.keys().next().value);
+ }catch{}
+});
+world.afterEvents.entityItemDrop.subscribe(event=>{
+ try{
+  const actor=event.entity;if(!(actor instanceof Player))return;
+  const memberIndex=s.roster.indexOf(actor.name),role=memberIndex<0?'nonparticipant':actor.name===s.runner?'runner':'hunter',items=[];
+  const dropped=event.items;
+  for(let index=0;index<dropped.length;index++){
+   const entity=dropped[index];let cached=qaThreeBornObjects.get(entity),live=null;
+   try{cached=cached??qaThreeBorn.get(entity.id);}catch{}
+   if(cached&&system.currentTick-cached.bornTick>200)cached=null;
+   try{const item=entity.getComponent('minecraft:item')?.itemStack;if(item){const position=entity.location;live={id:item.typeId,amount:item.amount,location:{x:position.x,y:position.y,z:position.z},dimension:entity.dimension.id};}}catch{}
+   const snapshot=live??cached;
+   items.push(snapshot?{itemIndex:index,id:snapshot.id,amount:snapshot.amount,location:snapshot.location,dimension:snapshot.dimension,readSource:live?'live_after_production_handler':'spawn_cache',bornTick:cached?.bornTick??null}:{itemIndex:index,readSource:'unavailable_after_production_handler'});
+  }
+  console.warn('[MHQA_THREE_DROP] '+JSON.stringify({schema:'MHQA_THREE_DROP_1',seq:++qaThreeDropSeq,utc:new Date().toISOString(),tick:system.currentTick,round:s.round,phase:s.phase,matchSeconds:s.seconds,rosterSize:s.roster.length,players:world.getAllPlayers().length,memberIndex,role,craftActive:trackerCraft.active(actor),items,craftAfterObserver:qaThreeCraft()}));
+ }catch{console.warn('[MHQA_THREE_DROP] '+JSON.stringify({schema:'MHQA_THREE_DROP_ERROR_1',utc:new Date().toISOString(),tick:system.currentTick,reason:'observer_read_unavailable'}));}
+});
+system.runInterval(()=>{
+ try{
+  const now=Date.now(),tick=system.currentTick,ps=world.getAllPlayers(),d=s.trackerCraft,sm=s.summon;
+  for(const [key,value]of qaThreeBorn)if(tick-value.bornTick>200)qaThreeBorn.delete(key);
+  const members=ps.filter(p=>s.roster.includes(p.name)).map(p=>{
+   const inv=inventory(p),trackers=[];let count=0;
+   if(inv)for(let i=0;i<inv.size;i++){const item=inv.getItem(i);if(item?.typeId.startsWith('mh:tracker_')){count+=item.amount;trackers.push({slot:i,id:item.typeId,amount:item.amount});}}
+   return {memberIndex:s.roster.indexOf(p.name),role:p.name===s.runner?'runner':'hunter',dimension:p.dimension.id,location:p.location,yaw:p.getRotation().y,health:p.getComponent('minecraft:health')?.currentValue,selectedSlot:p.selectedSlotIndex,trackers,count,emptySlots:inv?.emptySlotsCount,announced:!!d?.announced[p.name],delivered:!!d?.delivered[p.name],craftActive:trackerCraft.active(p)};
+  });
+  const row={schema:'MHQA_THREE_1',seq:++qaThreeSeq,utc:new Date(now).toISOString(),elapsedMs:now-qaThreeTime,elapsedTicks:tick-qaThreeTick,phase:s.phase,matchSeconds:s.seconds,remaining:s.remaining,practice:s.practice,round:s.round,rosterSize:s.roster.length,players:ps.length,members,config:{revealMinutes:s.config.trackerRevealMinutes,autoMinutes:s.config.trackerAutoMinutes,autoGive:s.config.trackerAutoGive,autoPause:s.config.features.autoPause,trackerMode:s.config.trackerMode,wildBase:s.config.wildRespawnBase,wildMax:s.config.wildRespawnMax,summonDistance:s.config.summonDistance,summonCooldownSeconds:s.config.summonCooldownSeconds,summonMaxUses:s.config.summonMaxUses},craft:qaThreeCraft(),summon:sm?{uses:sm.uses,readyAt:sm.readyAt,serial:sm.serial,transactionPhase:sm.transaction?.phase??null,transactionParticipantCount:sm.transaction?.participants?.length??0}:null,runnerRespawns:s.runnerRespawns,runnerLifeBonus:s.runnerLifeBonus,runnerRespawning:s.runnerRespawning,winCounts:Object.values(s.wins).sort((a,b)=>a-b),result:s.result};
+  console.warn('[MHQA_THREE] '+JSON.stringify(row));qaThreeTime=now;qaThreeTick=tick;
+ }catch{console.warn('[MHQA_THREE] '+JSON.stringify({schema:'MHQA_THREE_ERROR_1',utc:new Date().toISOString(),tick:system.currentTick,reason:'observer_read_unavailable'}));}
+},100);

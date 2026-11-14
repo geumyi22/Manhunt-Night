@@ -1,0 +1,215 @@
+{
+  "version": "1.6.0",
+  "world": "QA v1.6.0 THREE PLAYERS",
+  "generatedAtUtc": "2026-11-14T11:23:29.717Z",
+  "status": "OFFICIAL_THREE_MEMBER_START_AND_GRACE_OBSERVED; OTHER_FUNCTIONAL_CASES_PENDING",
+  "source": {
+    "schema": "MHQA_THREE_1",
+    "analysisSnapshot": "analysis-2026-11-14T11-22-57-846Z",
+    "logSnapshotSha256": "bace3ff76f96d0aef8bd9f059e459ee896b01034363955525688d94d7a34c998",
+    "stateRows": 78,
+    "invalidRows": [
+      {
+        "sourceLine": 12541,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "engineObservations": {
+    "lastLobby": {
+      "session": 1,
+      "seq": 74,
+      "utc": "2026-11-14T11:22:30.624Z",
+      "round": 0,
+      "phase": "lobby",
+      "matchSeconds": 0,
+      "remaining": 0,
+      "practice": false,
+      "players": 3,
+      "rosterSize": 0,
+      "members": [],
+      "config": {
+        "revealMinutes": 2,
+        "autoMinutes": 8,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3,
+        "summonDistance": 350,
+        "summonCooldownSeconds": 30,
+        "summonMaxUses": 2
+      }
+    },
+    "firstOfficialCountdown": {
+      "session": 1,
+      "seq": 75,
+      "utc": "2026-11-14T11:22:35.615Z",
+      "round": 1,
+      "phase": "countdown",
+      "matchSeconds": 0,
+      "remaining": 1,
+      "practice": false,
+      "players": 3,
+      "rosterSize": 3,
+      "members": [
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 20,
+          "dimension": "minecraft:overworld"
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "dimension": "minecraft:overworld"
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "health": 20,
+          "dimension": "minecraft:overworld"
+        }
+      ],
+      "config": {
+        "revealMinutes": 2,
+        "autoMinutes": 8,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3,
+        "summonDistance": 350,
+        "summonCooldownSeconds": 30,
+        "summonMaxUses": 2
+      }
+    },
+    "firstGrace": {
+      "session": 1,
+      "seq": 76,
+      "utc": "2026-11-14T11:22:40.625Z",
+      "round": 1,
+      "phase": "grace",
+      "matchSeconds": 4,
+      "remaining": 56,
+      "practice": false,
+      "players": 3,
+      "rosterSize": 3,
+      "members": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "dimension": "minecraft:overworld"
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 20,
+          "dimension": "minecraft:overworld"
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "health": 20,
+          "dimension": "minecraft:overworld"
+        }
+      ],
+      "config": {
+        "revealMinutes": 2,
+        "autoMinutes": 8,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3,
+        "summonDistance": 350,
+        "summonCooldownSeconds": 30,
+        "summonMaxUses": 2
+      }
+    },
+    "latestAtSnapshot": {
+      "session": 1,
+      "seq": 78,
+      "utc": "2026-11-14T11:22:50.618Z",
+      "round": 1,
+      "phase": "grace",
+      "matchSeconds": 14,
+      "remaining": 46,
+      "practice": false,
+      "players": 3,
+      "rosterSize": 3,
+      "members": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "dimension": "minecraft:overworld"
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 20,
+          "dimension": "minecraft:overworld"
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "health": 20,
+          "dimension": "minecraft:overworld"
+        }
+      ],
+      "config": {
+        "revealMinutes": 2,
+        "autoMinutes": 8,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3,
+        "summonDistance": 350,
+        "summonCooldownSeconds": 30,
+        "summonMaxUses": 2
+      }
+    },
+    "participants": {
+      "online": 3,
+      "roster": 3,
+      "runners": 1,
+      "hunters": 2,
+      "practice": false
+    },
+    "configuredTiming": {
+      "revealMinutes": 2,
+      "automaticGrantMinutes": 8,
+      "summonCooldownSeconds": 30,
+      "summonDistance": 350,
+      "summonMaxUses": 2,
+      "autoGive": true,
+      "autoPause": true
+    },
+    "graceObservation": "First grace sample shows matchSeconds 4 plus remaining 56, consistent with the configured 60-second grace; the five-second observer does not capture every countdown instant."
+  },
+  "uiObservation": {
+    "source": "primary_agent_ui_observation",
+    "reportedDisplay": "Official match with one runner and two hunters",
+    "settingsSource": "Primary agent changed reveal to two minutes, auto grant to eight minutes, and summon cooldown to thirty seconds through game settings UI before starting.",
+    "privacy": "Player names in the original display are intentionally omitted."
+  },
+  "scope": {
+    "formalThreeMemberEnrollment": true,
+    "threeConnectedSpectatorOnly": false,
+    "sameTickDropsObservedAtSnapshot": 0,
+    "craftingTrackingSummonCameraPassed": false
+  },
+  "limitations": [
+    "This shortened functional trial uses UI-configured 2/8-minute timings; it does not replace the separate default 20/40-minute long-session evidence.",
+    "Observed start and grace do not establish later tracking, simultaneous crafting, summon, camera, dimension or outcome behavior.",
+    "State samples occur every 100 engine ticks, nominally five seconds; exact event instants and every countdown value are not recorded.",
+    "Memory capture includes lobby and configuration periods; full capture metrics must not be described as three-player active-match-only performance.",
+    "Public output excludes account names, IP addresses and absolute local paths."
+  ]
+}

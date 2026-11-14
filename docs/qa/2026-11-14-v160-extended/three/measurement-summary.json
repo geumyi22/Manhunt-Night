@@ -1,0 +1,224 @@
+{
+  "schema": "MHQA_THREE_MEASUREMENT_SUMMARY_1",
+  "generatedAtUtc": "2026-11-14T12:47:18.874Z",
+  "evidenceOrigin": "ACTUAL_QA_PROBE_AND_HOST_PROCESS_MEASUREMENTS",
+  "status": "CLOSED_MEASUREMENTS",
+  "sourceSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+  "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+  "acceptedPeriodicRows": 1065,
+  "acceptedDropEvents": 18,
+  "sessionCount": 2,
+  "malformedOrInvalidRows": [
+    {
+      "sourceLine": 29779,
+      "marker": "MHQA_THREE",
+      "kind": "MALFORMED_JSON",
+      "endOfFileFragment": true
+    }
+  ],
+  "overallTpsIncludingPauseAndTransitions": {
+    "samples": 1063,
+    "observedSeconds": 5315.12,
+    "totalTicks": 106300,
+    "weightedTps": 19.999548457984016,
+    "intervalTps": {
+      "min": 19.546520719311964,
+      "median": 20,
+      "p95": 20.044097013429546,
+      "max": 20.06823198876179
+    },
+    "transitionIntervalsIncluded": 16
+  },
+  "activeThreePlayerGameplayTps": {
+    "selection": "Both interval endpoint states have the same session, round, grace/running phase, three connected clients, three online enrolled participants, roster size three, and practice=false. Phase/player-count/roster transitions and session gaps are excluded by the source analyzer grouping; configuration changes are not an additional exclusion filter.",
+    "groups": [
+      {
+        "session": 1,
+        "phase": "grace",
+        "players": 3,
+        "onlineRoster": 3,
+        "rosterSize": 3,
+        "practice": false,
+        "round": 1,
+        "samples": 11,
+        "observedSeconds": 54.993,
+        "totalTicks": 1100,
+        "weightedTps": 20.002545778553635,
+        "intervalTps": {
+          "min": 19.968051118210862,
+          "median": 20,
+          "p95": 20.056157240272764,
+          "max": 20.056157240272764
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 1,
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 3,
+        "rosterSize": 3,
+        "practice": false,
+        "round": 1,
+        "samples": 385,
+        "observedSeconds": 1925.113,
+        "totalTicks": 38500,
+        "weightedTps": 19.998826042938777,
+        "intervalTps": {
+          "min": 19.546520719311964,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.060180541624874
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 2,
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 3,
+        "rosterSize": 3,
+        "practice": false,
+        "round": 1,
+        "samples": 9,
+        "observedSeconds": 44.99,
+        "totalTicks": 900,
+        "weightedTps": 20.004445432318292,
+        "intervalTps": {
+          "min": 19.952114924181963,
+          "median": 20.004000800160032,
+          "p95": 20.04811547714515,
+          "max": 20.04811547714515
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 2,
+        "phase": "grace",
+        "players": 3,
+        "onlineRoster": 3,
+        "rosterSize": 3,
+        "practice": false,
+        "round": 2,
+        "samples": 11,
+        "observedSeconds": 55.006,
+        "totalTicks": 1100,
+        "weightedTps": 19.99781841980875,
+        "intervalTps": {
+          "min": 19.956096587507485,
+          "median": 20.004000800160032,
+          "p95": 20.03205128205128,
+          "max": 20.03205128205128
+        },
+        "transitionIntervalsIncluded": 0
+      },
+      {
+        "session": 2,
+        "phase": "running",
+        "players": 3,
+        "onlineRoster": 3,
+        "rosterSize": 3,
+        "practice": false,
+        "round": 2,
+        "samples": 248,
+        "observedSeconds": 1240.012,
+        "totalTicks": 24800,
+        "weightedTps": 19.999806453485935,
+        "intervalTps": {
+          "min": 19.936204146730464,
+          "median": 19.996000799840033,
+          "p95": 20.04811547714515,
+          "max": 20.06823198876179
+        },
+        "transitionIntervalsIncluded": 0
+      }
+    ],
+    "intervals": 664,
+    "observedSeconds": 3320.1139999999996,
+    "totalTicks": 66400,
+    "weightedTps": 19.99931327659231,
+    "minimumObservedIntervalTps": 19.546520719311964,
+    "maximumObservedIntervalTps": 20.06823198876179,
+    "pooledPercentileCalculated": false
+  },
+  "excludedIntervalCount": 2,
+  "memoryWindowsFile": "measurement-windows.json",
+  "memoryWindows": [
+    {
+      "sourceBasename": "host-memory.csv",
+      "status": "SAMPLER_STOPPED",
+      "stopReason": "duration_reached",
+      "samples": 1785,
+      "firstSampleUtc": "2026-11-14T11:17:03.069Z",
+      "lastSampleUtc": "2026-11-14T12:17:02.157Z",
+      "exactFirstSampleTimestampUtc": "2026-11-14T11:17:03.0692111+00:00",
+      "exactLastSampleTimestampUtc": "2026-11-14T12:17:02.1575880+00:00",
+      "sampledSpanSecondsFromFullPrecisionTimestamps": 3599.0883769,
+      "sampledSpanSeconds": 3599.088,
+      "workingSetMiB": {
+        "min": 1571.84375,
+        "median": 2211.8359375,
+        "p95": 2378.39453125,
+        "max": 2440.68359375
+      },
+      "privateBytesMiB": {
+        "min": 4279.8984375,
+        "median": 4781.3671875,
+        "p95": 5065.85546875,
+        "max": 5093.79296875
+      },
+      "timeWeightedCpuPercentMachine": 16.455171986838632
+    },
+    {
+      "sourceBasename": "host-memory-continuation-01.csv",
+      "status": "SAMPLER_STOPPED",
+      "stopReason": "stop_requested",
+      "samples": 817,
+      "firstSampleUtc": "2026-11-14T12:18:11.303Z",
+      "lastSampleUtc": "2026-11-14T12:45:37.461Z",
+      "exactFirstSampleTimestampUtc": "2026-11-14T12:18:11.3038596+00:00",
+      "exactLastSampleTimestampUtc": "2026-11-14T12:45:37.4617726+00:00",
+      "sampledSpanSecondsFromFullPrecisionTimestamps": 1646.157913,
+      "sampledSpanSeconds": 1646.158,
+      "workingSetMiB": {
+        "min": 1693.41796875,
+        "median": 2388.7578125,
+        "p95": 2433.94921875,
+        "max": 2483.24609375
+      },
+      "privateBytesMiB": {
+        "min": 4310.29296875,
+        "median": 4907.5,
+        "p95": 4960.01953125,
+        "max": 5007.765625
+      },
+      "timeWeightedCpuPercentMachine": 13.974184882535608
+    }
+  ],
+  "totalMemorySamplesAcrossDisjointWindows": 2602,
+  "memoryGaps": [
+    {
+      "beforeWindow": "host-memory.csv",
+      "afterWindow": "host-memory-continuation-01.csv",
+      "fromUtc": "2026-11-14T12:17:02.157Z",
+      "toUtc": "2026-11-14T12:18:11.303Z",
+      "gapSecondsAtMillisecondPrecision": 69.146,
+      "exactFromUtc": "2026-11-14T12:17:02.1575880+00:00",
+      "exactToUtc": "2026-11-14T12:18:11.3038596+00:00",
+      "gapSecondsFromFullPrecisionTimestamps": 69.1462716,
+      "gapInterpolated": false
+    }
+  ],
+  "fps": "NOT MEASURED",
+  "network": "NOT MEASURED",
+  "noStablePerformancePassClaimed": true,
+  "limits": [
+    "TPS is engine tick progression divided by wall-clock time in a QA-instrumented world copy. It is not rendered FPS or peer frame-time measurement.",
+    "The overall number includes lobby, pause, ended states, and transitions; active three-player gameplay is reported separately and is a sum across two rounds, not one uninterrupted match.",
+    "The temporary settings were reveal two minutes, auto grant eight minutes, and summon cooldown thirty seconds during the trials, restored later to twenty/forty minutes and three hundred seconds. This is distinct from the earlier default-settings LONG trial.",
+    "Teleport commands, supplied materials/equipment, effects, and an operator command triggering dragon death are part of the controlled test fixture. This is not an unassisted survival playthrough.",
+    "Whole-host process memory and CPU include mixed phases and player counts. There is no peer-device memory measurement and no per-phase resource allocation.",
+    "The memory windows contain an explicitly reported gap. No missing samples are interpolated, and no performance improvement comparison is made.",
+    "Averages and minima describe only observed intervals. Missing FPS and network measurements remain limitations; no Stable approval is inferred."
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "checkedAtUtc": "2026-11-14T10:59:00.066383+00:00",
+  "result": "PASS_WITH_OBSERVATION_LIMITS",
+  "scope": "Independent static and pre-import archive audit. No UI, gameplay, production code, state, settings, release or repository mutation.",
+  "method": "Python standard-library zipfile CRC/entry bytes/SHA-256, independently implemented little-endian NBT parser and exact-byte restoration, manifest field comparison, actual appended-code review, copied script comparison and independently rerun syntax/installed official API type checks.",
+  "release": {
+    "basename": "Manhunt_Night_v1.6.0.mcworld",
+    "sha256": "3b186f241516422e8e97a958c83e9a38edcda3bb8717d991b751f152dd4ed998"
+  },
+  "trial": {
+    "basename": "QA_v1.6.0_THREE_PLAYERS.mcworld",
+    "sha256": "5709d8fff6ebc54bbd205f0f6f9c79f4c327d1ba12600a44095df629a1617d8d",
+    "entries": 102,
+    "identicalEntries": 95,
+    "changedEntries": [
+      "behavior_packs/ManhuntNight_BP/manifest.json",
+      "behavior_packs/ManhuntNight_BP/scripts/main.js",
+      "level.dat",
+      "levelname.txt",
+      "resource_packs/ManhuntNight_RP/manifest.json",
+      "world_behavior_packs.json",
+      "world_resource_packs.json"
+    ]
+  },
+  "observer": {
+    "productionMainBytes": 57377,
+    "productionMainSha256": "7c2bc0af5dbcab4221df56af0314b2a8f7c45c65a61564f8467129f4f40231a9",
+    "appendedBytes": 4951,
+    "appendedSha256": "975f28796e812558b2758494230570f3c13e20bcbbaaf1c9d19e8109890d50c5",
+    "periodTicks": 100,
+    "mutatesGameState": false,
+    "mutatesClock": false,
+    "mutatesSettings": false,
+    "mutatesInventory": false,
+    "syntheticPlayers": false,
+    "manualReview": "The extracted suffix reads state, item/health/inventory/rotation/location and event data. It writes only qaThree-prefixed local counters, timestamps, a Map/WeakMap, newly constructed objects/arrays and console output. Object.values(s.wins).sort sorts a fresh array. inventory(p) is a getter; trackerCraft.active(p) calls sessions.has(p.name). No mutating production methods, commands, damage, movement or persisted properties are invoked.",
+    "overhead": "One 100-tick callback, two event subscriptions, inventory scans and logs. Map bounded to 1024 entries and pruned at >200 ticks; WeakMap entries are weak. Instrumented runtime performance is not identical to uninstrumented release performance."
+  },
+  "privacy": {
+    "directIdentifiersInObserverRows": false,
+    "review": "Player names are read solely to derive roster index/role and anonymous counts; names, account IDs, IPs and dropped-entity IDs are not serialized. s.result is assigned only fixed winner labels in reviewed production source. UTC, roster index, world locations, dimensions and gameplay state remain observable and may be linkable to separately published screenshots. Underlying Bedrock logs/screenshots can contain names and must be separately sanitized before publication. The generator source contains no token or absolute user path."
+  },
+  "observationLimits": [
+    "Observer subscriptions appear after production subscriptions in source. Registration order is verified, but this audit does not establish an engine guarantee of callback execution order. live_after_production_handler is an intended-order label, not independent timing proof.",
+    "craftActive and craftAfterObserver reflect observer time, not pre-drop state. Successful final crafting clears production sessions before later observers, so craftActive=false can be normal on the completing drop.",
+    "A consumed entity may be invalid before observation. Spawn-cache data is a birth snapshot, may differ from later stack contents, and may be unavailable if callbacks/wrappers/invalidation prevent correlation. Explicit unavailable rows are missing evidence, not failed drops.",
+    "Two distinct participant indexes with same round and engine tick can establish same-tick event observation only after actual logs exist; it does not establish simultaneous network arrival or parallel handler execution. Different ticks cannot prove same-tick crafting.",
+    "Periodic 100-tick snapshots can miss transient states and cannot locate event transitions more precisely than their bracketing samples.",
+    "winCounts is sorted without role association, so it cannot alone prove that each hunter received a win. Observer rows do not include totem/scroll counts or full material inventories, and transactionParticipantCount may be zero after synchronous completion; UI/item evidence remains necessary.",
+    "Pre-import archive integrity does not establish that the imported/running copy is identical or that any 3-player scenario passed. After import, save DB changes are expected.",
+    "This audit confirms defaults are preserved in copied production scripts, DB and all NBT fields except world name; subsequent explicitly applied test UI settings must be recorded separately."
+  ],
+  "validationRerun": [
+    {
+      "check": "JavaScript syntax",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "check": "Script API types",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "checks": [
+    {
+      "check": "Release input matches delivered SHA256SUMS",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Both archives pass Python zipfile CRC",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Identical entry set without duplicate paths",
+      "result": "PASS",
+      "details": 102
+    },
+    {
+      "check": "Exactly seven expected changes",
+      "result": "PASS",
+      "details": [
+        "behavior_packs/ManhuntNight_BP/manifest.json",
+        "behavior_packs/ManhuntNight_BP/scripts/main.js",
+        "level.dat",
+        "levelname.txt",
+        "resource_packs/ManhuntNight_RP/manifest.json",
+        "world_behavior_packs.json",
+        "world_resource_packs.json"
+      ]
+    },
+    {
+      "check": "behavior_packs/ManhuntNight_BP/manifest changes only UUID fields",
+      "result": "PASS",
+      "details": [
+        "dependencies.2.uuid",
+        "header.uuid",
+        "modules.0.uuid",
+        "modules.1.uuid"
+      ]
+    },
+    {
+      "check": "resource_packs/ManhuntNight_RP/manifest changes only UUID fields",
+      "result": "PASS",
+      "details": [
+        "header.uuid",
+        "modules.0.uuid"
+      ]
+    },
+    {
+      "check": "Trial UUIDs unique and disjoint from release",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "World references match embedded trial packs",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "BP dependency resolves to trial RP",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "All NBT values except LevelName identical",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Replacing trial LevelName bytes reproduces exact original level.dat",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Trial display name consistent",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Published main.js exact prefix retained",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Actual appended observer matches reviewed fragment",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "All typecheck script copies match actual ZIP",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "All published BP sources match current checkout",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "All four DB files byte-identical",
+      "result": "PASS",
+      "details": [
+        {
+          "file": "db/000005.ldb",
+          "bytes": 409247,
+          "sha256": "8c379c0280241b830863d8d0408c0c00b87869b8985d34fa06f59b2d7bec947f"
+        },
+        {
+          "file": "db/000008.ldb",
+          "bytes": 169,
+          "sha256": "e97f4cd7da662b8884f0470fbcb055175ca48b0beec549bdc1a72533319feeac"
+        },
+        {
+          "file": "db/CURRENT",
+          "bytes": 16,
+          "sha256": "8af72f43857550b01eab1019335772b367a17a9884a7a759fdf4fe6f272b90aa"
+        },
+        {
+          "file": "db/MANIFEST-000007",
+          "bytes": 142,
+          "sha256": "98ecd8adfc5c34ed78771b27d2dbeb70114dfd661bf0d6cbd8b5ecdb70cfa335"
+        }
+      ]
+    },
+    {
+      "check": "Existing validation hashes agree with actual archives",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "JavaScript syntax",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Script API types",
+      "result": "PASS",
+      "details": null
+    },
+    {
+      "check": "Input archives unchanged during audit",
+      "result": "PASS",
+      "details": null
+    }
+  ]
+}

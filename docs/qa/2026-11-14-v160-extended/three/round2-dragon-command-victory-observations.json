@@ -1,0 +1,369 @@
+{
+  "schema": "MHQA_THREE_ROUND2_DRAGON_COMMAND_VICTORY_1",
+  "generatedAtUtc": "2026-11-14T12:47:18.828Z",
+  "status": "ROUND2_VICTORY_OBSERVED",
+  "captureClosureReported": true,
+  "evidenceOrigin": "ACTUAL_LOG_OBSERVATION_WITH_SEPARATELY_LABELLED_OPERATOR_REPORT",
+  "sourceSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+  "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+  "runnerEndEntryBracket": {
+    "before": {
+      "session": 2,
+      "seq": 266,
+      "utc": "2026-11-14T12:29:35.732Z",
+      "round": 2,
+      "phase": "running",
+      "matchSeconds": 1159,
+      "players": 3,
+      "rosterSize": 3,
+      "practice": false,
+      "members": [
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:the_end",
+          "location": {
+            "x": 11.253645896911621,
+            "y": 61,
+            "z": 17.71601676940918
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 418.5,
+            "y": 305,
+            "z": -1.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        }
+      ],
+      "result": "",
+      "winCounts": [
+        1,
+        1
+      ],
+      "runnerRespawns": 0,
+      "runnerLifeBonus": 0,
+      "runnerRespawning": false,
+      "craft": {
+        "step": 2,
+        "amount": 0,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "summon": {
+        "uses": 1,
+        "readyAt": 556,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      }
+    },
+    "after": {
+      "session": 2,
+      "seq": 267,
+      "utc": "2026-11-14T12:29:40.726Z",
+      "round": 2,
+      "phase": "running",
+      "matchSeconds": 1164,
+      "players": 3,
+      "rosterSize": 3,
+      "practice": false,
+      "members": [
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:the_end",
+          "location": {
+            "x": 11.253645896911621,
+            "y": 61,
+            "z": 17.71601676940918
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:the_end",
+          "location": {
+            "x": 5.5,
+            "y": 100,
+            "z": 5.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 418.5,
+            "y": 305,
+            "z": -1.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        }
+      ],
+      "result": "",
+      "winCounts": [
+        1,
+        1
+      ],
+      "runnerRespawns": 0,
+      "runnerLifeBonus": 0,
+      "runnerRespawning": false,
+      "craft": {
+        "step": 2,
+        "amount": 0,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "summon": {
+        "uses": 1,
+        "readyAt": 556,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      }
+    },
+    "wallClockBracketSeconds": 4.994,
+    "preciseEventInstantKnown": false
+  },
+  "victoryBracket": {
+    "before": {
+      "session": 2,
+      "seq": 295,
+      "utc": "2026-11-14T12:32:00.737Z",
+      "round": 2,
+      "phase": "running",
+      "matchSeconds": 1304,
+      "players": 3,
+      "rosterSize": 3,
+      "practice": false,
+      "members": [
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:the_end",
+          "location": {
+            "x": 8.535171508789062,
+            "y": 60,
+            "z": 23.878761291503906
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:the_end",
+          "location": {
+            "x": 18.2137451171875,
+            "y": 61,
+            "z": 13.884201049804688
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 418.5,
+            "y": 305,
+            "z": -1.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        }
+      ],
+      "result": "",
+      "winCounts": [
+        1,
+        1
+      ],
+      "runnerRespawns": 0,
+      "runnerLifeBonus": 0,
+      "runnerRespawning": false,
+      "craft": {
+        "step": 2,
+        "amount": 0,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "summon": {
+        "uses": 1,
+        "readyAt": 556,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      }
+    },
+    "after": {
+      "session": 2,
+      "seq": 296,
+      "utc": "2026-11-14T12:32:05.726Z",
+      "round": 2,
+      "phase": "ended",
+      "matchSeconds": 1304,
+      "players": 3,
+      "rosterSize": 3,
+      "practice": false,
+      "members": [
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:the_end",
+          "location": {
+            "x": 8.535171508789062,
+            "y": 60,
+            "z": 23.878761291503906
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:the_end",
+          "location": {
+            "x": 18.2137451171875,
+            "y": 61,
+            "z": 13.884201049804688
+          },
+          "health": 20,
+          "trackerCount": 0,
+          "delivered": false
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 418.5,
+            "y": 305,
+            "z": -1.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true
+        }
+      ],
+      "result": "러너 승리",
+      "winCounts": [
+        1,
+        1,
+        1
+      ],
+      "runnerRespawns": 0,
+      "runnerLifeBonus": 0,
+      "runnerRespawning": false,
+      "craft": {
+        "step": 2,
+        "amount": 0,
+        "completion": "auto",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "summon": {
+        "uses": 1,
+        "readyAt": 556,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      }
+    },
+    "consecutiveSamples": true,
+    "wallClockBracketSeconds": 4.989,
+    "preciseEventInstantKnown": false
+  },
+  "postVictoryObservation": {
+    "samples": 160,
+    "first": {
+      "session": 2,
+      "seq": 296,
+      "utc": "2026-11-14T12:32:05.726Z",
+      "round": 2,
+      "phase": "ended",
+      "matchSeconds": 1304
+    },
+    "last": {
+      "session": 2,
+      "seq": 455,
+      "utc": "2026-11-14T12:45:20.735Z",
+      "round": 2,
+      "phase": "ended",
+      "matchSeconds": 1304
+    },
+    "elapsedSecondsBetweenFirstAndLastSample": 795.009,
+    "allClockAndResultUnchanged": true,
+    "allAnonymousWinCountsUnchanged": true,
+    "allRunnerRespawnAndBonusValuesUnchanged": true,
+    "allObservedHunterTrackerCountsOneAndRunnerZero": true
+  },
+  "operatorReport": {
+    "origin": "PARENT_RELAY_OF_DIRECT_UI_OBSERVATION",
+    "command": "/kill @e[type=minecraft:ender_dragon]",
+    "observation": "After the user requested operator help with the kill, the operator executed the command in the End and directly saw runner victory 21:44 while the runner remained alive.",
+    "image": {
+      "basename": "dragon-command-runner-victory.jpg",
+      "exists": true,
+      "sha256": "d8c3ff23346737d6a607b524436e078e9700eaae65f96c592f2fcb4363936239",
+      "publication": "LOCAL_ONLY_ORIGINAL_CONTAINS_IDENTIFIERS",
+      "contentReviewedByThisAnalyzer": false
+    }
+  },
+  "scope": {
+    "commandTriggeredDragonDeathVictoryPathObserved": true,
+    "directSwordCombatDragonKillVerified": false,
+    "naturalSurvivalProgressionVerified": false,
+    "dragonHealthOrAttackerCapturedByProbe": false,
+    "accountToWinCountMappingCaptured": false
+  },
+  "limits": [
+    "The direct command and notice are operator observations; the periodic probe independently records dimension, phase, result, clock, anonymous win counts, and participant state.",
+    "The trial used supplied equipment, amplified resistance/strength, and command-based dimension placement. No unassisted dragon combat pass is claimed.",
+    "Anonymous sorted win counts changed from two values of one to three values of one. A particular account-to-counter mapping is not available in the public probe.",
+    "No repeat win-count increase was observed only within the explicitly listed post-victory sample window. Later time outside that window is not inferred.",
+    "A full-health value change from 40 to 20 around end-of-match is not itself a death event; the runner respawn counters remained zero."
+  ]
+}

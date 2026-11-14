@@ -1,0 +1,2236 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T12:47:18.777Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "evidenceOrigin": "ACTUAL_GAME_PROBE_OBSERVATION",
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+    "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+    "stateRows": 1065,
+    "dropRows": 18,
+    "invalidRows": [
+      {
+        "sourceLine": 29779,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "latest": {
+    "session": 2,
+    "seq": 455,
+    "utc": "2026-11-14T12:45:20.735Z",
+    "round": 2,
+    "phase": "ended",
+    "matchSeconds": 1304,
+    "practice": false,
+    "rosterSize": 3,
+    "players": 3,
+    "onlineRoster": 3,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3,
+      "summonDistance": 350,
+      "summonCooldownSeconds": 300,
+      "summonMaxUses": 2
+    },
+    "craft": {
+      "step": 2,
+      "amount": 0,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "summon": {
+      "uses": 1,
+      "readyAt": 556,
+      "serial": 1,
+      "transactionPhase": null,
+      "transactionParticipantCount": 0
+    },
+    "members": [
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 8.535171508789062,
+          "y": 60,
+          "z": 23.878761291503906
+        },
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true,
+        "distance3dToRunner": 13.948695113157095
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 18.213748931884766,
+          "y": 61,
+          "z": 13.884201049804688
+        },
+        "health": 20,
+        "trackerCount": 0,
+        "delivered": false,
+        "distance3dToRunner": 0
+      },
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 418.5,
+          "y": 305,
+          "z": -1.5
+        },
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true,
+        "distance3dToRunner": null
+      }
+    ]
+  },
+  "summonTransitions": [
+    {
+      "before": {
+        "session": 1,
+        "seq": 429,
+        "utc": "2026-11-14T11:52:05.618Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1151,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 430,
+        "utc": "2026-11-14T11:52:10.626Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1156,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.008,
+      "preciseEventInstantKnown": false,
+      "beforeSummon": {
+        "uses": 0,
+        "readyAt": 0,
+        "serial": 0,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "afterSummon": {
+        "uses": 1,
+        "readyAt": 1181,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "observedUsesIncrease": true,
+      "configurationBefore": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "configurationAfter": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "geometryBefore": [
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -17.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 5
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 337.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 360
+        }
+      ],
+      "geometryAfter": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 335.5,
+            "y": 305,
+            "z": 34.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 358.0055865485901
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 337.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 360
+        }
+      ],
+      "initiatingItemUseCaptured": false,
+      "scrollInventoryDebitCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 443,
+        "utc": "2026-11-14T11:53:15.615Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1221,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 444,
+        "utc": "2026-11-14T11:53:20.624Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1226,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.009,
+      "preciseEventInstantKnown": false,
+      "beforeSummon": {
+        "uses": 1,
+        "readyAt": 1181,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "afterSummon": {
+        "uses": 2,
+        "readyAt": 1253,
+        "serial": 2,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "observedUsesIncrease": true,
+      "configurationBefore": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "configurationAfter": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "geometryBefore": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 335.5,
+            "y": 305,
+            "z": 34.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 358.0055865485901
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 337.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 360
+        }
+      ],
+      "geometryAfter": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 333.5,
+            "y": 305,
+            "z": 32.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 356.02247120090607
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 335.5,
+            "y": 305,
+            "z": 34.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 358.0055865485901
+        }
+      ],
+      "initiatingItemUseCaptured": false,
+      "scrollInventoryDebitCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 139,
+        "utc": "2026-11-14T12:19:00.731Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 524,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 140,
+        "utc": "2026-11-14T12:19:05.739Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 529,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.008,
+      "preciseEventInstantKnown": false,
+      "beforeSummon": {
+        "uses": 0,
+        "readyAt": 0,
+        "serial": 0,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "afterSummon": {
+        "uses": 1,
+        "readyAt": 556,
+        "serial": 1,
+        "transactionPhase": null,
+        "transactionParticipantCount": 0
+      },
+      "observedUsesIncrease": true,
+      "configurationBefore": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "configurationAfter": {
+        "distance": 350,
+        "cooldownSeconds": 30,
+        "maximumUses": 2
+      },
+      "geometryBefore": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.49974822998047,
+            "y": 305,
+            "z": 39.09030532836914
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 2.5903053406047913
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 420.5,
+            "y": 305,
+            "z": 0.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 444.4603469377218
+        }
+      ],
+      "geometryAfter": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": -22.5,
+            "y": 305,
+            "z": 36.5
+          },
+          "health": 40,
+          "trackerCount": 0,
+          "delivered": false,
+          "distance3dToRunner": 0
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 418.5,
+            "y": 305,
+            "z": -1.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 442.6341604530766
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "dimension": "minecraft:overworld",
+          "location": {
+            "x": 420.5,
+            "y": 305,
+            "z": 0.5
+          },
+          "health": 20,
+          "trackerCount": 1,
+          "delivered": true,
+          "distance3dToRunner": 444.4603469377218
+        }
+      ],
+      "initiatingItemUseCaptured": false,
+      "scrollInventoryDebitCaptured": false
+    }
+  ],
+  "dimensionTransitions": [
+    {
+      "before": {
+        "session": 1,
+        "seq": 487,
+        "utc": "2026-11-14T11:56:55.614Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1441,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 488,
+        "utc": "2026-11-14T11:57:00.620Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1446,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.006,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 0,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 333.5,
+          "y": 305,
+          "z": 32.5
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": -5.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 542,
+        "utc": "2026-11-14T12:01:30.623Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1716,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 543,
+        "utc": "2026-11-14T12:01:35.739Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1721,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.116,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 1,
+      "role": "runner",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -22.5,
+          "y": 305,
+          "z": 36.5
+        },
+        "trackerCount": 0
+      },
+      "to": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": 0.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 0
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 566,
+        "utc": "2026-11-14T12:03:30.744Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1836,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 567,
+        "utc": "2026-11-14T12:03:35.739Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1841,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.995,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 0,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": -5.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -27.5,
+          "y": 305,
+          "z": 36.5
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 582,
+        "utc": "2026-11-14T12:04:50.732Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1916,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 583,
+        "utc": "2026-11-14T12:04:55.733Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1921,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.001,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 2,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 335.5,
+          "y": 305,
+          "z": 34.5
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": 5.5,
+          "y": 120,
+          "z": 0.5
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 20,
+        "utc": "2026-11-14T12:09:05.723Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 2054,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 21,
+        "utc": "2026-11-14T12:09:10.728Z",
+        "round": 1,
+        "phase": "ended",
+        "matchSeconds": 2055,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.005,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 1,
+      "role": "runner",
+      "from": {
+        "dimension": "minecraft:nether",
+        "location": {
+          "x": -5.699999809265137,
+          "y": 120,
+          "z": 5.685262680053711
+        },
+        "trackerCount": 0
+      },
+      "to": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -22.5,
+          "y": 305,
+          "z": 36.5
+        },
+        "trackerCount": 0
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 211,
+        "utc": "2026-11-14T12:25:00.739Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 884,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 212,
+        "utc": "2026-11-14T12:25:05.727Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 889,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.988,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 2,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 420.5,
+          "y": 305,
+          "z": 0.5
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 1.433566927909851,
+          "y": 100,
+          "z": 1.433566927909851
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 217,
+        "utc": "2026-11-14T12:25:30.737Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 914,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 218,
+        "utc": "2026-11-14T12:25:35.726Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 919,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.989,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 2,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 2.700000047683716,
+          "y": 100,
+          "z": 1.7000000476837158
+        },
+        "trackerCount": 1
+      },
+      "to": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -22.5,
+          "y": 79,
+          "z": 36.5
+        },
+        "trackerCount": 0
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 218,
+        "utc": "2026-11-14T12:25:35.726Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 919,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 219,
+        "utc": "2026-11-14T12:25:40.731Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 924,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.005,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 2,
+      "role": "hunter",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -22.5,
+          "y": 79,
+          "z": 36.5
+        },
+        "trackerCount": 0
+      },
+      "to": {
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 1.4323376417160034,
+          "y": 100,
+          "z": 1.4323376417160034
+        },
+        "trackerCount": 1
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 266,
+        "utc": "2026-11-14T12:29:35.732Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 1159,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 267,
+        "utc": "2026-11-14T12:29:40.726Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 1164,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.994,
+      "preciseEventInstantKnown": false,
+      "memberIndex": 1,
+      "role": "runner",
+      "from": {
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": -22.5,
+          "y": 305,
+          "z": 36.5
+        },
+        "trackerCount": 0
+      },
+      "to": {
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 5.5,
+          "y": 100,
+          "z": 5.5
+        },
+        "trackerCount": 0
+      },
+      "portalVsCommandVsOtherCauseCaptured": false,
+      "crossDimensionTrackerTargetCaptured": false
+    }
+  ],
+  "connectionAndPhaseTransitions": [
+    {
+      "before": {
+        "session": 1,
+        "seq": 75,
+        "utc": "2026-11-14T11:22:35.615Z",
+        "round": 1,
+        "phase": "countdown",
+        "matchSeconds": 0,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 76,
+        "utc": "2026-11-14T11:22:40.625Z",
+        "round": 1,
+        "phase": "grace",
+        "matchSeconds": 4,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.01,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 87,
+        "utc": "2026-11-14T11:23:35.618Z",
+        "round": 1,
+        "phase": "grace",
+        "matchSeconds": 59,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 88,
+        "utc": "2026-11-14T11:23:40.617Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 64,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.999,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 116,
+        "utc": "2026-11-14T11:26:00.614Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 204,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 117,
+        "utc": "2026-11-14T11:26:05.619Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 208,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.005,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 240,
+        "utc": "2026-11-14T11:36:20.622Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 208,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 241,
+        "utc": "2026-11-14T11:36:25.623Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 211,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.001,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 590,
+        "utc": "2026-11-14T12:05:30.736Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1956,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 591,
+        "utc": "2026-11-14T12:05:35.734Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 2,
+        "onlineRoster": 2
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.998,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [
+        2
+      ],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 592,
+        "utc": "2026-11-14T12:05:40.728Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 2,
+        "onlineRoster": 2
+      },
+      "after": {
+        "session": 1,
+        "seq": 593,
+        "utc": "2026-11-14T12:05:45.739Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.011,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [
+        2
+      ],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 1,
+        "seq": 601,
+        "utc": "2026-11-14T12:06:25.740Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 1,
+        "seq": 602,
+        "utc": "2026-11-14T12:06:30.733Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1962,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.993,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 1,
+        "utc": "2026-11-14T12:07:30.730Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 2006,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 1,
+        "onlineRoster": 1
+      },
+      "after": {
+        "session": 2,
+        "seq": 2,
+        "utc": "2026-11-14T12:07:35.739Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 2006,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.009,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [
+        1,
+        2
+      ],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 10,
+        "utc": "2026-11-14T12:08:15.729Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 2006,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 11,
+        "utc": "2026-11-14T12:08:20.733Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 2009,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.004,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 20,
+        "utc": "2026-11-14T12:09:05.723Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 2054,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 21,
+        "utc": "2026-11-14T12:09:10.728Z",
+        "round": 1,
+        "phase": "ended",
+        "matchSeconds": 2055,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.005,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 34,
+        "utc": "2026-11-14T12:10:15.728Z",
+        "round": 2,
+        "phase": "countdown",
+        "matchSeconds": 0,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 35,
+        "utc": "2026-11-14T12:10:20.730Z",
+        "round": 2,
+        "phase": "grace",
+        "matchSeconds": 4,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 5.002,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 46,
+        "utc": "2026-11-14T12:11:15.736Z",
+        "round": 2,
+        "phase": "grace",
+        "matchSeconds": 59,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 47,
+        "utc": "2026-11-14T12:11:20.725Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 64,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.989,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    },
+    {
+      "before": {
+        "session": 2,
+        "seq": 295,
+        "utc": "2026-11-14T12:32:00.737Z",
+        "round": 2,
+        "phase": "running",
+        "matchSeconds": 1304,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "after": {
+        "session": 2,
+        "seq": 296,
+        "utc": "2026-11-14T12:32:05.726Z",
+        "round": 2,
+        "phase": "ended",
+        "matchSeconds": 1304,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3
+      },
+      "consecutiveSamples": true,
+      "wallClockBracketSeconds": 4.989,
+      "preciseEventInstantKnown": false,
+      "beforeOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "afterOnlineRosterIndices": [
+        0,
+        1,
+        2
+      ],
+      "joinedRosterIndices": [],
+      "absentRosterIndices": [],
+      "causeAndResumeActorCaptured": false
+    }
+  ],
+  "exact350Or360DistanceSnapshots": {
+    "count": 30,
+    "samples": [
+      {
+        "session": 1,
+        "seq": 414,
+        "utc": "2026-11-14T11:50:50.628Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1076,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 415,
+        "utc": "2026-11-14T11:50:55.617Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1081,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 416,
+        "utc": "2026-11-14T11:51:00.621Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1086,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 417,
+        "utc": "2026-11-14T11:51:05.612Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1091,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 418,
+        "utc": "2026-11-14T11:51:10.620Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1096,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 419,
+        "utc": "2026-11-14T11:51:15.624Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1101,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 420,
+        "utc": "2026-11-14T11:51:20.613Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1106,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 421,
+        "utc": "2026-11-14T11:51:25.619Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1111,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 422,
+        "utc": "2026-11-14T11:51:30.624Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1116,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 423,
+        "utc": "2026-11-14T11:51:35.625Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1121,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 424,
+        "utc": "2026-11-14T11:51:40.628Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1126,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 425,
+        "utc": "2026-11-14T11:51:45.626Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1131,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 426,
+        "utc": "2026-11-14T11:51:50.617Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1136,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 350,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 427,
+        "utc": "2026-11-14T11:51:55.612Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1141,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 428,
+        "utc": "2026-11-14T11:52:00.619Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1146,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 429,
+        "utc": "2026-11-14T11:52:05.618Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1151,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 0,
+          "readyAt": 0,
+          "serial": 0,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 430,
+        "utc": "2026-11-14T11:52:10.626Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1156,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 431,
+        "utc": "2026-11-14T11:52:15.626Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1161,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 432,
+        "utc": "2026-11-14T11:52:20.624Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1166,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 433,
+        "utc": "2026-11-14T11:52:25.631Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1171,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 434,
+        "utc": "2026-11-14T11:52:30.627Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1176,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 435,
+        "utc": "2026-11-14T11:52:35.619Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1181,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 436,
+        "utc": "2026-11-14T11:52:40.620Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1186,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 437,
+        "utc": "2026-11-14T11:52:45.619Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1191,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 438,
+        "utc": "2026-11-14T11:52:50.616Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1196,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 439,
+        "utc": "2026-11-14T11:52:55.615Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1201,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 440,
+        "utc": "2026-11-14T11:53:00.615Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1206,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 441,
+        "utc": "2026-11-14T11:53:05.626Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1211,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 442,
+        "utc": "2026-11-14T11:53:10.628Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1216,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      },
+      {
+        "session": 1,
+        "seq": 443,
+        "utc": "2026-11-14T11:53:15.615Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1221,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "onlineRoster": 3,
+        "memberIndex": 0,
+        "distance3dToRunner": 360,
+        "summon": {
+          "uses": 1,
+          "readyAt": 1181,
+          "serial": 1,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "configuredThreshold": 350
+      }
+    ],
+    "interpretation": "Geometric observations only; a sampled distance and unchanged uses counter do not establish that an activation was attempted or rejected."
+  },
+  "samplerFileObservation": {
+    "status": "SAMPLER_STOPPED",
+    "samples": 817,
+    "firstSampleUtc": "2026-11-14T12:18:11.303Z",
+    "lastSampleUtc": "2026-11-14T12:45:37.461Z",
+    "sampledSpanSeconds": 1646.158,
+    "stoppedByThisAnalysis": false
+  },
+  "userReportedVisualEvidence": "user-reported-visual-observations.json",
+  "limitations": [
+    "No UI or item activation input was observed by this analysis. Caller reports/screenshots must be linked separately.",
+    "The probe records tracker inventories, not summon-scroll inventories. Unchanged uses/readyAt alone cannot prove a rejected attempt or no scroll loss.",
+    "A uses increase plus movement is consistent with a completed summon but does not independently identify its initiating action or every safety check.",
+    "Dimension transitions are bracketed between approximately five-second snapshots. A round trip between samples can be missed.",
+    "The probe omits stored cross-dimension routes, so it cannot validate last-known-target direction from current coordinates alone.",
+    "Reconnect identities are anonymous roster indices. Joined/absent rows and phase changes do not establish the exact cause or automatic/manual resumption.",
+    "Cooldown/max-use rejection and cross-dimension no-move outcomes need corresponding activation and UI evidence.",
+    "This is ongoing evidence, not a final E2E or Stable pass."
+  ]
+}

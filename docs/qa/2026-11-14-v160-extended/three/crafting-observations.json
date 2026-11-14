@@ -1,0 +1,1113 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T11:47:00.377Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "evidenceOrigin": "ACTUAL_GAME_PROBE_OBSERVATION",
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T11-46-18-557Z",
+    "sourceLogSha256": "9a6e7e89b883a1dc87164fdafbe150b3261ddfc2d9cfca3df2665f740344987b",
+    "stateRows": 358,
+    "dropRows": 12,
+    "invalidRows": [
+      {
+        "sourceLine": 14449,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "actualDropObservations": [
+    {
+      "eventSeq": 1,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:37:04.428Z",
+      "tick": 25043,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 250,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:glass",
+          "amount": 1,
+          "bornTick": 25043
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 0,
+        "amount": 1,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": null,
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 248,
+        "utc": "2026-11-14T11:37:00.617Z",
+        "matchSeconds": 246,
+        "phase": "running",
+        "craft": {
+          "step": 0,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 249,
+        "utc": "2026-11-14T11:37:05.625Z",
+        "matchSeconds": 251,
+        "phase": "running",
+        "craft": {
+          "step": 0,
+          "amount": 1,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 2,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:37:12.511Z",
+      "tick": 25205,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 258,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:glass",
+          "amount": 1,
+          "bornTick": 25205
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 0,
+        "amount": 2,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 162,
+        "seconds": 8.083,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 250,
+        "utc": "2026-11-14T11:37:10.617Z",
+        "matchSeconds": 256,
+        "phase": "running",
+        "craft": {
+          "step": 0,
+          "amount": 1,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 251,
+        "utc": "2026-11-14T11:37:15.618Z",
+        "matchSeconds": 261,
+        "phase": "running",
+        "craft": {
+          "step": 0,
+          "amount": 2,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 3,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:37:44.123Z",
+      "tick": 25837,
+      "memberIndex": 2,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 290,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:glass",
+          "amount": 2,
+          "bornTick": 25837
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 1,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 632,
+        "seconds": 31.612,
+        "sameActor": false,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 256,
+        "utc": "2026-11-14T11:37:40.612Z",
+        "matchSeconds": 286,
+        "phase": "running",
+        "craft": {
+          "step": 0,
+          "amount": 2,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 257,
+        "utc": "2026-11-14T11:37:45.615Z",
+        "matchSeconds": 291,
+        "phase": "running",
+        "craft": {
+          "step": 1,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 4,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:38:43.267Z",
+      "tick": 27020,
+      "memberIndex": 2,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 349,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:copper_ingot",
+          "amount": 4,
+          "bornTick": 27020
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 2,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 1183,
+        "seconds": 59.144,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 268,
+        "utc": "2026-11-14T11:38:40.622Z",
+        "matchSeconds": 346,
+        "phase": "running",
+        "craft": {
+          "step": 1,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 269,
+        "utc": "2026-11-14T11:38:45.624Z",
+        "matchSeconds": 351,
+        "phase": "running",
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 5,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:14.616Z",
+      "tick": 27647,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 380,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "live_after_production_handler",
+          "id": "minecraft:copper_ingot",
+          "amount": 4,
+          "bornTick": 27647
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 2,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 627,
+        "seconds": 31.349,
+        "sameActor": false,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 274,
+        "utc": "2026-11-14T11:39:10.620Z",
+        "matchSeconds": 376,
+        "phase": "running",
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 275,
+        "utc": "2026-11-14T11:39:15.622Z",
+        "matchSeconds": 381,
+        "phase": "running",
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 6,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:16.766Z",
+      "tick": 27690,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 382,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:dirt",
+          "amount": 8,
+          "bornTick": 27690
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 3,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 43,
+        "seconds": 2.15,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 275,
+        "utc": "2026-11-14T11:39:15.622Z",
+        "matchSeconds": 381,
+        "phase": "running",
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 276,
+        "utc": "2026-11-14T11:39:20.612Z",
+        "matchSeconds": 386,
+        "phase": "running",
+        "craft": {
+          "step": 6,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 7,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:17.873Z",
+      "tick": 27712,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 383,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:gold_ingot",
+          "amount": 6,
+          "bornTick": 27712
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 4,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 22,
+        "seconds": 1.107,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 275,
+        "utc": "2026-11-14T11:39:15.622Z",
+        "matchSeconds": 381,
+        "phase": "running",
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 276,
+        "utc": "2026-11-14T11:39:20.612Z",
+        "matchSeconds": 386,
+        "phase": "running",
+        "craft": {
+          "step": 6,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 8,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:18.961Z",
+      "tick": 27734,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 385,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:bone",
+          "amount": 3,
+          "bornTick": 27734
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 5,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 22,
+        "seconds": 1.088,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 275,
+        "utc": "2026-11-14T11:39:15.622Z",
+        "matchSeconds": 381,
+        "phase": "running",
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 276,
+        "utc": "2026-11-14T11:39:20.612Z",
+        "matchSeconds": 386,
+        "phase": "running",
+        "craft": {
+          "step": 6,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 9,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:19.913Z",
+      "tick": 27753,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 386,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:iron_ingot",
+          "amount": 6,
+          "bornTick": 27753
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 6,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 19,
+        "seconds": 0.952,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 275,
+        "utc": "2026-11-14T11:39:15.622Z",
+        "matchSeconds": 381,
+        "phase": "running",
+        "craft": {
+          "step": 2,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 276,
+        "utc": "2026-11-14T11:39:20.612Z",
+        "matchSeconds": 386,
+        "phase": "running",
+        "craft": {
+          "step": 6,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 10,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:20.815Z",
+      "tick": 27771,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 386,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:clay_ball",
+          "amount": 8,
+          "bornTick": 27771
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 7,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 18,
+        "seconds": 0.902,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 276,
+        "utc": "2026-11-14T11:39:20.612Z",
+        "matchSeconds": 386,
+        "phase": "running",
+        "craft": {
+          "step": 6,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 277,
+        "utc": "2026-11-14T11:39:25.622Z",
+        "matchSeconds": 391,
+        "phase": "running",
+        "craft": {
+          "step": 8,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 11,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:21.519Z",
+      "tick": 27785,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 387,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:string",
+          "amount": 3,
+          "bornTick": 27785
+        }
+      ],
+      "craftActiveAfterProductionHandler": true,
+      "craftAfterObserver": {
+        "step": 8,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      },
+      "previousEventDelta": {
+        "ticks": 14,
+        "seconds": 0.704,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 276,
+        "utc": "2026-11-14T11:39:20.612Z",
+        "matchSeconds": 386,
+        "phase": "running",
+        "craft": {
+          "step": 6,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 277,
+        "utc": "2026-11-14T11:39:25.622Z",
+        "matchSeconds": 391,
+        "phase": "running",
+        "craft": {
+          "step": 8,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      }
+    },
+    {
+      "eventSeq": 12,
+      "session": 1,
+      "round": 1,
+      "utc": "2026-11-14T11:39:26.074Z",
+      "tick": 27876,
+      "memberIndex": 0,
+      "role": "hunter",
+      "phase": "running",
+      "matchSeconds": 392,
+      "items": [
+        {
+          "itemIndex": 0,
+          "readSource": "spawn_cache",
+          "id": "minecraft:feather",
+          "amount": 3,
+          "bornTick": 27876
+        }
+      ],
+      "craftActiveAfterProductionHandler": false,
+      "craftAfterObserver": {
+        "step": 9,
+        "amount": 0,
+        "completion": "crafted",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "previousEventDelta": {
+        "ticks": 91,
+        "seconds": 4.555,
+        "sameActor": true,
+        "sameTick": false
+      },
+      "precedingPeriodicState": {
+        "session": 1,
+        "seq": 277,
+        "utc": "2026-11-14T11:39:25.622Z",
+        "matchSeconds": 391,
+        "phase": "running",
+        "craft": {
+          "step": 8,
+          "amount": 0,
+          "completion": null,
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 0
+        }
+      },
+      "followingPeriodicState": {
+        "session": 1,
+        "seq": 278,
+        "utc": "2026-11-14T11:39:30.620Z",
+        "matchSeconds": 396,
+        "phase": "running",
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        }
+      }
+    }
+  ],
+  "simultaneousDropEvidence": {
+    "sameTickDistinctHunterGroups": [],
+    "count": 0,
+    "interpretation": "Only actual DROP callbacks from distinct hunters with the same session, round and tick count as same-tick evidence."
+  },
+  "latestState": {
+    "session": 1,
+    "seq": 358,
+    "utc": "2026-11-14T11:46:10.611Z",
+    "round": 1,
+    "phase": "running",
+    "matchSeconds": 796,
+    "rosterSize": 3,
+    "players": 3,
+    "practice": false,
+    "craft": {
+      "step": 9,
+      "amount": 0,
+      "completion": "crafted",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "members": [
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "trackerCount": 1,
+        "craftActive": false,
+        "announced": true,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "trackerCount": 0,
+        "craftActive": false,
+        "announced": false,
+        "delivered": false
+      },
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "trackerCount": 1,
+        "craftActive": false,
+        "announced": true,
+        "delivered": true
+      }
+    ]
+  },
+  "latestDropState": {
+    "eventSeq": 12,
+    "session": 1,
+    "round": 1,
+    "utc": "2026-11-14T11:39:26.074Z",
+    "tick": 27876,
+    "memberIndex": 0,
+    "role": "hunter",
+    "phase": "running",
+    "matchSeconds": 392,
+    "items": [
+      {
+        "itemIndex": 0,
+        "readSource": "spawn_cache",
+        "id": "minecraft:feather",
+        "amount": 3,
+        "bornTick": 27876
+      }
+    ],
+    "craftActiveAfterProductionHandler": false,
+    "craftAfterObserver": {
+      "step": 9,
+      "amount": 0,
+      "completion": "crafted",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "previousEventDelta": {
+      "ticks": 91,
+      "seconds": 4.555,
+      "sameActor": true,
+      "sameTick": false
+    },
+    "precedingPeriodicState": {
+      "session": 1,
+      "seq": 277,
+      "utc": "2026-11-14T11:39:25.622Z",
+      "matchSeconds": 391,
+      "phase": "running",
+      "craft": {
+        "step": 8,
+        "amount": 0,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 0
+      }
+    },
+    "followingPeriodicState": {
+      "session": 1,
+      "seq": 278,
+      "utc": "2026-11-14T11:39:30.620Z",
+      "matchSeconds": 396,
+      "phase": "running",
+      "craft": {
+        "step": 9,
+        "amount": 0,
+        "completion": "crafted",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      }
+    }
+  },
+  "latestConfiguration": {
+    "revealMinutes": 2,
+    "autoMinutes": 8,
+    "autoGive": true,
+    "autoPause": true,
+    "trackerMode": "random",
+    "wildBase": 2,
+    "wildMax": 3,
+    "summonDistance": 350,
+    "summonCooldownSeconds": 30,
+    "summonMaxUses": 2
+  },
+  "latestDropIsNewerThanPeriodicState": false,
+  "directCraftCompletion": {
+    "actualCompletionDrop": {
+      "seq": 12,
+      "utc": "2026-11-14T11:39:26.074Z",
+      "tick": 27876,
+      "memberIndex": 0,
+      "matchSeconds": 392,
+      "craftActiveAfterProductionHandler": false,
+      "craftAfterObserver": {
+        "step": 9,
+        "amount": 0,
+        "completion": "crafted",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      }
+    },
+    "firstCraftedPeriodicState": {
+      "session": 1,
+      "seq": 278,
+      "utc": "2026-11-14T11:39:30.620Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 396,
+      "rosterSize": 3,
+      "players": 3,
+      "practice": false,
+      "craft": {
+        "step": 9,
+        "amount": 0,
+        "completion": "crafted",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "members": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "trackerCount": 0,
+          "craftActive": false,
+          "announced": false,
+          "delivered": false
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "trackerCount": 1,
+          "craftActive": false,
+          "announced": true,
+          "delivered": true
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "trackerCount": 1,
+          "craftActive": false,
+          "announced": true,
+          "delivered": true
+        }
+      ]
+    },
+    "hunterActorsObservedContributingDropCallbacks": [
+      0,
+      2
+    ]
+  },
+  "configuredAutomaticThresholdAfterCrafting": {
+    "thresholdSeconds": 480,
+    "status": "THRESHOLD_PERIODIC_STATE_OBSERVED",
+    "before": {
+      "session": 1,
+      "seq": 294,
+      "utc": "2026-11-14T11:40:50.613Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 476,
+      "rosterSize": 3,
+      "players": 3,
+      "practice": false,
+      "craft": {
+        "step": 9,
+        "amount": 0,
+        "completion": "crafted",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "members": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "trackerCount": 0,
+          "craftActive": false,
+          "announced": false,
+          "delivered": false
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "trackerCount": 1,
+          "craftActive": false,
+          "announced": true,
+          "delivered": true
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "trackerCount": 1,
+          "craftActive": false,
+          "announced": true,
+          "delivered": true
+        }
+      ]
+    },
+    "after": {
+      "session": 1,
+      "seq": 295,
+      "utc": "2026-11-14T11:40:55.618Z",
+      "round": 1,
+      "phase": "running",
+      "matchSeconds": 481,
+      "rosterSize": 3,
+      "players": 3,
+      "practice": false,
+      "craft": {
+        "step": 9,
+        "amount": 0,
+        "completion": "crafted",
+        "pending": null,
+        "announcedCount": 2,
+        "deliveredCount": 2
+      },
+      "members": [
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "trackerCount": 0,
+          "craftActive": false,
+          "announced": false,
+          "delivered": false
+        },
+        {
+          "memberIndex": 2,
+          "role": "hunter",
+          "trackerCount": 1,
+          "craftActive": false,
+          "announced": true,
+          "delivered": true
+        },
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "trackerCount": 1,
+          "craftActive": false,
+          "announced": true,
+          "delivered": true
+        }
+      ]
+    },
+    "wallClockBracketSeconds": 5.005,
+    "configurationUnchangedAcrossBracket": true,
+    "postThresholdPeriodicSnapshots": 64,
+    "everyPostThresholdSnapshotRetainsCraftedAndTwoDelivered": true,
+    "everyPostThresholdSnapshotHasTwoHuntersWithOneTrackerAndRunnerWithZero": true,
+    "interpretation": "Check completion remains crafted, delivery markers and per-member counts across the configured threshold. No exact wall-clock execution instant or indefinite no-duplicate guarantee is inferred."
+  },
+  "configuredTimerScope": "This three-member functional trial uses reveal 2 minutes / automatic grant 8 minutes and summon cooldown 30 seconds; it is separate from the default 20/40-minute LONG trial.",
+  "recipeCoverage": {
+    "completeRecipeItemsAndRequiredAmountsCapturedByProbe": false,
+    "completedCraftObserved": true,
+    "autoCompletionObserved": false
+  },
+  "inventoryConsumptionScope": {
+    "allMaterialInventoryCountsCaptured": false,
+    "exactConsumedInventoryAmountIndependentlyProven": false,
+    "observedProgressIsSeparateFromInventoryDebit": true,
+    "explanation": "DROP item fields and craftAfterObserver are read after production processing. Cached fields describe item spawn, not live pre-consumption inventory. Periodic craft progress can corroborate accepted progress; it does not independently prove exact material debit or physical-item deduplication."
+  },
+  "userOrUiReportsIncluded": false,
+  "limitations": [
+    "This remains an ongoing snapshot; log buffers may contain later events or an incomplete tail.",
+    "Production processing may clear craftActive on completion; false by itself is not a crafting failure.",
+    "No screen-rendering, complete recipe correctness, multi-hunter simultaneous crafting, or Stable acceptance is inferred merely from parsed data.",
+    "No original log text, account names, private paths, or network addresses are copied."
+  ]
+}

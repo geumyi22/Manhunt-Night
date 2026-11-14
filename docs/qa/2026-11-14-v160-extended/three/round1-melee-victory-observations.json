@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "recordedAtUtc": "2026-11-14T12:12:32.665Z",
+  "status": "ROUND_1_ENDED_OBSERVED_CAPTURE_STILL_ONGOING",
+  "captureClosureReported": false,
+  "round": 1,
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T12-10-21-080Z",
+    "sourceLogSha256": "029c0ea3b8854abf78f6b692be015f5e32ac76cf6b2c2fb35cbaa489404114b8",
+    "stateRows": 643,
+    "dropRows": 13,
+    "invalidRows": [
+      {
+        "sourceLine": 23261,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "before": {
+    "session": 2,
+    "seq": 20,
+    "utc": "2026-11-14T12:09:05.723Z",
+    "round": 1,
+    "phase": "running",
+    "matchSeconds": 2054,
+    "rosterSize": 3,
+    "players": 3,
+    "practice": false,
+    "result": "",
+    "winCounts": [],
+    "craft": {
+      "step": 9,
+      "amount": 0,
+      "completion": "crafted",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "summon": {
+      "uses": 2,
+      "readyAt": 1253,
+      "serial": 2,
+      "transactionPhase": null,
+      "transactionParticipantCount": 0
+    },
+    "runnerRespawns": 0,
+    "runnerLifeBonus": 0,
+    "members": [
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "dimension": "minecraft:nether",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "dimension": "minecraft:nether",
+        "health": 1,
+        "trackerCount": 0,
+        "delivered": false
+      },
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "dimension": "minecraft:overworld",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      }
+    ]
+  },
+  "firstEnded": {
+    "session": 2,
+    "seq": 21,
+    "utc": "2026-11-14T12:09:10.728Z",
+    "round": 1,
+    "phase": "ended",
+    "matchSeconds": 2055,
+    "rosterSize": 3,
+    "players": 3,
+    "practice": false,
+    "result": "헌터 승리",
+    "winCounts": [
+      1,
+      1
+    ],
+    "craft": {
+      "step": 9,
+      "amount": 0,
+      "completion": "crafted",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "summon": {
+      "uses": 2,
+      "readyAt": 1253,
+      "serial": 2,
+      "transactionPhase": null,
+      "transactionParticipantCount": 0
+    },
+    "runnerRespawns": 0,
+    "runnerLifeBonus": 0,
+    "members": [
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "dimension": "minecraft:nether",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "dimension": "minecraft:overworld",
+        "health": 20,
+        "trackerCount": 0,
+        "delivered": false
+      },
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "dimension": "minecraft:overworld",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      }
+    ]
+  },
+  "latestEndedInThisSnapshot": {
+    "session": 2,
+    "seq": 33,
+    "utc": "2026-11-14T12:10:10.736Z",
+    "round": 1,
+    "phase": "ended",
+    "matchSeconds": 2055,
+    "rosterSize": 3,
+    "players": 3,
+    "practice": false,
+    "result": "헌터 승리",
+    "winCounts": [
+      1,
+      1
+    ],
+    "craft": {
+      "step": 9,
+      "amount": 0,
+      "completion": "crafted",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "summon": {
+      "uses": 2,
+      "readyAt": 1253,
+      "serial": 2,
+      "transactionPhase": null,
+      "transactionParticipantCount": 0
+    },
+    "runnerRespawns": 0,
+    "runnerLifeBonus": 0,
+    "members": [
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "dimension": "minecraft:nether",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "dimension": "minecraft:overworld",
+        "health": 20,
+        "trackerCount": 0,
+        "delivered": false
+      },
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "dimension": "minecraft:overworld",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      }
+    ]
+  },
+  "victoryBracketSeconds": 5.005,
+  "exactKillInstantRecorded": false,
+  "finalMatchClock": "34:15",
+  "evidenceSources": {
+    "user": {
+      "source": "Parent relayed user response",
+      "response": "됨",
+      "context": "A diamond sword was command-supplied to phone hunter H2 and the user was asked to kill the runner directly."
+    },
+    "hostUi": {
+      "source": "Parent directly observed death attribution to H2 and hunter-victory34:15 chat",
+      "file": "phone-melee-hunter-victory.jpg",
+      "sha256": "3fdc73260993c18f5f73d207d8b3d40413ba77eafd1746d3a7ab757e54b349da",
+      "privacy": "Private original contains account names; do not publish image."
+    },
+    "probe": {
+      "supports": [
+        "running-to-ended",
+        "matchSeconds2055",
+        "hunter-victory result",
+        "anonymous win values[] to[1,1]",
+        "unchanged crafted grants and per-hunter tracker counts"
+      ],
+      "doesNotCapture": [
+        "damage source",
+        "weapon identity",
+        "killer account name",
+        "mapping of winCounts entries to accounts"
+      ]
+    }
+  },
+  "winAndInventoryPersistence": {
+    "endedSamples": 13,
+    "observedSpanSeconds": 60.008,
+    "allEndedWithSameTimerAndResult": true,
+    "anonymousWinCountValuesBefore": [],
+    "anonymousWinCountValuesAfter": [
+      1,
+      1
+    ],
+    "allEndedWinArraysRemainOneAndOne": true,
+    "everyEndedSnapshotHasTwoHuntersWithOneTrackerAndRunnerWithZero": true,
+    "perAccountWinMappingIndependentlyCaptured": false,
+    "duplicateWinIncrementObserved": false
+  },
+  "reloadEvidence": "reconnect-and-reload-observations.json",
+  "limitations": [
+    "This file freezes the round1 result at its cited snapshot. A later actual round is separate and does not replace these rows.",
+    "Two anonymous entries at1 are consistent with the two-hunter team result but do not expose account-specific score mapping.",
+    "No duplicate wins or trackers are observed across these13 ended snapshots; unobserved transients and indefinite future behavior are not ruled out.",
+    "The game/capture remains open for the next round; this is not a full E2E or Stable pass."
+  ]
+}

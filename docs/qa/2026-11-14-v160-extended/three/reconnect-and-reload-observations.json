@@ -1,0 +1,1378 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T12:47:18.860Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T12-46-36-338Z",
+    "sourceLogSha256": "303fe06319dfbddd2ca3b63f21eea7f01a40722daabe0b7f7e11b090537a893b",
+    "stateRows": 1065,
+    "invalidRows": [
+      {
+        "sourceLine": 29779,
+        "marker": "MHQA_THREE",
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true
+      }
+    ]
+  },
+  "peerReconnect": {
+    "status": "RETURN_AND_MANUAL_RESUME_OBSERVED",
+    "departingRosterMember": 2,
+    "leaveBracket": {
+      "before": {
+        "session": 1,
+        "seq": 590,
+        "utc": "2026-11-14T12:05:30.736Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1956,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 5.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 1,
+                "id": "mh:tracker_25",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "after": {
+        "session": 1,
+        "seq": 591,
+        "utc": "2026-11-14T12:05:35.734Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 2,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "seconds": 4.998,
+      "consecutiveSamples": true,
+      "preciseEventInstantKnown": false
+    },
+    "returnBracket": {
+      "before": {
+        "session": 1,
+        "seq": 592,
+        "utc": "2026-11-14T12:05:40.728Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 2,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "after": {
+        "session": 1,
+        "seq": 593,
+        "utc": "2026-11-14T12:05:45.739Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 5.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 1,
+                "id": "mh:tracker_25",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "seconds": 5.011,
+      "consecutiveSamples": true,
+      "preciseEventInstantKnown": false
+    },
+    "resumeBracket": {
+      "before": {
+        "session": 1,
+        "seq": 601,
+        "utc": "2026-11-14T12:06:25.740Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 1958,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 5.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 1,
+                "id": "mh:tracker_25",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "after": {
+        "session": 1,
+        "seq": 602,
+        "utc": "2026-11-14T12:06:30.733Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 1962,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 5.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 1,
+                "id": "mh:tracker_25",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "seconds": 4.993,
+      "consecutiveSamples": true,
+      "preciseEventInstantKnown": false
+    },
+    "requested15SecondWaitExactlyMeasured": false,
+    "absenceDurationBoundsSeconds": {
+      "minimum": 4.994,
+      "maximum": 15.003,
+      "interpretation": "Bounds from last-present/first-absent and last-absent/first-present snapshots, not exact disconnect timing."
+    },
+    "pausedSnapshotCount": 11,
+    "allPausedSnapshotsRetainFirstAbsentMatchSeconds": true,
+    "stateComparisonBeforeLeaveAndReturn": [
+      {
+        "field": "round",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "rosterSize",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "practice",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "config",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "craft",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "summon",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "runnerRespawns",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "runnerLifeBonus",
+        "equalAtObservedEndpoints": true
+      },
+      {
+        "field": "winCounts",
+        "equalAtObservedEndpoints": true
+      }
+    ],
+    "returnedHunterObservedSamples": 18,
+    "returnedHunterTrackerCountValues": [
+      1
+    ],
+    "operatorAttribution": {
+      "userReportedInventoryAfterReturn": "그대로",
+      "source": "Parent relayed the user answer and directly observed three connected players in the paused menu.",
+      "resumeActor": "Parent operator reported pressing the host resume control",
+      "automaticResumeClaimed": false
+    }
+  },
+  "worldReloads": [
+    {
+      "previousSession": 1,
+      "newSession": 2,
+      "observedReloadedRound": 1,
+      "before": {
+        "session": 1,
+        "seq": 610,
+        "utc": "2026-11-14T12:07:10.736Z",
+        "round": 1,
+        "phase": "running",
+        "matchSeconds": 2002,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 5.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 1,
+                "id": "mh:tracker_25",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "firstAfter": {
+        "session": 2,
+        "seq": 1,
+        "utc": "2026-11-14T12:07:30.730Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 2006,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 1,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "firstAllRosterOnline": {
+        "session": 2,
+        "seq": 2,
+        "utc": "2026-11-14T12:07:35.739Z",
+        "round": 1,
+        "phase": "paused",
+        "matchSeconds": 2006,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [],
+        "members": [
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 0.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 40,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": 5.5,
+              "y": 120,
+              "z": 0.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 1,
+                "id": "mh:tracker_25",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_1",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "latest": {
+        "session": 2,
+        "seq": 33,
+        "utc": "2026-11-14T12:10:10.736Z",
+        "round": 1,
+        "phase": "ended",
+        "matchSeconds": 2055,
+        "practice": false,
+        "rosterSize": 3,
+        "players": 3,
+        "config": {
+          "revealMinutes": 2,
+          "autoMinutes": 8,
+          "autoGive": true,
+          "autoPause": true,
+          "trackerMode": "random",
+          "wildBase": 2,
+          "wildMax": 3,
+          "summonDistance": 350,
+          "summonCooldownSeconds": 30,
+          "summonMaxUses": 2
+        },
+        "craft": {
+          "step": 9,
+          "amount": 0,
+          "completion": "crafted",
+          "pending": null,
+          "announcedCount": 2,
+          "deliveredCount": 2
+        },
+        "summon": {
+          "uses": 2,
+          "readyAt": 1253,
+          "serial": 2,
+          "transactionPhase": null,
+          "transactionParticipantCount": 0
+        },
+        "runnerRespawns": 0,
+        "runnerLifeBonus": 0,
+        "winCounts": [
+          1,
+          1
+        ],
+        "members": [
+          {
+            "memberIndex": 2,
+            "role": "hunter",
+            "dimension": "minecraft:nether",
+            "location": {
+              "x": -4.941039085388184,
+              "y": 120,
+              "z": 3.127915620803833
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 1,
+                "id": "mh:tracker_0",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          },
+          {
+            "memberIndex": 1,
+            "role": "runner",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -22.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 0,
+            "trackers": [],
+            "delivered": false
+          },
+          {
+            "memberIndex": 0,
+            "role": "hunter",
+            "dimension": "minecraft:overworld",
+            "location": {
+              "x": -27.5,
+              "y": 305,
+              "z": 36.5
+            },
+            "health": 20,
+            "trackerCount": 1,
+            "trackers": [
+              {
+                "slot": 2,
+                "id": "mh:tracker_5",
+                "amount": 1
+              }
+            ],
+            "delivered": true
+          }
+        ]
+      },
+      "sourceObservationGapSeconds": 19.994,
+      "observedTimerDifferenceSeconds": 4,
+      "timerInterpretation": "Last pre-reload sampling can precede saving by several seconds; an endpoint difference is recorded without automatically labeling data loss or a reset.",
+      "persistedFieldComparison": [
+        {
+          "field": "round",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "rosterSize",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "practice",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "config",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "craft",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "summon",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "runnerRespawns",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "runnerLifeBonus",
+          "equalAtObservedEndpoints": true
+        },
+        {
+          "field": "winCounts",
+          "equalAtObservedEndpoints": true
+        }
+      ],
+      "sampledHunterCountsByRosterIndex": [
+        {
+          "memberIndex": 0,
+          "samples": 33,
+          "countValues": [
+            1
+          ],
+          "deliveredValues": [
+            true
+          ]
+        },
+        {
+          "memberIndex": 2,
+          "samples": 32,
+          "countValues": [
+            1
+          ],
+          "deliveredValues": [
+            true
+          ]
+        }
+      ],
+      "resumeBracket": {
+        "before": {
+          "session": 2,
+          "seq": 10,
+          "utc": "2026-11-14T12:08:15.729Z",
+          "round": 1,
+          "phase": "paused",
+          "matchSeconds": 2006,
+          "practice": false,
+          "rosterSize": 3,
+          "players": 3,
+          "config": {
+            "revealMinutes": 2,
+            "autoMinutes": 8,
+            "autoGive": true,
+            "autoPause": true,
+            "trackerMode": "random",
+            "wildBase": 2,
+            "wildMax": 3,
+            "summonDistance": 350,
+            "summonCooldownSeconds": 30,
+            "summonMaxUses": 2
+          },
+          "craft": {
+            "step": 9,
+            "amount": 0,
+            "completion": "crafted",
+            "pending": null,
+            "announcedCount": 2,
+            "deliveredCount": 2
+          },
+          "summon": {
+            "uses": 2,
+            "readyAt": 1253,
+            "serial": 2,
+            "transactionPhase": null,
+            "transactionParticipantCount": 0
+          },
+          "runnerRespawns": 0,
+          "runnerLifeBonus": 0,
+          "winCounts": [],
+          "members": [
+            {
+              "memberIndex": 1,
+              "role": "runner",
+              "dimension": "minecraft:nether",
+              "location": {
+                "x": 0.5,
+                "y": 120,
+                "z": 0.5
+              },
+              "health": 40,
+              "trackerCount": 0,
+              "trackers": [],
+              "delivered": false
+            },
+            {
+              "memberIndex": 2,
+              "role": "hunter",
+              "dimension": "minecraft:nether",
+              "location": {
+                "x": 5.5,
+                "y": 120,
+                "z": 0.5
+              },
+              "health": 20,
+              "trackerCount": 1,
+              "trackers": [
+                {
+                  "slot": 1,
+                  "id": "mh:tracker_25",
+                  "amount": 1
+                }
+              ],
+              "delivered": true
+            },
+            {
+              "memberIndex": 0,
+              "role": "hunter",
+              "dimension": "minecraft:overworld",
+              "location": {
+                "x": -27.5,
+                "y": 305,
+                "z": 36.5
+              },
+              "health": 20,
+              "trackerCount": 1,
+              "trackers": [
+                {
+                  "slot": 2,
+                  "id": "mh:tracker_1",
+                  "amount": 1
+                }
+              ],
+              "delivered": true
+            }
+          ]
+        },
+        "after": {
+          "session": 2,
+          "seq": 11,
+          "utc": "2026-11-14T12:08:20.733Z",
+          "round": 1,
+          "phase": "running",
+          "matchSeconds": 2009,
+          "practice": false,
+          "rosterSize": 3,
+          "players": 3,
+          "config": {
+            "revealMinutes": 2,
+            "autoMinutes": 8,
+            "autoGive": true,
+            "autoPause": true,
+            "trackerMode": "random",
+            "wildBase": 2,
+            "wildMax": 3,
+            "summonDistance": 350,
+            "summonCooldownSeconds": 30,
+            "summonMaxUses": 2
+          },
+          "craft": {
+            "step": 9,
+            "amount": 0,
+            "completion": "crafted",
+            "pending": null,
+            "announcedCount": 2,
+            "deliveredCount": 2
+          },
+          "summon": {
+            "uses": 2,
+            "readyAt": 1253,
+            "serial": 2,
+            "transactionPhase": null,
+            "transactionParticipantCount": 0
+          },
+          "runnerRespawns": 0,
+          "runnerLifeBonus": 0,
+          "winCounts": [],
+          "members": [
+            {
+              "memberIndex": 1,
+              "role": "runner",
+              "dimension": "minecraft:nether",
+              "location": {
+                "x": 0.5,
+                "y": 120,
+                "z": 0.5
+              },
+              "health": 40,
+              "trackerCount": 0,
+              "trackers": [],
+              "delivered": false
+            },
+            {
+              "memberIndex": 2,
+              "role": "hunter",
+              "dimension": "minecraft:nether",
+              "location": {
+                "x": 5.5,
+                "y": 120,
+                "z": 0.5
+              },
+              "health": 20,
+              "trackerCount": 1,
+              "trackers": [
+                {
+                  "slot": 1,
+                  "id": "mh:tracker_25",
+                  "amount": 1
+                }
+              ],
+              "delivered": true
+            },
+            {
+              "memberIndex": 0,
+              "role": "hunter",
+              "dimension": "minecraft:overworld",
+              "location": {
+                "x": -27.5,
+                "y": 305,
+                "z": 36.5
+              },
+              "health": 20,
+              "trackerCount": 1,
+              "trackers": [
+                {
+                  "slot": 2,
+                  "id": "mh:tracker_1",
+                  "amount": 1
+                }
+              ],
+              "delivered": true
+            }
+          ]
+        },
+        "seconds": 5.004,
+        "consecutiveSamples": true,
+        "preciseEventInstantKnown": false
+      },
+      "automaticResumeClaimed": false,
+      "attribution": "Sequence reset establishes a new observation session. Parent-reported save/reopen actions provide the reload context; this file does not inspect UI or the saved database."
+    }
+  ],
+  "latest": {
+    "session": 2,
+    "seq": 455,
+    "utc": "2026-11-14T12:45:20.735Z",
+    "round": 2,
+    "phase": "ended",
+    "matchSeconds": 1304,
+    "practice": false,
+    "rosterSize": 3,
+    "players": 3,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3,
+      "summonDistance": 350,
+      "summonCooldownSeconds": 300,
+      "summonMaxUses": 2
+    },
+    "craft": {
+      "step": 2,
+      "amount": 0,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 2,
+      "deliveredCount": 2
+    },
+    "summon": {
+      "uses": 1,
+      "readyAt": 556,
+      "serial": 1,
+      "transactionPhase": null,
+      "transactionParticipantCount": 0
+    },
+    "runnerRespawns": 0,
+    "runnerLifeBonus": 0,
+    "winCounts": [
+      1,
+      1,
+      1
+    ],
+    "members": [
+      {
+        "memberIndex": 2,
+        "role": "hunter",
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 8.535171508789062,
+          "y": 60,
+          "z": 23.878761291503906
+        },
+        "health": 20,
+        "trackerCount": 1,
+        "trackers": [
+          {
+            "slot": 0,
+            "id": "mh:tracker_29",
+            "amount": 1
+          }
+        ],
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "dimension": "minecraft:the_end",
+        "location": {
+          "x": 18.213748931884766,
+          "y": 61,
+          "z": 13.884201049804688
+        },
+        "health": 20,
+        "trackerCount": 0,
+        "trackers": [],
+        "delivered": false
+      },
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "dimension": "minecraft:overworld",
+        "location": {
+          "x": 418.5,
+          "y": 305,
+          "z": -1.5
+        },
+        "health": 20,
+        "trackerCount": 1,
+        "trackers": [
+          {
+            "slot": 2,
+            "id": "mh:tracker_8",
+            "amount": 1
+          }
+        ],
+        "delivered": true
+      }
+    ]
+  },
+  "sampler": {
+    "status": "SAMPLER_STOPPED",
+    "samples": 817,
+    "lastSampleUtc": "2026-11-14T12:45:37.461Z",
+    "sampledSpanSeconds": 1646.158
+  },
+  "limitations": [
+    "Only anonymous roster members and explicit QA fields are copied.",
+    "Inventory persistence is observed at periodic snapshots, not every engine tick.",
+    "Preserved state and visible item count do not prove unobserved transient behavior never occurred.",
+    "This is an ongoing partial E2E record; world closure and overall QA acceptance are separate."
+  ]
+}

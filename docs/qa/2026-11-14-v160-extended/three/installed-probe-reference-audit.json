@@ -1,0 +1,174 @@
+{
+  "checkedAtUtc": "2026-11-14T10:55:44.609Z",
+  "method": "Read-only inspection of installed named QA worlds; originals and active files not modified",
+  "worldsFound": 2,
+  "worldChecks": [
+    {
+      "worldName": "QA v1.6.0 LONG 40MIN (가져오기 완료)",
+      "packs": [
+        {
+          "type": "behavior_packs",
+          "references": [
+            {
+              "uuid": "15e531be-c4de-42ec-80a8-c02d249fb9c0",
+              "version": [
+                1,
+                6,
+                0
+              ]
+            }
+          ],
+          "embeddedManifests": [
+            {
+              "uuid": "15e531be-c4de-42ec-80a8-c02d249fb9c0",
+              "version": [
+                1,
+                6,
+                0
+              ],
+              "moduleUUIDs": [
+                "67fa8e5e-a265-4f44-8b89-7f964f8b4a85",
+                "47132c82-34d0-42a7-b459-4a3098fcfb58"
+              ],
+              "dependencies": [
+                {
+                  "module_name": "@minecraft/server",
+                  "version": "2.11.0"
+                },
+                {
+                  "module_name": "@minecraft/server-ui",
+                  "version": "2.3.0"
+                },
+                {
+                  "uuid": "d5f18095-491b-4d09-94b8-7bb105bb6e70",
+                  "version": [
+                    1,
+                    6,
+                    0
+                  ]
+                }
+              ]
+            }
+          ],
+          "allReferencesResolveToEmbeddedPack": true
+        },
+        {
+          "type": "resource_packs",
+          "references": [
+            {
+              "uuid": "d5f18095-491b-4d09-94b8-7bb105bb6e70",
+              "version": [
+                1,
+                6,
+                0
+              ]
+            }
+          ],
+          "embeddedManifests": [
+            {
+              "uuid": "d5f18095-491b-4d09-94b8-7bb105bb6e70",
+              "version": [
+                1,
+                6,
+                0
+              ],
+              "moduleUUIDs": [
+                "6256a7bd-a5f2-4056-b3ac-3711c4bf6682"
+              ],
+              "dependencies": []
+            }
+          ],
+          "allReferencesResolveToEmbeddedPack": true
+        }
+      ],
+      "behaviorToResourceDependenciesMatch": true,
+      "result": "PASS"
+    },
+    {
+      "worldName": "QA v1.6.0 TWO PLAYERS (가져오기 완료)",
+      "packs": [
+        {
+          "type": "behavior_packs",
+          "references": [
+            {
+              "uuid": "adb09666-2bb6-43a2-940c-caab9a1bd0b7",
+              "version": [
+                1,
+                6,
+                0
+              ]
+            }
+          ],
+          "embeddedManifests": [
+            {
+              "uuid": "adb09666-2bb6-43a2-940c-caab9a1bd0b7",
+              "version": [
+                1,
+                6,
+                0
+              ],
+              "moduleUUIDs": [
+                "1e5b003c-e7b1-45fe-b73b-a55b74a170ab",
+                "b0b70552-c934-4f01-b1b2-7894c8293567"
+              ],
+              "dependencies": [
+                {
+                  "module_name": "@minecraft/server",
+                  "version": "2.11.0"
+                },
+                {
+                  "module_name": "@minecraft/server-ui",
+                  "version": "2.3.0"
+                },
+                {
+                  "uuid": "206e0445-22e1-4099-8740-7d3e03e1de1a",
+                  "version": [
+                    1,
+                    6,
+                    0
+                  ]
+                }
+              ]
+            }
+          ],
+          "allReferencesResolveToEmbeddedPack": true
+        },
+        {
+          "type": "resource_packs",
+          "references": [
+            {
+              "uuid": "206e0445-22e1-4099-8740-7d3e03e1de1a",
+              "version": [
+                1,
+                6,
+                0
+              ]
+            }
+          ],
+          "embeddedManifests": [
+            {
+              "uuid": "206e0445-22e1-4099-8740-7d3e03e1de1a",
+              "version": [
+                1,
+                6,
+                0
+              ],
+              "moduleUUIDs": [
+                "414264fa-b364-49d7-80df-aa31c0c8622b"
+              ],
+              "dependencies": []
+            }
+          ],
+          "allReferencesResolveToEmbeddedPack": true
+        }
+      ],
+      "behaviorToResourceDependenciesMatch": true,
+      "result": "PASS"
+    }
+  ],
+  "conclusion": "No embedded BP/RP UUID/version reference mismatch found in the named installed QA worlds",
+  "limitations": [
+    "A consistent manifest reference does not establish the cause of a generic resource/behavior-pack warning.",
+    "This checks manifests and references only; shader/global packs, engine loader state and log warnings are not diagnosed."
+  ]
+}
