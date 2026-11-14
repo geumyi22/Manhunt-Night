@@ -1,0 +1,89 @@
+{
+  "verifiedAtUtc": "2026-11-14T10:06:58.403Z",
+  "result": "PASS",
+  "scope": "Independent read-only archive and source comparison; not a gameplay result",
+  "sourceVersion": "1.6.0",
+  "packResults": [
+    {
+      "pack": "BP",
+      "totalFiles": 52,
+      "byteIdenticalFiles": 50,
+      "exceptions": [
+        {
+          "file": "manifest.json",
+          "change": "Only header/module/dependency UUIDs differ semantically; JSON whitespace also differs"
+        },
+        {
+          "file": "scripts/main.js",
+          "change": "Exact source bytes followed only by read-only MHQA_PERF sampler",
+          "sourceSha256": "7c2bc0af5dbcab4221df56af0314b2a8f7c45c65a61564f8467129f4f40231a9",
+          "probeSha256": "a0f19204954099894e795f2a91ec83f92caaae8b594fc2ed5af0076e2c2ec4e0",
+          "appendedBytes": 814,
+          "samplerSha256": "13b60e0db59f2c322b59561d285723c2559bf1210f1a5abfac369177089dd91f"
+        }
+      ]
+    },
+    {
+      "pack": "RP",
+      "totalFiles": 41,
+      "byteIdenticalFiles": 40,
+      "exceptions": [
+        {
+          "file": "manifest.json",
+          "change": "Only header/module/dependency UUIDs differ semantically; JSON whitespace also differs"
+        }
+      ]
+    }
+  ],
+  "worldMetadata": "Only test-world name and isolated pack-reference UUIDs differ from current v1.6.0 build",
+  "probe": {
+    "file": "QA_v1.6.0_TWO_PLAYERS.mcworld",
+    "sha256": "0f8803cfdbd2d5365591689b95c0c945de546420ff8edd8a0975c56e397cf829",
+    "samplingIntervalTicks": 100,
+    "samplerReadOnly": true,
+    "description": "Reads engine tick/time, match state, roster counts, win count values and dimension IDs; writes log rows and probe-local counters only. Adds one scheduled callback and logging overhead."
+  },
+  "sourceBuild": {
+    "file": "Manhunt_Night_v1.6.0.mcworld",
+    "sha256": "3b186f241516422e8e97a958c83e9a38edcda3bb8717d991b751f152dd4ed998",
+    "packsMatchCurrentRepository": true
+  },
+  "preservedV151": {
+    "file": "Manhunt_Night_v1.5.1.mcworld",
+    "sha256": "ee595db8b14df9d8ab2424c4b2553efb4fd601ebf99ad018c033efeec48863ee",
+    "matchesEarlierReleaseDigestAudit": true,
+    "unchangedDuringThisAudit": true
+  },
+  "database": {
+    "files": [
+      {
+        "file": "db/000005.ldb",
+        "bytes": 409247,
+        "sha256": "8c379c0280241b830863d8d0408c0c00b87869b8985d34fa06f59b2d7bec947f"
+      },
+      {
+        "file": "db/000008.ldb",
+        "bytes": 169,
+        "sha256": "e97f4cd7da662b8884f0470fbcb055175ca48b0beec549bdc1a72533319feeac"
+      },
+      {
+        "file": "db/CURRENT",
+        "bytes": 16,
+        "sha256": "8af72f43857550b01eab1019335772b367a17a9884a7a759fdf4fe6f272b90aa"
+      },
+      {
+        "file": "db/MANIFEST-000007",
+        "bytes": 142,
+        "sha256": "98ecd8adfc5c34ed78771b27d2dbeb70114dfd661bf0d6cbd8b5ecdb70cfa335"
+      }
+    ],
+    "identicalAcrossPublishedV151CurrentV160AndProbe": true,
+    "matchesPublishedV151BuildManifest": true
+  },
+  "inputArchivesUnchangedDuringAudit": true,
+  "limitations": [
+    "Checks the pre-import probe archive; running game copies naturally write their own database.",
+    "Does not prove performance equivalence between instrumented and uninstrumented runs.",
+    "Does not establish 3-8-player E2E coverage or FPS/network measurements."
+  ]
+}

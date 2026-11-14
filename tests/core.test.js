@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newState,validateStart,tracking,targetFor,outcome,clock,trackerUnlocked,TRACKER_UNLOCK_SECONDS,teammateReadout} from '../BP/scripts/core.js';
+import {newState,validateStart,tracking,targetFor,outcome,clock,trackerUnlocked,TRACKER_UNLOCK_SECONDS,teammateReadout,MIN_PLAYERS,MAX_PLAYERS} from '../BP/scripts/core.js';
 test('match sizes and roles are enforced',()=>{
- assert.equal(validateStart(['R','H1','H2'],'R'),'');assert.equal(validateStart(['R','H1','H2','H3'],'R'),'');
- for(const [n,r,p] of [[['R','H'],'R',false],[['R','H','X','Y','Z'],'R',false],[['R','H','X'],'missing',false],[['R','R','X'],'R',false],[['R','H'],'R',true]])assert.notEqual(validateStart(n,r,p),'');
+ assert.equal(MIN_PLAYERS,2);assert.equal(MAX_PLAYERS,8);
+ for(let count=2;count<=8;count++){const names=['R',...Array.from({length:count-1},(_,i)=>`H${i+1}`)];assert.equal(validateStart(names,'R'),'');}
+ for(const [n,r,p] of [[[],'R',false],[['R'],'R',false],[['R','H1','H2','H3','H4','H5','H6','H7','H8'],'R',false],[['R','H','X'],'missing',false],[['R','R','X'],'R',false],[['R','H'],'R',true]])assert.notEqual(validateStart(n,r,p),'');
  assert.equal(validateStart(['R'],'R',true),'');
 });
 test('compass faces the correct direction for all eight bearings and player rotation',()=>{

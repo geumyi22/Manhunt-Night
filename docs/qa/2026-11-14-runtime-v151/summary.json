@@ -1,0 +1,195 @@
+{
+  "generatedAtUtc": "2026-11-14T09:47:02.107Z",
+  "sourceLogBasename": "ContentLog2026-11-14_18-29-33_1.txt",
+  "snapshotStatus": "capture windows complete; log may still be buffered",
+  "tps": {
+    "parsedSamples": 140,
+    "skippedRows": [
+      {
+        "sourceLine": 2167,
+        "reason": "Expected ',' or '}' after property value in JSON at position 58 (line 1 column 59)",
+        "endOfFileFragment": true
+      }
+    ],
+    "firstSampleExcluded": 1,
+    "firstUsableSequence": 2,
+    "firstUsableObservationUtc": "2026-11-14T09:33:23.298Z",
+    "lastParsedSequence": 140,
+    "lastParsedObservationUtc": "2026-11-14T09:44:53.308Z",
+    "transitionIntervalsExcluded": [
+      16,
+      17,
+      53,
+      71,
+      73,
+      96
+    ],
+    "grouping": "End-of-interval phase/player count; intervals crossing an observed count/category change or sequence gap excluded. Running and grace combined. First startup sample excluded.",
+    "formula": "sum(elapsedTicks) / (sum(elapsedMs) / 1000)",
+    "groups": [
+      {
+        "group": "1_players__lobby",
+        "players": 1,
+        "phaseCategory": "lobby",
+        "samples": 14,
+        "firstSequence": 2,
+        "lastSequence": 15,
+        "firstIntervalStartUtc": "2026-11-14T09:33:18.299Z",
+        "lastObservationUtc": "2026-11-14T09:34:28.297Z",
+        "observedSeconds": 69.998,
+        "weightedTps": 20.000571444898426,
+        "intervalTps": {
+          "min": 19.948134849391582,
+          "median": 20,
+          "p95": 20.052135552436333,
+          "max": 20.052135552436333
+        }
+      },
+      {
+        "group": "1_players__running_or_grace",
+        "players": 1,
+        "phaseCategory": "running_or_grace",
+        "samples": 36,
+        "firstSequence": 18,
+        "lastSequence": 72,
+        "firstIntervalStartUtc": "2026-11-14T09:34:38.306Z",
+        "lastObservationUtc": "2026-11-14T09:39:13.296Z",
+        "observedSeconds": 179.988,
+        "weightedTps": 20.00133342222815,
+        "intervalTps": {
+          "min": 19.94415636218588,
+          "median": 20.008003201280513,
+          "p95": 20.04811547714515,
+          "max": 20.052135552436333
+        }
+      },
+      {
+        "group": "2_players__running_or_grace",
+        "players": 2,
+        "phaseCategory": "running_or_grace",
+        "samples": 39,
+        "firstSequence": 54,
+        "lastSequence": 95,
+        "firstIntervalStartUtc": "2026-11-14T09:37:38.308Z",
+        "lastObservationUtc": "2026-11-14T09:41:08.308Z",
+        "observedSeconds": 194.992,
+        "weightedTps": 20.000820546483958,
+        "intervalTps": {
+          "min": 19.940179461615156,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.056157240272764
+        }
+      },
+      {
+        "group": "2_players__lobby",
+        "players": 2,
+        "phaseCategory": "lobby",
+        "samples": 44,
+        "firstSequence": 97,
+        "lastSequence": 140,
+        "firstIntervalStartUtc": "2026-11-14T09:41:13.301Z",
+        "lastObservationUtc": "2026-11-14T09:44:53.308Z",
+        "observedSeconds": 220.007,
+        "weightedTps": 19.999363656610925,
+        "intervalTps": {
+          "min": 19.94415636218588,
+          "median": 20,
+          "p95": 20.044097013429546,
+          "max": 20.04811547714515
+        }
+      }
+    ]
+  },
+  "memoryWindows": [
+    {
+      "sourceCsv": "solo-memory.csv",
+      "completed": true,
+      "samples": 178,
+      "firstSampleUtc": "2026-11-14T09:34:42.9539062+00:00",
+      "lastSampleUtc": "2026-11-14T09:37:42.5817429+00:00",
+      "sampledSpanSeconds": 179.628,
+      "samplerElapsedSeconds": 180.6585186,
+      "label": "Connected-client count(s) 1/2 and phase(s) grace/running observed during window; not a multiplayer match; extra client was not a match participant",
+      "observedClientCounts": [
+        1,
+        2
+      ],
+      "nearestPriorTpsSequence": 17,
+      "observedPhases": [
+        "grace",
+        "running"
+      ],
+      "tpsObservationsWithinWindow": 36,
+      "workingSetMiB": {
+        "min": 2331.1171875,
+        "median": 2366.42578125,
+        "p95": 2390.640625,
+        "max": 2797.203125
+      },
+      "privateBytesMiB": {
+        "min": 3944.046875,
+        "median": 4041.412109375,
+        "p95": 4089.3984375,
+        "max": 4530.171875
+      },
+      "cpuPercentMachine": {
+        "min": 15.55255741942615,
+        "median": 22.51602137946856,
+        "p95": 27.24303297016369,
+        "max": 75.50993038675836
+      },
+      "timeWeightedCpuPercentMachine": 23.533347178300264,
+      "attribution": "Memory is summarized by capture window only. Player count and phase are sampled about every five seconds; individual memory samples are not assigned to players or phases. Late/rejoining client was not a participant in the solo match; the later reset returned the world to lobby."
+    },
+    {
+      "sourceCsv": "two-clients-memory.csv",
+      "completed": true,
+      "samples": 177,
+      "firstSampleUtc": "2026-11-14T09:38:43.5418871+00:00",
+      "lastSampleUtc": "2026-11-14T09:41:42.6760011+00:00",
+      "sampledSpanSeconds": 179.135,
+      "samplerElapsedSeconds": 180.1732076,
+      "label": "Connected-client count(s) 1/2 and phase(s) lobby/running observed during window; not a multiplayer match; extra client was not a match participant",
+      "observedClientCounts": [
+        1,
+        2
+      ],
+      "nearestPriorTpsSequence": 66,
+      "observedPhases": [
+        "lobby",
+        "running"
+      ],
+      "tpsObservationsWithinWindow": 35,
+      "workingSetMiB": {
+        "min": 2726.99609375,
+        "median": 2872.26953125,
+        "p95": 2910.5,
+        "max": 2914.4609375
+      },
+      "privateBytesMiB": {
+        "min": 4433.96875,
+        "median": 4570.828125,
+        "p95": 4615.765625,
+        "max": 4636.14453125
+      },
+      "cpuPercentMachine": {
+        "min": 8.011885792811523,
+        "median": 23.476059790356096,
+        "p95": 28.77052684257302,
+        "max": 74.38827053684946
+      },
+      "timeWeightedCpuPercentMachine": 22.52278328070009,
+      "attribution": "Memory is summarized by capture window only. Player count and phase are sampled about every five seconds; individual memory samples are not assigned to players or phases. Late/rejoining client was not a participant in the solo match; the later reset returned the world to lobby."
+    }
+  ],
+  "fps": "NOT MEASURED: PresentMon returned exit code 1 with no CSV/frame samples; see fps-capture-diagnostics.json",
+  "network": "NOT MEASURED",
+  "limitations": [
+    "Actual host engine tick/wall-clock and host process memory/CPU only.",
+    "Existing solo practice match; extra connected client is not an active hunter. No 3-4 player gameplay E2E claim.",
+    "No FPS, client-side performance, long-session stability or comparative optimization result is inferred.",
+    "Date.now wall-clock observer is not monotonic. No clamping to 20 TPS; foreground/menu/loading state requires accompanying UI record.",
+    "Content Log buffering can leave the final observation behind wall time or a partial JSON record; skipped fragments are reported."
+  ]
+}

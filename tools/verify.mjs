@@ -6,7 +6,7 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {collectFiles,readZip} from './archive.mjs';
 import {readNBT} from './nbt.mjs';
 export const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-export const VERSION='1.5.1';
+export const VERSION='1.6.0';
 export const NAMES={world:`Manhunt_Night_v${VERSION}.mcworld`,addon:`Manhunt_Night_v${VERSION}.mcaddon`,source:`Manhunt_Night_Source_v${VERSION}.zip`,bundle:`Manhunt_Night_v${VERSION}_FullFiles.zip`};
 export const sha256=data=>crypto.createHash('sha256').update(data).digest('hex');
 export const parseJSON=bytes=>JSON.parse(Buffer.from(bytes).toString('utf8').replace(/^\ufeff/,''));
@@ -28,7 +28,7 @@ export function verifyPacks(bp,rp){
   assert(!/(?:^|\/)node_modules\//.test(name));
   if(name.endsWith('.json')){parseJSON(data);jsonCount++;}
   if(name.endsWith('.js')){
-   const code=data.toString('utf8');assert(!/QA_VIRTUAL_RUNNER|QA1[125]|qaRun\d+|mh:qa\d+|runtime-qa/i.test(code),'Runtime QA driver leaked: '+name);
+   const code=data.toString('utf8');assert(!/QA_VIRTUAL_RUNNER|QA1[125]|qaRun\d+|mh:qa\d+|runtime-qa|MHQA_PERF/i.test(code),'Runtime QA driver leaked: '+name);
    for(const match of code.matchAll(/from\s+['"](\.[^'"]+)['"]/g)){const target=path.posix.normalize(path.posix.join(path.posix.dirname(name),match[1]));assert(files.has(target),'Missing script import '+target);}
   }
  }
@@ -75,7 +75,7 @@ export async function verifyDistribution(dir=path.join(ROOT,'dist'),{addonOnly=f
   const world=readZip(fs.readFileSync(path.join(dir,NAMES.world))),bm=json(bp,'manifest.json'),rm=json(rp,'manifest.json');
   assert.deepEqual(json(world,'world_behavior_packs.json'),[{pack_id:bm.header.uuid,version:bm.header.version}]);assert.deepEqual(json(world,'world_resource_packs.json'),[{pack_id:rm.header.uuid,version:rm.header.version}]);
   for(const [files,prefix]of [[bp,'behavior_packs/ManhuntNight_BP/'],[rp,'resource_packs/ManhuntNight_RP/']])for(const [name,data]of files)assert(data.equals(world.get(prefix+name)),'Embedded pack mismatch '+name);
-  const nbt=readNBT(world.get('level.dat')).value;assert(nbt.LevelName.value.includes('v1.5.1'));assert.equal(nbt.spawnradius.value,0);assert.equal(nbt.commandblocksenabled.value,0);
+  const nbt=readNBT(world.get('level.dat')).value;assert(nbt.LevelName.value.includes(`v${VERSION}`));assert.equal(nbt.spawnradius.value,0);assert.equal(nbt.commandblocksenabled.value,0);
   for(const [key,entry]of Object.entries(nbt.experiments?.value??{}))if(!['experiments_ever_used','saved_with_toggled_experiments'].includes(key))assert.equal(entry.value,0);
   const dbEntries=[...world.keys()].filter(n=>n.startsWith('db/'));assert.equal(dbEntries.length,manifest.baseWorld.databaseFiles.length);
   for(const entry of manifest.baseWorld.databaseFiles){assert(world.has(entry.file));assert.equal(sha256(world.get(entry.file)),entry.sha256,'Original terrain mismatch '+entry.file);}

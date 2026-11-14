@@ -12,7 +12,7 @@ import * as core from '../BP/scripts/core.js';
 
 // The pre-1.5 tests exercise the explicitly retained legacy compass mode and 3-life setting.
 // Fresh-world 1.5 tests below pass fresh=true and use the new random-crafting defaults.
-function harness(saved,fresh=false){
+function harness(saved,fresh=false,count=3){
  const signals={},tasks=[],intervals=[],commands=new Map(),messages=[],formResponses=[],shownForms=[];let tick=0;
  const event=(name)=>signals[name]??=( {handlers:[],subscribe(fn){this.handlers.push(fn);},emit(e){this.handlers.forEach(fn=>fn(e));}} );
  const events=new Proxy({}, {get:(_,key)=>event(key)});
@@ -25,7 +25,7 @@ function harness(saved,fresh=false){
   getDynamicProperty(k){return this.props?.[k];}setDynamicProperty(k,v){(this.props??={})[k]=v;}
   extinguishFire(){}resetLevel(){}setGameMode(m){this.mode=m;}teleport(p,o){this.location={...p};if(o?.dimension)this.dimension=o.dimension;}tryTeleport(p,o){if(this.teleportFailure)return false;this.teleport(p,o);(this.summonMoves??=[]).push({...p});return true;}setSpawnPoint(p){this.spawn=p;}sendMessage(m){messages.push(m);(this.messages??=[]).push(m);}playSound(){}getRotation(){return {x:0,y:this.yaw??0};}
  }
- const people=['Runner','Hunter1','Hunter2'].map(n=>new Player(n));
+ const people=['Runner',...Array.from({length:count-1},(_,i)=>`Hunter${i+1}`)].map(n=>new Player(n));
  let state=saved??{...core.newState(),...(fresh?{}:{config:core.normalizeConfig({grace:60,food:8,friendlyFire:false,keepInventory:false,trackerDelayMinutes:15},true)}),host:'Runner',choice:'Runner',start:{x:10,y:65,z:10},lobby:{x:10,y:305,z:10}};
  let data=JSON.stringify(state);
  const world={getAllPlayers:()=>people,getDimension:n=>dims.get(n.startsWith('minecraft:')?n:'minecraft:'+n),getDynamicProperty:()=>data,setDynamicProperty:(_,v)=>data=v,gameRules:{},setDefaultSpawnLocation(){},setTimeOfDay(){},sendMessage:m=>messages.push(m),afterEvents:events,beforeEvents:events};
@@ -633,4 +633,58 @@ test('v1.5 reset invalidates queued outcome and old-round journals cannot award 
  const h=freshStarted(),r=h.people[0];h.event('entityDie').emit({deadEntity:{typeId:'minecraft:ender_dragon',dimension:h.dims.get('minecraft:the_end')}});h.api.reset(r);h.flush();assert.equal(h.saved.phase,'lobby');assert.equal(h.saved.pendingOutcome,null);assert.deepEqual(h.saved.wins,{});
  const saved={...core.newState(),phase:'running',round:5,host:'Runner',runner:'Runner',choice:'Runner',roster:['Runner','Hunter1','Hunter2'],start:{x:10,y:65,z:10},lobby:{x:10,y:305,z:10},pendingOutcome:{round:4,runnerDied:true,dragonDied:false}};
  const resumed=harness(saved,true);resumed.flush();assert.equal(resumed.saved.phase,'paused');assert.deepEqual(resumed.saved.wins,{});resumed.api.reset(resumed.people[0]);resumed.api.startRound(resumed.people[0]);assert.equal(resumed.saved.round,6);assert.equal(resumed.saved.pendingOutcome,null);resumed.flush();assert.equal(resumed.saved.phase,'countdown');
+});
+
+test('v1.6 two-player official matches award the correct win for hunter melee, projectile, and runner dragon victory',()=>{
+ for(const winner of ['melee','projectile','dragon']){
+  const h=harness(undefined,true,2),[r,a]=h.people;h.api.getState().config.grace=0;h.api.startRound(r);h.advanceTicks(100);
+  assert.equal(h.saved.phase,'running');assert.equal(h.saved.practice,false);assert.deepEqual(h.saved.roster,['Runner','Hunter1']);
+  if(winner==='dragon'){h.event('entityDie').emit({deadEntity:{typeId:'minecraft:ender_dragon',dimension:h.dims.get('minecraft:the_end')}});h.flush();}
+  else die(h,winner==='melee'?{damagingEntity:a}:{damagingProjectile:{typeId:'minecraft:arrow',getComponent:()=>({owner:a})}});
+  assert.equal(h.saved.phase,'ended');assert.equal(h.saved.result,winner==='dragon'?'러너 승리':'헌터 승리');
+  assert.deepEqual(h.saved.wins,winner==='dragon'?{Runner:1}:{Hunter1:1});assert.equal(h.api.getErrors().size,0);
+ }
+});
+
+test('v1.6 solo remains explicit practice and never changes official wins',()=>{
+ const h=harness(undefined,true,1),r=h.people[0];h.api.getState().config.grace=0;h.api.getState().wins={Runner:4};
+ h.api.startRound(r);assert.equal(h.api.getState().phase,'lobby');assert.equal(h.api.getState().round,0);
+ h.api.startRound(r,true);h.advanceTicks(100);assert.equal(h.saved.practice,true);assert.equal(h.saved.phase,'running');
+ h.event('entityDie').emit({deadEntity:{typeId:'minecraft:ender_dragon',dimension:h.dims.get('minecraft:the_end')}});h.flush();
+ assert.equal(h.saved.result,'러너 승리');assert.deepEqual(h.saved.wins,{Runner:4});assert.equal(h.api.getErrors().size,0);
+});
+
+test('v1.6 two-player leave, rejoin, and world reload preserve official roster, clock, crafting progress, and wins',()=>{
+ const h=harness(undefined,true,2),[r,a]=h.people;h.api.getState().config.grace=0;h.api.startRound(r);h.advanceTicks(100);
+ h.api.getState().seconds=1200;h.second();command(h,'mh:craft',a);const material=h.api.getState().trackerCraft.recipe[0];
+ assert.equal(throwMaterial(h,a,material,1).removed,1);const progress=JSON.stringify(h.saved.trackerCraft);
+ h.people.pop();h.event('playerLeave').emit({playerName:a.name,playerId:a.id});assert.equal(h.saved.phase,'paused');const seconds=h.saved.seconds;
+ h.second();assert.equal(h.saved.seconds,seconds);h.api.resume(r);assert.equal(h.saved.phase,'paused');
+ h.people.push(a);h.api.initializePlayer(a);h.api.resume(r);assert.equal(h.saved.phase,'running');assert.equal(JSON.stringify(h.saved.trackerCraft),progress);
+ const reload=harness(h.saved,true,2);reload.flush();assert.equal(reload.saved.phase,'paused');assert.deepEqual(reload.saved.roster,['Runner','Hunter1']);
+ assert.equal(reload.saved.seconds,seconds);assert.equal(JSON.stringify(reload.saved.trackerCraft),progress);reload.api.resume(reload.people[0]);
+ assert.equal(reload.saved.phase,'running');assert.equal(reload.saved.practice,false);die(reload,{damagingEntity:reload.people[1]});
+ assert.deepEqual(reload.saved.wins,{Hunter1:1});assert.equal(reload.api.getErrors().size,0);
+});
+
+test('v1.6 nine-player start rejection preserves inventory, equipment, positions, and saved match state',()=>{
+ const h=harness(undefined,true,9),r=h.people[0];
+ for(const [i,p] of h.people.entries()){p.slots[5]=new h.ItemStack('minecraft:diamond',i+1);p.equipment={head:new h.ItemStack('minecraft:diamond_helmet')};p.location={x:i*3,y:70,z:i};}
+ const beforeState=JSON.stringify(h.api.getState()),beforeSaved=JSON.stringify(h.saved);
+ const beforePlayers=JSON.stringify(h.people.map(p=>({slots:p.slots,equipment:p.equipment,location:p.location,mode:p.mode,spawn:p.spawn})));
+ h.api.startRound(r);h.flush();assert.equal(JSON.stringify(h.api.getState()),beforeState);assert.equal(JSON.stringify(h.saved),beforeSaved);
+ assert.equal(JSON.stringify(h.people.map(p=>({slots:p.slots,equipment:p.equipment,location:p.location,mode:p.mode,spawn:p.spawn}))),beforePlayers);
+ assert.match(r.messages.at(-1),/2~8/);assert.equal(h.api.getErrors().size,0);
+});
+
+test('v1.6 eight-player match grants all seven hunters once and keeps their compass frames independent',()=>{
+ const h=harness(undefined,true,8),r=h.people[0],hunters=h.people.slice(1);h.api.getState().config.grace=0;h.api.startRound(r);h.advanceTicks(100);
+ assert.equal(h.saved.practice,false);assert.equal(h.saved.roster.length,8);assert(h.people.every(p=>p.mode==='survival'));
+ h.api.getState().seconds=2399;h.second();assert.equal(h.saved.trackerCraft.completion,'auto');assert.equal(trackerCount(r),0);
+ const expected=[0,28,24,20,16,12,8];r.location={x:0,y:65,z:100};
+ hunters.forEach((p,i)=>{assert.equal(trackerCount(p),1);assert.equal(h.saved.trackerCraft.delivered[p.name],true);p.location={x:0,y:65,z:0};p.yaw=i*45;h.api.trackerDisplay.scan(p);});
+ const frame=p=>p.slots.find(it=>it?.typeId?.startsWith('mh:tracker_')).typeId;
+ h.displayTick();assert.deepEqual(hunters.map(frame),expected.map(n=>`mh:tracker_${n}`));
+ hunters[0].yaw=11.25;h.displayTick();assert.deepEqual(hunters.map(frame),[31,...expected.slice(1)].map(n=>`mh:tracker_${n}`));
+ h.second();for(const p of hunters){h.api.initializePlayer(p);assert.equal(trackerCount(p),1);}assert.equal(h.api.getErrors().size,0);
 });

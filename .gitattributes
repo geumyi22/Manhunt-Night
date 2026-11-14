@@ -1,2 +1,6 @@
 # Keep the upstream license byte-identical to the SHA-256 pinned in SOURCE.json.
 tools/vendor/vanilla-compass/LICENSE.md -text
+# Preserve captured QA bytes and their SHA-256 on every checkout.
+# Raw Windows logs can contain CRLF and a trailing blank line.
+docs/qa/2026-11-14-runtime-v151/** -text whitespace=cr-at-eol,-blank-at-eof
+docs/qa/2026-11-14-v160/** -text whitespace=cr-at-eol,-blank-at-eof

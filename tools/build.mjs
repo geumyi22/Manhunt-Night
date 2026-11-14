@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {collectFiles,writeZip,readZip} from './archive.mjs';
 import {readNBT,writeNBT} from './nbt.mjs';
 import {ROOT,VERSION,NAMES,parseJSON,sha256,verifySource,verifyDistribution} from './verify.mjs';
+import {MIN_PLAYERS,MAX_PLAYERS} from '../BP/scripts/core.js';
 
 const args=process.argv.slice(2),addonOnly=args.includes('--addon-only'),baseIndex=args.indexOf('--base');
 const requested=baseIndex>=0?args[baseIndex+1]:process.env.MANHUNT_BASE_WORLD;
@@ -28,7 +29,7 @@ if(!addonOnly){
  const originalMetadata=original.get('level.dat'),nbt=readNBT(originalMetadata),seed=nbt.value.RandomSeed?.value;
  report.baseWorld={name:path.basename(base),provenance:'Preserved user-supplied MANHUNT terrain. GitHub contained v1.4.0 source and QA text but no downloadable v1.4.0 world release; no v1.4.0 archive comparison is claimed.',seed:seed===undefined?null:String(seed),databaseFiles:database.map(([file,data])=>({file,bytes:data.length,sha256:sha256(data)})),baseContentSha256:sha256(Buffer.from(JSON.stringify([...original].map(([name,data])=>[name,sha256(data)]).sort((a,b)=>a[0].localeCompare(b[0],'en')))))};
  // Modify only the new output metadata. The base directory/archive is always read-only.
- const settings={LevelName:`MANHUNT NIGHT v${VERSION} · 3~4인`,GameType:2,ForceGameType:1,Difficulty:2,cheatsEnabled:1,commandsEnabled:1,commandblocksenabled:0,commandblockoutput:0,sendcommandfeedback:0,showcoordinates:0,showdaysplayed:0,spawnradius:0,MultiplayerGame:1,MultiplayerGameIntent:1,texturePacksRequired:1,keepinventory:0,doimmediaterespawn:1};
+ const settings={LevelName:`MANHUNT NIGHT v${VERSION} · ${MIN_PLAYERS}~${MAX_PLAYERS}인`,GameType:2,ForceGameType:1,Difficulty:2,cheatsEnabled:1,commandsEnabled:1,commandblocksenabled:0,commandblockoutput:0,sendcommandfeedback:0,showcoordinates:0,showdaysplayed:0,spawnradius:0,MultiplayerGame:1,MultiplayerGameIntent:1,texturePacksRequired:1,keepinventory:0,doimmediaterespawn:1};
  for(const [name,value]of Object.entries(settings)){
   const before=nbt.value[name]?.value;if(before!==value)report.metadataChanges.push({field:name,before:before??null,after:value});
   if(nbt.value[name])nbt.value[name].value=value;else nbt.value[name]={type:typeof value==='string'?8:1,value};

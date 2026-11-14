@@ -7,7 +7,7 @@ import {createSummon} from './summon.js';
 import {createTrackerCrafting} from './tracker-crafting.js';
 import {createTrackerDisplay,TRACKER_NAME} from './tracker-display.js';
 import {ActionFormData, ModalFormData, MessageFormData} from '@minecraft/server-ui';
-import {VERSION, ACTIVE, DIM_NAMES, TRACKER_UNLOCK_SECONDS, trackerUnlocked, normalizeConfig, featureOn, trackerMode, unlockAfter, newState, validateStart, tracking, targetFor, outcome, clock, teammateReadout} from './core.js';
+import {VERSION, MIN_PLAYERS, MAX_PLAYERS, ACTIVE, DIM_NAMES, TRACKER_UNLOCK_SECONDS, trackerUnlocked, normalizeConfig, featureOn, trackerMode, unlockAfter, newState, validateStart, tracking, targetFor, outcome, clock, teammateReadout} from './core.js';
 
 const KEY='mh:state', PREFIX='§b[맨헌트]§r ', MENU='mh:menu', KIT_WINDOW_SECONDS=60;
 let s=newState(), loaded=false, building=false;
@@ -280,7 +280,7 @@ async function showMenu(p){
   const actions=[];const add=(label,fn)=>{f.button(label);actions.push(fn);};
   if(isHost(p)){
     if(['lobby','ended'].includes(s.phase)){
-      add('§a▶  경기 시작 · 3~4명',()=>confirm(p,'경기 시작','접속한 전원이 참가합니다. 소지품·장비·경험치를 초기화하고 시작합니다.',()=>startRound(p)));
+      add(`§a▶  경기 시작 · ${MIN_PLAYERS}~${MAX_PLAYERS}명`,()=>confirm(p,'경기 시작','접속한 전원이 참가합니다. 소지품·장비·경험치를 초기화하고 시작합니다.',()=>startRound(p)));
       add('러너 선택 / 무작위',()=>selectRunner(p));add('§b게임 설정 · 기능별 ON/OFF',()=>settings(p));
       if(players().length===1)add('혼자 연습 · 러너',()=>confirm(p,'혼자 연습','시작·도주·사망·승패 흐름을 연습합니다. 소지품이 초기화되며 전적에는 반영되지 않습니다.',()=>startRound(p,true)));
     }

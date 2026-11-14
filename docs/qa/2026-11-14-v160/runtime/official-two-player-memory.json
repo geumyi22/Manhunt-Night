@@ -1,0 +1,40 @@
+{
+  "scenario": "v1.6.0 official two-player match; host runner and one real remote hunter; countdown grace running and reconnect may overlap",
+  "process_name": "Minecraft.Windows",
+  "process_id": 56680,
+  "process_started_utc": "2026-11-14T09:29:32.1815992Z",
+  "sample_count": 178,
+  "elapsed_seconds": 180.8386071,
+  "requested_duration_seconds": 180,
+  "requested_interval_ms": 1000,
+  "logical_processors": 20,
+  "stop_reason": "duration_reached",
+  "working_set_bytes": {
+    "min": 2911227904,
+    "median": 2987311104,
+    "p95": 3027410944,
+    "max": 3034152960
+  },
+  "private_bytes": {
+    "min": 4744982528,
+    "median": 4811653120,
+    "p95": 5081964544,
+    "max": 5096759296
+  },
+  "cpu_percent_machine": {
+    "min": 12.924191155374832,
+    "median": 25.83916502780723,
+    "p95": 31.44689931285712,
+    "max": 68.50142167729277
+  },
+  "cpu_percent_one_core": {
+    "min": 258.4838231074966,
+    "median": 516.7833005561446,
+    "p95": 628.9379862571424,
+    "max": 1370.0284335458553
+  },
+  "fps": "NOT MEASURED by this sampler",
+  "tps": "NOT MEASURED by this sampler",
+  "network": "NOT MEASURED; process IO is not treated as network traffic",
+  "limitations": "Process-only memory and CPU. GPU memory, system RAM, FPS/TPS and gameplay quality are not inferred. Record foreground/background state, scenario, clients, settings and instrumentation separately."
+}

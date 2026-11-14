@@ -1,0 +1,16 @@
+{
+  "sourceLogBasename": "ContentLog2026-11-14_18-29-33_1.txt",
+  "reviewedAtUtc": "2026-11-14T09:46:10.826Z",
+  "manhuntLoadRecords": [
+    "18:33:08[Scripting][verbose]-Plugin Discovered [Manhunt Night · 게임 시스템] PackId [98a0861d-cc18-4e3d-a21a-811fabf8073b_1.5.1] ModuleId [1e5cd9b0-835e-4555-b1f3-50b3939c30f0]",
+    "18:33:08[Scripting][verbose]-Plugin [Manhunt Night · 게임 시스템] - promoted [@minecraft/server] from [2.0.0] to [2.11.0] requested by [@minecraft/server-ui-bindings - 2.3.0].",
+    "18:33:08[Scripting][verbose]-Plugin [Manhunt Night · 게임 시스템] - promoted [@minecraft/server-bindings] from [2.0.0] to [2.11.0] requested by [@minecraft/server - 2.0.0].",
+    "18:33:12[Scripting][warning]-[Manhunt 1.5.1] LOADED phase=lobby",
+    "18:33:13[Scripting][warning]-[Manhunt 1.5.1] READY lobby={\"x\":-22.5,\"y\":305,\"z\":36.5} start={\"x\":-22.5,\"y\":79,\"z\":36.5}"
+  ],
+  "scriptErrorLines": 0,
+  "otherContentErrorCountsByCategory": {
+    "Lighting": 1
+  },
+  "scope": "Only Manhunt/QA load records are extracted. No assertion that unrelated global resource packs or the entire Content Log are error-free. Final truncated QA row is excluded by summary.json."
+}

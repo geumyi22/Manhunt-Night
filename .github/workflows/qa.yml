@@ -39,6 +39,6 @@ jobs:
           node tools/verify.mjs --addon-only
       - uses: actions/upload-artifact@v4
         with:
-          name: Manhunt-Night-v1.5.1-addon-and-source
+          name: Manhunt-Night-v1.6.0-addon-and-source
           path: dist/
           if-no-files-found: error

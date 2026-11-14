@@ -1,0 +1,17 @@
+{
+  "version": "1.6.0",
+  "dateKst": "2026-11-14",
+  "clients": 2,
+  "platform": "Two Windows PCs, Minecraft Bedrock 26.63; host package 1.26.6301.0",
+  "world": "QA v1.6.0 TWO PLAYERS",
+  "method": "Isolated copy with unique pack UUIDs and appended read-only 100-tick sampler; no clock acceleration or synthetic players",
+  "observations": [
+    {"test": "Normal two-player start", "evidence": "Host UI: official match, one runner and one hunter, countdown and default 60-second grace; peer reported hunter departure working", "result": "PASS"},
+    {"test": "Hunter leave and rejoin", "evidence": "Host UI and sampler: paused at matchSeconds 115, online roster 1 then 2; resumed later. Peer reported normal continuation", "limitation": "Resume actor was not observed; automatic resume is not claimed. No partial crafting existed in this live match", "result": "PASS_LIMITED"},
+    {"test": "Receiver camera", "evidence": "Host command-granted one receiver and activated it; host displayed beam 8s, camera 3s, cooldown 30s. Peer replied that the requested camera switch and return worked", "limitation": "One hunter screen reported by user; natural crafting, multiple hunter screens and exact wall-clock duration not independently captured", "result": "PASS_LIMITED"},
+    {"test": "Hunter melee victory", "evidence": "Hunter used command-granted diamond sword; user confirmed victory display. Host observed player kill message, hunter victory at 10:21 and respawn in lobby. Sampler phase ended, matchSeconds 621, winCounts [1]", "limitation": "One melee outcome only; projectile, runner dragon victory and revival limits were not replayed in this v1.6.0 session", "result": "PASS"},
+    {"test": "Save and exit", "evidence": "Host saved and exited to the seven-world list after ended state", "limitation": "This v1.6.0 saved world was not reopened to verify persistence", "result": "PASS"}
+  ],
+  "privacy": "Unredacted screenshots stay local; public evidence excludes gamer tags, account IDs, IP addresses and absolute local paths",
+  "stableDecision": "NOT_ELIGIBLE: multi-hunter E2E, 8-player cap, long-duration performance and other required live cases remain unverified"
+}

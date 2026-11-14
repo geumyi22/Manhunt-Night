@@ -1,0 +1,4 @@
+
+// QA ONLY: read-only tick probe, never shipped in release.
+let qaLastTime=Date.now(),qaLastTick=system.currentTick,qaSequence=0;
+system.runInterval(()=>{const now=Date.now(),tick=system.currentTick;const row={seq:++qaSequence,utc:new Date(now).toISOString(),elapsedMs:now-qaLastTime,elapsedTicks:tick-qaLastTick,tps:(tick-qaLastTick)*1000/(now-qaLastTime),phase:s.phase,matchSeconds:s.seconds,practice:s.practice,rosterSize:s.roster.length,onlineRoster:world.getAllPlayers().filter(p=>s.roster.includes(p.name)).length,hunters:s.roster.filter(n=>n!==s.runner).length,winCounts:Object.values(s.wins).sort((a,b)=>a-b),players:world.getAllPlayers().length,dimensions:[...new Set(world.getAllPlayers().map(p=>p.dimension.id))]};console.warn('[MHQA_PERF] '+JSON.stringify(row));qaLastTime=now;qaLastTick=tick;},100);
