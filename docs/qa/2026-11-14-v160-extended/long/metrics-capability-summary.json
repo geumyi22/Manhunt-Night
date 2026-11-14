@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "preparedAtUtc": "2026-11-14T10:40:32.999Z",
+  "observationDateKST": "2026-11-14",
+  "purpose": "Public summary of actual FPS/network measurement blockers; not a performance pass or a measured performance failure",
+  "sourceRecords": [
+    "cli-retry-results.json",
+    "fvsdk-readonly-preflight.json",
+    "capability-audit.json"
+  ],
+  "presentMon": {
+    "checkedAtUtc": "2026-11-14T10:21:48.848Z",
+    "installedBuild": "NVIDIA FrameViewSDK bundled PresentMon",
+    "installedFileVersion": "1.9.12728.0",
+    "target": "Running Minecraft.Windows process selected by its current PID; identifier omitted from public summary",
+    "installedHelpConfirmed": true,
+    "helpPrefixCheck": "-help and --help returned identical 4326-byte help text; installed help documents --process_id and --output_file",
+    "attempts": [
+      {
+        "argumentPrefix": "-",
+        "requestedCaptureSeconds": 10,
+        "observedProcessSeconds": 0.0387727,
+        "exitCode": 1,
+        "csvCreated": false,
+        "stdoutBytes": 0,
+        "stderrBytes": 0,
+        "frameSamples": 0
+      },
+      {
+        "argumentPrefix": "--",
+        "requestedCaptureSeconds": 10,
+        "observedProcessSeconds": 0.021195,
+        "exitCode": 1,
+        "csvCreated": false,
+        "stdoutBytes": 0,
+        "stderrBytes": 0,
+        "frameSamples": 0
+      }
+    ],
+    "prefixConclusion": "Single/double hyphen choice did not change the observed failure",
+    "exactInternalFailureCause": "UNDETERMINED",
+    "caution": "ETW privilege and stopped service findings do not prove the direct cause of the silent PresentMon exit",
+    "measurementStatus": "NOT MEASURED"
+  },
+  "network": {
+    "checkedAtUtc": "2026-11-14T10:19:09.398Z",
+    "pktmon": {
+      "operation": "read-only status query",
+      "result": "Access denied communicating with PktMon driver",
+      "captureStarted": false
+    },
+    "toolDiscovery": {
+      "tsharkFoundOnPath": false,
+      "dumpcapFoundOnPath": false,
+      "npcapOrNpfDriverFound": false,
+      "scope": "Targeted command and installed-driver checks; not an assertion about every possible tool on the computer"
+    },
+    "gameTrafficCaptured": false,
+    "gameBandwidthMeasured": false,
+    "gameLatencyMeasured": false,
+    "packetLossMeasured": false,
+    "processIoMisrepresentedAsNetwork": false,
+    "measurementStatus": "NOT MEASURED"
+  },
+  "frameViewSdk": {
+    "installedDocumentationReviewed": [
+      "README.txt",
+      "FvSDK.h"
+    ],
+    "documentedCapability": "Session-based FPS and per-frame metrics with PID in FPS sample structure",
+    "inspectedDllExports": [
+      "fv_QueryInterface"
+    ],
+    "serviceName": "FvSvc",
+    "observedServiceState": "Stopped",
+    "observedStartMode": "Manual",
+    "serviceHandleAccessPreflight": [
+      {
+        "requestedAccess": "query_status",
+        "handleOpened": true,
+        "win32Error": 0,
+        "serviceActionPerformed": false
+      },
+      {
+        "requestedAccess": "start",
+        "handleOpened": false,
+        "win32Error": 5,
+        "serviceActionPerformed": false
+      },
+      {
+        "requestedAccess": "stop",
+        "handleOpened": false,
+        "win32Error": 5,
+        "serviceActionPerformed": false
+      }
+    ],
+    "serviceStartCalls": 0,
+    "serviceStopCalls": 0,
+    "sdkCaptureSessionStarted": false,
+    "blocker": "Current token can query service state, but requesting start and stop access returned Win32 error 5; temporary start and restore was therefore not attempted",
+    "originalServiceStatePreserved": true
+  },
+  "safetyAndScope": {
+    "softwareInstalled": false,
+    "privilegesElevated": false,
+    "securitySettingsChanged": false,
+    "serviceStartModeChanged": false,
+    "existingMeasurementSessionsStopped": false,
+    "gameUiChanged": false,
+    "longRunMemorySamplerStopped": false,
+    "accountNamesIncluded": false,
+    "absoluteLocalPathsIncluded": false,
+    "ipAddressesIncluded": false
+  },
+  "officialReferences": [
+    {
+      "url": "https://github.com/GameTechDev/PresentMon/blob/v1.9.0/README.md",
+      "supports": "Upstream PresentMon v1.9.0 command-line options and ETW purpose"
+    },
+    {
+      "url": "https://github.com/GameTechDev/PresentMon/blob/v1.9.0/PresentMon/CommandLine.cpp",
+      "supports": "ParseArgPrefix accepts slash, single-hyphen and double-hyphen prefixes; installed bundled build help was also checked directly"
+    }
+  ],
+  "conclusion": "FPS and game-specific network metrics remain unmeasured in the checked environment. These blockers neither certify performance nor demonstrate poor performance. Independently collected TPS and memory/CPU samples must be interpreted separately."
+}

@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T11:18:40.361Z",
+  "captureClosureReported": true,
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T11-15-50-885Z",
+    "sourceLogSha256": "9dbec3c2ea1fb1c961ce888df13d88b969c3d15cb43b9a2f2ea4db9a5ef658c2",
+    "acceptedRows": 666,
+    "malformedOrInvalidRows": []
+  },
+  "evidenceSources": {
+    "userConfirmation": {
+      "source": "Parent relayed the user response",
+      "response": "됨",
+      "scope": "User confirmed completing the requested hunter bow/projectile kill. User input alone does not provide timing or state telemetry."
+    },
+    "directUiObservation": {
+      "observer": "Parent operating the host UI",
+      "observed": "The death chat attributed the runner being shot to the hunter; the Manhunt chat announced hunter victory at 44:46.",
+      "screenshot": {
+        "file": "projectile-hunter-victory.jpg",
+        "sha256": "2a9ed4eddf273e56bb2f301bad611bce8f3cf786f36aec173429aa1f1d2fca37",
+        "privacy": "Local-only original; contains player nicknames and is not approved for public copying."
+      }
+    },
+    "rawProbeObservation": {
+      "schema": "MHQA_LONG_1",
+      "supports": [
+        "running-to-ended transition",
+        "2686-second final match timer",
+        "hunter victory result",
+        "win count change",
+        "unchanged wild respawn usage counter"
+      ],
+      "doesNotCapture": [
+        "damage source",
+        "projectile identity",
+        "shoot input",
+        "killer account identity"
+      ]
+    }
+  },
+  "before": {
+    "session": 3,
+    "seq": 60,
+    "utc": "2026-11-14T11:14:24.962Z",
+    "phase": "running",
+    "matchSeconds": 2683,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "result": "",
+    "winCounts": [],
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 1
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "runnerRespawning": false,
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 14,
+        "trackerCount": 1,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "health": 21.69762420654297,
+        "trackerCount": 0,
+        "delivered": false
+      }
+    ]
+  },
+  "firstEnded": {
+    "session": 3,
+    "seq": 61,
+    "utc": "2026-11-14T11:14:29.961Z",
+    "phase": "ended",
+    "matchSeconds": 2686,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "result": "헌터 승리",
+    "winCounts": [
+      1
+    ],
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 1
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "runnerRespawning": false,
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "health": 20,
+        "trackerCount": 0,
+        "delivered": false
+      }
+    ]
+  },
+  "finalEnded": {
+    "session": 3,
+    "seq": 69,
+    "utc": "2026-11-14T11:15:09.963Z",
+    "phase": "ended",
+    "matchSeconds": 2686,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "result": "헌터 승리",
+    "winCounts": [
+      1
+    ],
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 1
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "runnerRespawning": false,
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 20,
+        "trackerCount": 1,
+        "delivered": true
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "health": 20,
+        "trackerCount": 0,
+        "delivered": false
+      }
+    ]
+  },
+  "victoryBracket": {
+    "consecutiveSamples": true,
+    "wallClockBracketSeconds": 4.999,
+    "exactDeathInstantKnown": false,
+    "finalMatchSeconds": 2686,
+    "finalMatchClock": "44:46"
+  },
+  "resultPersistence": {
+    "endedSamples": 9,
+    "observationSpanSeconds": 40.002,
+    "allEndedWithSameTimerAndResult": true,
+    "allWinCountsOne": true
+  },
+  "wildRespawnPriority": {
+    "base": 2,
+    "maximum": 3,
+    "bonus": 1,
+    "usedBefore": 2,
+    "derivedRemainingFromCapturedNumericState": 1,
+    "derivation": "max(0, min(max(wildBase, wildMax), wildBase + runnerLifeBonus) - runnerRespawns)",
+    "fullWildRespawnsFeatureFlagCaptured": false,
+    "assumption": "The derived remaining allowance assumes the previously exercised wild-respawn feature remains enabled. The observer records its numeric settings but not this feature flag.",
+    "usedAfter": 2,
+    "runnerRespawningAfter": false,
+    "continuedWildRespawnMatchObserved": false,
+    "interpretation": "Despite one derived remaining wild allowance, the observed result is hunter victory and ended, with usage still 2. This is evidence that wild respawn continuation did not override this observed hunter kill; it is not a claim that the vanilla player entity never respawned."
+  },
+  "participantScope": {
+    "officialRoster": 2,
+    "connectedClientsAtVictory": 3,
+    "hunterMembers": 1,
+    "runnerMembers": 1,
+    "thirdClientInventoryObserved": false,
+    "thirdClientTrackerCount": null
+  },
+  "limitations": [
+    "Projectile attribution comes from user confirmation and parent-observed death chat, not the periodic probe.",
+    "The state observer bounds changes approximately every five seconds; exact death timing is not recorded.",
+    "No blanket claim is made about every projectile, weapon, dimension or multiplayer roster."
+  ]
+}

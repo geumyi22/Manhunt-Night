@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T11:09:52.281Z",
+  "evidenceOrigin": "ACTUAL_GAME_PROBE_OBSERVATION",
+  "status": "THRESHOLD_OBSERVED_CAPTURE_ONGOING",
+  "captureClosureReported": false,
+  "source": {
+    "analysisSnapshot": "analysis-2026-11-14T11-08-13-631Z",
+    "sourceLogSha256": "34d881bb0f72eed7859b406fd4e8aefcefd245ba67b632eb4a8eaef283bbf997",
+    "acceptedRows": 582,
+    "malformedOrInvalidRows": [
+      {
+        "sourceLine": 12065,
+        "kind": "MALFORMED_JSON",
+        "endOfFileFragment": true,
+        "reason": "Incomplete or malformed MHQA_LONG JSON; raw text is excluded"
+      }
+    ]
+  },
+  "threshold": {
+    "configuredAutoMinutes": 40,
+    "configuredThresholdSeconds": 2400,
+    "autoGive": true,
+    "trackerMode": "random",
+    "configurationUnchangedAcrossBracket": true,
+    "consecutiveSamples": true,
+    "wallClockBracketSeconds": 5.011,
+    "matchClockBracketSeconds": 5,
+    "crossesThreshold": true,
+    "exactExecutionInstantKnown": false,
+    "interpretation": "Automatic completion and inventory grant became observable after match 39:59 and by 40:04, within this 5.011-second wall-clock observation bracket. This does not claim an exact 40:00 execution timestamp."
+  },
+  "before": {
+    "session": 2,
+    "seq": 247,
+    "utc": "2026-11-14T11:07:43.634Z",
+    "phase": "running",
+    "matchSeconds": 2399,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "onlineRoster": 2,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": null,
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 0
+    },
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "trackerCount": 0,
+        "trackers": [],
+        "announced": true,
+        "delivered": false,
+        "health": 14
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "trackerCount": 0,
+        "trackers": [],
+        "announced": false,
+        "delivered": false,
+        "health": 40
+      }
+    ],
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1
+  },
+  "after": {
+    "session": 2,
+    "seq": 248,
+    "utc": "2026-11-14T11:07:48.645Z",
+    "phase": "running",
+    "matchSeconds": 2404,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "onlineRoster": 2,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": "auto",
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 1
+    },
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "trackerCount": 1,
+        "trackers": [
+          {
+            "slot": 2,
+            "id": "mh:tracker_0",
+            "amount": 1
+          }
+        ],
+        "announced": true,
+        "delivered": true,
+        "health": 14
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "trackerCount": 0,
+        "trackers": [],
+        "announced": false,
+        "delivered": false,
+        "health": 40
+      }
+    ],
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1
+  },
+  "measuredChanges": {
+    "completion": {
+      "before": null,
+      "after": "auto"
+    },
+    "deliveredCount": {
+      "before": 0,
+      "after": 1
+    },
+    "partialCraftStep": {
+      "before": 0,
+      "after": 0,
+      "unchanged": true
+    },
+    "partialCraftAmount": {
+      "before": 2,
+      "after": 2,
+      "unchanged": true
+    },
+    "pendingAfter": null,
+    "rosterHunters": [
+      {
+        "memberIndex": 0,
+        "countBefore": 0,
+        "countAfter": 1,
+        "deliveredAfter": true,
+        "stacksAfter": [
+          {
+            "slot": 2,
+            "id": "mh:tracker_0",
+            "amount": 1
+          }
+        ]
+      }
+    ],
+    "rosterRunners": [
+      {
+        "memberIndex": 1,
+        "countBefore": 0,
+        "countAfter": 0,
+        "deliveredAfter": false
+      }
+    ]
+  },
+  "scope": {
+    "connectedClients": 3,
+    "matchRoster": 2,
+    "hunterRosterCount": 1,
+    "runnerRosterCount": 1,
+    "nonparticipantInventoryObserved": false,
+    "nonparticipantTrackerCount": null,
+    "explanation": "This remains a two-member official match with a third connected client outside the roster. The probe records only roster inventories; it cannot establish zero trackers for the nonparticipant."
+  },
+  "parentOperatorReportedUiObservation": {
+    "observationTimeKstApproximate": "2026-11-14 20:08",
+    "matchClockVisibleReported": "40:16",
+    "report": "The parent operator observed the host tracker in inventory slot index 2 and the automatic one-tracker grant chat message.",
+    "attribution": "Reported by the parent operating the game UI; independent of the probe-derived bracket above.",
+    "screenshots": [
+      {
+        "file": "auto-before-40-min.jpg",
+        "sha256": "52fec4245b5ac70fab0965f88a8cbd5e7b6b5c9ee308f23eb10eace8969e8e6b",
+        "handling": "Local-only evidence until the parent reviews privacy; original image is unmodified."
+      },
+      {
+        "file": "auto-after-40-min.jpg",
+        "sha256": "e773ecdfe68ec43c5f62e40249b490bc93b5a58db97ef57bfcb8d32cac3a7bb6",
+        "handling": "Local-only evidence until the parent reviews privacy; original image is unmodified."
+      },
+      {
+        "file": "auto-grant-chat.jpg",
+        "sha256": "2c12370bb0d300ef9eabcc58295fadea5159b9c619d3261621e998118d4bf201",
+        "handling": "Local-only evidence until the parent reviews privacy; original image is unmodified."
+      }
+    ]
+  },
+  "followUpReloadVerification": {
+    "status": "PENDING_SEPARATE_OBSERVATION",
+    "noDuplicateAfterReloadClaimed": false,
+    "plannedEvidence": "After the parent saves/reopens and manually resumes, compare persisted completion/delivery markers and all sampled roster tracker counts without inferring nonparticipant inventory."
+  },
+  "memoryAtSnapshot": {
+    "status": "RUNNING_OR_SUMMARY_NOT_YET_WRITTEN",
+    "samples": 1354,
+    "lastSampleUtc": "2026-11-14T11:08:12.170Z"
+  },
+  "fps": "NOT MEASURED; no new evidence",
+  "network": "NOT MEASURED",
+  "limitations": [
+    "Probe cadence is 100 engine ticks, nominally five seconds.",
+    "One incomplete final JSON row was excluded from this snapshot; later buffered rows may be available.",
+    "A single-hunter automatic grant does not validate independent distribution to multiple hunters.",
+    "This record is not a full E2E or Stable release pass."
+  ]
+}

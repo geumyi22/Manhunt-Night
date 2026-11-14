@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "version": "1.6.0",
+  "generatedAtUtc": "2026-11-14T10:55:59.166Z",
+  "status": "INTERIM_ONGOING",
+  "captureClosureReported": false,
+  "purpose": "Reload persistence and subsequent manual resume in the ongoing unaccelerated 40-minute trial",
+  "source": {
+    "schema": "MHQA_LONG_1",
+    "analysisSnapshot": "analysis-2026-11-14T10-54-48-670Z",
+    "sourceLogSha256": "6e262ece545dad8e030ae4859435539b57f2bfc06766ac16ea8f29ac54a8ea38",
+    "acceptedRows": 424,
+    "selection": {
+      "marker": "[MHQA_LONG]",
+      "schema": "MHQA_LONG_1",
+      "markerLines": 425,
+      "acceptedRows": 424,
+      "ignoredOtherSchemas": 0,
+      "malformedOrInvalidRows": [
+        {
+          "sourceLine": 11007,
+          "kind": "MALFORMED_JSON",
+          "endOfFileFragment": true,
+          "reason": "Incomplete or malformed MHQA_LONG JSON; raw text is excluded"
+        }
+      ]
+    }
+  },
+  "beforeReload": {
+    "session": 1,
+    "seq": 334,
+    "utc": "2026-11-14T10:46:56.172Z",
+    "phase": "running",
+    "matchSeconds": 1452,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "onlineRosterObserved": 2,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": null,
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 0
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "winCounts": [],
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 20,
+        "trackerCount": 0,
+        "announced": true,
+        "delivered": false
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "health": 40,
+        "trackerCount": 0,
+        "announced": false,
+        "delivered": false
+      }
+    ]
+  },
+  "firstAfterReload": {
+    "session": 2,
+    "seq": 1,
+    "utc": "2026-11-14T10:47:13.614Z",
+    "phase": "paused",
+    "matchSeconds": 1452,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 1,
+    "rosterSize": 2,
+    "onlineRosterObserved": 1,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": null,
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 0
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "winCounts": [],
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 20,
+        "trackerCount": 0,
+        "announced": true,
+        "delivered": false
+      }
+    ]
+  },
+  "preservedFields": [
+    {
+      "field": "matchSeconds",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "practice",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "round",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "rosterSize",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "config",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "craft",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "runnerRespawns",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "runnerLifeBonus",
+      "equalBeforeAndAfterReload": true
+    },
+    {
+      "field": "winCounts",
+      "equalBeforeAndAfterReload": true
+    }
+  ],
+  "pausedSamplesBeforeResume": {
+    "count": 57,
+    "firstUtc": "2026-11-14T10:47:13.614Z",
+    "lastUtc": "2026-11-14T10:51:53.643Z",
+    "observedWallSeconds": 280.029,
+    "allPaused": true,
+    "allMatchSeconds1452": true
+  },
+  "manualResume": {
+    "actionAttribution": "Parent operator reported using the host resume control; the probe independently records the resulting state change.",
+    "lastObservedPaused": {
+      "session": 2,
+      "seq": 57,
+      "utc": "2026-11-14T10:51:53.643Z",
+      "phase": "paused",
+      "matchSeconds": 1452,
+      "practice": false,
+      "round": 1,
+      "playersConnected": 3,
+      "rosterSize": 2,
+      "onlineRosterObserved": 2,
+      "config": {
+        "revealMinutes": 20,
+        "autoMinutes": 40,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3
+      },
+      "craft": {
+        "step": 0,
+        "amount": 2,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 1,
+        "deliveredCount": 0
+      },
+      "runnerRespawns": 2,
+      "runnerLifeBonus": 1,
+      "winCounts": [],
+      "members": [
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 20,
+          "trackerCount": 0,
+          "announced": true,
+          "delivered": false
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "trackerCount": 0,
+          "announced": false,
+          "delivered": false
+        }
+      ]
+    },
+    "firstObservedRunning": {
+      "session": 2,
+      "seq": 58,
+      "utc": "2026-11-14T10:51:58.645Z",
+      "phase": "running",
+      "matchSeconds": 1454,
+      "practice": false,
+      "round": 1,
+      "playersConnected": 3,
+      "rosterSize": 2,
+      "onlineRosterObserved": 2,
+      "config": {
+        "revealMinutes": 20,
+        "autoMinutes": 40,
+        "autoGive": true,
+        "autoPause": true,
+        "trackerMode": "random",
+        "wildBase": 2,
+        "wildMax": 3
+      },
+      "craft": {
+        "step": 0,
+        "amount": 2,
+        "completion": null,
+        "pending": null,
+        "announcedCount": 1,
+        "deliveredCount": 0
+      },
+      "runnerRespawns": 2,
+      "runnerLifeBonus": 1,
+      "winCounts": [],
+      "members": [
+        {
+          "memberIndex": 0,
+          "role": "hunter",
+          "health": 20,
+          "trackerCount": 0,
+          "announced": true,
+          "delivered": false
+        },
+        {
+          "memberIndex": 1,
+          "role": "runner",
+          "health": 40,
+          "trackerCount": 0,
+          "announced": false,
+          "delivered": false
+        }
+      ]
+    },
+    "eventBracketSeconds": 5.002,
+    "preciseEventInstantKnown": false,
+    "automaticResumeClaimed": false
+  },
+  "latest": {
+    "session": 2,
+    "seq": 90,
+    "utc": "2026-11-14T10:54:38.637Z",
+    "phase": "running",
+    "matchSeconds": 1614,
+    "practice": false,
+    "round": 1,
+    "playersConnected": 3,
+    "rosterSize": 2,
+    "onlineRosterObserved": 2,
+    "config": {
+      "revealMinutes": 20,
+      "autoMinutes": 40,
+      "autoGive": true,
+      "autoPause": true,
+      "trackerMode": "random",
+      "wildBase": 2,
+      "wildMax": 3
+    },
+    "craft": {
+      "step": 0,
+      "amount": 2,
+      "completion": null,
+      "pending": null,
+      "announcedCount": 1,
+      "deliveredCount": 0
+    },
+    "runnerRespawns": 2,
+    "runnerLifeBonus": 1,
+    "winCounts": [],
+    "members": [
+      {
+        "memberIndex": 0,
+        "role": "hunter",
+        "health": 20,
+        "trackerCount": 0,
+        "announced": true,
+        "delivered": false
+      },
+      {
+        "memberIndex": 1,
+        "role": "runner",
+        "health": 40,
+        "trackerCount": 0,
+        "announced": false,
+        "delivered": false
+      }
+    ]
+  },
+  "latestTimerDisplay": "26:54",
+  "connectedVersusRoster": {
+    "connectedClients": 3,
+    "activeMatchRosterSize": 2,
+    "observedRosterRoles": [
+      "hunter",
+      "runner"
+    ],
+    "thirdPhoneAttribution": "The parent operator identified an additional connected device as a phone; the probe observes connected count, not device type.",
+    "supportsThreePlayerOfficialMatchClaim": false,
+    "explanation": "Three connected clients are observed while the continuing official round retains its two-member roster. The additional client is not represented among the two observed roster members."
+  },
+  "memorySamplerFileObservation": {
+    "source": "host-memory.csv",
+    "state": "RUNNING_OR_SUMMARY_NOT_YET_WRITTEN",
+    "samples": 955,
+    "firstSampleUtc": "2026-11-14T10:22:42.244Z",
+    "lastSampleUtc": "2026-11-14T10:54:47.191Z",
+    "sampledSpanSeconds": 1924.947,
+    "processSessionStatusQueried": false,
+    "samplerStoppedByThisAnalysis": false,
+    "explanation": "Recent appended CSV samples indicate sampling activity. The final sampler JSON was not yet present at this snapshot."
+  },
+  "limitations": [
+    "This is an ongoing snapshot, not a final performance or E2E pass.",
+    "The approximate five-second probe cadence bounds events; it does not prove their exact instant.",
+    "Sequence reset is consistent with the parent-reported world save/reload. This observation file does not independently inspect the save database.",
+    "Public observations omit account identifiers, source log absolute path, and network addresses.",
+    "FPS and network remain unmeasured; see metrics-capability-summary.json.",
+    "The 40-minute automatic tracker distribution threshold has not yet been reached in this snapshot."
+  ]
+}
