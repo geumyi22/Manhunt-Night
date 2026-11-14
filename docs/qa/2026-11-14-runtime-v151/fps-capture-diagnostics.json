@@ -1,0 +1,43 @@
+{
+  "dateKST": "2026-11-14",
+  "targetProcessName": "Minecraft.Windows",
+  "targetProcessId": 56680,
+  "targetProcessRunningConfirmed": true,
+  "tool": "Installed NVIDIA FrameViewSDK/bin/PresentMon_x64.exe",
+  "fileVersion": "1.9.12728.0",
+  "helpCommand": "PASS: argument documentation printed",
+  "attempts": [
+    {
+      "label": "PID filter, 180 second capture, no input tracking, unique session",
+      "outputPrefix": "solo-fps-diagnostic2",
+      "exitCode": 1,
+      "csvCreated": false,
+      "stdout": "empty",
+      "stderr": "empty"
+    },
+    {
+      "label": "Process name filter, 5 second capture, GPU/display/input tracking disabled, unique session",
+      "outputPrefix": "solo-fps-diagnostic3",
+      "exitCode": 1,
+      "csvCreated": false,
+      "stdout": "empty",
+      "stderr": "empty"
+    },
+    {
+      "label": "PID filter, 5 second capture, v1 metrics, executable-directory working directory, unique session",
+      "outputPrefix": "solo-fps-diagnostic4",
+      "exitCode": 1,
+      "csvCreated": false,
+      "stdout": "empty",
+      "stderr": "empty"
+    }
+  ],
+  "currentToken": {
+    "elevatedAdministrator": false,
+    "performanceLogUsersSidPresent": false
+  },
+  "applicationEventLog": "No matching PresentMon application error was returned by the recent-event query",
+  "diagnosis": "Capture unavailable under current token. ETW privilege is a plausible blocker, but silent exit code 1 does not establish the exact internal cause.",
+  "safety": "No elevation, UAC, security setting changes, process termination, or existing ETW session termination attempted.",
+  "result": "FPS NOT MEASURED: zero frame samples"
+}

@@ -1,5 +1,7 @@
 import {newExtra} from './expansion-core.js';
-export const VERSION = '1.5.1';
+export const VERSION = '1.6.0';
+export const MIN_PLAYERS = 2;
+export const MAX_PLAYERS = 8;
 export const TRACKER_UNLOCK_SECONDS = 15 * 60;
 // All optional game systems are configurable. Core victory and data safety rules stay mandatory.
 export const FEATURE_DEFAULTS = Object.freeze({
@@ -33,8 +35,8 @@ export function newState() {
 export function validateStart(names, runner, practice=false) {
   if (new Set(names).size !== names.length) return '참가자가 중복되었습니다.';
   if (!names.includes(runner)) return '접속 중인 러너를 선택해 주세요.';
-  if (practice ? names.length !== 1 : names.length < 3 || names.length > 4)
-    return practice ? '혼자 있을 때 연습할 수 있습니다.' : '정식 경기는 3~4명이 모두 접속해야 합니다.';
+  if (practice ? names.length !== 1 : names.length < MIN_PLAYERS || names.length > MAX_PLAYERS)
+    return practice ? '혼자 있을 때 연습할 수 있습니다.' : `정식 경기는 ${MIN_PLAYERS}~${MAX_PLAYERS}명이 모두 접속해야 합니다.`;
   return '';
 }
 export function tracking(from, yaw, target) {

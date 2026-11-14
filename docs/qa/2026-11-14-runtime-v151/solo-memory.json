@@ -1,0 +1,40 @@
+{
+  "scenario": "Single runner practice, existing BSLB Dreamy configuration, start countdown through overworld stationary scene",
+  "process_name": "Minecraft.Windows",
+  "process_id": 56680,
+  "process_started_utc": "2026-11-14T09:29:32.1815992Z",
+  "sample_count": 178,
+  "elapsed_seconds": 180.6585186,
+  "requested_duration_seconds": 180,
+  "requested_interval_ms": 1000,
+  "logical_processors": 20,
+  "stop_reason": "duration_reached",
+  "working_set_bytes": {
+    "min": 2444353536,
+    "median": 2481332224,
+    "p95": 2506768384,
+    "max": 2933080064
+  },
+  "private_bytes": {
+    "min": 4135632896,
+    "median": 4237639680,
+    "p95": 4288045056,
+    "max": 4750229504
+  },
+  "cpu_percent_machine": {
+    "min": 15.55255741942615,
+    "median": 22.51602137946856,
+    "p95": 27.24303297016369,
+    "max": 75.50993038675836
+  },
+  "cpu_percent_one_core": {
+    "min": 311.051148388523,
+    "median": 450.32042758937126,
+    "p95": 544.8606594032738,
+    "max": 1510.1986077351671
+  },
+  "fps": "NOT MEASURED by this sampler",
+  "tps": "NOT MEASURED by this sampler",
+  "network": "NOT MEASURED; process IO is not treated as network traffic",
+  "limitations": "Process-only memory and CPU. GPU memory, system RAM, FPS/TPS and gameplay quality are not inferred. Record foreground/background state, scenario, clients, settings and instrumentation separately."
+}

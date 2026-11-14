@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createSummon,SUMMON_ITEM,newSummonState,outsideRunner,safeSummonSpot,planSummonSpots} from '../BP/scripts/summon.js';
 
-function setup(){
- const s={phase:'running',round:1,seconds:1200,runner:'R',roster:['R','A','B','C'],config:{features:{summon:true},summonDistance:350,summonCooldownSeconds:300,summonMaxUses:2,summonSound:true},summon:newSummonState(1)};
+function setup(count=4){
+ const s={phase:'running',round:1,seconds:1200,runner:'R',roster:['R','A','B','C','D','E','F','G'].slice(0,count),config:{features:{summon:true},summonDistance:350,summonCooldownSeconds:300,summonMaxUses:2,summonSound:true},summon:newSummonState(1)};
  const messages=[],errors=[],saved=[];let reads=0;
  const dims=Object.fromEntries(['overworld','nether','the_end'].map(n=>['minecraft:'+n,{id:'minecraft:'+n,heightRange:{min:-64,max:320},getBlock(p){reads++;return p.y<64?{typeId:'minecraft:stone',isAir:false,isWaterlogged:false}:{typeId:'minecraft:air',isAir:true};}}]));
  class Item{
@@ -162,4 +162,31 @@ test('a target changing dimension or newly unsafe terrain after planning cancels
  for(const kind of ['dimension','terrain']){const h=setup(),a=h.people[1];let once=true;h.setSaveHook(()=>{if(!once)return;once=false;if(kind==='dimension')h.people[2].dimension=h.dims['minecraft:nether'];else h.dims['minecraft:overworld'].getBlock=()=>({typeId:'minecraft:lava',isAir:false});});
   assert.equal(h.x.use(a),false,kind);assert(a.items[0]);assert.equal(h.s.summon.uses,0);assert.equal(h.s.summon.readyAt,0);assert.equal(h.s.summon.transaction,null);assert(h.people.slice(2).every(p=>p.dimension.id==='minecraft:overworld'));
  }
+});
+
+test('v1.6 one hunter cannot summon and keeps the scroll, team quota, and cooldown untouched',()=>{
+ const h=setup(2),a=h.people[1],before=JSON.stringify(h.s.summon);assert.equal(h.x.use(a),false);
+ assert.equal(a.items[0].typeId,SUMMON_ITEM);assert.equal(a.items[0].amount,1);assert.equal(JSON.stringify(h.s.summon),before);
+ assert.equal(h.s.summon.uses,0);assert.equal(h.s.summon.readyAt,0);assert.equal(h.s.summon.transaction,null);
+ assert.equal(h.reads,0);assert(h.people.every(p=>p.moves.length===0));assert.equal(h.errors.length,0);
+});
+
+test('v1.6 eight-player summon safely places six teammates and charges the caller only once',()=>{
+ const h=setup(8),[r,a,...targets]=h.people;assert.equal(targets.length,6);assert.equal(h.x.use(a),true);
+ assert.equal(r.moves.length,0);assert.equal(a.moves.length,0);assert.equal(a.items[0],undefined);
+ for(const p of targets){assert.equal(p.moves.length,1);assert.equal(p.dimension.id,a.dimension.id);assert(outsideRunner(p.location,p.dimension.id,r,350));
+  const occupied=h.people.filter(q=>q!==p).map(q=>q.location);assert(safeSummonSpot(p.dimension,p.location,occupied));
+ }
+ assert.equal(new Set(targets.map(p=>JSON.stringify(p.location))).size,6);assert.equal(h.s.summon.uses,1);assert.equal(h.s.summon.readyAt,1500);
+ assert.equal(h.s.summon.transaction,null);assert.equal(h.errors.length,0);
+});
+
+test('v1.6 insufficient safe room for six teammates cancels the entire summon without partial movement',()=>{
+ const h=setup(8),[r,a]=h.people,d=a.dimension;
+ // One 3x3 floor supports one legal landing, but cannot hold all six teammates.
+ d.getBlock=p=>p.y<64&&p.x>=417&&p.x<=419&&p.z>=-3&&p.z<=-1?{typeId:'minecraft:stone',isAir:false}:{typeId:'minecraft:air',isAir:true};
+ const occupied=h.people.map(p=>p.location);assert.equal(planSummonSpots(a,1,r,350,occupied)?.length,1);assert.equal(planSummonSpots(a,6,r,350,occupied),null);
+ const before=JSON.stringify(h.people.map(p=>p.location));assert.equal(h.x.use(a),false);assert.equal(JSON.stringify(h.people.map(p=>p.location)),before);
+ assert(h.people.every(p=>p.moves.length===0));assert.equal(a.items[0].typeId,SUMMON_ITEM);assert.equal(h.s.summon.uses,0);assert.equal(h.s.summon.readyAt,0);
+ assert.equal(h.s.summon.transaction,null);assert.equal(h.errors.length,0);
 });

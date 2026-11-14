@@ -1,0 +1,606 @@
+{
+  "version": "1.6.0",
+  "sessionClosureReported": true,
+  "analysisStatus": "Post-exit snapshot; Content Log tail can remain truncated",
+  "generatedAtUtc": "2026-11-14T10:07:12.703Z",
+  "sourceLogBasename": "ContentLog2026-11-14_18-29-33_1.txt",
+  "selection": "Only [MHQA_PERF] JSON with rosterSize field; v1.5.1 rows in shared log excluded",
+  "ignoredV151Rows": 144,
+  "snapshotStatus": "memory capture complete; Content Log may remain buffered",
+  "tps": {
+    "parsedSamples": 169,
+    "skippedRows": [],
+    "startupSamplesExcluded": [
+      {
+        "seq": 1,
+        "utc": "2026-11-14T09:51:12.249Z"
+      }
+    ],
+    "transitionIntervalsExcluded": [
+      {
+        "seq": 7,
+        "utc": "2026-11-14T09:51:42.250Z"
+      },
+      {
+        "seq": 26,
+        "utc": "2026-11-14T09:53:17.244Z"
+      },
+      {
+        "seq": 27,
+        "utc": "2026-11-14T09:53:22.251Z"
+      },
+      {
+        "seq": 50,
+        "utc": "2026-11-14T09:55:28.067Z"
+      },
+      {
+        "seq": 52,
+        "utc": "2026-11-14T09:55:38.065Z"
+      },
+      {
+        "seq": 58,
+        "utc": "2026-11-14T09:56:08.130Z"
+      },
+      {
+        "seq": 160,
+        "utc": "2026-11-14T10:04:38.185Z"
+      }
+    ],
+    "firstParsedUtc": "2026-11-14T09:51:12.249Z",
+    "lastParsedUtc": "2026-11-14T10:05:23.222Z",
+    "formula": "sum(elapsedTicks) / (sum(elapsedMs) / 1000)",
+    "groups": [
+      {
+        "players": 1,
+        "phaseCategory": "lobby",
+        "practice": false,
+        "rosterSize": 0,
+        "onlineRoster": 0,
+        "hunters": 0,
+        "samples": 5,
+        "firstSequence": 2,
+        "lastSequence": 6,
+        "firstIntervalStartUtc": "2026-11-14T09:51:12.249Z",
+        "lastObservationUtc": "2026-11-14T09:51:37.252Z",
+        "observedSeconds": 25.003,
+        "weightedTps": 19.997600287965444,
+        "intervalTps": {
+          "min": 19.956096587507485,
+          "median": 20.004000800160032,
+          "p95": 20.024028834601523,
+          "max": 20.024028834601523
+        }
+      },
+      {
+        "players": 2,
+        "phaseCategory": "lobby",
+        "practice": false,
+        "rosterSize": 0,
+        "onlineRoster": 0,
+        "hunters": 0,
+        "samples": 18,
+        "firstSequence": 8,
+        "lastSequence": 25,
+        "firstIntervalStartUtc": "2026-11-14T09:51:42.250Z",
+        "lastObservationUtc": "2026-11-14T09:53:12.249Z",
+        "observedSeconds": 89.999,
+        "weightedTps": 20.000222224691385,
+        "intervalTps": {
+          "min": 19.956096587507485,
+          "median": 20,
+          "p95": 20.056157240272764,
+          "max": 20.056157240272764
+        }
+      },
+      {
+        "players": 2,
+        "phaseCategory": "grace_or_running",
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1,
+        "samples": 123,
+        "firstSequence": 28,
+        "lastSequence": 159,
+        "firstIntervalStartUtc": "2026-11-14T09:53:22.251Z",
+        "lastObservationUtc": "2026-11-14T10:04:33.180Z",
+        "observedSeconds": 615.049,
+        "weightedTps": 19.99840663101639,
+        "intervalTps": {
+          "min": 19.845207382417147,
+          "median": 20,
+          "p95": 20.036064916850332,
+          "max": 20.056157240272764
+        }
+      },
+      {
+        "players": 1,
+        "phaseCategory": "paused",
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 1,
+        "hunters": 1,
+        "samples": 1,
+        "firstSequence": 51,
+        "lastSequence": 51,
+        "firstIntervalStartUtc": "2026-11-14T09:55:28.067Z",
+        "lastObservationUtc": "2026-11-14T09:55:33.053Z",
+        "observedSeconds": 4.986,
+        "weightedTps": 20.056157240272764,
+        "intervalTps": {
+          "min": 20.056157240272764,
+          "median": 20.056157240272764,
+          "p95": 20.056157240272764,
+          "max": 20.056157240272764
+        }
+      },
+      {
+        "players": 2,
+        "phaseCategory": "paused",
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1,
+        "samples": 5,
+        "firstSequence": 53,
+        "lastSequence": 57,
+        "firstIntervalStartUtc": "2026-11-14T09:55:38.065Z",
+        "lastObservationUtc": "2026-11-14T09:56:03.137Z",
+        "observedSeconds": 25.072,
+        "weightedTps": 19.94256541161455,
+        "intervalTps": {
+          "min": 19.849146486701073,
+          "median": 19.924287706714484,
+          "p95": 20.044097013429546,
+          "max": 20.044097013429546
+        }
+      },
+      {
+        "players": 2,
+        "phaseCategory": "ended",
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1,
+        "samples": 9,
+        "firstSequence": 161,
+        "lastSequence": 169,
+        "firstIntervalStartUtc": "2026-11-14T10:04:38.185Z",
+        "lastObservationUtc": "2026-11-14T10:05:23.222Z",
+        "observedSeconds": 45.037,
+        "weightedTps": 19.983569065435088,
+        "intervalTps": {
+          "min": 19.825535289452816,
+          "median": 19.996000799840033,
+          "p95": 20.04008016032064,
+          "max": 20.04008016032064
+        }
+      }
+    ],
+    "officialRosterIntervalsIncludingPauseAndReconnect": {
+      "samples": 143,
+      "observedSeconds": 725.978,
+      "weightedTps": 19.697566592927057,
+      "intervalTps": {
+        "min": 6.32231143706139,
+        "median": 20,
+        "p95": 20.04008016032064,
+        "max": 20.056157240272764
+      }
+    },
+    "officialMatchIntervalsThroughFirstEndedSample": {
+      "samples": 134,
+      "observedSeconds": 680.941,
+      "weightedTps": 19.678650573250838,
+      "intervalTps": {
+        "min": 6.32231143706139,
+        "median": 20,
+        "p95": 20.04008016032064,
+        "max": 20.056157240272764
+      }
+    },
+    "inclusiveScope": "All-roster intervals include post-match ended samples. Through-first-ended summary includes pause/reconnect and the first observed ended interval, excludes later ended intervals.",
+    "slowestObservedIntervals": [
+      {
+        "seq": 50,
+        "utc": "2026-11-14T09:55:28.067Z",
+        "elapsedMs": 15817,
+        "elapsedTicks": 100,
+        "tps": 6.32231143706139,
+        "phase": "paused",
+        "matchSeconds": 115,
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 1,
+        "hunters": 1,
+        "winCounts": [],
+        "players": 1,
+        "dimensions": [
+          "minecraft:overworld"
+        ]
+      },
+      {
+        "seq": 166,
+        "utc": "2026-11-14T10:05:08.230Z",
+        "elapsedMs": 5044,
+        "elapsedTicks": 100,
+        "tps": 19.825535289452816,
+        "phase": "ended",
+        "matchSeconds": 621,
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1,
+        "winCounts": [
+          1
+        ],
+        "players": 2,
+        "dimensions": [
+          "minecraft:overworld"
+        ]
+      },
+      {
+        "seq": 106,
+        "utc": "2026-11-14T10:00:08.188Z",
+        "elapsedMs": 5039,
+        "elapsedTicks": 100,
+        "tps": 19.845207382417147,
+        "phase": "running",
+        "matchSeconds": 355,
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1,
+        "winCounts": [],
+        "players": 2,
+        "dimensions": [
+          "minecraft:overworld"
+        ]
+      },
+      {
+        "seq": 54,
+        "utc": "2026-11-14T09:55:48.098Z",
+        "elapsedMs": 5038,
+        "elapsedTicks": 100,
+        "tps": 19.849146486701073,
+        "phase": "paused",
+        "matchSeconds": 115,
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1,
+        "winCounts": [],
+        "players": 2,
+        "dimensions": [
+          "minecraft:overworld"
+        ]
+      },
+      {
+        "seq": 57,
+        "utc": "2026-11-14T09:56:03.137Z",
+        "elapsedMs": 5031,
+        "elapsedTicks": 100,
+        "tps": 19.876764062810576,
+        "phase": "paused",
+        "matchSeconds": 115,
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1,
+        "winCounts": [],
+        "players": 2,
+        "dimensions": [
+          "minecraft:overworld"
+        ]
+      }
+    ],
+    "transitionCaveat": "State-grouped TPS excludes transitions. Also report the inclusive roster interval summary and low-rate reconnect interval; do not describe the entire run as a steady 20 TPS. Cause of stalls not established."
+  },
+  "officialTwoPlayerMatchObservation": {
+    "observed": true,
+    "samples": 125,
+    "firstUtc": "2026-11-14T09:53:22.251Z",
+    "lastUtc": "2026-11-14T10:04:33.180Z",
+    "requiredFields": {
+      "practice": false,
+      "rosterSize": 2,
+      "onlineRoster": 2,
+      "hunters": 1
+    },
+    "scope": "Observed engine roster/phase; not proof of every hunter gameplay feature."
+  },
+  "stateChanges": [
+    {
+      "utc": "2026-11-14T09:51:42.250Z",
+      "seq": 7,
+      "previousSeq": 6,
+      "changes": {
+        "players": {
+          "before": 1,
+          "after": 2
+        }
+      },
+      "previousMatchSeconds": 0,
+      "matchSeconds": 0,
+      "winCounts": []
+    },
+    {
+      "utc": "2026-11-14T09:53:17.244Z",
+      "seq": 26,
+      "previousSeq": 25,
+      "changes": {
+        "phase": {
+          "before": "lobby",
+          "after": "countdown"
+        },
+        "rosterSize": {
+          "before": 0,
+          "after": 2
+        },
+        "onlineRoster": {
+          "before": 0,
+          "after": 2
+        },
+        "hunters": {
+          "before": 0,
+          "after": 1
+        }
+      },
+      "previousMatchSeconds": 0,
+      "matchSeconds": 0,
+      "winCounts": []
+    },
+    {
+      "utc": "2026-11-14T09:53:22.251Z",
+      "seq": 27,
+      "previousSeq": 26,
+      "changes": {
+        "phase": {
+          "before": "countdown",
+          "after": "grace"
+        }
+      },
+      "previousMatchSeconds": 0,
+      "matchSeconds": 4,
+      "winCounts": []
+    },
+    {
+      "utc": "2026-11-14T09:54:22.256Z",
+      "seq": 39,
+      "previousSeq": 38,
+      "changes": {
+        "phase": {
+          "before": "grace",
+          "after": "running"
+        }
+      },
+      "previousMatchSeconds": 59,
+      "matchSeconds": 64,
+      "winCounts": []
+    },
+    {
+      "utc": "2026-11-14T09:55:28.067Z",
+      "seq": 50,
+      "previousSeq": 49,
+      "changes": {
+        "phase": {
+          "before": "running",
+          "after": "paused"
+        },
+        "players": {
+          "before": 2,
+          "after": 1
+        },
+        "onlineRoster": {
+          "before": 2,
+          "after": 1
+        }
+      },
+      "previousMatchSeconds": 114,
+      "matchSeconds": 115,
+      "winCounts": []
+    },
+    {
+      "utc": "2026-11-14T09:55:38.065Z",
+      "seq": 52,
+      "previousSeq": 51,
+      "changes": {
+        "players": {
+          "before": 1,
+          "after": 2
+        },
+        "onlineRoster": {
+          "before": 1,
+          "after": 2
+        }
+      },
+      "previousMatchSeconds": 115,
+      "matchSeconds": 115,
+      "winCounts": []
+    },
+    {
+      "utc": "2026-11-14T09:56:08.130Z",
+      "seq": 58,
+      "previousSeq": 57,
+      "changes": {
+        "phase": {
+          "before": "paused",
+          "after": "running"
+        }
+      },
+      "previousMatchSeconds": 115,
+      "matchSeconds": 115,
+      "winCounts": []
+    },
+    {
+      "utc": "2026-11-14T10:04:38.185Z",
+      "seq": 160,
+      "previousSeq": 159,
+      "changes": {
+        "phase": {
+          "before": "running",
+          "after": "ended"
+        }
+      },
+      "previousMatchSeconds": 620,
+      "matchSeconds": 621,
+      "winCounts": [
+        1
+      ]
+    }
+  ],
+  "pausedObservations": [
+    {
+      "seq": 50,
+      "utc": "2026-11-14T09:55:28.067Z",
+      "matchSeconds": 115,
+      "players": 1,
+      "onlineRoster": 1,
+      "rosterSize": 2
+    },
+    {
+      "seq": 51,
+      "utc": "2026-11-14T09:55:33.053Z",
+      "matchSeconds": 115,
+      "players": 1,
+      "onlineRoster": 1,
+      "rosterSize": 2
+    },
+    {
+      "seq": 52,
+      "utc": "2026-11-14T09:55:38.065Z",
+      "matchSeconds": 115,
+      "players": 2,
+      "onlineRoster": 2,
+      "rosterSize": 2
+    },
+    {
+      "seq": 53,
+      "utc": "2026-11-14T09:55:43.060Z",
+      "matchSeconds": 115,
+      "players": 2,
+      "onlineRoster": 2,
+      "rosterSize": 2
+    },
+    {
+      "seq": 54,
+      "utc": "2026-11-14T09:55:48.098Z",
+      "matchSeconds": 115,
+      "players": 2,
+      "onlineRoster": 2,
+      "rosterSize": 2
+    },
+    {
+      "seq": 55,
+      "utc": "2026-11-14T09:55:53.087Z",
+      "matchSeconds": 115,
+      "players": 2,
+      "onlineRoster": 2,
+      "rosterSize": 2
+    },
+    {
+      "seq": 56,
+      "utc": "2026-11-14T09:55:58.106Z",
+      "matchSeconds": 115,
+      "players": 2,
+      "onlineRoster": 2,
+      "rosterSize": 2
+    },
+    {
+      "seq": 57,
+      "utc": "2026-11-14T09:56:03.137Z",
+      "matchSeconds": 115,
+      "players": 2,
+      "onlineRoster": 2,
+      "rosterSize": 2
+    }
+  ],
+  "memoryWindows": [
+    {
+      "sourceCsv": "official-two-player-memory.csv",
+      "completed": true,
+      "samples": 178,
+      "firstSampleUtc": "2026-11-14T09:53:16.5308693+00:00",
+      "lastSampleUtc": "2026-11-14T09:56:16.3246007+00:00",
+      "sampledSpanSeconds": 179.794,
+      "samplerElapsedSeconds": 180.8386071,
+      "observedPlayerCounts": [
+        1,
+        2
+      ],
+      "observedPhases": [
+        "countdown",
+        "grace",
+        "paused",
+        "running"
+      ],
+      "observedPracticeValues": [
+        false
+      ],
+      "observedRosterSizes": [
+        2
+      ],
+      "observedOnlineRoster": [
+        1,
+        2
+      ],
+      "tpsObservationsInsideWindow": 34,
+      "nearestPriorObservationOutsideWindow": {
+        "seq": 25,
+        "utc": "2026-11-14T09:53:12.249Z",
+        "phase": "lobby",
+        "rosterSize": 0
+      },
+      "workingSetMiB": {
+        "min": 2776.36328125,
+        "median": 2849.05078125,
+        "p95": 2887.1640625,
+        "max": 2893.59375
+      },
+      "privateBytesMiB": {
+        "min": 4525.16796875,
+        "median": 4588.8125,
+        "p95": 4846.5390625,
+        "max": 4860.6484375
+      },
+      "cpuPercentMachine": {
+        "min": 12.924191155374832,
+        "median": 25.83916502780723,
+        "p95": 31.44689931285712,
+        "max": 68.50142167729277
+      },
+      "timeWeightedCpuPercentMachine": 26.315725124742027,
+      "attribution": "Capture-window summary, not per-phase or per-client attribution. Connected player count, online roster and phase may change during reconnect. Target is the host process only."
+    }
+  ],
+  "winCountsObserved": [
+    {
+      "seq": 1,
+      "utc": "2026-11-14T09:51:12.249Z",
+      "phase": "lobby",
+      "winCounts": []
+    },
+    {
+      "seq": 160,
+      "utc": "2026-11-14T10:04:38.185Z",
+      "phase": "ended",
+      "winCounts": [
+        1
+      ]
+    }
+  ],
+  "manhuntLoadRecords": [
+    "18:51:07[Scripting][warning]-[Manhunt 1.6.0] LOADED phase=lobby",
+    "18:51:08[Scripting][warning]-[Manhunt 1.6.0] READY lobby={\"x\":-22.5,\"y\":305,\"z\":36.5} start={\"x\":-22.5,\"y\":79,\"z\":36.5}"
+  ],
+  "fps": "NOT MEASURED for v1.6.0",
+  "network": "NOT MEASURED",
+  "limitations": [
+    "Host process/engine metrics only; client B rendering and behavior reports must be recorded separately.",
+    "No v1.5.1 values are used to validate v1.6.0.",
+    "Tick/wall-clock ratio is not FPS; Date.now can be affected by clock changes.",
+    "Transition intervals excluded from grouped TPS; discontinuous valid intervals may be aggregated.",
+    "Raw sample snapshots can end before wall time due to buffered Content Log.",
+    "No performance improvement or scalability comparison is inferred."
+  ]
+}

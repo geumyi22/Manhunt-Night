@@ -1,0 +1,40 @@
+{
+  "scenario": "Two connected clients, existing single-runner practice; second client not in original match roster, reconnect requested",
+  "process_name": "Minecraft.Windows",
+  "process_id": 56680,
+  "process_started_utc": "2026-11-14T09:29:32.1815992Z",
+  "sample_count": 177,
+  "elapsed_seconds": 180.1732076,
+  "requested_duration_seconds": 180,
+  "requested_interval_ms": 1000,
+  "logical_processors": 20,
+  "stop_reason": "duration_reached",
+  "working_set_bytes": {
+    "min": 2859462656,
+    "median": 3011792896,
+    "p95": 3051880448,
+    "max": 3056033792
+  },
+  "private_bytes": {
+    "min": 4649353216,
+    "median": 4792860672,
+    "p95": 4839981056,
+    "max": 4861349888
+  },
+  "cpu_percent_machine": {
+    "min": 8.011885792811523,
+    "median": 23.408542256255824,
+    "p95": 28.77052684257302,
+    "max": 74.38827053684946
+  },
+  "cpu_percent_one_core": {
+    "min": 160.23771585623044,
+    "median": 468.1708451251165,
+    "p95": 575.4105368514604,
+    "max": 1487.7654107369892
+  },
+  "fps": "NOT MEASURED by this sampler",
+  "tps": "NOT MEASURED by this sampler",
+  "network": "NOT MEASURED; process IO is not treated as network traffic",
+  "limitations": "Process-only memory and CPU. GPU memory, system RAM, FPS/TPS and gameplay quality are not inferred. Record foreground/background state, scenario, clients, settings and instrumentation separately."
+}

@@ -1,0 +1,80 @@
+{
+  "version": "1.6.0",
+  "dateKST": "2026-11-14",
+  "participants": [
+    "client A: host runner",
+    "client B: hunter"
+  ],
+  "userReports": [
+    {
+      "item": "Hunter departure after grace",
+      "result": "reported successful",
+      "scope": "User report; peer screen not independently inspected by agent"
+    },
+    {
+      "item": "Reconnect",
+      "result": "reported successful",
+      "scope": "Connection outcome corroborated by host roster observations; full inventory/crafting state not verified"
+    },
+    {
+      "item": "Signal receiver camera",
+      "result": "approximately 3 second transition and return reported successful",
+      "scope": "User report of hunter screen; no peer video or screenshot published"
+    },
+    {
+      "item": "Diamond sword direct kill",
+      "result": "reported successful",
+      "scope": "Host death/victory messages and ended counter independently observed"
+    }
+  ],
+  "hostUiObservations": [
+    {
+      "item": "Two-player official match",
+      "result": "Started using normal match flow; grace and running observed"
+    },
+    {
+      "item": "Hunter melee victory",
+      "result": "Runner death attributed to hunter and hunter victory displayed at match time 10:21",
+      "privacy": "Account nicknames omitted; original screenshot/chat not published here"
+    },
+    {
+      "item": "Session closure",
+      "result": "Save and quit selected; world list returned"
+    }
+  ],
+  "probeObservations": [
+    {
+      "item": "Official roster",
+      "fields": {
+        "practice": false,
+        "rosterSize": 2,
+        "onlineRoster": 2,
+        "hunters": 1
+      }
+    },
+    {
+      "item": "Disconnect/rejoin",
+      "result": "onlineRoster 2 to 1 to 2; rosterSize stayed 2; paused matchSeconds stayed 115; running later resumed",
+      "limitation": "Probe does not identify whether resume was manual or automatic"
+    },
+    {
+      "item": "Outcome",
+      "fields": {
+        "phase": "ended",
+        "matchSeconds": 621,
+        "winCounts": [
+          1
+        ]
+      },
+      "limitation": "Anonymous win counter alone does not identify winner or cause; host UI supplies that observation"
+    }
+  ],
+  "notVerified": [
+    "Full hunter tracker and concurrent crafting E2E",
+    "Summon and dimension paths",
+    "Extra revivals, projectile kill, normal dragon combat victory",
+    "3+ player runtime and long-session performance",
+    "FPS and game network measurements"
+  ],
+  "scope": "Observer measurements plus explicit human/UI observations, not a claim of all-feature E2E or Stable qualification"
+}

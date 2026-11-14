@@ -1,0 +1,13 @@
+{
+  "world": "QA 2026-11-14 PERF SOLO",
+  "inputSha256": "ee595db8b14df9d8ab2424c4b2553efb4fd601ebf99ad018c033efeec48863ee",
+  "outputSha256": "98b090ee60e3bbfc13b7dee8c2743a54ed2095af7a1f34a837d3503321ef4641",
+  "changes": [
+    "copy world name",
+    "unique BP/RP UUIDs to isolate instrumentation",
+    "append read-only 100-tick log sampler"
+  ],
+  "databasePreserved": true,
+  "releaseInputUnchanged": true,
+  "output": "QA_2026-11-14_PERF_SOLO.mcworld"
+}

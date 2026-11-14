@@ -1,0 +1,13 @@
+{
+  "world": "QA v1.6.0 TWO PLAYERS",
+  "inputSha256": "3b186f241516422e8e97a958c83e9a38edcda3bb8717d991b751f152dd4ed998",
+  "outputSha256": "0f8803cfdbd2d5365591689b95c0c945de546420ff8edd8a0975c56e397cf829",
+  "changes": [
+    "copy world name",
+    "unique BP/RP UUIDs to isolate instrumentation",
+    "append read-only 100-tick log sampler"
+  ],
+  "databasePreserved": true,
+  "releaseInputUnchanged": true,
+  "output": "QA_v1.6.0_TWO_PLAYERS.mcworld"
+}

@@ -49,7 +49,8 @@ export function safeSummonSpot(dimension,point,occupied=[]){
 export function planSummonSpots(caller,count,runner,limit,occupied=[]){
  const result=[],base=caller.location,dimension=caller.dimension,used=[...occupied,position(base)];
  const cache=new Map(),view={id:dimension.id,heightRange:dimension.heightRange,getBlock:p=>{const key=`${p.x},${p.y},${p.z}`;if(!cache.has(key))cache.set(key,dimension.getBlock(p));return cache.get(key);}};
- // At most 3 hunters: bounded local search, no forced chunk loading or persistent entities.
+ // Bounded local search also serves six teammates in an eight-player round.
+ // No forced chunk loading; insufficient safe spots cancel the entire summon.
  for(const dy of [0,1,-1,2,-2])for(let radius=2;radius<=4;radius++){
   for(let dx=-radius;dx<=radius;dx++)for(let dz=-radius;dz<=radius;dz++){
    if(Math.max(Math.abs(dx),Math.abs(dz))!==radius)continue;

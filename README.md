@@ -1,28 +1,35 @@
-# Manhunt Night v1.5.1
+# Manhunt Night v1.6.0
 
-> 2026-11-14 재검증: 자동 204/204와 패키지 검사를 다시 통과했습니다. Windows 체크아웃 및 해시 파일명 문제를 보완했고, 실기 멀티플레이·성능 측정은 실행 환경 미확보로 미완료입니다. [최신 검증 기록](docs/QA_REVALIDATION_2026-11-14.md).
+> 2026-11-14 중간 업데이트: 정식 경기 2~8명으로 확장합니다. 1인 연습·기존 저장 형식은 유지합니다. 실제 검증 범위와 남은 조건은 [QA 보고서](docs/QA_REPORT.md)를 확인하세요.
 
-Minecraft Bedrock 26.62 기준 · 러너 1명 vs 헌터 2~3명 · 1인 연습 지원.
+Minecraft Bedrock 26.62 기준 · 러너 1명 vs 헌터 1~7명 · 1인 연습 지원.
 **Pre-release**: 자동 검사와 실제 클라이언트 확인 범위는 [QA 보고서](docs/QA_REPORT.md)에 구분합니다. 실제 3~4인 멀티플레이와 성능 실측은 아직 완료되지 않았습니다.
 
-## 현재 배포 및 개발 상태 (2026-11-10 확인)
+## 현재 배포 및 개발 상태 (2026-11-14)
 
-- **최신 배포:** [v1.5.1 Pre-release](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.1). `.mcworld`·`.mcaddon`·전체 ZIP·소스·해시·QA 문서 등은 릴리스 Assets에서 받습니다.
-- **현재 기본 브랜치:** `main` (v1.5.0 [PR #1](https://github.com/geumyi22/Manhunt-Night/pull/1), v1.5.1 [PR #2](https://github.com/geumyi22/Manhunt-Night/pull/2) 병합 완료).
-- **검증:** v1.5.1 자동 테스트 **204/204 통과**, Windows Bedrock **26.63** 단일 클라이언트 일부 확인. [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions)도 마지막 제품 코드 커밋에서 성공했습니다. 테스트 범위는 [QA 보고서](docs/QA_REPORT.md) 참조.
-- **남은 필수 QA:** 친구 3~4인 동시 플레이·성능 실측 등은 [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)에서 추적합니다. 이 검증 전에는 Stable이라고 표시하지 않습니다.
+- **중간 업데이트:** [v1.6.0 Pre-release](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0). `.mcworld`·`.mcaddon`·전체 ZIP·소스·해시·QA 문서 등은 릴리스 Assets에서 받습니다.
+- **기존 배포 보존:** [v1.5.1](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.1)과 이전 월드·애드온·기록은 그대로 유지합니다.
+- **자동 검증:** 기존 204개를 포함한 **212/212 통과**. 2인 승패·재접속, 8인 개별 추적기 지급·소집 경계를 포함합니다. 실제 기기 결과와 [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions)는 [QA 보고서](docs/QA_REPORT.md)에서 구분합니다.
+- **남은 필수 QA:** 친구 3~4인 및 8인 동시 플레이·장시간 성능 실측 등은 [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)에서 추적합니다. 이 검증 전에는 Stable이라고 표시하지 않습니다.
 - **버그 제보:** [Issues](https://github.com/geumyi22/Manhunt-Night/issues)에서 재현 조건·베드락 버전·영상/Content Log를 함께 기록해 주세요. 개인 정보나 토큰은 첨부하지 마세요.
 
 ## 설치와 시작
 
-1. `Manhunt_Night_v1.5.1.mcworld`를 열어 가져옵니다. 필요한 두 팩이 포함되어 있습니다.
+1. `Manhunt_Night_v1.6.0.mcworld`를 열어 가져옵니다. 필요한 두 팩이 포함되어 있습니다.
 2. 월드를 열어 친구를 초대하고 `/mh:menu`에서 러너 선택, 게임 설정, 경기 시작을 누릅니다.
 3. 새 월드는 5초 카운트다운 → 러너 출발·경기 시간 시작 → 기본 60초 도주 유예 후 헌터 출발입니다.
 4. 헌터에게 20분에 제작법 공개, 순서대로 재료를 버려 팀 공동 제작합니다. 미완성이면 40분에 헌터별 추적기 1개 지급. `/mh:trackerrecipe`, `/mh:craft`를 사용합니다.
 
 기존 월드는 삭제하지 않습니다. `.mcaddon`은 다른 월드용입니다. 이미 팩이 포함된 새 `.mcworld`에는 중복 적용하지 마세요. 기존 저장 설정은 이관하며 새 기본값과 다를 수 있습니다.
 
-## 주요 변경
+## v1.6.0 변경
+
+- 정식 경기는 2~8명(러너 1명·헌터 1~7명), 혼자 있을 때는 기존 1인 연습을 사용합니다.
+- 2인 경기의 헌터는 팀 공동 제작을 혼자 진행합니다. 다른 헌터가 없으면 소집서는 소비되지 않습니다.
+- 8명은 게임 규칙의 상한입니다. 실제 8인 성능·HUD 가독성은 미검증이며, 서버/월드의 접속 정원도 따로 충족해야 합니다.
+- 20/40분·제작 재료·부활·쿨다운·진행 중 참가자 명단과 저장 형식은 그대로입니다. 기존 v1.5.1 배포는 보존합니다.
+
+## 기존 주요 기능
 
 v1.5.1은 v1.5.0을 보존하는 수정판입니다. 원본 나침반 외형 적용, 접속 종료 공격자 처리와 소집 복구 기록 저장 실패를 보완했습니다.
 
