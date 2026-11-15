@@ -1,5 +1,5 @@
 import {newExtra} from './expansion-core.js';
-export const VERSION = '1.6.0';
+export const VERSION = '1.7.0';
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 8;
 export const TRACKER_UNLOCK_SECONDS = 15 * 60;

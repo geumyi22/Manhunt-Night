@@ -6,7 +6,7 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {collectFiles,readZip} from './archive.mjs';
 import {readNBT} from './nbt.mjs';
 export const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-export const VERSION='1.6.0';
+export const VERSION='1.7.0';
 export const NAMES={world:`Manhunt_Night_v${VERSION}.mcworld`,addon:`Manhunt_Night_v${VERSION}.mcaddon`,source:`Manhunt_Night_Source_v${VERSION}.zip`,bundle:`Manhunt_Night_v${VERSION}_FullFiles.zip`};
 export const sha256=data=>crypto.createHash('sha256').update(data).digest('hex');
 export const parseJSON=bytes=>JSON.parse(Buffer.from(bytes).toString('utf8').replace(/^\ufeff/,''));
