@@ -86,3 +86,27 @@ test('pause and round reset clear signal and restart border deadlines immediatel
  h.x.reset();r.location.x=6000;h.system.currentTick=10;h.x.tick();assert.equal(r.location.x,0);assert.deepEqual(emitted,[3]);
  assert.equal(h.x.useReceiver(r),true);h.x.tick();assert.deepEqual(emitted,[3,10]);
 });
+
+
+test('portable borders are centered on the external map start, not world origin',()=>{
+ const h=setup(),r=h.people[0];h.s.worldMode='portable';h.s.start={x:20000,y:64,z:-16000};
+ r.location={x:20000,y:64,z:-16000};h.x.tick();assert.equal(r.location.x,20000);
+ r.location.x=25000;h.system.currentTick=10;h.x.tick();assert.equal(r.location.x,20000,'overworld edge rolls back to same-map safe position');
+ r.dimension=h.dims.nether;r.location={x:2500,y:64,z:-2000};h.system.currentTick=20;h.x.tick();
+ assert.equal(r.dimension.id,'minecraft:nether');r.location.x=3125;h.system.currentTick=30;h.x.tick();assert.equal(r.location.x,2500,'Nether uses start / 8');
+});
+test('unknown external seed never receives an invented fortress coordinate',()=>{
+ const h=setup();h.s.worldMode='portable';h.s.seconds=2400;h.x.second();h.x.second();
+ assert.equal(h.messages.length,1);assert.match(h.messages[0].m,/좌표가 아직 확인되지/);assert.doesNotMatch(h.messages[0].m,/X 352/);
+ assert.equal(h.s.extra.hintSent,false,'allow a later actual waypoint');
+ h.s.fortressWaypoint={x:-512,z:640};h.x.second();
+ assert.equal(h.s.extra.hintSent,true);assert.match(h.messages.at(-1).m,/X -512, Z 640/);
+});
+test('portable fortress arrival requires a registered waypoint and nearby nether brick',()=>{
+ const h=setup(),r=h.people[0];h.s.worldMode='portable';r.dimension=h.dims.nether;
+ r.location={x:700,y:67,z:-900};h.dims.nether.getBlock=()=>({typeId:'minecraft:nether_brick'});
+ assert.equal(h.x.enteredFortress(r),false,'no waypoint means no false positive on player-built nether brick');
+ h.s.fortressWaypoint={x:700,z:-900};assert.equal(h.x.enteredFortress(r),true);
+ r.location.x=810;assert.equal(h.x.enteredFortress(r),false,'far from selected fortress');
+ h.dims.nether.getBlock=()=>({typeId:'minecraft:stone'});r.location.x=700;assert.equal(h.x.enteredFortress(r),false);
+});
