@@ -1,6 +1,7 @@
 import {world, system, Player, ItemStack, ItemLockMode, GameMode, InputPermissionCategory,
   CommandPermissionLevel, CustomCommandStatus, EquipmentSlot} from '@minecraft/server';
 import {createExpansion} from './expansion.js';
+import {modeForSeed,parseFortressWaypoint} from './world-compat.js';
 import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter} from './runner.js';
 import {createRunnerSpecial} from './runner-special.js';
 import {createSummon} from './summon.js';
@@ -131,17 +132,31 @@ function movement(p,enabled){p.inputPermissions.setPermissionCategory(InputPermi
 function heal(p){for(const e of p.getEffects())p.removeEffect(e.typeId);p.extinguishFire();runnerRules.sync(p,true);if(!runnerRules.eligible(p))p.addEffect('saturation',20,{amplifier:10,showParticles:false});}
 function clearPlayer(p){inventory(p)?.clearAll();const eq=p.getComponent('minecraft:equippable');for(const slot of [EquipmentSlot.Head,EquipmentSlot.Chest,EquipmentSlot.Legs,EquipmentSlot.Feet,EquipmentSlot.Offhand])eq?.setEquipment(slot);p.resetLevel();heal(p);}
 function teleport(p,loc){p.teleport(loc,{dimension:world.getDimension('overworld'),rotation:{x:0,y:0}});}
-function lobbyPlayer(p,clear=false){if(!s.lobby)return;runnerRules.clear(p);if(clear)clearPlayer(p);movement(p,true);p.setGameMode(GameMode.Adventure);teleport(p,s.lobby);p.setSpawnPoint({...s.lobby,dimension:world.getDimension('overworld')});stripTools(p);ensureMenu(p);}
+function lobbyPlayer(p,clear=false){if(!s.lobby)return;runnerRules.clear(p);if(clear)clearPlayer(p);movement(p,true);p.setGameMode(GameMode.Adventure);teleport(p,s.lobby);if(s.worldMode!=='portable')p.setSpawnPoint({...s.lobby,dimension:world.getDimension('overworld')});stripTools(p);ensureMenu(p);}
 function titleAll(title,subtitle){for(const p of players())attempt('title',()=>p.onScreenDisplay.setTitle(title,{subtitle,stayDuration:60,fadeInDuration:5,fadeOutDuration:15}));}
 function sound(id){for(const p of players())attempt('sound',()=>p.playSound(id));}
 
 function* buildLobby(p){
   building=true;
-  const d=world.getDimension('overworld'), base=location(p);
+  const d=world.getDimension('overworld'),base=location(p);
+  s.worldMode=modeForSeed(world.seed);
+  if(s.worldMode==='portable'){
+    // External maps keep all blocks, terrain and the global world spawn untouched.
+    if(p.dimension.id!=='minecraft:overworld')throw Error('외부 맵의 초기 설정은 오버월드에서 진행해 주세요.');
+    if(![base.x,base.y,base.z].every(Number.isFinite))throw Error('플레이어의 안전한 시작 좌표를 확인할 수 없습니다.');
+    s.start={...base};s.lobby={...base};
+    s.host=p.name;s.phase='lobby';save();building=false;
+    // Do not wipe a guest's inventory just by loading this addon onto an existing world.
+    for(const q of players())lobbyPlayer(q,false);
+    say('§lMANHUNT NIGHT§r 다른 맵 모드 준비 완료! 기존 블록·지형·월드 스폰은 변경하지 않았습니다.');
+    tell(p,'경기 시작 시 참가자의 인벤토리가 초기화됩니다. 네더 요새 힌트는 관리 메뉴에서 실제 좌표를 등록하세요.');
+    system.runTimeout(()=>showMenu(p),40);
+    return;
+  }
   let top=d.getTopmostBlock({x:Math.floor(base.x),z:Math.floor(base.z)});
   if(!top)throw Error('시작 지형이 아직 로드되지 않았습니다.');
   s.start={x:Math.floor(base.x)+0.5,y:top.location.y+1,z:Math.floor(base.z)+0.5};
-  // A separate platform above the new world's spawn; keep all source terrain intact.
+  // Legacy original-seed platform; existing v1.6.0 source-world behavior retained.
   const cx=Math.floor(base.x),cz=Math.floor(base.z),y=304;
   s.lobby={x:cx+0.5,y:y+1,z:cz+0.5};
   d.runCommand(`tickingarea add circle ${cx} ${y} ${cz} 2 mh_lobby true`);
@@ -288,6 +303,7 @@ async function showMenu(p){
     if(s.phase==='paused')add('§a경기 재개',()=>resume(p));
     if(s.phase!=='lobby')add('로비로 / 경기 초기화',()=>confirm(p,'경기 초기화','모두 로비로 이동하고 소지품·장비·경험치가 초기화됩니다. 지형·상자·드래곤은 복원되지 않습니다.',()=>reset(p)));
   }
+  if(isHost(p))add('다른 맵 / 네더 요새 좌표 관리',()=>fortressSetup(p));
   if(s.phase==='ended')add('로비로 이동',()=>lobbyPlayer(p,false));
   if(isHost(p)&&s.trackerCraft?.pending)add('중단된 제작 거래 확인 / 복구',()=>recoverCraft(p));
   if(isHost(p)&&summon.hasPending())add('중단된 소집 복구',()=>recoverSummon(p));
@@ -474,12 +490,41 @@ system.runInterval(()=>{
     for(const p of players()){
       if(deadPlayers.has(p.name))continue;
       if(['lobby','ended'].includes(s.phase))normalizeMenu(p);else stripMenus(p);
-      if(['lobby','ended'].includes(s.phase)){if(p.location.y<298&&p.dimension.id==='minecraft:overworld'&&s.phase==='lobby')lobbyPlayer(p,false);}
+      if(['lobby','ended'].includes(s.phase)){if(s.worldMode!=='portable'&&p.location.y<298&&p.dimension.id==='minecraft:overworld'&&s.phase==='lobby')lobbyPlayer(p,false);}
       else if(member(p)){if(hunter(p)){removeEarlyTrackers(p);unlockExistingTrackers(p);}applyPhase(p);}
     }
     if(runnerSpecial.hasPending())runnerSpecial.recover();if(summon.hasPending())summon.recover();save();
   }catch(e){report('game loop',e);if(running())pause('진행 오류가 감지되었습니다. 관리자 메뉴에서 확인하세요.');}
 },20);
+
+async function fortressSetup(p){
+ if(!isHost(p))return;
+ if(s.worldMode!=='portable'){tell(p,'원본 월드는 기존 요새 지도를 사용합니다. 다른 시드에서 새로 생성한 월드에 애드온을 적용했을 때 사용하세요.');return;}
+ const current=s.fortressWaypoint;
+ const menu=new ActionFormData().title('다른 맵 · 네더 요새 좌표')
+  .body(`현재 등록: ${current?`X ${current.x}, Z ${current.z}`:'없음'}\\n네더에서 /locate structure fortress 명령으로 실제 X/Z를 확인한 뒤 등록하세요. 미등록일 경우 잘못된 좌표를 안내하지 않습니다.`)
+  .button('X/Z 좌표 직접 입력').button('현재 네더 위치로 등록').button('등록 좌표 삭제').button('취소');
+ const r=await form(p,menu);if(!r||r.canceled||!isHost(p))return;
+ if(r.selection===0){
+  const ui=new ModalFormData().title('네더 요새 좌표 등록')
+   .textField('네더 요새 X 좌표','정수',{defaultValue:String(current?.x??0)})
+   .textField('네더 요새 Z 좌표','정수',{defaultValue:String(current?.z??0)});
+  const input=await form(p,ui);
+  if(!input||input.canceled||!isHost(p)||!Array.isArray(input.formValues))return;
+  const point=parseFortressWaypoint(input.formValues[0],input.formValues[1]);
+  if(!point){tell(p,'좌표는 네더 범위 내 정수여야 합니다. 이전 값을 유지합니다.');return;}
+  s.fortressWaypoint=point;
+ }else if(r.selection===1){
+  if(p.dimension.id!=='minecraft:nether'){tell(p,'현재 위치 등록은 네더 안에서만 가능합니다.');return;}
+  const point=parseFortressWaypoint(String(Math.floor(p.location.x)),String(Math.floor(p.location.z)));
+  if(!point){tell(p,'현재 위치가 좌표 범위를 벗어났습니다.');return;}
+  s.fortressWaypoint=point;
+ }else if(r.selection===2){s.fortressWaypoint=null;}
+ else return;
+ if(s.extra)s.extra.missingWaypointNotified=false;
+ save();
+ tell(p,s.fortressWaypoint?`네더 요새 좌표 저장: X ${s.fortressWaypoint.x}, Z ${s.fortressWaypoint.z}. 실제 구조물 위치를 등록했는지 확인하세요.`:'등록된 요새 좌표를 제거했습니다. 잘못된 위치는 안내하지 않습니다.');
+}
 
 async function expansionHelp(p){await form(p,new ActionFormData().title('추가 규칙 · v1.5 (설정 변경 가능)').body('구역: 오버월드·엔드 X/Z -5000~4999, 네더 -625~624. 경계를 넘으면 안쪽 이전 위치로 돌아갑니다.\n\n러너 출발 후 40분간 요새 미도착 또는 헌터가 먼저 네더 진입 시 러너에게만 요새 좌표 1회 안내. 일시정지 시간 제외.\n\n수신기 작업대 조합 (왼쪽 위부터):\n석탄 / 구리 주괴 / 철 주괴\n금 주괴 / 바다의 심장 / 청금석\n에메랄드 / 다이아몬드 / 네더라이트 파편\n\n러너만 수신기를 우클릭 사용: 녹색 광선 8초, 같은 차원 헌터의 카메라를 러너 방향으로 3초 전환. 재사용 30초. 멀리 있거나 벽 뒤에서는 러너·광선이 안 보일 수 있습니다. 다른 차원 헌터에게는 차원 알림만 보냅니다.\n\n러너 엔드 첫 입장: 엔더의 눈 32개, 경기당 1회.').button('확인'));}
 
