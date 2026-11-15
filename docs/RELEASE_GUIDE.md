@@ -1,5 +1,7 @@
 # Manhunt Night 릴리스·저장소 운영 안내
 
+> v1.7.0의 다른 맵 호환성 개선은 별도 Pre-release 작업입니다. 이 문서의 v1.6.0 다운로드 링크는 아직 유효한 공식 Stable을 가리킵니다.
+
 > 상태 확인일: **2026-11-15 (KST)**. 이후 변경 여부는 [현재 `main`](https://github.com/geumyi22/Manhunt-Night), [Releases](https://github.com/geumyi22/Manhunt-Night/releases), [Actions](https://github.com/geumyi22/Manhunt-Night/actions)에서 확인합니다.
 
 ## 1. 공식 배포 현황
