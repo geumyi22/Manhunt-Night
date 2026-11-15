@@ -11,15 +11,15 @@
 
 ## 검증 현황
 
-- [ ] v1.7.0 소스 JavaScript 구문·정식 Script API 타입·JSON/팩 검사 결과 첨부
-- [ ] 기존 212개 회귀와 새 호환성 테스트 결과 첨부
-- [ ] v1.6.0 기반 월드 읽기 전용으로 v1.7.0 전체 패키지 빌드·ZIP CRC·SHA-256·DB 보존 확인
+- [x] JS/MJS 구문·정식 Script API 타입·JSON/팩 검사 통과. [Source QA 실행 기록](https://github.com/geumyi22/Manhunt-Night/actions/runs/43696602605)
+- [x] 기존 212개 회귀와 외부 맵 테스트 11개 포함 **223/223 통과**, 실패·건너뜀 0개. GitHub Actions의 node --test 로그 확인
+- [x] 보존된 v1.6.0 릴리스 월드 기반 v1.7.0 전체 빌드·팩·CRC·SHA-256·원본 DB 바이트 동일성 검사 통과. 빌드 입력 변경 없음(baseInputUnchanged=true). [워크플로 실행](https://github.com/geumyi22/Manhunt-Night/actions/runs/43696602605)
 - [ ] 실제 다른 시드/다른 지형의 Bedrock 클라이언트에서 로비가 기존 블록을 변경하지 않는지
 - [ ] 오버월드/네더/엔드 경계와 등록된 요새 좌표·도착 판정의 실제 게임 테스트
 - [ ] 실제 다른 맵 2~8인 멀티플레이와 기존 추적·제작·부활·소집·승패 기능 E2E
 - [ ] 실제 성능 측정 또는 미측정 상태 기록
 
-작업 환경의 연결 PC는 현재 오프라인이므로 이번 버전의 새로운 Minecraft 실기 테스트는 수행했다고 주장하지 않습니다. CI와 모의 이벤트 검사가 성공하더라도 다른 모든 시드/커스텀 월드에서 보장되지 않습니다.
+작업 환경의 연결 PC는 현재 오프라인이므로 이번 버전의 새로운 Minecraft 실기 테스트는 수행했다고 주장하지 않습니다. [추가 실기 QA Issue #12](https://github.com/geumyi22/Manhunt-Night/issues/12)에 남은 항목을 등록했습니다. CI와 모의 이벤트 검사가 성공하더라도 다른 모든 시드/커스텀 월드에서 보장되지 않습니다.
 
 ## 알려진 제한
 
