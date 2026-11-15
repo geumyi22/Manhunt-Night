@@ -1,5 +1,6 @@
 import {RECEIVER,newExtra,inBounds,closestFortress,hintReason} from './expansion-core.js';
 import {FORTRESS_FLOOR_CELLS} from './fortress-map.js';
+import {borderCenter,validFortressWaypoint} from './world-compat.js';
 
 // Stable API implementation: no beta natural-structure detection dependency.
 export function createExpansion(world,system,state,api){
@@ -16,7 +17,16 @@ export function createExpansion(world,system,state,api){
  function reset(){clearAll();state().extra=newExtra();}
  function joined(p){clearCamera(p);}
  function grantEnd(p){if(!enabled('endReward')||extra().endReward)return;const item=new ItemStack('minecraft:ender_eye',32),rest=inventory(p)?.addItem(item);if(rest)p.dimension.spawnItem(rest,p.location);extra().endReward=true;tell(p,'§d엔드 첫 입장 보상: 엔더의 눈 32개! 소지품이 가득 차면 발밑에 떨어집니다.');}
- function sendHint(){if(!enabled('fortressHint'))return;const r=runner(),reason=hintReason(extra(),state().seconds);if(!r||!reason)return;const f=closestFortress(r.location,r.dimension.id);tell(r,`§a[러너 전용] ${reason}\n§e네더 요새 좌표: X ${f.x}, Z ${f.z} §7(네더 좌표, 높이는 현장에서 확인)`);extra().hintSent=true;extra().hintReason='';}
+ function sendHint(){
+  if(!enabled('fortressHint'))return;
+  const s=state(),e=extra(),r=runner(),reason=hintReason(e,s.seconds);
+  if(!r||!reason)return;
+  const f=s.worldMode==='portable'?(validFortressWaypoint(s.fortressWaypoint)?s.fortressWaypoint:null):closestFortress(r.location,r.dimension.id);
+  // A fixed seed's coordinates are never shown as if they were measured on another map.
+  if(!f){if(!e.missingWaypointNotified){tell(r,'§e[요새 안내] 이 월드의 네더 요새 좌표가 아직 확인되지 않았습니다. 호스트가 /locate structure fortress 결과를 관리 메뉴에 등록하면 정확한 좌표를 안내합니다.');e.missingWaypointNotified=true;}return;}
+  tell(r,`§a[러너 전용] ${reason}\n§e네더 요새 좌표: X ${f.x}, Z ${f.z} §7(${s.worldMode==='portable'?'호스트 등록 좌표':'원본 맵 좌표'}, 네더 기준, 높이는 현장에서 확인)`);
+  e.hintSent=true;e.hintReason='';e.missingWaypointNotified=false;
+ }
  function dimensionChanged(e){clearCamera(e.player);if(signal?.runner===e.player.name)clearAll();if(!playable()||!state().roster.includes(e.player.name))return;
   if(enabled('fortressHint')&&e.toDimension.id==='minecraft:nether'){
    if(e.player.name===state().runner)extra().runnerNether=true;
@@ -24,18 +34,23 @@ export function createExpansion(world,system,state,api){
   }
   if(e.player.name===state().runner&&e.toDimension.id==='minecraft:the_end')grantEnd(e.player);
  }
- function enteredFortress(p){if(p.dimension.id!=='minecraft:nether')return false;const l=p.location;
-  for(let dy=-2;dy<=1;dy++){const y=Math.floor(l.y)+dy;const cell=`${Math.floor(l.x/4)},${Math.floor(y/4)},${Math.floor(l.z/4)}`;if(!floorCells.has(cell))continue;
-   const type=p.dimension.getBlock({x:Math.floor(l.x),y,z:Math.floor(l.z)})?.typeId;
+ function enteredFortress(p){if(p.dimension.id!=='minecraft:nether')return false;const s=state(),l=p.location;
+  const portable=s.worldMode==='portable',waypoint=s.fortressWaypoint;
+  // Unknown maps require a verified waypoint. An isolated player-built nether-brick is not evidence of a generated fortress.
+  if(portable&&(!validFortressWaypoint(waypoint)||Math.abs(l.x-waypoint.x)>64||Math.abs(l.z-waypoint.z)>64))return false;
+  for(let dy=-2;dy<=1;dy++){const y=Math.floor(l.y)+dy;
+   if(!portable){const cell=`${Math.floor(l.x/4)},${Math.floor(y/4)},${Math.floor(l.z/4)}`;if(!floorCells.has(cell))continue;}
+   let type;try{type=p.dimension.getBlock({x:Math.floor(l.x),y,z:Math.floor(l.z)})?.typeId;}catch{return false;}
    if(['minecraft:nether_brick','minecraft:nether_brick_stairs','minecraft:nether_brick_fence'].includes(type))return true;
   }return false;
  }
  function border(p){if(!enabled('borders'))return;const e=extra(),dim=p.dimension.id;const saved=e.safe[p.name]??=( {} );
-  if(inBounds(p.location,dim)){saved[dim]={x:p.location.x,y:p.location.y,z:p.location.z};return;}
+  if(inBounds(p.location,dim,borderCenter(state(),dim))){saved[dim]={x:p.location.x,y:p.location.y,z:p.location.z};return;}
   // Roll back to a previously visited position, never blindly into an unloaded wall or lava.
   const back=saved[dim];clearCamera(p);
   if(back)p.teleport(back,{dimension:p.dimension});else p.teleport(state().start,{dimension:world.getDimension('overworld')});
-  tell(p,dim==='minecraft:nether'?'§e네더 구역 경계: X/Z -625 이상 625 미만':'§e구역 경계: X/Z -5000 이상 5000 미만');
+  const center=borderCenter(state(),dim),half=dim==='minecraft:nether'?625:5000;
+  tell(p,`§e${dim==='minecraft:nether'?'네더':'월드'} 구역 경계: X [${center.x-half}, ${center.x+half}), Z [${center.z-half}, ${center.z+half})`);
  }
  function useReceiver(p){const s=state(),e=extra();if(!playable()||p.name!==s.runner||!alive(p)){tell(p,'수신기는 경기 중 러너만 사용할 수 있습니다.');return false;}
   if(!enabled('receiver')){tell(p,'이번 경기에서는 신호 수신기가 비활성화되어 있습니다.');return false;}
