@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {modeForSeed,borderCenter,parseFortressWaypoint,validFortressWaypoint,ORIGINAL_MANHUNT_SEED} from '../BP/scripts/world-compat.js';
+import {modeForSeed,borderCenter,parseFortressWaypoint,validFortressWaypoint,legacyLobbyAreaClear,ORIGINAL_MANHUNT_SEED} from '../BP/scripts/world-compat.js';
 import {inBounds} from '../BP/scripts/expansion-core.js';
 
 test('original seed keeps classic mode and all other seeds choose portable',()=>{
@@ -21,4 +21,11 @@ test('fortress waypoint accepts only safe finite integer coordinates and never g
  assert.deepEqual(parseFortressWaypoint(' -352 ','640'),{x:-352,z:640});
  for(const [x,z] of [['3.5','0'],['1','Infinity'],['0','abc'],['3750001','0'],['0','-3750001'],['','5'],[300,400]])assert.equal(parseFortressWaypoint(x,z),null);
  assert.equal(validFortressWaypoint({x:0,z:0}),true);assert.equal(Boolean(validFortressWaypoint({x:Infinity,z:1})),false);
+});
+
+test('legacy platform footprint is checked before overwriting any existing map blocks',()=>{
+ const air={getBlock:()=>({typeId:'minecraft:air'})};assert.equal(legacyLobbyAreaClear(air,0,0),true);
+ assert.equal(legacyLobbyAreaClear({getBlock:p=>({typeId:p.x===7&&p.y===307&&p.z===-5?'minecraft:chest':'minecraft:air'})},0,0),false);
+ assert.equal(legacyLobbyAreaClear({getBlock:()=>undefined},0,0),false);
+ assert.equal(legacyLobbyAreaClear({getBlock:()=>{throw Error('unloaded');}},0,0),false);
 });

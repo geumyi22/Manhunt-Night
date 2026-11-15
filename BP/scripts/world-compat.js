@@ -15,3 +15,15 @@ export function parseFortressWaypoint(x,z){
  return {x:px,z:pz};
 }
 export function validFortressWaypoint(point){return point&&Number.isInteger(point.x)&&Number.isInteger(point.z)&&Math.abs(point.x)<=3750000&&Math.abs(point.z)<=3750000;}
+
+// Avoid overwriting custom structures even if a modified world reused the original map seed.
+// Check every block that the legacy 21x21 platform construction would replace; unloadable chunks fail closed.
+export function legacyLobbyAreaClear(dimension,cx,cz,y=304){
+ try{
+  for(let dx=-10;dx<=10;dx++)for(let dz=-10;dz<=10;dz++)for(let h=0;h<=5;h++){
+   const block=dimension.getBlock({x:cx+dx,y:y+h,z:cz+dz});
+   if(block?.typeId!=='minecraft:air')return false;
+  }
+  return true;
+ }catch{return false;}
+}

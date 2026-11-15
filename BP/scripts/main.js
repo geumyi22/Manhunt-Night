@@ -1,7 +1,7 @@
 import {world, system, Player, ItemStack, ItemLockMode, GameMode, InputPermissionCategory,
   CommandPermissionLevel, CustomCommandStatus, EquipmentSlot} from '@minecraft/server';
 import {createExpansion} from './expansion.js';
-import {modeForSeed,parseFortressWaypoint} from './world-compat.js';
+import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear} from './world-compat.js';
 import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter} from './runner.js';
 import {createRunnerSpecial} from './runner-special.js';
 import {createSummon} from './summon.js';
@@ -140,6 +140,7 @@ function* buildLobby(p){
   building=true;
   const d=world.getDimension('overworld'),base=location(p);
   s.worldMode=modeForSeed(world.seed);
+  if(s.worldMode==='classic'&&!legacyLobbyAreaClear(d,Math.floor(base.x),Math.floor(base.z)))s.worldMode='portable';
   if(s.worldMode==='portable'){
     // External maps keep all blocks, terrain and the global world spawn untouched.
     if(p.dimension.id!=='minecraft:overworld')throw Error('외부 맵의 초기 설정은 오버월드에서 진행해 주세요.');

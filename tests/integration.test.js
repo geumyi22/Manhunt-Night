@@ -9,7 +9,7 @@ import {createSummon} from '../BP/scripts/summon.js';
 import {createTrackerCrafting} from '../BP/scripts/tracker-crafting.js';
 import {createTrackerDisplay,TRACKER_NAME} from '../BP/scripts/tracker-display.js';
 import * as core from '../BP/scripts/core.js';
-import {modeForSeed,parseFortressWaypoint} from '../BP/scripts/world-compat.js';
+import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,ORIGINAL_MANHUNT_SEED} from '../BP/scripts/world-compat.js';
 
 // The pre-1.5 tests exercise the explicitly retained legacy compass mode and 3-life setting.
 // Fresh-world 1.5 tests below pass fresh=true and use the new random-crafting defaults.
@@ -32,7 +32,7 @@ function harness(saved,fresh=false,count=3){
  const world={getAllPlayers:()=>people,getDimension:n=>dims.get(n.startsWith('minecraft:')?n:'minecraft:'+n),getDynamicProperty:()=>data,setDynamicProperty:(_,v)=>data=v,gameRules:{},setDefaultSpawnLocation(){},setTimeOfDay(){},sendMessage:m=>messages.push(m),afterEvents:events,beforeEvents:events};
  const system={get currentTick(){return tick;},beforeEvents:events,run:fn=>tasks.push(fn),runTimeout:fn=>tasks.push(fn),runInterval:(fn,ticks)=>intervals.push({fn,ticks}),clearRun(){},runJob:gen=>{for(const _ of gen){}}};
  class Form{constructor(){this.buttons=[];}title(text){this.titleText=text;return this;}body(text){this.bodyText=text;return this;}button(text){this.buttons.push(text);return this;}button1(text){this.buttons[0]=text;return this;}button2(text){this.buttons[1]=text;return this;}slider(){return this;}toggle(){return this;}dropdown(){return this;}textField(){return this;}show(player){shownForms.push({player:player.name,title:this.titleText,body:this.bodyText,buttons:[...this.buttons]});const response=formResponses.shift()??{canceled:true};return Promise.resolve(typeof response==='function'?response():response);}}
- const context={...core,modeForSeed,parseFortressWaypoint,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
+ const context={...core,modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
  const text=fs.readFileSync(new URL('../BP/scripts/main.js',import.meta.url),'utf8').replace(/import[\s\S]*?from ['"][^'"]+['"];\r?\n/g,'');
  vm.runInNewContext(text+'\nglobalThis.testApi={startRound,pause,resume,reset,initializePlayer,settings,settingsSection,extraSettings,diagnostics,showMenu,recoverSummon,runnerRules,runnerSpecial,trackerCraft,trackerDisplay,summon,getState:()=>s,getErrors:()=>lastErrors,fortressSetup};',context);
  const components=new Map();event('startup').emit({itemComponentRegistry:{registerCustomComponent:(id,handler)=>components.set(id,handler)},customCommandRegistry:{registerCommand:(d,f)=>commands.set(d.name,{d,f})}});event('worldLoad').emit({});
@@ -711,4 +711,11 @@ test('portable host can record a real Nether waypoint without modifying other me
  await h.api.fortressSetup(owner);
  assert.equal(h.saved.fortressWaypoint.x,-321);assert.equal(h.saved.fortressWaypoint.z,1120);
  assert.equal(h.saved.config.trackerRevealMinutes,20,'tracker system unchanged');
+});
+
+test('modified map sharing original seed never overwrites occupied Y=304 blocks',()=>{
+ const h=harness(),p=h.people[0],s=h.api.getState();h.world.seed=ORIGINAL_MANHUNT_SEED;s.lobby=null;s.start=null;
+ h.dims.get('minecraft:overworld').getBlock=pos=>({typeId:pos.y===304?'minecraft:chest':'minecraft:air'});
+ h.dims.get('minecraft:overworld').getTopmostBlock=()=>{throw Error('must not build legacy platform above other structures');};
+ h.api.initializePlayer(p);h.flush();assert.equal(h.saved.worldMode,'portable');assert.equal(h.api.getErrors().size,0);
 });
