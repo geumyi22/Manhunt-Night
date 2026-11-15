@@ -107,6 +107,12 @@ test('portable fortress arrival requires a registered waypoint and nearby nether
  r.location={x:700,y:67,z:-900};h.dims.nether.getBlock=()=>({typeId:'minecraft:nether_brick'});
  assert.equal(h.x.enteredFortress(r),false,'no waypoint means no false positive on player-built nether brick');
  h.s.fortressWaypoint={x:700,z:-900};assert.equal(h.x.enteredFortress(r),true);
- r.location.x=810;assert.equal(h.x.enteredFortress(r),false,'far from selected fortress');
+ r.location.x=900;assert.equal(h.x.enteredFortress(r),false,'far from selected fortress');
  h.dims.nether.getBlock=()=>({typeId:'minecraft:stone'});r.location.x=700;assert.equal(h.x.enteredFortress(r),false);
+});
+
+test('one decorative nether brick near a waypoint is not sufficient for fortress arrival',()=>{
+ const h=setup(),r=h.people[0];h.s.worldMode='portable';h.s.fortressWaypoint={x:700,z:-900};r.dimension=h.dims.nether;r.location={x:700,y:67,z:-900};
+ h.dims.nether.getBlock=loc=>({typeId:loc.x===700&&loc.z===-900&&loc.y===66?'minecraft:nether_brick':'minecraft:air'});
+ assert.equal(h.x.enteredFortress(r),false);
 });

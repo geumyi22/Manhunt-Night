@@ -36,10 +36,19 @@ export function createExpansion(world,system,state,api){
  }
  function enteredFortress(p){if(p.dimension.id!=='minecraft:nether')return false;const s=state(),l=p.location;
   const portable=s.worldMode==='portable',waypoint=s.fortressWaypoint;
-  // Unknown maps require a verified waypoint. An isolated player-built nether-brick is not evidence of a generated fortress.
-  if(portable&&(!validFortressWaypoint(waypoint)||Math.abs(l.x-waypoint.x)>64||Math.abs(l.z-waypoint.z)>64))return false;
+  if(portable){
+   // External worlds need a user-verified waypoint; no seed-wide fortress is inferred from arbitrary bricks.
+   if(!validFortressWaypoint(waypoint)||Math.abs(l.x-waypoint.x)>192||Math.abs(l.z-waypoint.z)>192)return false;
+   let bricks=0;
+   for(let dx=-2;dx<=2;dx++)for(let dz=-2;dz<=2;dz++)for(let dy=-1;dy<=0;dy++){
+    let type;try{type=p.dimension.getBlock({x:Math.floor(l.x)+dx,y:Math.floor(l.y)+dy,z:Math.floor(l.z)+dz})?.typeId;}catch{return false;}
+    if(['minecraft:nether_brick','minecraft:nether_brick_stairs','minecraft:nether_brick_fence'].includes(type))bricks++;
+   }
+   return bricks>=6;
+  }
   for(let dy=-2;dy<=1;dy++){const y=Math.floor(l.y)+dy;
-   if(!portable){const cell=`${Math.floor(l.x/4)},${Math.floor(y/4)},${Math.floor(l.z/4)}`;if(!floorCells.has(cell))continue;}
+   const cell=`${Math.floor(l.x/4)},${Math.floor(y/4)},${Math.floor(l.z/4)}`;
+   if(!floorCells.has(cell))continue;
    let type;try{type=p.dimension.getBlock({x:Math.floor(l.x),y,z:Math.floor(l.z)})?.typeId;}catch{return false;}
    if(['minecraft:nether_brick','minecraft:nether_brick_stairs','minecraft:nether_brick_fence'].includes(type))return true;
   }return false;
