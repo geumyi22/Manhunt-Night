@@ -19,7 +19,7 @@ const deadPlayers=new Set();
 const knownPlayerNames=new Map();
 const enabled=key=>featureOn(s.config,key);
 const runnerRules=createRunnerRules(world,system,()=>s,{tell,report,isDead:p=>deadPlayers.has(p.name)});
-const expansion=createExpansion(world,system,()=>s,{tell,inventory,ItemStack,report,isDead:p=>deadPlayers.has(p.name)});
+const expansion=createExpansion(world,system,()=>s,{tell,inventory,ItemStack,report,save,isDead:p=>deadPlayers.has(p.name)});
 const runnerSpecial=createRunnerSpecial(world,system,()=>s,{inventory,tell,report,save,isAdmin:p=>isHost(p),isDead:p=>deadPlayers.has(p.name)});
 const summon=createSummon(world,system,()=>s,{inventory,tell,report,save,isAdmin:p=>isHost(p),isDead:p=>deadPlayers.has(p.name)});
 const trackerCraft=createTrackerCrafting(world,system,()=>s,{inventory,tell,report,save,ItemStack,makeTracker:()=>makeTool('mh:tracker_0'),isDead:p=>deadPlayers.has(p.name)});
@@ -376,6 +376,7 @@ const GROUPS=[
   {title:'④ 월드 / 안내 / 보상',fields:[
     ['feature','borders','월드 구역 경계 제한'],
     ['feature','fortressHint','러너 요새 좌표 힌트'],
+     ['feature','fortressAuto','네더 요새 자동 발견 (탐험한 지역만)'],
     ['feature','endReward','러너 엔드 첫 입장 눈 32개 보상']]},
   {title:'⑤ 신호 수신기',fields:[
     ['feature','receiver','러너 신호 수신기 사용'],
@@ -545,8 +546,9 @@ async function fortressSetup(p){
  if(!isHost(p))return;
  if(s.worldMode!=='portable'){tell(p,'원본 월드는 기존 요새 지도를 사용합니다. 다른 시드에서 새로 생성한 월드에 애드온을 적용했을 때 사용하세요.');return;}
  const current=s.fortressWaypoint;
+ const autoCount=Array.isArray(s.autoFortresses)?s.autoFortresses.length:0;
  const menu=new ActionFormData().title('다른 맵 · 네더 요새 좌표')
-  .body(`현재 등록: ${current?`X ${current.x}, Z ${current.z}`:'없음'}\\n네더에서 /locate structure fortress 명령으로 실제 X/Z를 확인한 뒤 등록하세요. 미등록일 경우 잘못된 좌표를 안내하지 않습니다.`)
+  .body(`수동 등록: ${current?`X ${current.x}, Z ${current.z}`:'없음'}\\n자동 발견: ${autoCount}곳 (탐험한 네더 구역에서만 감지)\\n실제 요새를 찾지 못하면 네더에서 /locate structure fortress를 사용해 X/Z를 확인하고 등록하세요.`)
   .button('X/Z 좌표 직접 입력').button('현재 네더 위치로 등록').button('등록 좌표 삭제').button('취소');
  const r=await form(p,menu);if(!r||r.canceled||!isHost(p))return;
  if(r.selection===0){
@@ -578,7 +580,7 @@ function completeRunnerRespawn(p){if(p.name!==s.runner||!s.runnerRespawning||(!r
 }
 async function runnerHelp(p){await form(p,new ActionFormData().title('러너 규칙 · v1.7.0 (설정 변경 가능)').body('기본 최대 체력: 하트 20개(두 줄), 포만감 I.\n\n도주 유예 중에는 포만감 V·재생 I·느린 낙하 I. 유예 종료 시 임시 효과가 사라지고 포만감 I만 유지됩니다.\n\n새 월드 기본: 야생 사망 2회 부활, 참가 헌터에게 처치되면 즉시 패배. 러너 부활 토템(주변 네더라이트 주괴 8개 + 중앙 불사의 토템) 사용 시 1회 추가, 경기 누적 최대 3회. 재접속 후에도 횟수 유지, 부활 체력 회복. 기존 월드는 부활 설정을 보존합니다.\n\n같은 차원의 가장 가까운 헌터를 3차원 거리 90·60·40·10블록의 네 단계로 감지합니다. 단계 진입 시 러너에게만 알리고, 구간별 쿨다운으로 반복 알림을 제한합니다. 거리와 소리는 설정에서 조절합니다.\n\n경기 전 게임 설정에서 인벤세이브를 선택할 수 있습니다. 새 경기/로비 초기화의 소지품 초기화는 그대로 적용됩니다.').button('확인'));}
 
-world.afterEvents.entitySpawn.subscribe(e=>trackerCraft.spawned(e.entity));
+world.afterEvents.entitySpawn.subscribe(e=>{trackerCraft.spawned(e.entity);attempt('fortress discovery',()=>expansion.entitySpawned(e));});
 world.afterEvents.entityItemDrop.subscribe(e=>attempt('tracker crafting',()=>trackerCraft.drop(e)));
 world.afterEvents.playerInventoryItemChange.subscribe(e=>trackerDisplay.changed(e));
 // Update the owner's whole carried compass set at 10 Hz; one direction calculation per hunter.

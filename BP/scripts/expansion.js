@@ -1,6 +1,7 @@
 import {RECEIVER,newExtra,inBounds,closestFortress,hintReason} from './expansion-core.js';
 import {FORTRESS_FLOOR_CELLS} from './fortress-map.js';
 import {borderCenter,validFortressWaypoint} from './world-compat.js';
+import {naturalFortressSpawn,fortressBrickEvidence,rememberAutoFortress,nearestAutoFortress} from './fortress-detect.js';
 
 // Stable API implementation: no beta natural-structure detection dependency.
 export function createExpansion(world,system,state,api){
@@ -21,11 +22,34 @@ export function createExpansion(world,system,state,api){
   if(!enabled('fortressHint'))return;
   const s=state(),e=extra(),r=runner(),reason=hintReason(e,s.seconds);
   if(!r||!reason)return;
-  const f=s.worldMode==='portable'?(validFortressWaypoint(s.fortressWaypoint)?s.fortressWaypoint:null):closestFortress(r.location,r.dimension.id);
-  // A fixed seed's coordinates are never shown as if they were measured on another map.
-  if(!f){if(!e.missingWaypointNotified){tell(r,'§e[요새 안내] 이 월드의 네더 요새 좌표가 아직 확인되지 않았습니다. 호스트가 /locate structure fortress 결과를 관리 메뉴에 등록하면 정확한 좌표를 안내합니다.');e.missingWaypointNotified=true;}return;}
-  tell(r,`§a[러너 전용] ${reason}\n§e네더 요새 좌표: X ${f.x}, Z ${f.z} §7(${s.worldMode==='portable'?'호스트 등록 좌표':'원본 맵 좌표'}, 네더 기준, 높이는 현장에서 확인)`);
+  const manual=s.worldMode==='portable'&&validFortressWaypoint(s.fortressWaypoint);
+  const f=s.worldMode==='portable'
+   ?(manual?s.fortressWaypoint:nearestAutoFortress(s.autoFortresses,r.location,r.dimension.id))
+   :closestFortress(r.location,r.dimension.id);
+  // Unexplored fortresses cannot be located from the stable Script API. Never fabricate coordinates.
+  if(!f){if(!e.missingWaypointNotified){tell(r,'§e[요새 안내] 아직 네더 요새 좌표가 확인되지 않았습니다. 탐험 중 자동 발견을 시도하며, 호스트는 /locate structure fortress 결과를 수동 등록할 수 있습니다.');e.missingWaypointNotified=true;}return;}
+  const source=s.worldMode==='portable'?(manual?'호스트 확인 좌표':'탐험 중 발견한 위치 · 자동 추정'):'원본 맵 좌표';
+  tell(r,`§a[러너 전용] ${reason}\n§e네더 요새 위치: X ${f.x}, Z ${f.z} §7(${source}, 네더 기준, 높이는 현장에서 확인)`);
   e.hintSent=true;e.hintReason='';e.missingWaypointNotified=false;
+ }
+ function entitySpawned(event){
+  const s=state();
+  if(!playable()||s.worldMode!=='portable'||!enabled('fortressHint')||!enabled('fortressAuto'))return false;
+  if(!naturalFortressSpawn(event))return false;
+  const entity=event.entity,position=entity.location;
+  if(!participants().some(p=>alive(p)&&p.dimension.id==='minecraft:nether'
+       &&Math.abs(p.location.y-position.y)<=64&&Math.hypot(p.location.x-position.x,p.location.z-position.z)<=96))return false;
+  if(!fortressBrickEvidence(entity.dimension,position))return false;
+  const point={x:Math.floor(position.x),z:Math.floor(position.z)};
+  const before=s.autoFortresses;
+  const next=rememberAutoFortress(before,point);
+  if(!next.added)return false;
+  s.autoFortresses=next.spots;
+  try{api.save?.();}catch(err){s.autoFortresses=before;report('fortress auto save',err);return false;}
+  // Recording is silent: no hunter-only discovery message can leak the runner's upcoming hint.
+  // If the 40-minute or hunter-first trigger already fired, send the pending hint to the runner now.
+  if(hintReason(extra(),s.seconds))sendHint();
+  return true;
  }
  function dimensionChanged(e){clearCamera(e.player);if(signal?.runner===e.player.name)clearAll();if(!playable()||!state().roster.includes(e.player.name))return;
   if(enabled('fortressHint')&&e.toDimension.id==='minecraft:nether'){
@@ -38,7 +62,8 @@ export function createExpansion(world,system,state,api){
   const portable=s.worldMode==='portable',waypoint=s.fortressWaypoint;
   if(portable){
    // External worlds need a user-verified waypoint; no seed-wide fortress is inferred from arbitrary bricks.
-   if(!validFortressWaypoint(waypoint)||Math.abs(l.x-waypoint.x)>192||Math.abs(l.z-waypoint.z)>192)return false;
+   const spots=validFortressWaypoint(waypoint)?[waypoint]:(Array.isArray(s.autoFortresses)?s.autoFortresses:[]);
+   if(!spots.some(spot=>validFortressWaypoint(spot)&&Math.abs(l.x-spot.x)<=192&&Math.abs(l.z-spot.z)<=192))return false;
    let bricks=0;
    for(let dx=-2;dx<=2;dx++)for(let dz=-2;dz<=2;dz++)for(let dy=-1;dy<=0;dy++){
     let type;try{type=p.dimension.getBlock({x:Math.floor(l.x)+dx,y:Math.floor(l.y)+dy,z:Math.floor(l.z)+dz})?.typeId;}catch{return false;}
@@ -86,5 +111,5 @@ export function createExpansion(world,system,state,api){
   }
  }
  function second(){if(!playable()||!enabled('fortressHint'))return;const r=runner();if(r&&alive(r)&&!extra().fortressEntered&&enteredFortress(r)){extra().fortressEntered=true;tell(r,'§a네더 요새 도착 확인!');}sendHint();}
- return {reset,joined,clearCamera,clearAll,dimensionChanged,useReceiver,tick,second,enteredFortress,grantEnd};
+ return {reset,joined,clearCamera,clearAll,dimensionChanged,entitySpawned,useReceiver,tick,second,enteredFortress,grantEnd};
 }
