@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {modeForSeed,borderCenter,parseFortressWaypoint,validFortressWaypoint,legacyLobbyAreaClear,ORIGINAL_MANHUNT_SEED} from '../BP/scripts/world-compat.js';
+import {modeForSeed,borderCenter,parseFortressWaypoint,validFortressWaypoint,legacyLobbyAreaClear,lobbySites,ORIGINAL_MANHUNT_SEED} from '../BP/scripts/world-compat.js';
 import {inBounds} from '../BP/scripts/expansion-core.js';
 
 test('original seed keeps classic mode and all other seeds choose portable',()=>{
@@ -28,4 +28,12 @@ test('legacy platform footprint is checked before overwriting any existing map b
  assert.equal(legacyLobbyAreaClear({getBlock:p=>({typeId:p.x===7&&p.y===307&&p.z===-5?'minecraft:chest':'minecraft:air'})},0,0),false);
  assert.equal(legacyLobbyAreaClear({getBlock:()=>undefined},0,0),false);
  assert.equal(legacyLobbyAreaClear({getBlock:()=>{throw Error('unloaded');}},0,0),false);
+});
+
+test('lobby search prioritizes original Y304 location, then safe nearby spots and lower alternatives',()=>{
+ const locations=lobbySites(20,-40);
+ assert.deepEqual(locations[0],{cx:20,cz:-40,y:304});
+ assert(locations.some(loc=>loc.cx===52&&loc.cz===-40&&loc.y===304));
+ assert(locations.some(loc=>loc.cx===20&&loc.cz===-40&&loc.y===288));
+ assert.equal(new Set(locations.map(loc=>JSON.stringify(loc))).size,locations.length);
 });
