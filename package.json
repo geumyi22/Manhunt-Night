@@ -1,6 +1,6 @@
 {
   "name": "manhunt-night",
-  "version": "1.7.0",
+  "version": "1.7.5",
   "private": true,
   "type": "module",
   "devDependencies": {

@@ -2,12 +2,12 @@
   "format_version": 2,
   "header": {
     "name": "Manhunt Night · 추적기",
-    "description": "Manhunt Night v1.7.0 Pre-release · Bedrock 26.62 · 2~8인 맨헌트",
+    "description": "Manhunt Night v1.7.5 Pre-release · Bedrock 26.62 · 2~8인 맨헌트",
     "uuid": "b3f59241-6fa7-4eef-9273-375b64d7c929",
     "version": [
       1,
       7,
-      0
+      5
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         7,
-        0
+        5
       ]
     }
   ],

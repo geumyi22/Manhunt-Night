@@ -2,12 +2,12 @@
   "format_version": 2,
   "header": {
     "name": "Manhunt Night · 게임 시스템",
-    "description": "Manhunt Night v1.7.0 Pre-release · Bedrock 26.62 · 2~8인 맨헌트",
+    "description": "Manhunt Night v1.7.5 Pre-release · Bedrock 26.62 · 2~8인 맨헌트",
     "uuid": "514dff1a-f0c7-4715-9083-1bf1365ba388",
     "version": [
       1,
       7,
-      0
+      5
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         7,
-        0
+        5
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         7,
-        0
+        5
       ],
       "entry": "scripts/main.js"
     }
@@ -51,7 +51,7 @@
       "version": [
         1,
         7,
-        0
+        5
       ]
     }
   ],

@@ -47,6 +47,6 @@ jobs:
           node tools/verify.mjs
       - uses: actions/upload-artifact@v4
         with:
-          name: Manhunt-Night-v1.7.0-portable-world-preview
+          name: Manhunt-Night-v1.7.5-portable-world-preview
           path: dist/
           if-no-files-found: error

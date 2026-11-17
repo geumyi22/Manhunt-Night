@@ -1,6 +1,6 @@
-# v1.7.0 Pre-release 빌드
+# v1.7.5 Pre-release 빌드
 
-이 브랜치는 다른 시드 호환성을 시험합니다. GitHub Actions는 기존 [v1.6.0 Stable](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)의 .mcworld을 읽기 전용 기반으로 다운로드해 새 dist/에 v1.7.0 파일을 생성·검증합니다. 기존 Stable 릴리스는 변경하지 않습니다.
+이 브랜치는 다른 시드 호환성을 시험합니다. GitHub Actions는 기존 [v1.6.0 Stable](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)의 .mcworld을 읽기 전용 기반으로 다운로드해 새 dist/에 v1.7.5 파일을 생성·검증합니다. 기존 Stable 릴리스는 변경하지 않습니다.
 
 ---
 
