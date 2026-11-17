@@ -37,8 +37,16 @@ jobs:
         run: |
           node tools/build.mjs --addon-only
           node tools/verify.mjs --addon-only
+      - name: Build full world from preserved v1.6.0 release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p /tmp/manhunt-base
+          gh release download v1.6.0 -R "$GITHUB_REPOSITORY" -p 'Manhunt_Night_v1.6.0.mcworld' --dir /tmp/manhunt-base
+          node tools/build.mjs --base /tmp/manhunt-base/Manhunt_Night_v1.6.0.mcworld
+          node tools/verify.mjs
       - uses: actions/upload-artifact@v4
         with:
-          name: Manhunt-Night-v1.6.0-addon-and-source
+          name: Manhunt-Night-v1.7.5-stable-candidate
           path: dist/
           if-no-files-found: error

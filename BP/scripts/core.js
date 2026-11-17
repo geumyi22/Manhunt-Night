@@ -1,5 +1,5 @@
 import {newExtra} from './expansion-core.js';
-export const VERSION = '1.6.0';
+export const VERSION = '1.7.5';
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 8;
 export const TRACKER_UNLOCK_SECONDS = 15 * 60;
@@ -8,7 +8,7 @@ export const FEATURE_DEFAULTS = Object.freeze({
   autoPause:true,kitControls:true,lobbyMenuItem:true,
   tracker:true,trackerDelay:true,craftCompass:true,lastKnown:true,dimensionNotice:true,teammateHud:true,
   runnerHealth:true,runnerSaturation:true,graceBuffs:true,wildRespawns:true,proximityWarning:true,
-  borders:true,fortressHint:true,endReward:true,receiver:true,receiverCamera:true,receiverBeam:true,reviveItem:true,summon:true
+  borders:true,fortressHint:true,fortressAuto:true,endReward:true,receiver:true,receiverCamera:true,receiverBeam:true,reviveItem:true,summon:true
 });
 export const DEFAULT_CONFIG = Object.freeze({configVersion:2,grace:60,food:8,friendlyFire:false,keepInventory:false,trackerDelayMinutes:15,
  trackerMode:'random',randomCrafting:true,trackerRevealMinutes:20,trackerAutoMinutes:40,trackerAutoGive:true,
@@ -30,7 +30,7 @@ export const DIM_NAMES = {'minecraft:overworld':'오버월드','minecraft:nether
 export function newState() {
   return {schema:1, phase:'lobby', host:'', runner:'', choice:'', roster:[], config:normalizeConfig(),
     seconds:0, remaining:0, previous:'running', routes:{}, deaths:{}, wins:{}, round:0, practice:false,
-    start:null, lobby:null, result:'', kit:null, runnerRespawns:0,runnerLifeBonus:0,revivePending:null,trackerCraft:null,summon:null, runnerRespawning:false, pendingRunnerVictory:false,pendingOutcome:null, dragonDefeated:false, extra:newExtra()};
+    start:null, startAnchor:null,lobby:null, lobbyBuilt:false,worldMode:'classic',fortressWaypoint:null,autoFortresses:[], result:'', kit:null, runnerRespawns:0,runnerLifeBonus:0,revivePending:null,trackerCraft:null,summon:null, runnerRespawning:false, pendingRunnerVictory:false,pendingOutcome:null, dragonDefeated:false, extra:newExtra()};
 }
 export function validateStart(names, runner, practice=false) {
   if (new Set(names).size !== names.length) return '참가자가 중복되었습니다.';

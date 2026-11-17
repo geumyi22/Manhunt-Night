@@ -1,6 +1,8 @@
 import {world, system, Player, ItemStack, ItemLockMode, GameMode, InputPermissionCategory,
   CommandPermissionLevel, CustomCommandStatus, EquipmentSlot} from '@minecraft/server';
 import {createExpansion} from './expansion.js';
+import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites} from './world-compat.js';
+import {findSafeGroundStart} from './start-ground.js';
 import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter} from './runner.js';
 import {createRunnerSpecial} from './runner-special.js';
 import {createSummon} from './summon.js';
@@ -18,7 +20,7 @@ const deadPlayers=new Set();
 const knownPlayerNames=new Map();
 const enabled=key=>featureOn(s.config,key);
 const runnerRules=createRunnerRules(world,system,()=>s,{tell,report,isDead:p=>deadPlayers.has(p.name)});
-const expansion=createExpansion(world,system,()=>s,{tell,inventory,ItemStack,report,isDead:p=>deadPlayers.has(p.name)});
+const expansion=createExpansion(world,system,()=>s,{tell,inventory,ItemStack,report,save,isDead:p=>deadPlayers.has(p.name)});
 const runnerSpecial=createRunnerSpecial(world,system,()=>s,{inventory,tell,report,save,isAdmin:p=>isHost(p),isDead:p=>deadPlayers.has(p.name)});
 const summon=createSummon(world,system,()=>s,{inventory,tell,report,save,isAdmin:p=>isHost(p),isDead:p=>deadPlayers.has(p.name)});
 const trackerCraft=createTrackerCrafting(world,system,()=>s,{inventory,tell,report,save,ItemStack,makeTracker:()=>makeTool('mh:tracker_0'),isDead:p=>deadPlayers.has(p.name)});
@@ -131,40 +133,94 @@ function movement(p,enabled){p.inputPermissions.setPermissionCategory(InputPermi
 function heal(p){for(const e of p.getEffects())p.removeEffect(e.typeId);p.extinguishFire();runnerRules.sync(p,true);if(!runnerRules.eligible(p))p.addEffect('saturation',20,{amplifier:10,showParticles:false});}
 function clearPlayer(p){inventory(p)?.clearAll();const eq=p.getComponent('minecraft:equippable');for(const slot of [EquipmentSlot.Head,EquipmentSlot.Chest,EquipmentSlot.Legs,EquipmentSlot.Feet,EquipmentSlot.Offhand])eq?.setEquipment(slot);p.resetLevel();heal(p);}
 function teleport(p,loc){p.teleport(loc,{dimension:world.getDimension('overworld'),rotation:{x:0,y:0}});}
-function lobbyPlayer(p,clear=false){if(!s.lobby)return;runnerRules.clear(p);if(clear)clearPlayer(p);movement(p,true);p.setGameMode(GameMode.Adventure);teleport(p,s.lobby);p.setSpawnPoint({...s.lobby,dimension:world.getDimension('overworld')});stripTools(p);ensureMenu(p);}
+function lobbyPlayer(p,clear=false){if(!s.lobby)return;runnerRules.clear(p);if(clear)clearPlayer(p);movement(p,true);p.setGameMode(GameMode.Adventure);teleport(p,s.lobby);if(s.worldMode!=='portable')p.setSpawnPoint({...s.lobby,dimension:world.getDimension('overworld')});stripTools(p);ensureMenu(p);}
 function titleAll(title,subtitle){for(const p of players())attempt('title',()=>p.onScreenDisplay.setTitle(title,{subtitle,stayDuration:60,fadeInDuration:5,fadeOutDuration:15}));}
 function sound(id){for(const p of players())attempt('sound',()=>p.playSound(id));}
 
 function* buildLobby(p){
   building=true;
-  const d=world.getDimension('overworld'), base=location(p);
-  let top=d.getTopmostBlock({x:Math.floor(base.x),z:Math.floor(base.z)});
-  if(!top)throw Error('시작 지형이 아직 로드되지 않았습니다.');
-  s.start={x:Math.floor(base.x)+0.5,y:top.location.y+1,z:Math.floor(base.z)+0.5};
-  // A separate platform above the new world's spawn; keep all source terrain intact.
-  const cx=Math.floor(base.x),cz=Math.floor(base.z),y=304;
-  s.lobby={x:cx+0.5,y:y+1,z:cz+0.5};
-  d.runCommand(`tickingarea add circle ${cx} ${y} ${cz} 2 mh_lobby true`);
+  if(p.dimension.id!=='minecraft:overworld')throw Error('로비는 오버월드에서만 생성할 수 있습니다.');
+  const d=world.getDimension('overworld'),base=location(p);
+  const mode=modeForSeed(world.seed);
+  const oldStart=s.start;
+  const anchor=s.startAnchor??(oldStart&&[oldStart.x,oldStart.y,oldStart.z].every(Number.isFinite)?oldStart:base);
+  let start=mode==='portable'?findSafeGroundStart(d,anchor):{...base};
+  if(mode==='classic'&&!oldStart){
+    const top=d.getTopmostBlock({x:Math.floor(base.x),z:Math.floor(base.z)});
+    if(!top)throw Error('원본 월드의 시작 지형이 아직 로드되지 않았습니다.');
+    start={x:Math.floor(base.x)+0.5,y:top.location.y+1,z:Math.floor(base.z)+0.5};
+  }else if(mode==='classic'&&oldStart&&[oldStart.x,oldStart.y,oldStart.z].every(Number.isFinite))start={...oldStart};
+  // Find a completely empty 21x21x6 volume. Never replace blocks of another map.
+  let chosen=null;
+  for(const site of lobbySites(Math.floor(base.x),Math.floor(base.z))){
+    if(legacyLobbyAreaClear(d,site.cx,site.cz,site.y)){chosen=site;break;}
+    yield; // Spread checks across ticks when the preferred site is occupied/unloaded.
+  }
+  if(!chosen)throw Error('주변에 안전한 로비 공간을 찾지 못했습니다. /mh:lobbycreate로 재시도하거나 오버월드의 열린 곳으로 이동해 주세요.');
+  const {cx,cz,y}=chosen;
+  const lobby={x:cx+0.5,y:y+1,z:cz+0.5};
+  // Re-check immediately before writing. Never clear protected blocks to make room.
+  if(!legacyLobbyAreaClear(d,cx,cz,y))throw Error('로비 후보 공간이 변경되었습니다. 안전한 공간에서 다시 시도하세요.');
+  // Create a ticking area only for the selected location, not for every candidate.
+  let lobbyAreaCreated=false;
+  try{
+    const result=d.runCommand(`tickingarea add circle ${cx} ${y} ${cz} 2 mh_lobby true`);
+    lobbyAreaCreated=result?.successCount!==0;
+  }catch(err){
+    report('lobby ticking area',err);
+    // An existing ticking area name may be reused; final block access still guards writes.
+  }
   yield;
-  for(let x=-10;x<=10;x++){
-    for(let z=-10;z<=10;z++){
-      const edge=Math.abs(x)===10||Math.abs(z)===10;
-      d.getBlock({x:cx+x,y,z:cz+z})?.setType(edge?'minecraft:sea_lantern':x<0?'minecraft:cyan_concrete':x>0?'minecraft:red_concrete':'minecraft:polished_deepslate');
-      for(let h=1;h<=5;h++)d.getBlock({x:cx+x,y:y+h,z:cz+z})?.setType(edge&&h<=2?'minecraft:glass':'minecraft:air');
-    }yield;
+  if(!legacyLobbyAreaClear(d,cx,cz,y)){
+    if(lobbyAreaCreated)try{d.runCommand('tickingarea remove mh_lobby');}catch(err){report('lobby ticking area cleanup',err);}
+    throw Error('로비 영역의 블록/청크가 변경되어 건설을 중단했습니다.');
   }
-  for(const [x,z] of [[-8,-8],[8,-8],[-8,8],[8,8]]){
-    for(let h=1;h<=4;h++)d.getBlock({x:cx+x,y:y+h,z:cz+z})?.setType('minecraft:polished_deepslate');
-    d.getBlock({x:cx+x,y:y+5,z:cz+z})?.setType('minecraft:sea_lantern');yield;
+  const placed=[];
+  try{
+    function setEmpty(x,yy,z,type){
+      const block=d.getBlock({x,y:yy,z});
+      if(!block||block.typeId!=='minecraft:air')throw Error(`로비 생성 중 점유된 블록 발견: ${x},${yy},${z}`);
+      block.setType(type);placed.push({x,y:yy,z,type});
+    }
+    for(let x=-10;x<=10;x++){
+      for(let z=-10;z<=10;z++){
+        const edge=Math.abs(x)===10||Math.abs(z)===10;
+        setEmpty(cx+x,y,cz+z,edge?'minecraft:sea_lantern':x<0?'minecraft:cyan_concrete':x>0?'minecraft:red_concrete':'minecraft:polished_deepslate');
+        // The original lobby's interior above the floor is empty by preflight; only its rim needs glass.
+        if(edge)for(let h=1;h<=2;h++)setEmpty(cx+x,y+h,cz+z,'minecraft:glass');
+      }
+      yield;
+    }
+    for(const [x,z]of[[-8,-8],[8,-8],[-8,8],[8,8]]){
+      for(let h=1;h<=4;h++)setEmpty(cx+x,y+h,cz+z,'minecraft:polished_deepslate');
+      setEmpty(cx+x,y+5,cz+z,'minecraft:sea_lantern');
+      yield;
+    }
+  }catch(err){
+    // Best-effort rollback of only the blocks we wrote, leaving any intervening edits untouched.
+    let failed=0;
+    for(const block of placed.reverse()){
+      try{const at=d.getBlock({x:block.x,y:block.y,z:block.z});
+        if(at?.typeId===block.type)at.setType('minecraft:air');
+      }catch{failed++;}
+    }
+    if(failed)report('lobby rollback incomplete',failed+' inaccessible cells; inspect the test world backup');
+    if(lobbyAreaCreated)try{d.runCommand('tickingarea remove mh_lobby');}catch(cleanupError){report('lobby ticking area cleanup',cleanupError);}
+    throw err;
   }
-  world.setDefaultSpawnLocation(s.lobby);
-  world.gameRules.pvp=true;world.gameRules.keepInventory=Boolean(s.config.keepInventory);world.gameRules.doImmediateRespawn=true;world.gameRules.spawnRadius=0;
-  world.gameRules.showCoordinates=false;world.gameRules.sendCommandFeedback=false;
-  d.runCommand('gamerule playerwaypoints off');
-  s.host=p.name;s.phase='lobby';save();building=false;
-  for(const q of players())lobbyPlayer(q,true);
-  say('§lMANHUNT NIGHT§r 준비 완료! 파란색은 러너, 빨간색은 헌터입니다.');
-  tell(p,'관리자입니다. 메뉴 아이템을 들고 웅크리거나 /mh:menu 를 입력하세요.');
+  // Only commit the saved lobby state after the whole structure was built.
+  s.worldMode=mode;s.start=start;s.startAnchor=mode==='portable'?{...anchor}:s.startAnchor;s.lobby=lobby;s.lobbyBuilt=true;
+  if(mode==='classic')world.setDefaultSpawnLocation(lobby);
+  if(mode==='classic'){
+    world.gameRules.pvp=true;world.gameRules.keepInventory=Boolean(s.config.keepInventory);
+    world.gameRules.doImmediateRespawn=true;world.gameRules.spawnRadius=0;
+    world.gameRules.showCoordinates=false;world.gameRules.sendCommandFeedback=false;
+    d.runCommand('gamerule playerwaypoints off');
+  }
+  s.host=s.host||p.name;s.phase='lobby';save();building=false;
+  for(const q of players())lobbyPlayer(q,false);
+  say('§lMANHUNT NIGHT§r 로비 준비 완료! 파란색은 러너, 빨간색은 헌터입니다.');
+  tell(p,'원본과 동일한 로비가 생성됐습니다. /mh:menu에서 설정하고 경기를 시작하세요.');
   console.warn(`[Manhunt ${VERSION}] READY lobby=${JSON.stringify(s.lobby)} start=${JSON.stringify(s.start)}`);
   system.runTimeout(()=>showMenu(p),40);
 }
@@ -173,7 +229,7 @@ function initializePlayer(p){
   if(!loaded||building)return;
   trackerDisplay.scan(p);summon.joined(p);runnerSpecial.joined();trackerCraft.joined(p);
   if(['lobby','ended'].includes(s.phase))normalizeMenu(p);else stripMenus(p);unlockExistingTrackers(p);
-  if(!s.lobby){if(!building)system.runJob((function*(){try{yield* buildLobby(p);}catch(e){building=false;report('build lobby',e);tell(p,'로비 준비 오류입니다. /mh:menu 로 다시 시도해 주세요.');}})());return;}
+  if(!s.lobby){if(!building)system.runJob((function*(){try{yield* buildLobby(p);}catch(e){building=false;report('build lobby',e);tell(p,'자동 로비 생성 실패: '+String(e)+'. 안전한 오버월드 위치에서 /mh:lobbycreate로 재시도할 수 있습니다.');}})());return;}
   if(!s.host){s.host=p.name;save();}
   if(s.phase==='lobby'||s.phase==='ended'){lobbyPlayer(p,false);return;}
   if(!member(p)){movement(p,true);p.setGameMode(GameMode.Spectator);tell(p,'진행 중인 경기에는 관전자로 입장합니다.');return;}
@@ -188,6 +244,22 @@ function applyPhase(p){
   const mode=waiting||s.phase==='paused'?GameMode.Adventure:GameMode.Survival;
   if(p.getGameMode()!==mode)p.setGameMode(mode);runnerRules.sync(p);
 }
+function portableStartFromTerrain(){
+  if(s.worldMode!=='portable')return s.start;
+  const anchor=s.startAnchor??s.start??s.lobby;
+  return findSafeGroundStart(world.getDimension('overworld'),anchor,s.lobby);
+}
+function verifyStartBeforeRelease(){
+  if(s.worldMode!=='portable')return Boolean(s.start);
+  const ground=portableStartFromTerrain();
+  if(!ground)return false;
+  if(!s.start||s.start.x!==ground.x||s.start.y!==ground.y||s.start.z!==ground.z){
+    s.start=ground;
+    for(const q of players())if(member(q))q.setSpawnPoint({...ground,dimension:world.getDimension('overworld')});
+    save();
+  }
+  return true;
+}
 function activeRules(){const d=world.getDimension('overworld');world.gameRules.pvp=true;world.gameRules.keepInventory=Boolean(s.config.keepInventory);world.gameRules.doImmediateRespawn=true;world.gameRules.spawnRadius=0;world.gameRules.doDayLightCycle=true;world.gameRules.doMobSpawning=true;d.runCommand('gamerule playerwaypoints off');d.runCommand('difficulty normal');}
 function startRound(p,practice=false){
   if(!isHost(p)||!['lobby','ended'].includes(s.phase))return;
@@ -197,7 +269,10 @@ function startRound(p,practice=false){
   const names=players().map(q=>q.name);const runner=practice?p.name:(s.choice||names[Math.floor(Math.random()*names.length)]);
   if(names.some(name=>deadPlayers.has(name))){tell(p,'모든 참가자가 부활한 뒤 시작해 주세요.');return;}
   const error=validateStart(names,runner,practice);if(error){tell(p,error);return;}
-  expansion.reset();s.runner=runner;s.roster=names;s.round++;s.practice=practice;s.seconds=0;s.remaining=5;s.phase='countdown';s.routes={};s.deaths={};s.result='';s.runnerRespawns=0;s.runnerLifeBonus=0;runnerSpecial.reset();trackerDisplay.reset();summon.reset();s.runnerRespawning=false;s.pendingRunnerVictory=false;s.pendingOutcome=null;s.kit={round:s.round,enabled:true,stored:{}};
+  // Inspect the actual ground BEFORE clearing inventory, counting a round, or resetting transactions.
+  const safeStart=s.worldMode==='portable'?portableStartFromTerrain():s.start;
+  if(!safeStart){tell(p,'§c경기 시작 취소: 이 맵에서 안전한 지면 출발 위치를 찾지 못했습니다. 지형을 확인한 뒤 다시 시작해 주세요. 인벤토리·전적은 변경하지 않았습니다.');return;}
+  expansion.reset();s.start=safeStart;s.runner=runner;s.roster=names;s.round++;s.practice=practice;s.seconds=0;s.remaining=5;s.phase='countdown';s.routes={};s.deaths={};s.result='';s.runnerRespawns=0;s.runnerLifeBonus=0;runnerSpecial.reset();trackerDisplay.reset();summon.reset();s.runnerRespawning=false;s.pendingRunnerVictory=false;s.pendingOutcome=null;s.kit={round:s.round,enabled:true,stored:{}};
   countdownDeadline=system.currentTick+100;countdownPausedTicks=undefined;gamePausedTicks=undefined;
   trackerCraft.startRound();activeRules();world.setTimeOfDay(1000);world.getDimension('overworld').runCommand('weather clear');
   for(const q of players()){clearPlayer(q);teleport(q,s.lobby);q.setSpawnPoint({...s.start,dimension:world.getDimension('overworld')});
@@ -228,10 +303,10 @@ function roundTimerTick(){
     say(enabled('craftCompass')?'§a추적 해금! 직접 제작한 나침반을 들면 추적기로 전환됩니다.':'§a추적 해금! 헌터에게 자동 HUD 추적이 시작됩니다.');sound('random.levelup');}
   trackerCraft.second();expansion.second();save();
 }
-function releaseRunner(){countdownDeadline=0;countdownPausedTicks=undefined;nextGameSecondTick=system.currentTick+20;s.phase=s.config.grace?'grace':'running';s.remaining=s.config.grace;const r=find(s.runner);if(r&&!deadPlayers.has(r.name)){teleport(r,s.start);heal(r);}
+function releaseRunner(){if(!verifyStartBeforeRelease()){pause('안전한 지면 출발 위치를 확인할 수 없습니다. 월드의 지형과 청크를 확인하세요.');return;}countdownDeadline=0;countdownPausedTicks=undefined;nextGameSecondTick=system.currentTick+20;s.phase=s.config.grace?'grace':'running';s.remaining=s.config.grace;const r=find(s.runner);if(r&&!deadPlayers.has(r.name)){teleport(r,s.start);heal(r);}
   if(!s.config.grace){releaseHunters();return;}
   for(const p of players())applyPhase(p);save();titleAll('§b러너 출발!',`헌터 출발까지 ${s.remaining}초`);sound('random.levelup');}
-function releaseHunters(){s.phase='running';s.remaining=0;for(const p of players()){if(hunter(p)){teleport(p,s.start);heal(p);}applyPhase(p);}save();titleAll('§c추격 시작','러너는 엔더드래곤을, 헌터는 러너를!');sound('raid.horn');}
+function releaseHunters(){if(!verifyStartBeforeRelease()){pause('헌터 출발 지점이 안전하지 않아 경기를 중단했습니다.');return;}s.phase='running';s.remaining=0;for(const p of players()){if(hunter(p)){teleport(p,s.start);heal(p);}applyPhase(p);}save();titleAll('§c추격 시작','러너는 엔더드래곤을, 헌터는 러너를!');sound('raid.horn');}
 function pause(reason){if(!running())return;
   if(s.phase==='countdown'){countdownPausedTicks=Math.max(0,countdownDeadline-system.currentTick);s.remaining=Math.ceil(countdownPausedTicks/20);countdownDeadline=0;}
   else gamePausedTicks=Math.max(0,nextGameSecondTick-system.currentTick);
@@ -276,7 +351,7 @@ async function showMenu(p){
   if(!loaded)return;
   if(!s.lobby){initializePlayer(p);return;}
   const status={lobby:'대기실',countdown:'출발 준비',grace:'러너 도주 중',running:'추격 중',paused:'일시정지',ended:s.result}[s.phase];
-  const f=new ActionFormData().title('§lMANHUNT NIGHT').body(`§b${status}§r  ·  ${clock(s.seconds)}\n러너: ${s.runner||'시작 시 무작위'}\n접속 ${players().length}명 · 관리자 ${s.host}\n\n§7게임 중 메뉴 아이템 없음 · /mh:menu 사용\n§7시작 지급품: /mh:kitoff · /mh:kiton (누구나 전원 적용)`);
+  const f=new ActionFormData().title('§lMANHUNT NIGHT').body(`§b${status}§r  ·  ${clock(s.seconds)}\n러너: ${s.runner||'시작 시 무작위'}\n접속 ${players().length}명 · 관리자 ${s.host}\n\n§7Stable v1.7.5 · 지면 출발 보정\n§7게임 중 메뉴 아이템 없음 · /mh:menu 사용\n§7시작 지급품: /mh:kitoff · /mh:kiton (누구나 전원 적용)`);
   const actions=[];const add=(label,fn)=>{f.button(label);actions.push(fn);};
   if(isHost(p)){
     if(['lobby','ended'].includes(s.phase)){
@@ -288,6 +363,7 @@ async function showMenu(p){
     if(s.phase==='paused')add('§a경기 재개',()=>resume(p));
     if(s.phase!=='lobby')add('로비로 / 경기 초기화',()=>confirm(p,'경기 초기화','모두 로비로 이동하고 소지품·장비·경험치가 초기화됩니다. 지형·상자·드래곤은 복원되지 않습니다.',()=>reset(p)));
   }
+  if(isHost(p))add('다른 맵 / 네더 요새 좌표 관리',()=>fortressSetup(p));
   if(s.phase==='ended')add('로비로 이동',()=>lobbyPlayer(p,false));
   if(isHost(p)&&s.trackerCraft?.pending)add('중단된 제작 거래 확인 / 복구',()=>recoverCraft(p));
   if(isHost(p)&&summon.hasPending())add('중단된 소집 복구',()=>recoverSummon(p));
@@ -321,6 +397,7 @@ const GROUPS=[
   {title:'④ 월드 / 안내 / 보상',fields:[
     ['feature','borders','월드 구역 경계 제한'],
     ['feature','fortressHint','러너 요새 좌표 힌트'],
+     ['feature','fortressAuto','네더 요새 자동 발견 (탐험한 지역만)'],
     ['feature','endReward','러너 엔드 첫 입장 눈 32개 보상']]},
   {title:'⑤ 신호 수신기',fields:[
     ['feature','receiver','러너 신호 수신기 사용'],
@@ -355,7 +432,7 @@ async function settingsSection(p,index){
   if(group.fields.some(field=>field[1]==='lobbyMenuItem'))for(const q of players())enabled('lobbyMenuItem')?ensureMenu(q):stripMenus(q);
   tell(p,`${group.title} 설정 저장 완료. 다음 경기부터 적용됩니다.`);
 }
-async function help(p){await form(p,new ActionFormData().title('맨헌트 규칙 · v1.5').body(
+async function help(p){await form(p,new ActionFormData().title('맨헌트 규칙 · v1.7.5').body(
   '§b승패§r: 러너가 살아 있는 동안 엔더 드래곤이 죽으면 러너 승리, 러너의 최종 사망은 헌터 승리입니다. 이 핵심 규칙은 끌 수 없습니다.\n\n§e옵션 기능§r: 로비에서 관리자 → 게임 설정 → ①기본 경기, ②추적/헌터, ③러너, ④월드, ⑤수신기 항목별로 ON/OFF. 다음 경기부터 적용됩니다.\n\n§e추적§r: 새 월드는 20분에 헌터에게 무작위 제작법 공개, 순서대로 투척해 팀 공동 제작, 미완성 팀은 40분에 1인 1개 지급합니다. /mh:trackerrecipe · /mh:craft. 분실 시 기본 재지급 없음. 기존 월드는 저장된 추적 방식을 유지하며 설정에서 변경합니다.\n\n§a러너§r: 추가 체력, 포만감, 도주 유예 버프, 야생 사망 기본 2회 부활, 4단계 접근 경보를 각각 끌 수 있습니다. 부활을 끄면 첫 사망에 패배합니다.\n\n§d추가 기능§r: 경계 제한, 요새 힌트, 엔드 보상, 수신기(카메라/광선 분리), 자동 일시정지, 시작 지급품 제어를 설정할 수 있습니다.\n\n경기 중 메뉴 아이템은 제거되고 /mh:menu 명령어로 관리 메뉴를 열 수 있습니다. 지급품 제어가 켜져 있다면 /mh:kitoff · /mh:kiton을 이용하세요.\n\n새로운 지형·드래곤으로 다시 시작하려면 원본 .mcworld를 새로 가져오세요.').button('확인'));}
 async function diagnostics(p){const wins=Object.entries(s.wins).map(([n,v])=>`${n}: ${v}승`).join('\n')||'아직 정식 경기 기록이 없습니다.';
   const r=await form(p,new ActionFormData().title('전적 / 상태').body(`버전 ${VERSION} · 정식 API\n상태 ${s.phase} · ${s.practice?'연습':'정식'}\n현재 경기 ${s.round} · 시간 ${clock(s.seconds)}\n${wins}\n\n시작 좌표 ${s.start?`${Math.floor(s.start.x)}, ${Math.floor(s.start.y)}, ${Math.floor(s.start.z)}`:'준비 중'}\n감지된 오류 ${lastErrors.size}개`).button('확인').button('추적기 표시 점검 (10초)'));
@@ -412,6 +489,7 @@ system.beforeEvents.startup.subscribe(e=>{
     ['mh:kitoff','경기 시작 1분 안에 모든 참가자의 시작 지급품 회수',CommandPermissionLevel.Any,p=>kitOff(p)],
     ['mh:kiton','회수된 모든 참가자의 시작 지급품 복구',CommandPermissionLevel.Any,p=>kitOn(p)],
     ['mh:admin','맨헌트 관리자 복구',CommandPermissionLevel.Host,p=>{s.host=p.name;save();tell(p,'관리자 권한을 복구했습니다.');}],
+    ['mh:lobbycreate','로비가 없을 때 기존 공중 로비 자동 생성 재시도',CommandPermissionLevel.Host,p=>{if(building){tell(p,'로비 생성 중입니다.');return;}if(s.lobby){tell(p,'이미 로비가 생성돼 있습니다. /mh:unstuck으로 이동하세요.');return;}initializePlayer(p);}],
     ['mh:unstuck','로비 이동 또는 입력 잠금 복구',CommandPermissionLevel.Any,p=>{if(['lobby','ended'].includes(s.phase))lobbyPlayer(p,false);else {expansion.clearCamera(p);applyPhase(p);}}]
   ];
   for(const [name,desc,level,fn] of commands)reg.registerCommand({name,description:desc,permissionLevel:level,cheatsRequired:false},origin=>{
@@ -421,6 +499,10 @@ system.beforeEvents.startup.subscribe(e=>{
 });
 world.afterEvents.worldLoad.subscribe(()=>{
   try{const raw=world.getDynamicProperty(KEY);if(typeof raw==='string'){const stored=JSON.parse(raw);if(stored.schema!==1)throw Error('지원하지 않는 저장 형식');s={...newState(),...stored,config:normalizeConfig(stored.config,true)};}
+    if(s.worldMode==='portable'&&!s.lobbyBuilt&&s.lobby&&['lobby','ended'].includes(s.phase)){
+      // Older v1.7 preview worlds saved a coordinate-only lobby. Create the original structure on next entry.
+      s.lobby=null;
+    }
     if(running()){s.previous=s.phase;s.phase='paused';save();}
     world.gameRules.keepInventory=Boolean(s.config.keepInventory);loaded=true;console.warn(`[Manhunt ${VERSION}] LOADED phase=${s.phase}`);for(const p of players())initializePlayer(p);queueOutcome();
   }catch(e){report('load',e);world.sendMessage(PREFIX+'저장 상태를 읽지 못했습니다. 원본 월드에서 다시 시작해 주세요.');}
@@ -474,22 +556,52 @@ system.runInterval(()=>{
     for(const p of players()){
       if(deadPlayers.has(p.name))continue;
       if(['lobby','ended'].includes(s.phase))normalizeMenu(p);else stripMenus(p);
-      if(['lobby','ended'].includes(s.phase)){if(p.location.y<298&&p.dimension.id==='minecraft:overworld'&&s.phase==='lobby')lobbyPlayer(p,false);}
+      if(['lobby','ended'].includes(s.phase)){if(p.dimension.id==='minecraft:overworld'&&s.phase==='lobby'&&p.location.y<s.lobby.y-7)lobbyPlayer(p,false);}
       else if(member(p)){if(hunter(p)){removeEarlyTrackers(p);unlockExistingTrackers(p);}applyPhase(p);}
     }
     if(runnerSpecial.hasPending())runnerSpecial.recover();if(summon.hasPending())summon.recover();save();
   }catch(e){report('game loop',e);if(running())pause('진행 오류가 감지되었습니다. 관리자 메뉴에서 확인하세요.');}
 },20);
 
-async function expansionHelp(p){await form(p,new ActionFormData().title('추가 규칙 · v1.5 (설정 변경 가능)').body('구역: 오버월드·엔드 X/Z -5000~4999, 네더 -625~624. 경계를 넘으면 안쪽 이전 위치로 돌아갑니다.\n\n러너 출발 후 40분간 요새 미도착 또는 헌터가 먼저 네더 진입 시 러너에게만 요새 좌표 1회 안내. 일시정지 시간 제외.\n\n수신기 작업대 조합 (왼쪽 위부터):\n석탄 / 구리 주괴 / 철 주괴\n금 주괴 / 바다의 심장 / 청금석\n에메랄드 / 다이아몬드 / 네더라이트 파편\n\n러너만 수신기를 우클릭 사용: 녹색 광선 8초, 같은 차원 헌터의 카메라를 러너 방향으로 3초 전환. 재사용 30초. 멀리 있거나 벽 뒤에서는 러너·광선이 안 보일 수 있습니다. 다른 차원 헌터에게는 차원 알림만 보냅니다.\n\n러너 엔드 첫 입장: 엔더의 눈 32개, 경기당 1회.').button('확인'));}
+async function fortressSetup(p){
+ if(!isHost(p))return;
+ if(s.worldMode!=='portable'){tell(p,'원본 월드는 기존 요새 지도를 사용합니다. 다른 시드에서 새로 생성한 월드에 애드온을 적용했을 때 사용하세요.');return;}
+ const current=s.fortressWaypoint;
+ const autoCount=Array.isArray(s.autoFortresses)?s.autoFortresses.length:0;
+ const menu=new ActionFormData().title('다른 맵 · 네더 요새 좌표')
+  .body(`수동 등록: ${current?`X ${current.x}, Z ${current.z}`:'없음'}\\n자동 발견: ${autoCount}곳 (탐험한 네더 구역에서만 감지)\\n실제 요새를 찾지 못하면 네더에서 /locate structure fortress를 사용해 X/Z를 확인하고 등록하세요.`)
+  .button('X/Z 좌표 직접 입력').button('현재 네더 위치로 등록').button('등록 좌표 삭제').button('취소');
+ const r=await form(p,menu);if(!r||r.canceled||!isHost(p))return;
+ if(r.selection===0){
+  const ui=new ModalFormData().title('네더 요새 좌표 등록')
+   .textField('네더 요새 X 좌표','정수',{defaultValue:String(current?.x??0)})
+   .textField('네더 요새 Z 좌표','정수',{defaultValue:String(current?.z??0)});
+  const input=await form(p,ui);
+  if(!input||input.canceled||!isHost(p)||!Array.isArray(input.formValues))return;
+  const point=parseFortressWaypoint(input.formValues[0],input.formValues[1]);
+  if(!point){tell(p,'좌표는 네더 범위 내 정수여야 합니다. 이전 값을 유지합니다.');return;}
+  s.fortressWaypoint=point;
+ }else if(r.selection===1){
+  if(p.dimension.id!=='minecraft:nether'){tell(p,'현재 위치 등록은 네더 안에서만 가능합니다.');return;}
+  const point=parseFortressWaypoint(String(Math.floor(p.location.x)),String(Math.floor(p.location.z)));
+  if(!point){tell(p,'현재 위치가 좌표 범위를 벗어났습니다.');return;}
+  s.fortressWaypoint=point;
+ }else if(r.selection===2){s.fortressWaypoint=null;}
+ else return;
+ if(s.extra)s.extra.missingWaypointNotified=false;
+ save();
+ tell(p,s.fortressWaypoint?`네더 요새 좌표 저장: X ${s.fortressWaypoint.x}, Z ${s.fortressWaypoint.z}. 실제 구조물 위치를 등록했는지 확인하세요.`:'등록된 요새 좌표를 제거했습니다. 잘못된 위치는 안내하지 않습니다.');
+}
+
+async function expansionHelp(p){await form(p,new ActionFormData().title('추가 규칙 · v1.7.5 (설정 변경 가능)').body('구역: 원본 맵은 오버월드·엔드 X/Z -5000~4999, 네더 -625~624. 다른 시드는 출발 위치를 중심으로 오버월드/네더 경계를 이동하며 엔드는 원점을 유지합니다. 경계를 넘으면 안쪽 이전 위치로 돌아갑니다.\n\n러너 출발 후 40분간 요새 미도착 또는 헌터의 네더 선진입 시 러너에게 요새를 안내합니다. 다른 시드의 월드는 관리 메뉴에서 호스트가 실제 요새 X/Z를 등록해야 좌표를 표시합니다. 일시정지 시간 제외.\n\n수신기 작업대 조합 (왼쪽 위부터):\n석탄 / 구리 주괴 / 철 주괴\n금 주괴 / 바다의 심장 / 청금석\n에메랄드 / 다이아몬드 / 네더라이트 파편\n\n러너만 수신기를 우클릭 사용: 녹색 광선 8초, 같은 차원 헌터의 카메라를 러너 방향으로 3초 전환. 재사용 30초. 멀리 있거나 벽 뒤에서는 러너·광선이 안 보일 수 있습니다. 다른 차원 헌터에게는 차원 알림만 보냅니다.\n\n러너 엔드 첫 입장: 엔더의 눈 32개, 경기당 1회.').button('확인'));}
 
 function completeRunnerRespawn(p){if(p.name!==s.runner||!s.runnerRespawning||(!running()&&s.phase!=='paused'))return;
   s.runnerRespawning=false;heal(p);applyPhase(p);tell(p,`체력을 모두 회복했습니다. 야생 부활 ${wildRespawnsRemaining(s)}회 남음.`);
   if(s.pendingRunnerVictory)finish('runner');else save();
 }
-async function runnerHelp(p){await form(p,new ActionFormData().title('러너 규칙 · v1.5 (설정 변경 가능)').body('기본 최대 체력: 하트 20개(두 줄), 포만감 I.\n\n도주 유예 중에는 포만감 V·재생 I·느린 낙하 I. 유예 종료 시 임시 효과가 사라지고 포만감 I만 유지됩니다.\n\n새 월드 기본: 야생 사망 2회 부활, 참가 헌터에게 처치되면 즉시 패배. 러너 부활 토템(주변 네더라이트 주괴 8개 + 중앙 불사의 토템) 사용 시 1회 추가, 경기 누적 최대 3회. 재접속 후에도 횟수 유지, 부활 체력 회복. 기존 월드는 부활 설정을 보존합니다.\n\n같은 차원의 가장 가까운 헌터를 3차원 거리 90·60·40·10블록의 네 단계로 감지합니다. 단계 진입 시 러너에게만 알리고, 구간별 쿨다운으로 반복 알림을 제한합니다. 거리와 소리는 설정에서 조절합니다.\n\n경기 전 게임 설정에서 인벤세이브를 선택할 수 있습니다. 새 경기/로비 초기화의 소지품 초기화는 그대로 적용됩니다.').button('확인'));}
+async function runnerHelp(p){await form(p,new ActionFormData().title('러너 규칙 · v1.7.5 (설정 변경 가능)').body('기본 최대 체력: 하트 20개(두 줄), 포만감 I.\n\n도주 유예 중에는 포만감 V·재생 I·느린 낙하 I. 유예 종료 시 임시 효과가 사라지고 포만감 I만 유지됩니다.\n\n새 월드 기본: 야생 사망 2회 부활, 참가 헌터에게 처치되면 즉시 패배. 러너 부활 토템(주변 네더라이트 주괴 8개 + 중앙 불사의 토템) 사용 시 1회 추가, 경기 누적 최대 3회. 재접속 후에도 횟수 유지, 부활 체력 회복. 기존 월드는 부활 설정을 보존합니다.\n\n같은 차원의 가장 가까운 헌터를 3차원 거리 90·60·40·10블록의 네 단계로 감지합니다. 단계 진입 시 러너에게만 알리고, 구간별 쿨다운으로 반복 알림을 제한합니다. 거리와 소리는 설정에서 조절합니다.\n\n경기 전 게임 설정에서 인벤세이브를 선택할 수 있습니다. 새 경기/로비 초기화의 소지품 초기화는 그대로 적용됩니다.').button('확인'));}
 
-world.afterEvents.entitySpawn.subscribe(e=>trackerCraft.spawned(e.entity));
+world.afterEvents.entitySpawn.subscribe(e=>{trackerCraft.spawned(e.entity);attempt('fortress discovery',()=>expansion.entitySpawned(e));});
 world.afterEvents.entityItemDrop.subscribe(e=>attempt('tracker crafting',()=>trackerCraft.drop(e)));
 world.afterEvents.playerInventoryItemChange.subscribe(e=>trackerDisplay.changed(e));
 // Update the owner's whole carried compass set at 10 Hz; one direction calculation per hunter.

@@ -9,6 +9,9 @@ import {createSummon} from '../BP/scripts/summon.js';
 import {createTrackerCrafting} from '../BP/scripts/tracker-crafting.js';
 import {createTrackerDisplay,TRACKER_NAME} from '../BP/scripts/tracker-display.js';
 import * as core from '../BP/scripts/core.js';
+import {findSafeGroundStart,safeGroundAt,safeFloorId} from '../BP/scripts/start-ground.js';
+import {naturalFortressSpawn,fortressBrickEvidence,rememberAutoFortress,nearestAutoFortress} from '../BP/scripts/fortress-detect.js';
+import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites,ORIGINAL_MANHUNT_SEED} from '../BP/scripts/world-compat.js';
 
 // The pre-1.5 tests exercise the explicitly retained legacy compass mode and 3-life setting.
 // Fresh-world 1.5 tests below pass fresh=true and use the new random-crafting defaults.
@@ -16,7 +19,20 @@ function harness(saved,fresh=false,count=3){
  const signals={},tasks=[],intervals=[],commands=new Map(),messages=[],formResponses=[],shownForms=[];let tick=0;
  const event=(name)=>signals[name]??=( {handlers:[],subscribe(fn){this.handlers.push(fn);},emit(e){this.handlers.forEach(fn=>fn(e));}} );
  const events=new Proxy({}, {get:(_,key)=>event(key)});
- const dropped=[];const dims=new Map(['overworld','nether','the_end'].map(n=>['minecraft:'+n,{id:'minecraft:'+n,heightRange:{min:-64,max:320},runCommand(){},getBlock:loc=>loc.y===64?{typeId:'minecraft:stone',isAir:false,isWaterlogged:false}:{typeId:'minecraft:air',isAir:true,isWaterlogged:false},spawnItem(item){dropped.push(item);}}]));
+ const dropped=[],placedBlocks=new Map();
+  const dims=new Map(['overworld','nether','the_end'].map(n=>['minecraft:'+n,{
+   id:'minecraft:'+n,heightRange:{min:-64,max:320},runCommand(){},
+   getTopmostBlock:()=>({location:{y:64}}),
+   getBlock:loc=>{
+    const key=`${n}:${loc.x},${loc.y},${loc.z}`;
+    return {
+     get typeId(){return placedBlocks.get(key)??(loc.y===64?'minecraft:stone':'minecraft:air');},
+     get isAir(){return this.typeId==='minecraft:air';},
+     isWaterlogged:false,
+     setType(type){placedBlocks.set(key,type);}
+    };
+   },spawnItem(item){dropped.push(item);}
+  }]));
  class ItemStack{constructor(typeId,amount=1){this.typeId=typeId;this.amount=amount;}setLore(v){this.lore=v;}getLore(){return this.lore??[];}clone(){const copy=new ItemStack(this.typeId,this.amount);Object.assign(copy,structuredClone({...this}));return copy;}getComponent(){return undefined;}getDynamicProperty(k){return this.props?.[k];}setDynamicProperty(k,v){(this.props??={})[k]=v;}getDynamicPropertyIds(){return Object.keys(this.props??{});}}
  class Player{
   constructor(name){this.camera={clear(){},setCamera(){}};this.name=name;this.id=name;this.typeId='minecraft:player';this.dimension=dims.get('minecraft:overworld');this.location={x:0,y:65,z:0};this.selectedSlotIndex=0;this.isSneaking=false;this.isValid=true;this.effects=[];this.slots=Array(36);this.health=20;this.inputPermissions={setPermissionCategory:(_,v)=>this.moving=v};this.onScreenDisplay={setTitle:(t)=>this.title=t,setActionBar:(t)=>this.hud=t};const self=this;this.inv={size:36,get emptySlotsCount(){return self.slots.filter(x=>x).length===36?0:36-self.slots.filter(x=>x).length;},getItem:i=>self.slots[i],setItem:(i,v)=>self.slots[i]=v,clearAll:()=>self.slots=Array(36),addItem:v=>{const slot=self.slots.findIndex(x=>!x);if(slot<0)return v;self.slots[slot]=v;return undefined;}};}
@@ -31,9 +47,9 @@ function harness(saved,fresh=false,count=3){
  const world={getAllPlayers:()=>people,getDimension:n=>dims.get(n.startsWith('minecraft:')?n:'minecraft:'+n),getDynamicProperty:()=>data,setDynamicProperty:(_,v)=>data=v,gameRules:{},setDefaultSpawnLocation(){},setTimeOfDay(){},sendMessage:m=>messages.push(m),afterEvents:events,beforeEvents:events};
  const system={get currentTick(){return tick;},beforeEvents:events,run:fn=>tasks.push(fn),runTimeout:fn=>tasks.push(fn),runInterval:(fn,ticks)=>intervals.push({fn,ticks}),clearRun(){},runJob:gen=>{for(const _ of gen){}}};
  class Form{constructor(){this.buttons=[];}title(text){this.titleText=text;return this;}body(text){this.bodyText=text;return this;}button(text){this.buttons.push(text);return this;}button1(text){this.buttons[0]=text;return this;}button2(text){this.buttons[1]=text;return this;}slider(){return this;}toggle(){return this;}dropdown(){return this;}textField(){return this;}show(player){shownForms.push({player:player.name,title:this.titleText,body:this.bodyText,buttons:[...this.buttons]});const response=formResponses.shift()??{canceled:true};return Promise.resolve(typeof response==='function'?response():response);}}
- const context={...core,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
+ const context={...core,findSafeGroundStart,safeGroundAt,safeFloorId,naturalFortressSpawn,fortressBrickEvidence,rememberAutoFortress,nearestAutoFortress,modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
  const text=fs.readFileSync(new URL('../BP/scripts/main.js',import.meta.url),'utf8').replace(/import[\s\S]*?from ['"][^'"]+['"];\r?\n/g,'');
- vm.runInNewContext(text+'\nglobalThis.testApi={startRound,pause,resume,reset,initializePlayer,settings,settingsSection,extraSettings,diagnostics,showMenu,recoverSummon,runnerRules,runnerSpecial,trackerCraft,trackerDisplay,summon,getState:()=>s,getErrors:()=>lastErrors};',context);
+ vm.runInNewContext(text+'\nglobalThis.testApi={startRound,pause,resume,reset,initializePlayer,settings,settingsSection,extraSettings,diagnostics,showMenu,recoverSummon,runnerRules,runnerSpecial,trackerCraft,trackerDisplay,summon,getState:()=>s,getErrors:()=>lastErrors,fortressSetup};',context);
  const components=new Map();event('startup').emit({itemComponentRegistry:{registerCustomComponent:(id,handler)=>components.set(id,handler)},customCommandRegistry:{registerCommand:(d,f)=>commands.set(d.name,{d,f})}});event('worldLoad').emit({});
  const flush=()=>{while(tasks.length)tasks.shift()();};
  const fineTimers=()=>intervals.filter(x=>x.ticks===1).forEach(x=>x.fn());
@@ -43,7 +59,7 @@ function harness(saved,fresh=false,count=3){
  // Fine-grained clock for registration/start-phase regressions. The older helpers
  // intentionally retain their selective callbacks for existing scenario fixtures.
  const advanceTicks=count=>{for(let n=0;n<count;n++){tick++;for(const interval of intervals)if(tick%interval.ticks===0)interval.fn();flush();}};
- return {api:context.testApi,people,Player,ItemStack,world,signals,dims,event,flush,second,hudTick,displayTick,advanceTicks,commands,components,messages,formResponses,shownForms,dropped,get saved(){return JSON.parse(data);}};
+ return {api:context.testApi,people,Player,ItemStack,world,signals,dims,placedBlocks,event,flush,second,hudTick,displayTick,advanceTicks,commands,components,messages,formResponses,shownForms,dropped,get saved(){return JSON.parse(data);}};
 }
 
 test('countdown waits 100 active ticks for every second-loop start phase and preserves pause/reload remainder',()=>{
@@ -687,4 +703,168 @@ test('v1.6 eight-player match grants all seven hunters once and keeps their comp
  h.displayTick();assert.deepEqual(hunters.map(frame),expected.map(n=>`mh:tracker_${n}`));
  hunters[0].yaw=11.25;h.displayTick();assert.deepEqual(hunters.map(frame),[31,...expected.slice(1)].map(n=>`mh:tracker_${n}`));
  h.second();for(const p of hunters){h.api.initializePlayer(p);assert.equal(trackerCount(p),1);}assert.equal(h.api.getErrors().size,0);
+});
+
+test('external map automatically builds the original colored lobby, preserving world spawn and inventory',()=>{
+ const h=harness(),owner=h.people[0],s=h.api.getState();
+ h.world.seed='987654321';owner.location={x:24000.5,y:74,z:-25000.5};
+ s.lobby=null;s.start=null;
+ owner.slots[0]=new h.ItemStack('minecraft:diamond',3);
+ h.world.setDefaultSpawnLocation=()=>{throw Error('external map must keep original global spawn');};
+ h.dims.get('minecraft:overworld').getTopmostBlock=()=>({location:{y:64}}); // terrain lookup is required for safe ground
+ h.api.initializePlayer(owner);h.flush();
+ assert.equal(h.saved.worldMode,'portable');
+ assert.equal(h.saved.start.x,24000.5);
+ assert.equal(h.saved.lobby.y,305);
+ assert.equal(h.saved.lobbyBuilt,true);
+ assert.equal(owner.slots[0].typeId,'minecraft:diamond','loading an addon must not clear existing items');
+ assert.equal(owner.location.y,305);
+ const dim=h.dims.get('minecraft:overworld');
+ const block=(x,y,z)=>dim.getBlock({x,y,z}).typeId;
+ assert.equal(block(23999,304,-25000),'minecraft:cyan_concrete');
+ assert.equal(block(24000,304,-25000),'minecraft:polished_deepslate');
+ assert.equal(block(24001,304,-25000),'minecraft:red_concrete');
+ assert.equal(block(24010,304,-25000),'minecraft:sea_lantern');
+ assert.equal(block(24010,305,-25000),'minecraft:glass');
+ assert.equal(block(23992,309,-25009),'minecraft:sea_lantern');
+ assert.equal(h.api.getErrors().size,0);
+ assert(h.commands.has('mh:lobbycreate'));
+});
+
+test('portable host can record a real Nether waypoint without modifying other mechanics',async()=>{
+ const h=harness(),owner=h.people[0];h.api.getState().worldMode='portable';
+ owner.dimension=h.dims.get('minecraft:nether');owner.location={x:-320.5,y:70,z:1120.4};
+ h.formResponses.push({selection:1,canceled:false});
+ await h.api.fortressSetup(owner);
+ assert.equal(h.saved.fortressWaypoint.x,-321);assert.equal(h.saved.fortressWaypoint.z,1120);
+ assert.equal(h.saved.config.trackerRevealMinutes,20,'tracker system unchanged');
+});
+
+test('original seed with occupied lobby height finds another height and preserves structures',()=>{
+ const h=harness(),p=h.people[0],s=h.api.getState();h.world.seed=ORIGINAL_MANHUNT_SEED;s.lobby=null;s.start=null;
+ const d=h.dims.get('minecraft:overworld'),original=d.getBlock;
+ d.getBlock=pos=>pos.y===304?{typeId:'minecraft:chest'}:original(pos);
+ h.api.initializePlayer(p);h.flush();
+ assert.equal(h.saved.worldMode,'classic');assert.equal(h.saved.lobby.y,289);
+ assert.equal(d.getBlock({x:0,y:304,z:0}).typeId,'minecraft:chest');
+ const cx=Math.floor(h.saved.lobby.x),cz=Math.floor(h.saved.lobby.z);
+ assert.equal(d.getBlock({x:cx,y:288,z:cz}).typeId,'minecraft:polished_deepslate');
+ assert.equal(h.api.getErrors().size,0);
+});
+test('preexisting coordinate-only portable lobby upgrades to a built lobby without losing match start',()=>{
+ const old={...core.newState(),worldMode:'portable',lobby:{x:15.5,y:74,z:22.5},start:{x:15.5,y:74,z:22.5},host:'Runner'};
+ const h=harness(old,true),p=h.people[0];h.flush();
+ assert.equal(h.saved.lobbyBuilt,true);assert.equal(h.saved.lobby.y,305);
+ assert.equal(h.saved.start.x,15.5);assert.equal(h.saved.start.y,65,'old incorrect height is recalculated on lobby migration');
+ assert.equal(p.location.y,305);
+ assert.equal(h.dims.get('minecraft:overworld').getBlock({x:0,y:304,z:0}).typeId,'minecraft:polished_deepslate');
+});
+test('returning players do not rebuild their previously completed lobby',()=>{
+ const h=harness(undefined,true),p=h.people[0],s=h.api.getState();s.lobby=null;s.start=null;
+ h.api.initializePlayer(p);h.flush();const before=JSON.stringify([...h.placedBlocks]);
+ h.api.initializePlayer(p);h.flush();
+ assert.equal(JSON.stringify([...h.placedBlocks]),before);assert.equal(h.saved.lobbyBuilt,true);
+});
+test('when no site is clear the builder refuses to overwrite any existing structure',()=>{
+ const h=harness(),p=h.people[0],s=h.api.getState();h.world.seed='111';s.start=null;s.lobby=null;
+ const d=h.dims.get('minecraft:overworld');
+ d.getBlock=pos=>({typeId: [304,288,272].some(y=>pos.y===y)?'minecraft:chest':'minecraft:air'});
+ p.slots[0]=new h.ItemStack('minecraft:diamond',4);
+ h.api.initializePlayer(p);h.flush();
+ assert.equal(h.api.getState().lobby,null);assert.equal(h.api.getState().start,null);
+ assert.equal(p.slots[0].typeId,'minecraft:diamond');
+ assert(h.api.getErrors().has('build lobby'));
+});
+
+test('lobby abort cleans up its own partial blocks and ticking area without touching existing inventory',()=>{
+ const h=harness(undefined,true),p=h.people[0],state=h.api.getState();state.lobby=null;state.start=null;h.world.seed='123';
+ p.slots[0]=new h.ItemStack('minecraft:diamond',3);
+ const d=h.dims.get('minecraft:overworld'),get=d.getBlock,commands=[];
+ d.runCommand=command=>{commands.push(command);return {successCount:1};};
+ const cx=Math.floor(p.location.x),cz=Math.floor(p.location.z);
+ d.getBlock=loc=>{
+   const block=get(loc);
+   if(loc.x===cx-9&&loc.y===304&&loc.z===cz){
+     block.setType=()=>{throw Error('injected placement failure');};
+   }
+   return block;
+ };
+ h.api.initializePlayer(p);h.flush();
+ assert.equal(state.lobby,null);
+ assert(h.api.getErrors().has('build lobby'));
+ assert.equal(d.getBlock({x:cx-10,y:304,z:cz-10}).typeId,'minecraft:air');
+ assert.equal(p.slots[0].typeId,'minecraft:diamond');
+ assert(commands.some(x=>x==='tickingarea remove mh_lobby'),'new ticking area must not remain after partial failure');
+});
+
+test('natural fortress spawn is recorded through main.js and survives a saved-world reload',()=>{
+ const h=harness(undefined,true),host=h.people[0];
+ const s=h.api.getState();s.worldMode='portable';s.config.grace=0;
+ h.api.startRound(host);h.advanceTicks(100);
+ const hunter=h.people[1];hunter.dimension=h.dims.get('minecraft:nether');hunter.location={x:448,y:68,z:-448};
+ const d=h.dims.get('minecraft:nether'),original=d.getBlock;
+ d.getBlock=loc=>({typeId:Math.abs(loc.x-449)<4&&Math.abs(loc.z+448)<4?'minecraft:nether_brick':original(loc).typeId});
+ const e={cause:'Spawned',entity:{typeId:'minecraft:wither_skeleton',dimension:d,location:{x:449,y:68,z:-448}}};
+ h.event('entitySpawn').emit(e);
+ assert.equal(h.saved.autoFortresses.length,1);
+ assert.deepEqual(h.saved.autoFortresses[0],{x:449,z:-448});
+ assert.equal(h.saved.extra.hintSent,false);
+ const reloaded=harness(h.saved,true,2);assert.deepEqual(reloaded.saved.autoFortresses,[{x:449,z:-448}]);
+});
+
+
+test('v1.7.5 regression: saved Y100 is corrected to ground before kit reset, for runner and hunter',()=>{
+ const h=harness(undefined,true),[r,a]=h.people,s=h.api.getState();
+ s.worldMode='portable';s.start={x:10.5,y:100,z:10.5};s.startAnchor={x:10.5,y:100,z:10.5};
+ assert.equal(r.location.y,305,'pre-game player remains in the floating lobby');s.config.grace=60;
+ h.api.startRound(r);
+ assert.equal(h.saved.phase,'countdown');assert.equal(h.saved.start.y,65);
+ assert.equal(r.spawn.y,65);assert.equal(a.spawn.y,65);
+ for(let t=0;t<5;t++)h.second();
+ assert.equal(h.saved.phase,'grace');assert.equal(r.location.y,65,'runner must start on solid ground');
+ assert.equal(a.location.y,305,'hunter still waits at the lobby');
+ for(let t=0;t<60;t++)h.second();
+ assert.equal(h.saved.phase,'running');assert.equal(a.location.y,65,'hunter must start on solid ground');
+ assert.equal(h.api.getErrors().size,0);
+});
+test('v1.7.5 regression: no loaded safe ground rejects before changing inventory or round state',()=>{
+ const h=harness(undefined,true),r=h.people[0],s=h.api.getState(),d=h.dims.get('minecraft:overworld');
+ s.worldMode='portable';s.start={x:10.5,y:100,z:10.5};
+ s.startAnchor={...s.start};r.slots[5]=new h.ItemStack('minecraft:diamond',7);s.wins.Runner=5;
+ d.getTopmostBlock=()=>undefined;
+ const before=JSON.stringify(s),slots=JSON.stringify(h.people.map(p=>p.slots));
+ h.api.startRound(r);
+ assert.equal(JSON.stringify(s),before);
+ assert.equal(JSON.stringify(h.people.map(p=>p.slots)),slots);
+ assert.equal(s.phase,'lobby');assert.equal(s.wins.Runner,5);
+ assert.match(r.messages.at(-1),/경기 시작 취소/);
+});
+test('v1.7.5 regression: altered terrain before countdown release switches to a grounded nearby site',()=>{
+ const h=harness(undefined,true),r=h.people[0],s=h.api.getState(),d=h.dims.get('minecraft:overworld');
+ s.worldMode='portable';s.start={x:10.5,y:100,z:10.5};s.startAnchor={...s.start};
+ h.api.startRound(r);assert.equal(h.saved.start.y,65);
+ const before=d.getBlock;
+ d.getBlock=pos=>pos.x===10&&pos.y===64?{typeId:'minecraft:lava',isLiquid:true}:before(pos);
+ h.advanceTicks(100);
+ assert.equal(h.saved.start.x,12.5);
+ assert.equal(r.location.x,12.5);assert.equal(r.location.y,65);
+ assert(h.people.every(p=>p.spawn.x===12.5));
+});
+test('v1.7.5 regression: terrain removed during countdown pauses rather than teleporting into void',()=>{
+ const h=harness(undefined,true),r=h.people[0],s=h.api.getState(),d=h.dims.get('minecraft:overworld');
+ s.worldMode='portable';s.start={x:10.5,y:100,z:10.5};s.startAnchor={...s.start};
+ h.api.startRound(r);assert.equal(h.saved.phase,'countdown');
+ d.getTopmostBlock=()=>undefined;d.getBlock=()=>undefined;
+ h.advanceTicks(100);
+ assert.equal(h.saved.phase,'paused');assert.equal(r.location.y,305);
+});
+test('v1.7.5 regression: preexisting saved bad Y100 is repaired while preserving wins and lobby',()=>{
+ const previous={...core.newState(),worldMode:'portable',lobbyBuilt:true,
+   host:'Runner',runner:'',choice:'Runner',phase:'lobby',
+   lobby:{x:10.5,y:305,z:10.5},start:{x:10.5,y:100,z:10.5},
+   wins:{Hunter1:4}};
+ const h=harness(previous,true),r=h.people[0],lobby=JSON.stringify(previous.lobby);
+ h.api.startRound(r);
+ assert.equal(h.saved.start.y,65);assert.equal(JSON.stringify(h.saved.lobby),lobby);
+ assert.equal(h.saved.wins.Hunter1,4);assert.equal(h.saved.config.trackerRevealMinutes,20);
 });
