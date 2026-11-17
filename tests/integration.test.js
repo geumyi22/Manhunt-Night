@@ -711,7 +711,7 @@ test('external map automatically builds the original colored lobby, preserving w
  s.lobby=null;s.start=null;
  owner.slots[0]=new h.ItemStack('minecraft:diamond',3);
  h.world.setDefaultSpawnLocation=()=>{throw Error('external map must keep original global spawn');};
- h.dims.get('minecraft:overworld').getTopmostBlock=()=>{throw Error('portable mode must not relocate original terrain start');};
+ h.dims.get('minecraft:overworld').getTopmostBlock=()=>({location:{y:64}}); // terrain lookup is required for safe ground
  h.api.initializePlayer(owner);h.flush();
  assert.equal(h.saved.worldMode,'portable');
  assert.equal(h.saved.start.x,24000.5);
@@ -816,7 +816,7 @@ test('natural fortress spawn is recorded through main.js and survives a saved-wo
 test('v1.7.5 regression: saved Y100 is corrected to ground before kit reset, for runner and hunter',()=>{
  const h=harness(undefined,true),[r,a]=h.people,s=h.api.getState();
  s.worldMode='portable';s.start={x:10.5,y:100,z:10.5};s.startAnchor={x:10.5,y:100,z:10.5};
- assert.equal(r.location.y,65);s.config.grace=60;
+ assert.equal(r.location.y,305,'pre-game player remains in the floating lobby');s.config.grace=60;
  h.api.startRound(r);
  assert.equal(h.saved.phase,'countdown');assert.equal(h.saved.start.y,65);
  assert.equal(r.spawn.y,65);assert.equal(a.spawn.y,65);
