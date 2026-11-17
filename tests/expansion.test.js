@@ -116,3 +116,42 @@ test('one decorative nether brick near a waypoint is not sufficient for fortress
  h.dims.nether.getBlock=loc=>({typeId:loc.x===700&&loc.z===-900&&loc.y===66?'minecraft:nether_brick':'minecraft:air'});
  assert.equal(h.x.enteredFortress(r),false);
 });
+
+test('external world detects explored natural fortress and reveals it only at the normal 40-minute trigger',()=>{
+ const h=setup(),hunter=h.people[1];h.s.worldMode='portable';hunter.dimension=h.dims.nether;
+ hunter.location={x:700,y:65,z:-900};
+ h.dims.nether.getBlock=()=>({typeId:'minecraft:nether_brick'});
+ const mob={cause:'Spawned',entity:{typeId:'minecraft:wither_skeleton',dimension:h.dims.nether,location:{x:703,y:65,z:-898}}};
+ assert.equal(h.x.entitySpawned(mob),true);assert.equal(h.s.autoFortresses.length,1);
+ assert.equal(h.messages.length,0,'no runner coordinates before hint eligibility');
+ assert.equal(h.x.entitySpawned(mob),false,'no duplication within 96 blocks');
+ h.s.seconds=2400;h.x.second();
+ assert.equal(h.messages.length,1);assert.equal(h.messages[0].name,'R');
+ assert.match(h.messages[0].m,/X 703, Z -898/);assert.match(h.messages[0].m,/자동 추정/);
+ h.x.second();assert.equal(h.messages.length,1);
+});
+test('pending hunter-first hint is issued to runner after automatic detection, never leaked to hunters',()=>{
+ const h=setup(),hunter=h.people[1];h.s.worldMode='portable';
+ h.x.dimensionChanged({player:hunter,toDimension:h.dims.nether});
+ assert.equal(h.messages.length,1);assert.equal(h.messages[0].name,'R');
+ hunter.dimension=h.dims.nether;hunter.location={x:900,y:65,z:900};
+ h.dims.nether.getBlock=()=>({typeId:'minecraft:nether_brick'});
+ assert.equal(h.x.entitySpawned({cause:'Spawned',entity:{typeId:'minecraft:wither_skeleton',dimension:h.dims.nether,location:{x:901,y:65,z:904}}}),true);
+ assert.equal(h.messages.length,2);assert(h.messages.every(m=>m.name==='R'));assert.match(h.messages[1].m,/X 901, Z 904/);
+});
+test('auto-detection ignores spawned mobs, unloaded surfaces, disabled setting and original seeded worlds',()=>{
+ for(const variant of ['not-natural','wrong-dimension','no-bricks','toggle-off','original']){
+  const h=setup(),hunter=h.people[1];h.s.worldMode=variant==='original'?'classic':'portable';
+  hunter.dimension=h.dims.nether;hunter.location={x:100,y:64,z:100};
+  h.dims.nether.getBlock=()=>({typeId:variant==='no-bricks'?'minecraft:air':'minecraft:nether_brick'});
+  if(variant==='toggle-off')h.s.config.features.fortressAuto=false;
+  const cause=variant==='not-natural'?'Event':'Spawned',dimension=variant==='wrong-dimension'?h.dims.overworld:h.dims.nether;
+  assert.equal(h.x.entitySpawned({cause,entity:{typeId:'minecraft:wither_skeleton',dimension,location:{x:101,y:64,z:99}}}),false,variant);
+  assert.equal(h.s.autoFortresses.length,0);
+ }
+});
+test('manually entered fortress waypoint always overrides exploratory automatic hint',()=>{
+ const h=setup();h.s.worldMode='portable';h.s.seconds=2400;h.s.autoFortresses=[{x:201,z:202}];h.s.fortressWaypoint={x:-100,z:-80};
+ h.x.second();assert.match(h.messages[0].m,/X -100, Z -80/);
+ assert.doesNotMatch(h.messages[0].m,/X 201/);
+});

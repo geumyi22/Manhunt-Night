@@ -9,6 +9,7 @@ import {createSummon} from '../BP/scripts/summon.js';
 import {createTrackerCrafting} from '../BP/scripts/tracker-crafting.js';
 import {createTrackerDisplay,TRACKER_NAME} from '../BP/scripts/tracker-display.js';
 import * as core from '../BP/scripts/core.js';
+import {naturalFortressSpawn,fortressBrickEvidence,rememberAutoFortress,nearestAutoFortress} from '../BP/scripts/fortress-detect.js';
 import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites,ORIGINAL_MANHUNT_SEED} from '../BP/scripts/world-compat.js';
 
 // The pre-1.5 tests exercise the explicitly retained legacy compass mode and 3-life setting.
@@ -45,7 +46,7 @@ function harness(saved,fresh=false,count=3){
  const world={getAllPlayers:()=>people,getDimension:n=>dims.get(n.startsWith('minecraft:')?n:'minecraft:'+n),getDynamicProperty:()=>data,setDynamicProperty:(_,v)=>data=v,gameRules:{},setDefaultSpawnLocation(){},setTimeOfDay(){},sendMessage:m=>messages.push(m),afterEvents:events,beforeEvents:events};
  const system={get currentTick(){return tick;},beforeEvents:events,run:fn=>tasks.push(fn),runTimeout:fn=>tasks.push(fn),runInterval:(fn,ticks)=>intervals.push({fn,ticks}),clearRun(){},runJob:gen=>{for(const _ of gen){}}};
  class Form{constructor(){this.buttons=[];}title(text){this.titleText=text;return this;}body(text){this.bodyText=text;return this;}button(text){this.buttons.push(text);return this;}button1(text){this.buttons[0]=text;return this;}button2(text){this.buttons[1]=text;return this;}slider(){return this;}toggle(){return this;}dropdown(){return this;}textField(){return this;}show(player){shownForms.push({player:player.name,title:this.titleText,body:this.bodyText,buttons:[...this.buttons]});const response=formResponses.shift()??{canceled:true};return Promise.resolve(typeof response==='function'?response():response);}}
- const context={...core,modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
+ const context={...core,naturalFortressSpawn,fortressBrickEvidence,rememberAutoFortress,nearestAutoFortress,modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites,createExpansion,createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter,createRunnerSpecial,createSummon,createTrackerCrafting,createTrackerDisplay,TRACKER_NAME,world,system,Player,ItemStack,ItemLockMode:{inventory:'inventory'},GameMode:{Adventure:'adventure',Survival:'survival',Spectator:'spectator'},InputPermissionCategory:{Movement:'move'},CommandPermissionLevel:{Any:0,Host:3},CustomCommandStatus:{Success:0,Failure:1},EquipmentSlot:{Head:'head',Chest:'chest',Legs:'legs',Feet:'feet',Offhand:'offhand'},console,ActionFormData:Form,ModalFormData:Form,MessageFormData:Form};
  const text=fs.readFileSync(new URL('../BP/scripts/main.js',import.meta.url),'utf8').replace(/import[\s\S]*?from ['"][^'"]+['"];\r?\n/g,'');
  vm.runInNewContext(text+'\nglobalThis.testApi={startRound,pause,resume,reset,initializePlayer,settings,settingsSection,extraSettings,diagnostics,showMenu,recoverSummon,runnerRules,runnerSpecial,trackerCraft,trackerDisplay,summon,getState:()=>s,getErrors:()=>lastErrors,fortressSetup};',context);
  const components=new Map();event('startup').emit({itemComponentRegistry:{registerCustomComponent:(id,handler)=>components.set(id,handler)},customCommandRegistry:{registerCommand:(d,f)=>commands.set(d.name,{d,f})}});event('worldLoad').emit({});
@@ -793,4 +794,19 @@ test('lobby abort cleans up its own partial blocks and ticking area without touc
  assert.equal(d.getBlock({x:cx-10,y:304,z:cz-10}).typeId,'minecraft:air');
  assert.equal(p.slots[0].typeId,'minecraft:diamond');
  assert(commands.some(x=>x==='tickingarea remove mh_lobby'),'new ticking area must not remain after partial failure');
+});
+
+test('natural fortress spawn is recorded through main.js and survives a saved-world reload',()=>{
+ const h=harness(undefined,true),host=h.people[0];
+ const s=h.api.getState();s.worldMode='portable';s.config.grace=0;
+ h.api.startRound(host);h.advanceTicks(100);
+ const hunter=h.people[1];hunter.dimension=h.dims.get('minecraft:nether');hunter.location={x:448,y:68,z:-448};
+ const d=h.dims.get('minecraft:nether'),original=d.getBlock;
+ d.getBlock=loc=>({typeId:Math.abs(loc.x-449)<4&&Math.abs(loc.z+448)<4?'minecraft:nether_brick':original(loc).typeId});
+ const e={cause:'Spawned',entity:{typeId:'minecraft:wither_skeleton',dimension:d,location:{x:449,y:68,z:-448}}};
+ h.event('entitySpawn').emit(e);
+ assert.equal(h.saved.autoFortresses.length,1);
+ assert.deepEqual(h.saved.autoFortresses[0],{x:449,z:-448});
+ assert.equal(h.saved.extra.hintSent,false);
+ const reloaded=harness(h.saved,true,2);assert.deepEqual(reloaded.saved.autoFortresses,[{x:449,z:-448}]);
 });
