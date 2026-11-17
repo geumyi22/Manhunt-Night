@@ -351,7 +351,7 @@ async function showMenu(p){
   if(!loaded)return;
   if(!s.lobby){initializePlayer(p);return;}
   const status={lobby:'대기실',countdown:'출발 준비',grace:'러너 도주 중',running:'추격 중',paused:'일시정지',ended:s.result}[s.phase];
-  const f=new ActionFormData().title('§lMANHUNT NIGHT').body(`§b${status}§r  ·  ${clock(s.seconds)}\n러너: ${s.runner||'시작 시 무작위'}\n접속 ${players().length}명 · 관리자 ${s.host}\n\n§7시험 빌드: 지면 출발 수정 RC1\n§7게임 중 메뉴 아이템 없음 · /mh:menu 사용\n§7시작 지급품: /mh:kitoff · /mh:kiton (누구나 전원 적용)`);
+  const f=new ActionFormData().title('§lMANHUNT NIGHT').body(`§b${status}§r  ·  ${clock(s.seconds)}\n러너: ${s.runner||'시작 시 무작위'}\n접속 ${players().length}명 · 관리자 ${s.host}\n\n§7Stable v1.7.5 · 지면 출발 보정\n§7게임 중 메뉴 아이템 없음 · /mh:menu 사용\n§7시작 지급품: /mh:kitoff · /mh:kiton (누구나 전원 적용)`);
   const actions=[];const add=(label,fn)=>{f.button(label);actions.push(fn);};
   if(isHost(p)){
     if(['lobby','ended'].includes(s.phase)){

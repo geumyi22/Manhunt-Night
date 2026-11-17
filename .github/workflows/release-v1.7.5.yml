@@ -1,0 +1,68 @@
+name: Publish Manhunt Night v1.7.5 Stable
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+concurrency:
+  group: manhunt-night-v1.7.5-stable
+  cancel-in-progress: false
+jobs:
+  stable:
+    name: Reverify packages and publish v1.7.5 Stable
+    if: ${{ github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[release-v1.7.5]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Fail if target release/tag already exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          test "$(node -p "require('./package.json').version")" = '1.7.5'
+          if gh release view v1.7.5 -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then echo 'Existing release: refusing overwrite'; exit 1; fi
+          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v1.7.5" >/dev/null 2>&1; then echo 'Existing tag: refusing overwrite'; exit 1; fi
+      - name: Install pinned dependencies
+        run: npm ci --ignore-scripts
+      - name: Check script syntax, stable API types and regression tests
+        run: |
+          for file in BP/scripts/*.js tests/*.js tools/*.mjs; do node --check "$file"; done
+          npx tsc --noEmit
+          node --test tests/*.test.js
+          node tools/verify.mjs --source
+      - name: Build against preserved v1.6.0 world and verify
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MANHUNT_SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          mkdir -p /tmp/manhunt-v160-base
+          gh release download v1.6.0 -R "$GITHUB_REPOSITORY" -p 'Manhunt_Night_v1.6.0.mcworld' --dir /tmp/manhunt-v160-base
+          node tools/build.mjs --base /tmp/manhunt-v160-base/Manhunt_Night_v1.6.0.mcworld
+          node tools/verify.mjs
+          node --input-type=module -e "import fs from 'node:fs';let x=JSON.parse(fs.readFileSync('dist/BUILD_MANIFEST.json'));if(x.version!=='1.7.5'||x.releaseStatus!=='STABLE'||!x.baseWorld?.databaseFiles?.length)process.exit(1)"
+          (cd dist && sha256sum -c SHA256SUMS.txt && sha256sum -c Manhunt_Night_v1.7.5_FullFiles.zip.sha256)
+      - name: Store exact verified Stable artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Manhunt-Night-v1.7.5-Stable
+          path: dist/
+          if-no-files-found: error
+          retention-days: 90
+      - name: Create immutable version tag and publish Stable release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v1.7.5 dist/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title 'Manhunt Night v1.7.5 Stable' --notes-file docs/RELEASE_NOTES_v1.7.5.md --latest
+      - name: Verify published asset hashes and tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p /tmp/manhunt-stable-published
+          gh release download v1.7.5 -R "$GITHUB_REPOSITORY" --dir /tmp/manhunt-stable-published
+          (cd /tmp/manhunt-stable-published && sha256sum -c SHA256SUMS.txt && sha256sum -c Manhunt_Night_v1.7.5_FullFiles.zip.sha256)
+          gh release view v1.7.5 -R "$GITHUB_REPOSITORY" --json tagName,isDraft,isPrerelease,url,assets --jq '{tag:.tagName,draft:.isDraft,prerelease:.isPrerelease,url:.url,assetCount:(.assets|length)}'
+          git fetch --tags origin refs/tags/v1.7.5
+          test "$(git rev-parse 'v1.7.5^{commit}')" = "$GITHUB_SHA"
