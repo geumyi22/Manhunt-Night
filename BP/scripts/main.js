@@ -160,12 +160,19 @@ function* buildLobby(p){
   // Re-check immediately before writing. Never clear protected blocks to make room.
   if(!legacyLobbyAreaClear(d,cx,cz,y))throw Error('로비 후보 공간이 변경되었습니다. 안전한 공간에서 다시 시도하세요.');
   // Create a ticking area only for the selected location, not for every candidate.
-  try{d.runCommand(`tickingarea add circle ${cx} ${y} ${cz} 2 mh_lobby true`);}catch(err){
+  let lobbyAreaCreated=false;
+  try{
+    const result=d.runCommand(`tickingarea add circle ${cx} ${y} ${cz} 2 mh_lobby true`);
+    lobbyAreaCreated=result?.successCount!==0;
+  }catch(err){
     report('lobby ticking area',err);
     // An existing ticking area name may be reused; final block access still guards writes.
   }
   yield;
-  if(!legacyLobbyAreaClear(d,cx,cz,y))throw Error('로비 영역의 블록/청크가 변경되어 건설을 중단했습니다.');
+  if(!legacyLobbyAreaClear(d,cx,cz,y)){
+    if(lobbyAreaCreated)try{d.runCommand('tickingarea remove mh_lobby');}catch(err){report('lobby ticking area cleanup',err);}
+    throw Error('로비 영역의 블록/청크가 변경되어 건설을 중단했습니다.');
+  }
   const placed=[];
   try{
     function setEmpty(x,yy,z,type){
@@ -196,6 +203,7 @@ function* buildLobby(p){
       }catch{failed++;}
     }
     if(failed)report('lobby rollback incomplete',failed+' inaccessible cells; inspect the test world backup');
+    if(lobbyAreaCreated)try{d.runCommand('tickingarea remove mh_lobby');}catch(cleanupError){report('lobby ticking area cleanup',cleanupError);}
     throw err;
   }
   // Only commit the saved lobby state after the whole structure was built.
@@ -207,8 +215,8 @@ function* buildLobby(p){
     world.gameRules.showCoordinates=false;world.gameRules.sendCommandFeedback=false;
     d.runCommand('gamerule playerwaypoints off');
   }
-  s.host=p.name;s.phase='lobby';save();building=false;
-  for(const q of players())lobbyPlayer(q,mode==='classic');
+  s.host=s.host||p.name;s.phase='lobby';save();building=false;
+  for(const q of players())lobbyPlayer(q,false);
   say('§lMANHUNT NIGHT§r 로비 준비 완료! 파란색은 러너, 빨간색은 헌터입니다.');
   tell(p,'원본과 동일한 로비가 생성됐습니다. /mh:menu에서 설정하고 경기를 시작하세요.');
   console.warn(`[Manhunt ${VERSION}] READY lobby=${JSON.stringify(s.lobby)} start=${JSON.stringify(s.start)}`);

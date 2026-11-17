@@ -773,3 +773,24 @@ test('when no site is clear the builder refuses to overwrite any existing struct
  assert.equal(p.slots[0].typeId,'minecraft:diamond');
  assert(h.api.getErrors().has('build lobby'));
 });
+
+test('lobby abort cleans up its own partial blocks and ticking area without touching existing inventory',()=>{
+ const h=harness(undefined,true),p=h.people[0],state=h.api.getState();state.lobby=null;state.start=null;h.world.seed='123';
+ p.slots[0]=new h.ItemStack('minecraft:diamond',3);
+ const d=h.dims.get('minecraft:overworld'),get=d.getBlock,commands=[];
+ d.runCommand=command=>{commands.push(command);return {successCount:1};};
+ const cx=Math.floor(p.location.x),cz=Math.floor(p.location.z);
+ d.getBlock=loc=>{
+   const block=get(loc);
+   if(loc.x===cx-9&&loc.y===304&&loc.z===cz){
+     block.setType=()=>{throw Error('injected placement failure');};
+   }
+   return block;
+ };
+ h.api.initializePlayer(p);h.flush();
+ assert.equal(state.lobby,null);
+ assert(h.api.getErrors().has('build lobby'));
+ assert.equal(d.getBlock({x:cx-10,y:304,z:cz-10}).typeId,'minecraft:air');
+ assert.equal(p.slots[0].typeId,'minecraft:diamond');
+ assert(commands.some(x=>x==='tickingarea remove mh_lobby'),'new ticking area must not remain after partial failure');
+});
