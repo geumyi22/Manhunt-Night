@@ -8,8 +8,16 @@
 - [x] 정식 API만 사용한 **탐험 중 네더 요새 자동 위치 기록**, 96블록 중복 차단 및 최대 8곳, 수동 좌표 우선
 - [x] 자동 감지 ON/OFF, 러너 전용 조건부 힌트, 미탐색 시 거짓 좌표 금지
 - [x] JavaScript·API 타입·JSON/팩·원본 월드 DB·ZIP CRC/SHA-256 검사 통과
-- [x] 회귀 테스트 **238/238 PASS** ([Actions #44168454632](https://github.com/geumyi22/Manhunt-Night/actions/runs/44168454632))
+- [x] 출발 지면 버그 수정 추가 회귀까지 **249/249 PASS** ([Actions #44168454632](https://github.com/geumyi22/Manhunt-Night/actions/runs/44168454632))
 - [x] v1.6.0 Stable·월드 DB·QA 이력 보존, 새 v1.7.5 시험 패키지 생성
+
+## 추가 수정: 외부 월드 공중 출발 버그 (2026-11-18)
+
+- [x] 기존 사용자 실기 QA **13/14 통과**, 신규/변경 기능 13개 통과 보존, 1건 Y≈100 공중 출발 실패 등록
+- [x] 포터블 세계의 경기 출발 지면 계산·기존 저장 Y값 보정·경기 시작 전 실패 시 무변경 거절
+- [x] 카운트다운/헌터 출발 직전 추가 안전 검사, JavaScript/타입/패키지·자동 249/249 PASS
+- [ ] **사용자 동일 월드에서 지면 출발·리스폰 재검증과 최종 승인** ([Issue #15](https://github.com/geumyi22/Manhunt-Night/issues/15))
+- [ ] **위 승인 후에만 Stable 승격 CI, PR 병합·릴리스 절차 착수**
 
 ## Stable 전 필요한 실기 확인
 

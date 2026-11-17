@@ -1,5 +1,7 @@
 # Manhunt Night v1.7.5 — 다양한 맵 지원 · 공중 로비 · 네더 요새 발견
 
+**지면 출발 버그 수정 RC1 (2026-11-18):** 다른 시드에서 출발 Y가 공중으로 저장되던 문제를 수정했습니다. 실제 발판·머리 위 공간을 확인하고, 기존 Y≈100 저장 좌표도 새 경기 전 교정하며 안전한 지면이 없으면 시작하지 않습니다. 자동 **249/249** PASS. [지면 버그 Issue #15](https://github.com/geumyi22/Manhunt-Night/issues/15). **실제 동일 월드 재검증·사용자 승인 전 Stable CI/릴리스 보류.**
+
 > **Pre-release 개발/시험 버전.** 기존 [v1.6.0 Stable](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)은 그대로 유지합니다. 실제 다른 시드 월드·친구들과의 실기 QA가 완료되기 전에는 v1.7.5를 Stable로 표기하지 않습니다.
 
 Minecraft Bedrock 26.62 이상 기준 · 2~8인 정식 경기(러너 1명·헌터 1~7명), 1인 연습.
@@ -24,6 +26,6 @@ Minecraft Bedrock 26.62 이상 기준 · 2~8인 정식 경기(러너 1명·헌�
 2. [v1.7.5 GitHub Actions 시험 빌드](https://github.com/geumyi22/Manhunt-Night/actions)에서 최신 성공한 `Manhunt-Night-v1.7.5-portable-world-preview` 아티팩트를 사용합니다. 새 월드에는 `.mcworld`, 다른 월드 복사본에는 `.mcaddon`을 적용합니다.
 3. 실제 로비·다른 차원·네더 요새·다중 플레이를 시험하고 확인한 결과는 [QA Issue #12](https://github.com/geumyi22/Manhunt-Night/issues/12)에 남깁니다.
 
-**현재 자동 검증:** **238/238 테스트 통과**, JavaScript·정식 Script API 타입·패키지 및 월드 DB 보존 검증 완료. [실행 #44168454632](https://github.com/geumyi22/Manhunt-Night/actions/runs/44168454632) · [QA 보고서](docs/QA_REPORT.md). 실제 다른 시드 Minecraft 실기 테스트는 아직 완료되지 않았습니다.
+**현재 자동 검증:** **249/249 테스트 통과**, JavaScript·정식 Script API 타입·패키지 및 월드 DB 보존 검증 완료. [실행 #44168454632](https://github.com/geumyi22/Manhunt-Night/actions/runs/44174428578) · [QA 보고서](docs/QA_REPORT.md). 실제 다른 시드 Minecraft 실기 테스트는 아직 완료되지 않았습니다.
 
 [설치 안내](docs/INSTALL.md) · [전체 기능](docs/FEATURES.md) · [변경 기록](docs/CHANGELOG.md) · [빌드 방법](docs/BUILD.md) · [v1.6.0 공식 Stable](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)
