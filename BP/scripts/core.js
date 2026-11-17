@@ -30,7 +30,7 @@ export const DIM_NAMES = {'minecraft:overworld':'오버월드','minecraft:nether
 export function newState() {
   return {schema:1, phase:'lobby', host:'', runner:'', choice:'', roster:[], config:normalizeConfig(),
     seconds:0, remaining:0, previous:'running', routes:{}, deaths:{}, wins:{}, round:0, practice:false,
-    start:null, lobby:null, lobbyBuilt:false,worldMode:'classic',fortressWaypoint:null,autoFortresses:[], result:'', kit:null, runnerRespawns:0,runnerLifeBonus:0,revivePending:null,trackerCraft:null,summon:null, runnerRespawning:false, pendingRunnerVictory:false,pendingOutcome:null, dragonDefeated:false, extra:newExtra()};
+    start:null, startAnchor:null,lobby:null, lobbyBuilt:false,worldMode:'classic',fortressWaypoint:null,autoFortresses:[], result:'', kit:null, runnerRespawns:0,runnerLifeBonus:0,revivePending:null,trackerCraft:null,summon:null, runnerRespawning:false, pendingRunnerVictory:false,pendingOutcome:null, dragonDefeated:false, extra:newExtra()};
 }
 export function validateStart(names, runner, practice=false) {
   if (new Set(names).size !== names.length) return '참가자가 중복되었습니다.';

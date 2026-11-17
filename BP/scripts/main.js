@@ -2,6 +2,7 @@ import {world, system, Player, ItemStack, ItemLockMode, GameMode, InputPermissio
   CommandPermissionLevel, CustomCommandStatus, EquipmentSlot} from '@minecraft/server';
 import {createExpansion} from './expansion.js';
 import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites} from './world-compat.js';
+import {findSafeGroundStart} from './start-ground.js';
 import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter} from './runner.js';
 import {createRunnerSpecial} from './runner-special.js';
 import {createSummon} from './summon.js';
@@ -142,12 +143,13 @@ function* buildLobby(p){
   const d=world.getDimension('overworld'),base=location(p);
   const mode=modeForSeed(world.seed);
   const oldStart=s.start;
-  let start={...base};
+  const anchor=s.startAnchor??(oldStart&&[oldStart.x,oldStart.y,oldStart.z].every(Number.isFinite)?oldStart:base);
+  let start=mode==='portable'?findSafeGroundStart(d,anchor):{...base};
   if(mode==='classic'&&!oldStart){
     const top=d.getTopmostBlock({x:Math.floor(base.x),z:Math.floor(base.z)});
     if(!top)throw Error('원본 월드의 시작 지형이 아직 로드되지 않았습니다.');
     start={x:Math.floor(base.x)+0.5,y:top.location.y+1,z:Math.floor(base.z)+0.5};
-  }else if(oldStart&&[oldStart.x,oldStart.y,oldStart.z].every(Number.isFinite))start={...oldStart};
+  }else if(mode==='classic'&&oldStart&&[oldStart.x,oldStart.y,oldStart.z].every(Number.isFinite))start={...oldStart};
   // Find a completely empty 21x21x6 volume. Never replace blocks of another map.
   let chosen=null;
   for(const site of lobbySites(Math.floor(base.x),Math.floor(base.z))){
@@ -207,7 +209,7 @@ function* buildLobby(p){
     throw err;
   }
   // Only commit the saved lobby state after the whole structure was built.
-  s.worldMode=mode;s.start=start;s.lobby=lobby;s.lobbyBuilt=true;
+  s.worldMode=mode;s.start=start;s.startAnchor=mode==='portable'?{...anchor}:s.startAnchor;s.lobby=lobby;s.lobbyBuilt=true;
   if(mode==='classic')world.setDefaultSpawnLocation(lobby);
   if(mode==='classic'){
     world.gameRules.pvp=true;world.gameRules.keepInventory=Boolean(s.config.keepInventory);
@@ -242,6 +244,22 @@ function applyPhase(p){
   const mode=waiting||s.phase==='paused'?GameMode.Adventure:GameMode.Survival;
   if(p.getGameMode()!==mode)p.setGameMode(mode);runnerRules.sync(p);
 }
+function portableStartFromTerrain(){
+  if(s.worldMode!=='portable')return s.start;
+  const anchor=s.startAnchor??s.start??s.lobby;
+  return findSafeGroundStart(world.getDimension('overworld'),anchor,s.lobby);
+}
+function verifyStartBeforeRelease(){
+  if(s.worldMode!=='portable')return Boolean(s.start);
+  const ground=portableStartFromTerrain();
+  if(!ground)return false;
+  if(!s.start||s.start.x!==ground.x||s.start.y!==ground.y||s.start.z!==ground.z){
+    s.start=ground;
+    for(const q of players())if(member(q))q.setSpawnPoint({...ground,dimension:world.getDimension('overworld')});
+    save();
+  }
+  return true;
+}
 function activeRules(){const d=world.getDimension('overworld');world.gameRules.pvp=true;world.gameRules.keepInventory=Boolean(s.config.keepInventory);world.gameRules.doImmediateRespawn=true;world.gameRules.spawnRadius=0;world.gameRules.doDayLightCycle=true;world.gameRules.doMobSpawning=true;d.runCommand('gamerule playerwaypoints off');d.runCommand('difficulty normal');}
 function startRound(p,practice=false){
   if(!isHost(p)||!['lobby','ended'].includes(s.phase))return;
@@ -251,7 +269,10 @@ function startRound(p,practice=false){
   const names=players().map(q=>q.name);const runner=practice?p.name:(s.choice||names[Math.floor(Math.random()*names.length)]);
   if(names.some(name=>deadPlayers.has(name))){tell(p,'모든 참가자가 부활한 뒤 시작해 주세요.');return;}
   const error=validateStart(names,runner,practice);if(error){tell(p,error);return;}
-  expansion.reset();s.runner=runner;s.roster=names;s.round++;s.practice=practice;s.seconds=0;s.remaining=5;s.phase='countdown';s.routes={};s.deaths={};s.result='';s.runnerRespawns=0;s.runnerLifeBonus=0;runnerSpecial.reset();trackerDisplay.reset();summon.reset();s.runnerRespawning=false;s.pendingRunnerVictory=false;s.pendingOutcome=null;s.kit={round:s.round,enabled:true,stored:{}};
+  // Inspect the actual ground BEFORE clearing inventory, counting a round, or resetting transactions.
+  const safeStart=s.worldMode==='portable'?portableStartFromTerrain():s.start;
+  if(!safeStart){tell(p,'§c경기 시작 취소: 이 맵에서 안전한 지면 출발 위치를 찾지 못했습니다. 지형을 확인한 뒤 다시 시작해 주세요. 인벤토리·전적은 변경하지 않았습니다.');return;}
+  expansion.reset();s.start=safeStart;s.runner=runner;s.roster=names;s.round++;s.practice=practice;s.seconds=0;s.remaining=5;s.phase='countdown';s.routes={};s.deaths={};s.result='';s.runnerRespawns=0;s.runnerLifeBonus=0;runnerSpecial.reset();trackerDisplay.reset();summon.reset();s.runnerRespawning=false;s.pendingRunnerVictory=false;s.pendingOutcome=null;s.kit={round:s.round,enabled:true,stored:{}};
   countdownDeadline=system.currentTick+100;countdownPausedTicks=undefined;gamePausedTicks=undefined;
   trackerCraft.startRound();activeRules();world.setTimeOfDay(1000);world.getDimension('overworld').runCommand('weather clear');
   for(const q of players()){clearPlayer(q);teleport(q,s.lobby);q.setSpawnPoint({...s.start,dimension:world.getDimension('overworld')});
@@ -282,10 +303,10 @@ function roundTimerTick(){
     say(enabled('craftCompass')?'§a추적 해금! 직접 제작한 나침반을 들면 추적기로 전환됩니다.':'§a추적 해금! 헌터에게 자동 HUD 추적이 시작됩니다.');sound('random.levelup');}
   trackerCraft.second();expansion.second();save();
 }
-function releaseRunner(){countdownDeadline=0;countdownPausedTicks=undefined;nextGameSecondTick=system.currentTick+20;s.phase=s.config.grace?'grace':'running';s.remaining=s.config.grace;const r=find(s.runner);if(r&&!deadPlayers.has(r.name)){teleport(r,s.start);heal(r);}
+function releaseRunner(){if(!verifyStartBeforeRelease()){pause('안전한 지면 출발 위치를 확인할 수 없습니다. 월드의 지형과 청크를 확인하세요.');return;}countdownDeadline=0;countdownPausedTicks=undefined;nextGameSecondTick=system.currentTick+20;s.phase=s.config.grace?'grace':'running';s.remaining=s.config.grace;const r=find(s.runner);if(r&&!deadPlayers.has(r.name)){teleport(r,s.start);heal(r);}
   if(!s.config.grace){releaseHunters();return;}
   for(const p of players())applyPhase(p);save();titleAll('§b러너 출발!',`헌터 출발까지 ${s.remaining}초`);sound('random.levelup');}
-function releaseHunters(){s.phase='running';s.remaining=0;for(const p of players()){if(hunter(p)){teleport(p,s.start);heal(p);}applyPhase(p);}save();titleAll('§c추격 시작','러너는 엔더드래곤을, 헌터는 러너를!');sound('raid.horn');}
+function releaseHunters(){if(!verifyStartBeforeRelease()){pause('헌터 출발 지점이 안전하지 않아 경기를 중단했습니다.');return;}s.phase='running';s.remaining=0;for(const p of players()){if(hunter(p)){teleport(p,s.start);heal(p);}applyPhase(p);}save();titleAll('§c추격 시작','러너는 엔더드래곤을, 헌터는 러너를!');sound('raid.horn');}
 function pause(reason){if(!running())return;
   if(s.phase==='countdown'){countdownPausedTicks=Math.max(0,countdownDeadline-system.currentTick);s.remaining=Math.ceil(countdownPausedTicks/20);countdownDeadline=0;}
   else gamePausedTicks=Math.max(0,nextGameSecondTick-system.currentTick);
