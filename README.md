@@ -12,7 +12,7 @@
 
 **중요:** 정식 Bedrock Script API의 명령 실행 결과에서 네더 요새 X/Z를 직접 읽을 수 없어 다른 시드의 자동 좌표 탐색은 아직 보장할 수 없습니다. 호스트가 네더에서 /locate structure fortress를 실행하고 나온 좌표를 직접 등록해 주세요.
 
-**새 버전 검증:** [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions/runs/44164847906)에서 v1.7.0 자동 테스트 **227/227 통과** 및 월드·애드온 ZIP·DB 보존 패키지 검증 결과를 확인할 수 있습니다. 실제 다른 맵·기기에서 테스트했는지는 [별도 QA 보고서](docs/QA_REPORT.md)에 기록합니다.
+**새 버전 검증:** [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions/runs/44165606402)에서 v1.7.0 자동 테스트 **228/228 통과** 및 월드·애드온 ZIP·DB 보존 패키지 검증 결과를 확인할 수 있습니다. 실제 다른 맵·기기에서 테스트했는지는 [별도 QA 보고서](docs/QA_REPORT.md)에 기록합니다.
 
 **로비 오류 시:** 오버월드의 열린 공간에서 `/mh:lobbycreate`로 생성을 재시도하세요. 로비가 만들어진 뒤에는 `/mh:unstuck`으로 이동할 수 있습니다. 설치 전에 월드 백업을 권장합니다.
 
