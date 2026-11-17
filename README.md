@@ -1,98 +1,29 @@
-# Manhunt Night v1.7.0 — 외부 월드 호환성 Pre-release
+# Manhunt Night v1.7.5 — 다양한 맵 지원 · 공중 로비 · 네더 요새 발견
 
-> **미검증 시험 버전:** v1.6.0 Stable을 교체하지 않습니다. 실제 다른 시드 클라이언트와 복수 플레이어에서 확인하기 전에는 Stable로 배포하지 않습니다.
+> **Pre-release 개발/시험 버전.** 기존 [v1.6.0 Stable](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)은 그대로 유지합니다. 실제 다른 시드 월드·친구들과의 실기 QA가 완료되기 전에는 v1.7.5를 Stable로 표기하지 않습니다.
 
-## 외부 맵 적용 개선
+Minecraft Bedrock 26.62 이상 기준 · 2~8인 정식 경기(러너 1명·헌터 1~7명), 1인 연습.
 
-- **첫 입장 자동 공중 로비:** 다른 시드를 포함한 새 월드에서도 기존 맨헌트와 같은 21×21 크기의 파란색·빨간색 바닥, 유리 테두리, 네 모서리 조명 기둥을 건설합니다. 우선 Y=304의 빈 공간을 확인하고, 기존 건축물과 겹치면 주변 좌표와 Y=288·272를 탐색합니다. 건축된 구조물은 덮어쓰지 않으며 빈 공간이 없으면 생성을 중단하고 안내합니다. 다른 시드의 전역 스폰 위치와 최초 로딩 시 소지품은 보존합니다.
-- 오버월드 경계는 새 맵의 시작 지점 중심, 네더 경계는 시작 지점의 1:8 좌표 중심, 엔드 경계는 원점 중심입니다.
-- 고정 시드 전용 네더 요새 좌표를 다른 맵에 표시하지 않습니다. 호스트가 게임 메뉴에서 실제 요새 좌표를 등록하면 기존 40분/선진입 힌트를 사용할 수 있습니다. 등록 전에는 숫자 대신 미확인 안내만 나옵니다.
-- 기존 v1.6.0의 추적기·제작·부활·헌터 소집·신호 수신기·승패/설정/전적은 유지합니다.
-- **기존 맵과 같은 게임 흐름:** 공중 로비에서 역할·설정 선택 → 5초 카운트다운 → 러너 출발 → 60초 유예 → 헌터 출발. 기존 경기/설정/전적은 유지합니다. 이전 v1.7.0 시험 버전의 좌표만 있던 로비는 대기 상태에서 건축형 로비로 전환하며, 건설 완료된 로비는 재접속 시 다시 생성하지 않습니다.
+## v1.7.5 핵심 개선
 
-**중요:** 정식 Bedrock Script API의 명령 실행 결과에서 네더 요새 X/Z를 직접 읽을 수 없어 다른 시드의 자동 좌표 탐색은 아직 보장할 수 없습니다. 호스트가 네더에서 /locate structure fortress를 실행하고 나온 좌표를 직접 등록해 주세요.
+- **다른 맵에서도 원본과 동일한 공중 로비:** 21×21 크기의 파란/빨간 바닥, 유리 테두리, 네 모서리 조명 기둥을 첫 입장 시 자동 생성합니다. 주변 지형과 겹치면 빈 X/Z·높이 후보를 탐색하고, 안전한 장소가 없으면 기존 블록을 지우지 않고 생성 실패를 안내합니다. `/mh:lobbycreate`로 재시도할 수 있습니다.
+- **다른 시드별 경계:** 오버월드·네더의 경계를 신규 월드 시작점에 맞춥니다. 기존 월드 설정·전적·기본 게임 진행 로직을 유지합니다.
+- **네더 요새 자동 발견:** **탐험 중 자연 발생한 위더 스켈레톤**과 주변의 충분한 네더 벽돌 증거가 동시에 확인되면 해당 위치를 자동 기록합니다(최대 8곳·중복 차단). 이는 실제 생성 구조물의 정확한 중심 좌표가 아닌 탐험 중 관찰한 **추정 위치**입니다.
+- **기존 요새 힌트 유지:** 러너가 아직 요새에 도착하지 못했다면 기존 40분 또는 헌터 네더 선진입 규칙에 따라 **러너에게만** 저장된 요새 좌표를 안내합니다. 미탐색·미등록 시 거짓 좌표를 표시하지 않습니다. 호스트는 관리자 메뉴에서 `/locate structure fortress` 결과를 수동 등록할 수 있으며, 수동 좌표가 자동 발견보다 우선합니다.
+- **기존 게임 기능 보존:** 20분 제작법 공개/40분 자동 추적기 지급, 32방향 나침반 추적, 러너의 90/60/40/10블록 경고·야생 부활, 헌터 소집·수신기·승패 판정·저장 상태는 기존 정책을 유지합니다.
 
-**새 버전 검증:** [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions/runs/44165606402)에서 v1.7.0 자동 테스트 **228/228 통과** 및 월드·애드온 ZIP·DB 보존 패키지 검증 결과를 확인할 수 있습니다. 실제 다른 맵·기기에서 테스트했는지는 [별도 QA 보고서](docs/QA_REPORT.md)에 기록합니다.
+## 네더 요새 자동 발견의 정확한 범위
 
-**로비 오류 시:** 오버월드의 열린 공간에서 `/mh:lobbycreate`로 생성을 재시도하세요. 로비가 만들어진 뒤에는 `/mh:unstuck`으로 이동할 수 있습니다. 설치 전에 월드 백업을 권장합니다.
+**아직 탐험하지 않은 먼 요새의 좌표를 Script API만으로 확정할 수는 없습니다.** 정식 `@minecraft/server`에서는 `/locate` 명령의 좌표가 `CommandResult`로 반환되지 않고, `getGeneratedStructures`는 아직 Pre-release API입니다. 따라서 정식 API만 사용하면서 **자연 스폰 몹 + 실제 주변 구조물 특징**으로 발견한 위치를 보수적으로 기록합니다. 해당 이벤트가 발생하지 않거나 몹 생성이 제한된 월드에서는 자동 발견하지 못할 수 있으며, 특수 제작 구조물이 있으면 오인할 가능성도 있습니다.
 
-**설치 가이드:** [외부 맵 설치](docs/INSTALL.md) · [새 기능](docs/FEATURES.md) · [기존 v1.6.0 Stable](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)
+탐색된 후보가 없으면 숫자 힌트 대신 미확인 안내를 표시합니다. `/mh:menu → 다른 맵 / 네더 요새 좌표 관리`에서 정확한 X/Z를 수동 등록하면 그 좌표가 우선합니다. [탐지 기술과 한계](docs/FORTRESS_AUTO_v1.7.5.md)
 
----
+## 설치 및 검증 상태
 
-## 아래 내용은 보존된 v1.6.0 Stable 안내입니다
-# Manhunt Night v1.6.0
+1. 적용할 월드를 **먼저 복제하고 백업**합니다. 게임 시작 시 참가자 인벤토리·장비·경험치는 맨헌트 규칙대로 초기화됩니다.
+2. [v1.7.5 GitHub Actions 시험 빌드](https://github.com/geumyi22/Manhunt-Night/actions)에서 최신 성공한 `Manhunt-Night-v1.7.5-portable-world-preview` 아티팩트를 사용합니다. 새 월드에는 `.mcworld`, 다른 월드 복사본에는 `.mcaddon`을 적용합니다.
+3. 실제 로비·다른 차원·네더 요새·다중 플레이를 시험하고 확인한 결과는 [QA Issue #12](https://github.com/geumyi22/Manhunt-Night/issues/12)에 남깁니다.
 
-> 2026-11-14 Stable 배포 승인: 친구들과 확인한 실제 2·3인 QA와 자동 검사·성능 기록을 반영했습니다. 정식 경기 2~8명, 1인 연습·기존 저장 형식은 유지합니다. 확인 범위와 알려진 제한은 [QA 보고서](docs/QA_REPORT.md)에 있습니다.
+**현재 자동 검증:** **238/238 테스트 통과**, JavaScript·정식 Script API 타입·패키지 및 월드 DB 보존 검증 완료. [실행 #44168454632](https://github.com/geumyi22/Manhunt-Night/actions/runs/44168454632) · [QA 보고서](docs/QA_REPORT.md). 실제 다른 시드 Minecraft 실기 테스트는 아직 완료되지 않았습니다.
 
-Minecraft Bedrock 26.62 기준 · 러너 1명 vs 헌터 1~7명 · 1인 연습 지원.
-**v1.6.0 Stable**: 사용자와 친구들의 직접 QA, 실제 2·3인 게임 흐름, 212개 자동 회귀와 TPS·호스트 메모리 측정을 근거로 배포합니다. FPS·게임별 네트워크 수치와 실제 8인 규모는 미확인 범위로 공개합니다.
-
-## 현재 배포 및 개발 상태 (2026-11-15 확인)
-
-- **Stable 배포:** [v1.6.0 릴리스](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)의 [Stable 전체 ZIP](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_v1.6.0_Stable_FullFiles.zip)을 권장합니다. `.mcworld`·`.mcaddon`·현재 소스·설치 안내·QA·SHA-256을 함께 제공합니다. 게임만 가져오려면 [v1.6.0 월드](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_v1.6.0.mcworld)를 사용하세요.
-- **동일한 게임 파일:** Stable은 검증된 기존 v1.6.0 게임 코드의 배포 상태를 전환합니다. 기존 태그와 자산을 덮어쓰지 않고, 최신 문서·소스는 이름에 `Stable`이 있는 추가 묶음으로 제공합니다. 게시 상태와 최종 자산은 릴리스 페이지에서 확인할 수 있습니다.
-- **기존 배포 보존:** [v1.5.1](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.5.1)과 이전 월드·애드온·기록은 그대로 유지합니다.
-- **자동 검증:** 기존 204개를 포함한 **212/212 통과**. 2인 승패·재접속, 8인 개별 추적기 지급·소집 경계를 포함합니다. 실제 기기 결과와 [GitHub Actions](https://github.com/geumyi22/Manhunt-Night/actions)는 [QA 보고서](docs/QA_REPORT.md)에서 구분합니다.
-- **QA 기록:** [Issue #3](https://github.com/geumyi22/Manhunt-Night/issues/3)에 직접 플레이 확인·실측·CI와 출시 판단을 보존합니다. 확인된 게임 흐름을 반복 시험하도록 요구하지 않으며, 추가 인원·측정 및 개별 상황은 알려진 제한으로 구분합니다.
-- **버그 제보:** [Issues](https://github.com/geumyi22/Manhunt-Night/issues)에서 재현 조건·베드락 버전·영상/Content Log를 함께 기록해 주세요. 개인 정보나 토큰은 첨부하지 마세요.
-
-## 다운로드 파일 선택
-
-| 목적 | 다운로드 | 참고 |
-|---|---|---|
-| Minecraft에 월드만 가져오기 | [v1.6.0 .mcworld](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_v1.6.0.mcworld) | Behavior/Resource Pack 내장. 별도 애드온 중복 적용 금지 |
-| 다른 월드에 애드온 적용 | [v1.6.0 .mcaddon](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_v1.6.0.mcaddon) | 반드시 대상 월드 백업. 다른 시드에서는 요새 힌트 OFF |
-| **Stable 전체 보관/배포** | [v1.6.0 Stable FullFiles ZIP](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_v1.6.0_Stable_FullFiles.zip) | 월드·애드온·소스·Stable QA/문서·검증 자료 통합본 |
-| Stable 소스만 | [v1.6.0 Stable Source ZIP](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/Manhunt_Night_Source_v1.6.0_Stable.zip) | 개발·검토용 |
-| 배포 파일 무결성 확인 | [Stable SHA256SUMS](https://github.com/geumyi22/Manhunt-Night/releases/download/v1.6.0/SHA256SUMS_Stable.txt) | 전체 ZIP 자체의 외부 .sha256도 확인 |
-
-같은 v1.6.0 릴리스에 남아 있는 `..._FullFiles.zip`(초기 배포 스냅샷)과 `..._Stable_FullFiles.zip`(최종 Stable 문서 포함)은 구분해 주세요. 게임용 `.mcworld`·`.mcaddon`은 기존에 검증한 파일을 그대로 보존합니다. 상세한 선택 기준과 유지보수 정책은 [릴리스·저장소 안내](docs/RELEASE_GUIDE.md)를 참고하세요.
-
-## 설치와 시작
-
-1. `Manhunt_Night_v1.6.0.mcworld`를 열어 가져옵니다. 필요한 두 팩이 포함되어 있습니다.
-2. 월드를 열어 친구를 초대하고 `/mh:menu`에서 러너 선택, 게임 설정, 경기 시작을 누릅니다.
-3. 새 월드는 5초 카운트다운 → 러너 출발·경기 시간 시작 → 기본 60초 도주 유예 후 헌터 출발입니다.
-4. 헌터에게 20분에 제작법 공개, 순서대로 재료를 버려 팀 공동 제작합니다. 미완성이면 40분에 헌터별 추적기 1개 지급. `/mh:trackerrecipe`, `/mh:craft`를 사용합니다.
-
-기존 월드는 삭제하지 않습니다. `.mcaddon`은 다른 월드용입니다. 이미 팩이 포함된 새 `.mcworld`에는 중복 적용하지 마세요. 기존 저장 설정은 이관하며 새 기본값과 다를 수 있습니다.
-
-## v1.6.0 변경
-
-- 정식 경기는 2~8명(러너 1명·헌터 1~7명), 혼자 있을 때는 기존 1인 연습을 사용합니다.
-- 2인 경기의 헌터는 팀 공동 제작을 혼자 진행합니다. 다른 헌터가 없으면 소집서는 소비되지 않습니다.
-- 8명은 게임 규칙의 상한입니다. 실제 8인 성능·HUD 가독성은 미검증이며, 서버/월드의 접속 정원도 따로 충족해야 합니다.
-- 20/40분·제작 재료·부활·쿨다운·진행 중 참가자 명단과 저장 형식은 그대로입니다. 기존 v1.5.1 배포는 보존합니다.
-
-## 기존 주요 기능
-
-아래 기능은 v1.5.0~v1.5.1에서 도입·수정되어 **v1.6.0 Stable에도 유지**됩니다. 자세한 과거 변경 내역은 [변경 기록](docs/CHANGELOG.md)을 참고하세요.
-
-- 32방향 러너 추적기: 각 소유자의 시선 기준으로 빨간 바늘 회전. 같은 차원 실시간, 다른 차원은 마지막 위치로 구분.
-- 27종 후보에서 일반 7종·어려움 2종을 중복 없이 뽑는 팀 공동 투척 제작. 지급 기록·보류 거래·중복 방지.
-- 러너 접근 경고 90/60/40/10블록, 야생 부활 기본 2회, 부활 토템으로 기본 누적 최대 3회.
-- 헌터 소집서: 같은 차원 팀원을 안전한 위치로 소집, 러너 350블록 이내 금지, 기본 팀 공용 5분/경기 2회.
-- 기존 5개 설정 카테고리와 로비, 수신기, 요새 힌트, 경계, 전적, 명령어 보존.
-
-나침반은 **공식 원본 나침반의 32프레임 픽셀을 그대로 사용**합니다. 플레이어별 목표 방향에 맞춰 프레임을 교체하므로 바닐라 내부의 흔들림·보간 동작까지 동일하지는 않습니다. 원본 이미지의 저작권·EULA는 `RP/NOTICE.md`에 별도 표기하며 MIT 적용 대상이 아닙니다. 기본 종이·토템은 게임 리소스 경로를 참조합니다.
-
-## 문서
-
-- [릴리스 파일 선택·저장소 운영](docs/RELEASE_GUIDE.md)
-- [설치·업데이트](docs/INSTALL.md)
-- [기능·설정·명령어](docs/FEATURES.md)
-- [변경 기록](docs/CHANGELOG.md)
-- [QA와 미검증 범위](docs/QA_REPORT.md)
-- [친구들과 확인할 항목](docs/FRIENDS_TEST.md)
-- [API·재료 27종·라이선스 근거](docs/API_RESEARCH_v1.5.md)
-- [소집 안전성](docs/SUMMON_DESIGN.md)
-- [재현 가능한 빌드](docs/BUILD.md)
-
-## 개발 검사
-
-Node.js 22 이상에서 `npm ci`, `npm run typecheck`, `npm test`, `node tools/verify.mjs --source`.
-배포 생성: `node tools/build.mjs --base <보존한 원본 월드 폴더 또는 mcworld>`.
-원본 월드는 읽기만 하며 결과는 `dist/`에 생성됩니다. SHA-256과 패키지 검증 결과를 함께 제공합니다.
-
-**개발 이력:** v1.4.0 소스에서 v1.5.0을 개발하고 v1.5.1을 병합했습니다. 새 배포 월드의 지형은 별도로 보존된 사용자 제공 MANHUNT 원본을 바탕으로 구성했습니다. v1.4.0 배포 월드 바이너리와 동일하다는 의미는 아닙니다.
+[설치 안내](docs/INSTALL.md) · [전체 기능](docs/FEATURES.md) · [변경 기록](docs/CHANGELOG.md) · [빌드 방법](docs/BUILD.md) · [v1.6.0 공식 Stable](https://github.com/geumyi22/Manhunt-Night/releases/tag/v1.6.0)
