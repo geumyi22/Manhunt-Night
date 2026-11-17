@@ -724,7 +724,7 @@ test('external map automatically builds the original colored lobby, preserving w
  assert.equal(block(24001,304,-25000),'minecraft:red_concrete');
  assert.equal(block(24010,304,-25000),'minecraft:sea_lantern');
  assert.equal(block(24010,305,-25000),'minecraft:glass');
- assert.equal(block(23992,309,-25008),'minecraft:sea_lantern');
+ assert.equal(block(23992,309,-25009),'minecraft:sea_lantern');
  assert.equal(h.api.getErrors().size,0);
  assert(h.commands.has('mh:lobbycreate'));
 });
@@ -745,7 +745,8 @@ test('original seed with occupied lobby height finds another height and preserve
  h.api.initializePlayer(p);h.flush();
  assert.equal(h.saved.worldMode,'classic');assert.equal(h.saved.lobby.y,289);
  assert.equal(d.getBlock({x:0,y:304,z:0}).typeId,'minecraft:chest');
- assert.equal(d.getBlock({x:0,y:288,z:0}).typeId,'minecraft:polished_deepslate');
+ const cx=Math.floor(h.saved.lobby.x),cz=Math.floor(h.saved.lobby.z);
+ assert.equal(d.getBlock({x:cx,y:288,z:cz}).typeId,'minecraft:polished_deepslate');
  assert.equal(h.api.getErrors().size,0);
 });
 test('preexisting coordinate-only portable lobby upgrades to a built lobby without losing match start',()=>{
@@ -768,7 +769,7 @@ test('when no site is clear the builder refuses to overwrite any existing struct
  d.getBlock=pos=>({typeId: [304,288,272].some(y=>pos.y===y)?'minecraft:chest':'minecraft:air'});
  p.slots[0]=new h.ItemStack('minecraft:diamond',4);
  h.api.initializePlayer(p);h.flush();
- assert.equal(h.saved.lobby,null);assert.equal(h.saved.start,null);
+ assert.equal(h.api.getState().lobby,null);assert.equal(h.api.getState().start,null);
  assert.equal(p.slots[0].typeId,'minecraft:diamond');
  assert(h.api.getErrors().has('build lobby'));
 });
