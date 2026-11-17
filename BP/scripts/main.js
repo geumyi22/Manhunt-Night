@@ -1,7 +1,7 @@
 import {world, system, Player, ItemStack, ItemLockMode, GameMode, InputPermissionCategory,
   CommandPermissionLevel, CustomCommandStatus, EquipmentSlot} from '@minecraft/server';
 import {createExpansion} from './expansion.js';
-import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear} from './world-compat.js';
+import {modeForSeed,parseFortressWaypoint,legacyLobbyAreaClear,lobbySites} from './world-compat.js';
 import {createRunnerRules,responsiblePlayer,MAX_WILD_RESPAWNS,wildRespawnBudget,wildRespawnsRemaining,hunterKilledRunner,damageByHunter} from './runner.js';
 import {createRunnerSpecial} from './runner-special.js';
 import {createSummon} from './summon.js';
@@ -138,49 +138,79 @@ function sound(id){for(const p of players())attempt('sound',()=>p.playSound(id))
 
 function* buildLobby(p){
   building=true;
+  if(p.dimension.id!=='minecraft:overworld')throw Error('로비는 오버월드에서만 생성할 수 있습니다.');
   const d=world.getDimension('overworld'),base=location(p);
-  s.worldMode=modeForSeed(world.seed);
-  if(s.worldMode==='classic'&&!legacyLobbyAreaClear(d,Math.floor(base.x),Math.floor(base.z)))s.worldMode='portable';
-  if(s.worldMode==='portable'){
-    // External maps keep all blocks, terrain and the global world spawn untouched.
-    if(p.dimension.id!=='minecraft:overworld')throw Error('외부 맵의 초기 설정은 오버월드에서 진행해 주세요.');
-    if(![base.x,base.y,base.z].every(Number.isFinite))throw Error('플레이어의 안전한 시작 좌표를 확인할 수 없습니다.');
-    s.start={...base};s.lobby={...base};
-    s.host=p.name;s.phase='lobby';save();building=false;
-    // Do not wipe a guest's inventory just by loading this addon onto an existing world.
-    for(const q of players())lobbyPlayer(q,false);
-    say('§lMANHUNT NIGHT§r 다른 맵 모드 준비 완료! 기존 블록·지형·월드 스폰은 변경하지 않았습니다.');
-    tell(p,'경기 시작 시 참가자의 인벤토리가 초기화됩니다. 네더 요새 힌트는 관리 메뉴에서 실제 좌표를 등록하세요.');
-    system.runTimeout(()=>showMenu(p),40);
-    return;
+  const mode=modeForSeed(world.seed);
+  const oldStart=s.start;
+  let start={...base};
+  if(mode==='classic'&&!oldStart){
+    const top=d.getTopmostBlock({x:Math.floor(base.x),z:Math.floor(base.z)});
+    if(!top)throw Error('원본 월드의 시작 지형이 아직 로드되지 않았습니다.');
+    start={x:Math.floor(base.x)+0.5,y:top.location.y+1,z:Math.floor(base.z)+0.5};
+  }else if(oldStart&&[oldStart.x,oldStart.y,oldStart.z].every(Number.isFinite))start={...oldStart};
+  // Find a completely empty 21x21x6 volume. Never replace blocks of another map.
+  let chosen=null;
+  for(const site of lobbySites(Math.floor(base.x),Math.floor(base.z))){
+    if(legacyLobbyAreaClear(d,site.cx,site.cz,site.y)){chosen=site;break;}
+    yield; // Spread checks across ticks when the preferred site is occupied/unloaded.
   }
-  let top=d.getTopmostBlock({x:Math.floor(base.x),z:Math.floor(base.z)});
-  if(!top)throw Error('시작 지형이 아직 로드되지 않았습니다.');
-  s.start={x:Math.floor(base.x)+0.5,y:top.location.y+1,z:Math.floor(base.z)+0.5};
-  // Legacy original-seed platform; existing v1.6.0 source-world behavior retained.
-  const cx=Math.floor(base.x),cz=Math.floor(base.z),y=304;
-  s.lobby={x:cx+0.5,y:y+1,z:cz+0.5};
-  d.runCommand(`tickingarea add circle ${cx} ${y} ${cz} 2 mh_lobby true`);
+  if(!chosen)throw Error('주변에 안전한 로비 공간을 찾지 못했습니다. /mh:lobbycreate로 재시도하거나 오버월드의 열린 곳으로 이동해 주세요.');
+  const {cx,cz,y}=chosen;
+  const lobby={x:cx+0.5,y:y+1,z:cz+0.5};
+  // Re-check immediately before writing. Never clear protected blocks to make room.
+  if(!legacyLobbyAreaClear(d,cx,cz,y))throw Error('로비 후보 공간이 변경되었습니다. 안전한 공간에서 다시 시도하세요.');
+  // Create a ticking area only for the selected location, not for every candidate.
+  try{d.runCommand(`tickingarea add circle ${cx} ${y} ${cz} 2 mh_lobby true`);}catch(err){
+    report('lobby ticking area',err);
+    // An existing ticking area name may be reused; final block access still guards writes.
+  }
   yield;
-  for(let x=-10;x<=10;x++){
-    for(let z=-10;z<=10;z++){
-      const edge=Math.abs(x)===10||Math.abs(z)===10;
-      d.getBlock({x:cx+x,y,z:cz+z})?.setType(edge?'minecraft:sea_lantern':x<0?'minecraft:cyan_concrete':x>0?'minecraft:red_concrete':'minecraft:polished_deepslate');
-      for(let h=1;h<=5;h++)d.getBlock({x:cx+x,y:y+h,z:cz+z})?.setType(edge&&h<=2?'minecraft:glass':'minecraft:air');
-    }yield;
+  if(!legacyLobbyAreaClear(d,cx,cz,y))throw Error('로비 영역의 블록/청크가 변경되어 건설을 중단했습니다.');
+  const placed=[];
+  try{
+    function setEmpty(x,yy,z,type){
+      const block=d.getBlock({x,y:yy,z});
+      if(!block||block.typeId!=='minecraft:air')throw Error(`로비 생성 중 점유된 블록 발견: ${x},${yy},${z}`);
+      block.setType(type);placed.push({x,y:yy,z,type});
+    }
+    for(let x=-10;x<=10;x++){
+      for(let z=-10;z<=10;z++){
+        const edge=Math.abs(x)===10||Math.abs(z)===10;
+        setEmpty(cx+x,y,cz+z,edge?'minecraft:sea_lantern':x<0?'minecraft:cyan_concrete':x>0?'minecraft:red_concrete':'minecraft:polished_deepslate');
+        // The original lobby's interior above the floor is empty by preflight; only its rim needs glass.
+        if(edge)for(let h=1;h<=2;h++)setEmpty(cx+x,y+h,cz+z,'minecraft:glass');
+      }
+      yield;
+    }
+    for(const [x,z]of[[-8,-8],[8,-8],[-8,8],[8,8]]){
+      for(let h=1;h<=4;h++)setEmpty(cx+x,y+h,cz+z,'minecraft:polished_deepslate');
+      setEmpty(cx+x,y+5,cz+z,'minecraft:sea_lantern');
+      yield;
+    }
+  }catch(err){
+    // Best-effort rollback of only the blocks we wrote, leaving any intervening edits untouched.
+    let failed=0;
+    for(const block of placed.reverse()){
+      try{const at=d.getBlock({x:block.x,y:block.y,z:block.z});
+        if(at?.typeId===block.type)at.setType('minecraft:air');
+      }catch{failed++;}
+    }
+    if(failed)report('lobby rollback incomplete',failed+' inaccessible cells; inspect the test world backup');
+    throw err;
   }
-  for(const [x,z] of [[-8,-8],[8,-8],[-8,8],[8,8]]){
-    for(let h=1;h<=4;h++)d.getBlock({x:cx+x,y:y+h,z:cz+z})?.setType('minecraft:polished_deepslate');
-    d.getBlock({x:cx+x,y:y+5,z:cz+z})?.setType('minecraft:sea_lantern');yield;
+  // Only commit the saved lobby state after the whole structure was built.
+  s.worldMode=mode;s.start=start;s.lobby=lobby;s.lobbyBuilt=true;
+  if(mode==='classic')world.setDefaultSpawnLocation(lobby);
+  if(mode==='classic'){
+    world.gameRules.pvp=true;world.gameRules.keepInventory=Boolean(s.config.keepInventory);
+    world.gameRules.doImmediateRespawn=true;world.gameRules.spawnRadius=0;
+    world.gameRules.showCoordinates=false;world.gameRules.sendCommandFeedback=false;
+    d.runCommand('gamerule playerwaypoints off');
   }
-  world.setDefaultSpawnLocation(s.lobby);
-  world.gameRules.pvp=true;world.gameRules.keepInventory=Boolean(s.config.keepInventory);world.gameRules.doImmediateRespawn=true;world.gameRules.spawnRadius=0;
-  world.gameRules.showCoordinates=false;world.gameRules.sendCommandFeedback=false;
-  d.runCommand('gamerule playerwaypoints off');
   s.host=p.name;s.phase='lobby';save();building=false;
-  for(const q of players())lobbyPlayer(q,true);
-  say('§lMANHUNT NIGHT§r 준비 완료! 파란색은 러너, 빨간색은 헌터입니다.');
-  tell(p,'관리자입니다. 메뉴 아이템을 들고 웅크리거나 /mh:menu 를 입력하세요.');
+  for(const q of players())lobbyPlayer(q,mode==='classic');
+  say('§lMANHUNT NIGHT§r 로비 준비 완료! 파란색은 러너, 빨간색은 헌터입니다.');
+  tell(p,'원본과 동일한 로비가 생성됐습니다. /mh:menu에서 설정하고 경기를 시작하세요.');
   console.warn(`[Manhunt ${VERSION}] READY lobby=${JSON.stringify(s.lobby)} start=${JSON.stringify(s.start)}`);
   system.runTimeout(()=>showMenu(p),40);
 }
@@ -189,7 +219,7 @@ function initializePlayer(p){
   if(!loaded||building)return;
   trackerDisplay.scan(p);summon.joined(p);runnerSpecial.joined();trackerCraft.joined(p);
   if(['lobby','ended'].includes(s.phase))normalizeMenu(p);else stripMenus(p);unlockExistingTrackers(p);
-  if(!s.lobby){if(!building)system.runJob((function*(){try{yield* buildLobby(p);}catch(e){building=false;report('build lobby',e);tell(p,'로비 준비 오류입니다. /mh:menu 로 다시 시도해 주세요.');}})());return;}
+  if(!s.lobby){if(!building)system.runJob((function*(){try{yield* buildLobby(p);}catch(e){building=false;report('build lobby',e);tell(p,'자동 로비 생성 실패: '+String(e)+'. 안전한 오버월드 위치에서 /mh:lobbycreate로 재시도할 수 있습니다.');}})());return;}
   if(!s.host){s.host=p.name;save();}
   if(s.phase==='lobby'||s.phase==='ended'){lobbyPlayer(p,false);return;}
   if(!member(p)){movement(p,true);p.setGameMode(GameMode.Spectator);tell(p,'진행 중인 경기에는 관전자로 입장합니다.');return;}
@@ -429,6 +459,7 @@ system.beforeEvents.startup.subscribe(e=>{
     ['mh:kitoff','경기 시작 1분 안에 모든 참가자의 시작 지급품 회수',CommandPermissionLevel.Any,p=>kitOff(p)],
     ['mh:kiton','회수된 모든 참가자의 시작 지급품 복구',CommandPermissionLevel.Any,p=>kitOn(p)],
     ['mh:admin','맨헌트 관리자 복구',CommandPermissionLevel.Host,p=>{s.host=p.name;save();tell(p,'관리자 권한을 복구했습니다.');}],
+    ['mh:lobbycreate','로비가 없을 때 기존 공중 로비 자동 생성 재시도',CommandPermissionLevel.Host,p=>{if(building){tell(p,'로비 생성 중입니다.');return;}if(s.lobby){tell(p,'이미 로비가 생성돼 있습니다. /mh:unstuck으로 이동하세요.');return;}initializePlayer(p);}],
     ['mh:unstuck','로비 이동 또는 입력 잠금 복구',CommandPermissionLevel.Any,p=>{if(['lobby','ended'].includes(s.phase))lobbyPlayer(p,false);else {expansion.clearCamera(p);applyPhase(p);}}]
   ];
   for(const [name,desc,level,fn] of commands)reg.registerCommand({name,description:desc,permissionLevel:level,cheatsRequired:false},origin=>{
@@ -438,6 +469,10 @@ system.beforeEvents.startup.subscribe(e=>{
 });
 world.afterEvents.worldLoad.subscribe(()=>{
   try{const raw=world.getDynamicProperty(KEY);if(typeof raw==='string'){const stored=JSON.parse(raw);if(stored.schema!==1)throw Error('지원하지 않는 저장 형식');s={...newState(),...stored,config:normalizeConfig(stored.config,true)};}
+    if(s.worldMode==='portable'&&!s.lobbyBuilt&&s.lobby&&['lobby','ended'].includes(s.phase)){
+      // Older v1.7 preview worlds saved a coordinate-only lobby. Create the original structure on next entry.
+      s.lobby=null;
+    }
     if(running()){s.previous=s.phase;s.phase='paused';save();}
     world.gameRules.keepInventory=Boolean(s.config.keepInventory);loaded=true;console.warn(`[Manhunt ${VERSION}] LOADED phase=${s.phase}`);for(const p of players())initializePlayer(p);queueOutcome();
   }catch(e){report('load',e);world.sendMessage(PREFIX+'저장 상태를 읽지 못했습니다. 원본 월드에서 다시 시작해 주세요.');}
@@ -491,7 +526,7 @@ system.runInterval(()=>{
     for(const p of players()){
       if(deadPlayers.has(p.name))continue;
       if(['lobby','ended'].includes(s.phase))normalizeMenu(p);else stripMenus(p);
-      if(['lobby','ended'].includes(s.phase)){if(s.worldMode!=='portable'&&p.location.y<298&&p.dimension.id==='minecraft:overworld'&&s.phase==='lobby')lobbyPlayer(p,false);}
+      if(['lobby','ended'].includes(s.phase)){if(p.dimension.id==='minecraft:overworld'&&s.phase==='lobby'&&p.location.y<s.lobby.y-7)lobbyPlayer(p,false);}
       else if(member(p)){if(hunter(p)){removeEarlyTrackers(p);unlockExistingTrackers(p);}applyPhase(p);}
     }
     if(runnerSpecial.hasPending())runnerSpecial.recover();if(summon.hasPending())summon.recover();save();

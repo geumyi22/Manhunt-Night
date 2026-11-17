@@ -27,3 +27,8 @@ export function legacyLobbyAreaClear(dimension,cx,cz,y=304){
   return true;
  }catch{return false;}
 }
+
+export function lobbySites(cx,cz){
+ const offsets=[[0,0],[32,0],[-32,0],[0,32],[0,-32],[32,32],[-32,32],[32,-32],[-32,-32],[64,0],[-64,0],[0,64],[0,-64]];
+ return [304,288,272].flatMap(y=>offsets.map(([dx,dz])=>({cx:cx+dx,cz:cz+dz,y})));
+}
