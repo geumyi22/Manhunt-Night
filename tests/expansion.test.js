@@ -97,7 +97,7 @@ test('portable borders are centered on the external map start, not world origin'
 });
 test('unknown external seed never receives an invented fortress coordinate',()=>{
  const h=setup();h.s.worldMode='portable';h.s.seconds=2400;h.x.second();h.x.second();
- assert.equal(h.messages.length,1);assert.match(h.messages[0].m,/좌표가 아직 확인되지/);assert.doesNotMatch(h.messages[0].m,/X 352/);
+ assert.equal(h.messages.length,1);assert.match(h.messages[0].m,/좌표가 확인되지/);assert.doesNotMatch(h.messages[0].m,/X 352/);
  assert.equal(h.s.extra.hintSent,false,'allow a later actual waypoint');
  h.s.fortressWaypoint={x:-512,z:640};h.x.second();
  assert.equal(h.s.extra.hintSent,true);assert.match(h.messages.at(-1).m,/X -512, Z 640/);
@@ -154,4 +154,12 @@ test('manually entered fortress waypoint always overrides exploratory automatic 
  const h=setup();h.s.worldMode='portable';h.s.seconds=2400;h.s.autoFortresses=[{x:201,z:202}];h.s.fortressWaypoint={x:-100,z:-80};
  h.x.second();assert.match(h.messages[0].m,/X -100, Z -80/);
  assert.doesNotMatch(h.messages[0].m,/X 201/);
+});
+
+test('turning off automatic discovery suppresses stored automatic coordinate hints but preserves manual hints',()=>{
+ const h=setup();h.s.worldMode='portable';h.s.seconds=2400;
+ h.s.autoFortresses=[{x:610,z:710}];h.s.config.features.fortressAuto=false;
+ h.x.second();assert.equal(h.s.extra.hintSent,false);assert.doesNotMatch(h.messages[0].m,/X 610/);
+ h.s.fortressWaypoint={x:220,z:-330};h.x.second();
+ assert.equal(h.s.extra.hintSent,true);assert.match(h.messages.at(-1).m,/X 220, Z -330/);
 });

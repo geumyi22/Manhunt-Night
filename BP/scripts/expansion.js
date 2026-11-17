@@ -24,10 +24,10 @@ export function createExpansion(world,system,state,api){
   if(!r||!reason)return;
   const manual=s.worldMode==='portable'&&validFortressWaypoint(s.fortressWaypoint);
   const f=s.worldMode==='portable'
-   ?(manual?s.fortressWaypoint:nearestAutoFortress(s.autoFortresses,r.location,r.dimension.id))
+   ?(manual?s.fortressWaypoint:enabled('fortressAuto')?nearestAutoFortress(s.autoFortresses,r.location,r.dimension.id):null)
    :closestFortress(r.location,r.dimension.id);
   // Unexplored fortresses cannot be located from the stable Script API. Never fabricate coordinates.
-  if(!f){if(!e.missingWaypointNotified){tell(r,'§e[요새 안내] 아직 네더 요새 좌표가 확인되지 않았습니다. 탐험 중 자동 발견을 시도하며, 호스트는 /locate structure fortress 결과를 수동 등록할 수 있습니다.');e.missingWaypointNotified=true;}return;}
+  if(!f){if(!e.missingWaypointNotified){tell(r,`§e[요새 안내] 아직 네더 요새 좌표가 확인되지 않았습니다. ${enabled('fortressAuto')?'탐험 중 자동 발견을 시도합니다.':'자동 발견이 비활성화돼 있습니다.'} 호스트는 /locate structure fortress 결과를 수동 등록할 수 있습니다.`);e.missingWaypointNotified=true;}return;}
   const source=s.worldMode==='portable'?(manual?'호스트 확인 좌표':'탐험 중 발견한 위치 · 자동 추정'):'원본 맵 좌표';
   tell(r,`§a[러너 전용] ${reason}\n§e네더 요새 위치: X ${f.x}, Z ${f.z} §7(${source}, 네더 기준, 높이는 현장에서 확인)`);
   e.hintSent=true;e.hintReason='';e.missingWaypointNotified=false;
@@ -62,7 +62,7 @@ export function createExpansion(world,system,state,api){
   const portable=s.worldMode==='portable',waypoint=s.fortressWaypoint;
   if(portable){
    // External worlds need a user-verified waypoint; no seed-wide fortress is inferred from arbitrary bricks.
-   const spots=validFortressWaypoint(waypoint)?[waypoint]:(Array.isArray(s.autoFortresses)?s.autoFortresses:[]);
+   const spots=validFortressWaypoint(waypoint)?[waypoint]:(enabled('fortressAuto')&&Array.isArray(s.autoFortresses)?s.autoFortresses:[]);
    if(!spots.some(spot=>validFortressWaypoint(spot)&&Math.abs(l.x-spot.x)<=192&&Math.abs(l.z-spot.z)<=192))return false;
    let bricks=0;
    for(let dx=-2;dx<=2;dx++)for(let dz=-2;dz<=2;dz++)for(let dy=-1;dy<=0;dy++){

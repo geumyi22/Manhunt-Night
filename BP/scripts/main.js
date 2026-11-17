@@ -411,7 +411,7 @@ async function settingsSection(p,index){
   if(group.fields.some(field=>field[1]==='lobbyMenuItem'))for(const q of players())enabled('lobbyMenuItem')?ensureMenu(q):stripMenus(q);
   tell(p,`${group.title} 설정 저장 완료. 다음 경기부터 적용됩니다.`);
 }
-async function help(p){await form(p,new ActionFormData().title('맨헌트 규칙 · v1.7.0').body(
+async function help(p){await form(p,new ActionFormData().title('맨헌트 규칙 · v1.7.5').body(
   '§b승패§r: 러너가 살아 있는 동안 엔더 드래곤이 죽으면 러너 승리, 러너의 최종 사망은 헌터 승리입니다. 이 핵심 규칙은 끌 수 없습니다.\n\n§e옵션 기능§r: 로비에서 관리자 → 게임 설정 → ①기본 경기, ②추적/헌터, ③러너, ④월드, ⑤수신기 항목별로 ON/OFF. 다음 경기부터 적용됩니다.\n\n§e추적§r: 새 월드는 20분에 헌터에게 무작위 제작법 공개, 순서대로 투척해 팀 공동 제작, 미완성 팀은 40분에 1인 1개 지급합니다. /mh:trackerrecipe · /mh:craft. 분실 시 기본 재지급 없음. 기존 월드는 저장된 추적 방식을 유지하며 설정에서 변경합니다.\n\n§a러너§r: 추가 체력, 포만감, 도주 유예 버프, 야생 사망 기본 2회 부활, 4단계 접근 경보를 각각 끌 수 있습니다. 부활을 끄면 첫 사망에 패배합니다.\n\n§d추가 기능§r: 경계 제한, 요새 힌트, 엔드 보상, 수신기(카메라/광선 분리), 자동 일시정지, 시작 지급품 제어를 설정할 수 있습니다.\n\n경기 중 메뉴 아이템은 제거되고 /mh:menu 명령어로 관리 메뉴를 열 수 있습니다. 지급품 제어가 켜져 있다면 /mh:kitoff · /mh:kiton을 이용하세요.\n\n새로운 지형·드래곤으로 다시 시작하려면 원본 .mcworld를 새로 가져오세요.').button('확인'));}
 async function diagnostics(p){const wins=Object.entries(s.wins).map(([n,v])=>`${n}: ${v}승`).join('\n')||'아직 정식 경기 기록이 없습니다.';
   const r=await form(p,new ActionFormData().title('전적 / 상태').body(`버전 ${VERSION} · 정식 API\n상태 ${s.phase} · ${s.practice?'연습':'정식'}\n현재 경기 ${s.round} · 시간 ${clock(s.seconds)}\n${wins}\n\n시작 좌표 ${s.start?`${Math.floor(s.start.x)}, ${Math.floor(s.start.y)}, ${Math.floor(s.start.z)}`:'준비 중'}\n감지된 오류 ${lastErrors.size}개`).button('확인').button('추적기 표시 점검 (10초)'));
@@ -572,13 +572,13 @@ async function fortressSetup(p){
  tell(p,s.fortressWaypoint?`네더 요새 좌표 저장: X ${s.fortressWaypoint.x}, Z ${s.fortressWaypoint.z}. 실제 구조물 위치를 등록했는지 확인하세요.`:'등록된 요새 좌표를 제거했습니다. 잘못된 위치는 안내하지 않습니다.');
 }
 
-async function expansionHelp(p){await form(p,new ActionFormData().title('추가 규칙 · v1.7.0 (설정 변경 가능)').body('구역: 원본 맵은 오버월드·엔드 X/Z -5000~4999, 네더 -625~624. 다른 시드는 출발 위치를 중심으로 오버월드/네더 경계를 이동하며 엔드는 원점을 유지합니다. 경계를 넘으면 안쪽 이전 위치로 돌아갑니다.\n\n러너 출발 후 40분간 요새 미도착 또는 헌터의 네더 선진입 시 러너에게 요새를 안내합니다. 다른 시드의 월드는 관리 메뉴에서 호스트가 실제 요새 X/Z를 등록해야 좌표를 표시합니다. 일시정지 시간 제외.\n\n수신기 작업대 조합 (왼쪽 위부터):\n석탄 / 구리 주괴 / 철 주괴\n금 주괴 / 바다의 심장 / 청금석\n에메랄드 / 다이아몬드 / 네더라이트 파편\n\n러너만 수신기를 우클릭 사용: 녹색 광선 8초, 같은 차원 헌터의 카메라를 러너 방향으로 3초 전환. 재사용 30초. 멀리 있거나 벽 뒤에서는 러너·광선이 안 보일 수 있습니다. 다른 차원 헌터에게는 차원 알림만 보냅니다.\n\n러너 엔드 첫 입장: 엔더의 눈 32개, 경기당 1회.').button('확인'));}
+async function expansionHelp(p){await form(p,new ActionFormData().title('추가 규칙 · v1.7.5 (설정 변경 가능)').body('구역: 원본 맵은 오버월드·엔드 X/Z -5000~4999, 네더 -625~624. 다른 시드는 출발 위치를 중심으로 오버월드/네더 경계를 이동하며 엔드는 원점을 유지합니다. 경계를 넘으면 안쪽 이전 위치로 돌아갑니다.\n\n러너 출발 후 40분간 요새 미도착 또는 헌터의 네더 선진입 시 러너에게 요새를 안내합니다. 다른 시드의 월드는 관리 메뉴에서 호스트가 실제 요새 X/Z를 등록해야 좌표를 표시합니다. 일시정지 시간 제외.\n\n수신기 작업대 조합 (왼쪽 위부터):\n석탄 / 구리 주괴 / 철 주괴\n금 주괴 / 바다의 심장 / 청금석\n에메랄드 / 다이아몬드 / 네더라이트 파편\n\n러너만 수신기를 우클릭 사용: 녹색 광선 8초, 같은 차원 헌터의 카메라를 러너 방향으로 3초 전환. 재사용 30초. 멀리 있거나 벽 뒤에서는 러너·광선이 안 보일 수 있습니다. 다른 차원 헌터에게는 차원 알림만 보냅니다.\n\n러너 엔드 첫 입장: 엔더의 눈 32개, 경기당 1회.').button('확인'));}
 
 function completeRunnerRespawn(p){if(p.name!==s.runner||!s.runnerRespawning||(!running()&&s.phase!=='paused'))return;
   s.runnerRespawning=false;heal(p);applyPhase(p);tell(p,`체력을 모두 회복했습니다. 야생 부활 ${wildRespawnsRemaining(s)}회 남음.`);
   if(s.pendingRunnerVictory)finish('runner');else save();
 }
-async function runnerHelp(p){await form(p,new ActionFormData().title('러너 규칙 · v1.7.0 (설정 변경 가능)').body('기본 최대 체력: 하트 20개(두 줄), 포만감 I.\n\n도주 유예 중에는 포만감 V·재생 I·느린 낙하 I. 유예 종료 시 임시 효과가 사라지고 포만감 I만 유지됩니다.\n\n새 월드 기본: 야생 사망 2회 부활, 참가 헌터에게 처치되면 즉시 패배. 러너 부활 토템(주변 네더라이트 주괴 8개 + 중앙 불사의 토템) 사용 시 1회 추가, 경기 누적 최대 3회. 재접속 후에도 횟수 유지, 부활 체력 회복. 기존 월드는 부활 설정을 보존합니다.\n\n같은 차원의 가장 가까운 헌터를 3차원 거리 90·60·40·10블록의 네 단계로 감지합니다. 단계 진입 시 러너에게만 알리고, 구간별 쿨다운으로 반복 알림을 제한합니다. 거리와 소리는 설정에서 조절합니다.\n\n경기 전 게임 설정에서 인벤세이브를 선택할 수 있습니다. 새 경기/로비 초기화의 소지품 초기화는 그대로 적용됩니다.').button('확인'));}
+async function runnerHelp(p){await form(p,new ActionFormData().title('러너 규칙 · v1.7.5 (설정 변경 가능)').body('기본 최대 체력: 하트 20개(두 줄), 포만감 I.\n\n도주 유예 중에는 포만감 V·재생 I·느린 낙하 I. 유예 종료 시 임시 효과가 사라지고 포만감 I만 유지됩니다.\n\n새 월드 기본: 야생 사망 2회 부활, 참가 헌터에게 처치되면 즉시 패배. 러너 부활 토템(주변 네더라이트 주괴 8개 + 중앙 불사의 토템) 사용 시 1회 추가, 경기 누적 최대 3회. 재접속 후에도 횟수 유지, 부활 체력 회복. 기존 월드는 부활 설정을 보존합니다.\n\n같은 차원의 가장 가까운 헌터를 3차원 거리 90·60·40·10블록의 네 단계로 감지합니다. 단계 진입 시 러너에게만 알리고, 구간별 쿨다운으로 반복 알림을 제한합니다. 거리와 소리는 설정에서 조절합니다.\n\n경기 전 게임 설정에서 인벤세이브를 선택할 수 있습니다. 새 경기/로비 초기화의 소지품 초기화는 그대로 적용됩니다.').button('확인'));}
 
 world.afterEvents.entitySpawn.subscribe(e=>{trackerCraft.spawned(e.entity);attempt('fortress discovery',()=>expansion.entitySpawned(e));});
 world.afterEvents.entityItemDrop.subscribe(e=>attempt('tracker crafting',()=>trackerCraft.drop(e)));
